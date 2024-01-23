@@ -1,0 +1,44 @@
+---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<footer class='sticky top-[100%]'>
+  <div class='bg-primary-400 dark:bg-primary-300 rounded-t-main py-14 px-14'>
+    <div class='container mx-auto'>
+      <div class='grid md:grid-cols-12 gap-6'>
+        <div class='md:col-span-8'>
+          <div class='flex flex-col gap-4'>
+            <h4 class='text-dark h4'>{t('footer.title')}</h4>
+            <p class='text-dark p'>{t('footer.description')}</p>
+          </div>
+        </div>
+        <div class='md:col-span-4 self-center'>
+          <div class='flex justify-end'>
+            <!-- {
+              cta.available ? (
+                <a href={cta.url} class='btn btn-dark text-primary-300'>
+                  {cta.label}
+                </a>
+              ) : (
+                <div
+                  class='tooltip before:bg-secondary-300 before:text-dark before:rounded-xl after:border-t-secondary-300'
+                  data-tip={cta.availableMsg}
+                >
+                  <span class='btn btn-dark text-primary-300 opacity-60'>{cta.label}</span>
+                </div>
+              )
+            } -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='bg-dark p-6 px-14'>
+    <div class='container mx-auto text-center'>
+      <div class='text-white'>{t('footer.copyright')}</div>
+    </div>
+  </div>
+</footer>
