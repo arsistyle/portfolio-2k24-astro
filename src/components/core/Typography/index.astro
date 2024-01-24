@@ -18,7 +18,7 @@ const TAGS = {
   p: 'p',
 } as const;
 
-const Tag = TAGS[type];
+const Tag = TAGS[type] || 'p';
 ---
 
 <Tag class={`${type || ''} ${className}`}>

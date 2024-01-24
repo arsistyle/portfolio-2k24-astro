@@ -91,6 +91,19 @@ export default {
       },
       borderRadius: {
         100: '100px',
+        avatar: '60% 41% 39% 60% / 81% 46% 54% 18%',
+      },
+      animation: {
+        avatar: 'avatar linear 6s infinite forwards',
+      },
+      keyframes: {
+        avatar: {
+          '0%': { borderRadius: '60% 41% 39% 60% / 81% 46% 54% 18%' },
+          '25%': { borderRadius: '66% 39% 29% 70% / 70% 38% 59% 29%' },
+          '50%': { borderRadius: '58% 47% 31% 63% / 66% 45% 50% 31% ' },
+          '75%': { borderRadius: '64% 44% 41% 54% / 77% 51% 41% 21%' },
+          '100%': { borderRadius: '60% 41% 39% 60% / 81% 46% 54% 18%' },
+        },
       },
     },
     screens: {
