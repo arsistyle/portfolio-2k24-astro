@@ -90,6 +90,7 @@ export default {
         transparent: 'transparent',
       },
       borderRadius: {
+        main: '64px',
         100: '100px',
         avatar: '60% 41% 39% 60% / 81% 46% 54% 18%',
       },

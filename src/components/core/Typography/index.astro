@@ -21,6 +21,6 @@ const TAGS = {
 const Tag = TAGS[type] || 'p';
 ---
 
-<Tag class={`${type || ''} ${className}`}>
+<Tag class={`${className} ${type || ''}`}>
   <slot />
 </Tag>;

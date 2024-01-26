@@ -1,5 +1,6 @@
 ---
-import { Footer, Header, SectionHero } from '@/components/index.astro';
+import { SectionHero, SectionExperience } from '@/components/sections/index.astro';
+import { Header, Footer } from '@/components/shared/index.astro';
 import { getLangFromUrl } from '@/i18n/utils';
 import Layout from '@/layouts/Layout.astro';
 
@@ -7,9 +8,8 @@ const lang = getLangFromUrl(Astro.url);
 ---
 
 <Layout title='Israel Larrondo | Portfolio'>
-  <main class='min-h-[100dvh]'>
-    <Header lang={lang} />
-    <SectionHero lang={lang} />
-    <Footer lang={lang} />
-  </main>
+  <Header lang={lang} />
+  <SectionHero lang={lang} />
+  <SectionExperience lang={lang} />
+  <Footer lang={lang} />
 </Layout>
