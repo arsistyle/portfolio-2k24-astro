@@ -1,0 +1,35 @@
+---
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { Check } from '@/components/icons/index.astro';
+import { Typography } from '../index.astro';
+
+import { DATA_EXPERIENCE } from '@/data';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || [];
+---
+
+<section class='flex items-center justify-center px-5 py-14 md:py-40 bg-white dark:bg-dark relative z-10'>
+  <div class='container'>
+    <Typography
+      type='h3'
+      class='dark:text-white max-w-4xl leading-tight text-balance mb-12 md:mb-20'
+    >
+      {t('experience.title')}
+    </Typography>
+    <div class='grid grid-cols-2 gap-12 md:gap-20'>
+      {
+        jobs.map((text: string) => (
+          <div class='grid grid-flow-col gap-4 col-span-2 md:col-span-1'>
+            <div class='w-12 h-12 text-primary-400 dark:text-primary-300'>
+              <Check />
+            </div>
+            <p class='p highlight text-dark dark:text-white'>{text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
