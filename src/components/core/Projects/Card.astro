@@ -1,7 +1,8 @@
 ---
 import { GoArrowRight } from 'react-icons/go';
-import { getLangFromUrl, useTranslatedPath } from '@/i18n/utils';
+// import { getLangFromUrl, useTranslatedPath } from '@/i18n/utils';
 import { Typography } from '../index.astro';
+import { getLangFromUrl, useTranslatedPath } from '../../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
@@ -17,7 +18,9 @@ const { category, title, image, name } = project || {};
     >
       <GoArrowRight className='w-full h-full ' />
     </div>
-    <div class='w-full flex flex-col gap-3 justify-end items-start relative z-20 inset-0 p-6 md:p-9'>
+    <div
+      class='w-full flex flex-col gap-3 justify-end items-start relative z-20 inset-0 p-6 md:p-9'
+    >
       <Typography class='h5 transition text-white/70 group-hover:text-white'>
         {category}
       </Typography>
