@@ -1,0 +1,44 @@
+---
+import { Marquee } from '../index.astro';
+
+import stack from '@/data/stack';
+---
+
+<section class='bg-secondary-300 h-40 flex justify-center relative z-10'>
+  <div class='relative flex items-center w-full'>
+    <div class='skills-badge w-52 h-52 absolute -left-28 lg:-left-6 -top-6 -bottom-6 z-10'>
+      <!-- <StackBadge /> -->
+      <img src='/assets/img/stack-badge.svg' alt='Stack' />
+    </div>
+    <div class='flex justify-center w-full pl-20 lg:pl-44'>
+      <svg viewBox='0 0 255 255' class='hidden'>
+        <symbol id='tooltip-arrow'>
+          <polygon class='fill-current' points='0,0 127.5,127.5 255,0'></polygon>
+        </symbol>
+      </svg>
+      <Marquee total={stack.length || 0} itemWidth={'32'}>
+        {
+          stack.map(({ label, icon: Icon }) => (
+            <div class='group relative flex-1 flex items-center justify-center py-10 text-dark w-32 h-32 xl:w-52'>
+              <div
+                class='xl:px-10 w-full h-full'
+                data-tip={label}
+              >
+                {Icon && <Icon className='w-full h-full text-dark' />}
+              </div>
+              <div class='transition opacity-0 w-max bg-primary-300 text-black text-center text-xs rounded-lg py-2 absolute z-10 group-hover:opacity-100 bottom-2/3 mx-auto px-3 pointer-events-none'>
+                {label}
+                <svg
+                  class='absolute text-primary-300 h-2 w-full left-0 top-full'
+                  viewBox='0 0 255 255'
+                >
+                  <use href='#tooltip-arrow' />
+                </svg>
+              </div>
+            </div>
+          ))
+        }
+      </Marquee>
+    </div>
+  </div>
+</section>

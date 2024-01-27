@@ -2,6 +2,8 @@
 import { getLangFromUrl } from '../i18n/utils';
 import '@fontsource-variable/syne';
 
+import '@/css/styles.css'
+
 interface Props {
   title: string;
 }
@@ -24,11 +26,4 @@ const lang = getLangFromUrl(Astro.url);
   <body class='bg-white dark:bg-dark'>
     <slot />
   </body>
-  <style is:global>
-    body {
-      scrollbar-gutter: stable both-edges;
-      font-family: 'Syne Variable', sans-serif;
-      min-height: 100dvh;
-    }
-  </style>
 </html>

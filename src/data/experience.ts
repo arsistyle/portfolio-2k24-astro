@@ -1,4 +1,4 @@
-export const DATA_EXPERIENCE = {
+export default {
   es: {
     jobs: [
       'Actualmente soy Desarrollador Front-End en Boosmap, trabajo con Next, React y MUI.',

@@ -1,0 +1,74 @@
+.avatar {
+  animation-name: translateY-100;
+  /* animation-duration: 1ms; */
+  animation-direction: alternate;
+  animation-timeline: --mainTimeline;
+}
+
+.hero-info {
+  animation-name: translateY50;
+  /* animation-duration: 1ms; */
+  animation-direction: alternate;
+  animation-timeline: --mainTimeline;
+}
+
+.skills-badge {
+  animation-name: rotate360;
+  /* animation-duration: 1ms; */
+  animation-direction: alternate;
+  animation-timeline: --mainTimeline;
+}
+
+@keyframes translateY-50 {
+  to {
+    transform: translateY(-50px);
+  }
+}
+
+@keyframes translateY50 {
+  to {
+    transform: translateY(50px);
+  }
+}
+
+@keyframes translateY-100 {
+  to {
+    transform: translateY(-100px);
+  }
+}
+
+@keyframes translateY100 {
+  to {
+    transform: translateY(100px);
+  }
+}
+
+@keyframes translateY-150 {
+  to {
+    transform: translateY(-150px);
+  }
+}
+
+@keyframes translateY150 {
+  to {
+    transform: translateY(150px);
+  }
+}
+
+@keyframes translateY-200 {
+  to {
+    transform: translateY(-200px);
+  }
+}
+
+@keyframes translateY200 {
+  to {
+    transform: translateY(200px);
+  }
+}
+
+@keyframes rotate360 {
+  to {
+    transform: rotate(360deg);
+  }
+}
