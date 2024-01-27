@@ -1,8 +1,8 @@
 ---
-import { getLangFromUrl, useTranslatedPath } from '@/i18n/utils';
+import { getLangFromUrl, useTranslatedPath } from '../../i18n/utils';
 
-import { Logo } from '@/components/index.astro';
-import { Nav } from '@/components/ui/index.astro';
+import { Logo } from '../../components/index.astro';
+import { Nav } from '../../components/ui/index.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);

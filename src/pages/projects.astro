@@ -1,10 +1,10 @@
 ---
-import { BackgroundGrid } from '@/components/index.astro';
-import { SectionAllProjects } from '@/components/sections/index.astro';
-import { Header, Footer } from '@/components/shared/index.astro';
-import HeaderPage from '@/components/ui/HeaderPage.astro';
-import { getLangFromUrl, useTranslatedPath, useTranslations } from '@/i18n/utils';
-import Layout from '@/layouts/Layout.astro';
+import { BackgroundGrid } from '../components/index.astro';
+import { SectionAllProjects } from '../components/sections/index.astro';
+import { Header, Footer } from '../components/shared/index.astro';
+import HeaderPage from '../components/ui/HeaderPage.astro';
+import { getLangFromUrl, useTranslatedPath, useTranslations } from '../i18n/utils';
+import Layout from '../layouts/Layout.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);

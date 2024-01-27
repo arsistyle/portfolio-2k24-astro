@@ -1,9 +1,8 @@
 ---
-import { getLangFromUrl, useTranslations } from '@/i18n/utils';
-import { Check } from '@/components/icons/index.astro';
+import { DATA_EXPERIENCE } from '../../data';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { Check } from '../icons/index.astro';
 import { Typography } from '../index.astro';
-
-import { DATA_EXPERIENCE } from '@/data';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);

@@ -1,8 +1,9 @@
 ---
-import { getLangFromUrl, useTranslatedPath, useTranslations } from '@/i18n/utils';
-import { filterProjects } from '@/utils';
-import type { ProjectWithLang } from '@/types';
 
+
+import { getLangFromUrl, useTranslatedPath, useTranslations } from '../../i18n/utils';
+import type { ProjectWithLang } from '../../types';
+import { filterProjects } from '../../utils';
 import { ProjectsList, Typography } from '../index.astro';
 
 const PROJECTS_LIMIT = 4;
@@ -10,7 +11,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 
-const projects: ProjectWithLang[] = await Astro.glob('@/data/projects/*.json');
+const projects: ProjectWithLang[] = await Astro.glob('../../data/projects/*.json');
 const projectList = await filterProjects({projects, lang, limit: PROJECTS_LIMIT});
 ---
 
