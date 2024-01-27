@@ -17,7 +17,11 @@ export const ui = {
   es: esUi,
 };
 
-export const routes = {
+type Routes = {
+  [key: string]: { projects: string };
+};
+
+export const routes: Routes = {
   en: {
     projects: 'projects',
   },

@@ -1,4 +1,4 @@
-import type { UiKeys } from "i18n/ui";
+import type { UiKeys } from "../i18n/ui";
 
 export interface NavItem {
   name: UiKeys;

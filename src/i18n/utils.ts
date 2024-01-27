@@ -8,15 +8,21 @@ export function getLangFromUrl(url: URL) {
 
 export function useTranslations(lang: keyof typeof ui) {
   return function t(key: keyof (typeof ui)[typeof defaultLang]) {
-    return ui[lang][key] || ui[defaultLang][key];
+    const currentLang = ui[lang] || ui[defaultLang]
+    return currentLang[key as keyof typeof currentLang];
   };
 }
+
+type Routes = {
+  [key: string]: string;
+};
 
 export function useTranslatedPath(lang: keyof typeof ui) {
   return function translatePath(path: string, l: string = lang) {
     const pathName = path.replaceAll('/', '');
+    const _routes: Routes = routes[l];
     const hasTranslation =
-      defaultLang !== l && routes[l] !== undefined && routes[l][pathName] !== undefined;
+      defaultLang !== l && _routes !== undefined && _routes[pathName] !== undefined;
     const translatedPath = hasTranslation ? '/' + pathName : path;
 
     return !showDefaultLang && l === defaultLang ? translatedPath : `/${l}${translatedPath}`;
@@ -35,7 +41,7 @@ export function getRouteFromUrl(url: URL): string | undefined {
   const currentLang = getLangFromUrl(url);
 
   if (defaultLang === currentLang) {
-    const route = Object.values(routes)[0];
+    const route: Routes = Object.values(routes)[0];
     return route[path] !== undefined ? route[path] : undefined;
   }
 

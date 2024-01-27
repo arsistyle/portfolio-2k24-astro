@@ -1,4 +1,4 @@
-import type { Langs, ProjectWithLang } from '@/types';
+import type { Langs, ProjectWithLang } from '../types';
 
 export const filterProjects = async ({
   projects = [],
