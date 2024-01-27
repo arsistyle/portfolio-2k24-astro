@@ -2,15 +2,15 @@
   "nav.home": "Home",
   "nav.projects": "Projects",
 
-  "hero.greeting": "Hi, im",
-  "hero.name": "Israel",
-  "hero.lastname": "Larrondo",
-  "hero.job": "Fron-End Designer",
+  "home.hero.greeting": "Hi, im",
+  "home.hero.name": "Israel",
+  "home.hero.lastname": "Larrondo",
+  "home.hero.job": "Fron-End Designer",
+  "home.experience.title": "+7 years of experience as Front-End Designer",
+  "home.projects.title": "Recent work",
+  "home.projects.seeAll": "See all",
 
-  "experience.title": "+7 years of experience as Front-End Designer",
-
-  "projects.title": "Recent work",
-  "projects.seeAll": "See all",
+  "projects.title": "Projects",
 
 
   "footer.title": "Let me demonstrate my experience",

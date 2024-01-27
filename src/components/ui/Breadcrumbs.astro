@@ -1,0 +1,24 @@
+---
+import type { BreadcrumbsItem } from '@/types';
+import { Typography } from '../index.astro';
+
+const { breadcrumbs = [] } = Astro.props;
+
+---
+
+<Typography class="flex gap-2 text-white">
+  {
+    breadcrumbs.map(({ name, type, url }: BreadcrumbsItem) => {
+      if (type === 'link') {
+        return <a href={url}>{name}</a>;
+      }
+      if (type === 'separator') {
+        return <span>/</span>;
+      }
+      if (type === 'current') {
+        return <span class="opacity-60">{name}</span>;
+      }
+      return null;
+    })
+  }
+</Typography>
