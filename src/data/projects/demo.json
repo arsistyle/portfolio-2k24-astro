@@ -1,0 +1,18 @@
+{
+  "en": {
+    "id": 1,
+    "title": "Demo y un título más largo para probar",
+    "name": "demo",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et turpis sed est aliquet sagittis. Donec id purus ut orci pharetra tincidunt. Aliquam erat volutpat.",
+    "image": "https://picsum.photos/615/615",
+    "category": "Web development"
+  },
+  "es": {
+    "id": 1,
+    "title": "Demo",
+    "name": "demo",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et turpis sed est aliquet sagittis. Donec id purus ut orci pharetra tincidunt. Aliquam erat volutpat.",
+    "image": "https://picsum.photos/615/615",
+    "category": "Web development"
+  }
+}

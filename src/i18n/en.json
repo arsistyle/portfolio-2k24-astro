@@ -3,10 +3,15 @@
   "nav.projects": "Projects",
 
   "hero.greeting": "Hi, im",
-  "hero.name": "Israel Larrondo",
+  "hero.name": "Israel",
+  "hero.lastname": "Larrondo",
   "hero.job": "Fron-End Designer",
 
   "experience.title": "+7 years of experience as Front-End Designer",
+
+  "projects.title": "Recent work",
+  "projects.seeAll": "See all",
+
 
   "footer.title": "Let me demonstrate my experience",
   "footer.description": "My portfolio speaks for itself, but I'm eager to show you how I can apply my skills to your next project.",
