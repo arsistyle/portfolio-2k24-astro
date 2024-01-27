@@ -21,11 +21,11 @@ export function useTranslatedPath(lang: keyof typeof ui) {
   return function translatePath(path: string, l: string = lang) {
     const pathName = path.replaceAll('/', '');
     const _routes: Routes = routes[l];
-    const hasTranslation =
-      defaultLang !== l && _routes !== undefined && _routes[pathName] !== undefined;
-    const translatedPath = hasTranslation ? '/' + pathName : path;
+  const hasTranslation =
+    defaultLang !== l && _routes !== undefined && _routes[pathName] !== undefined;
+  const translatedPath = hasTranslation ? '/' + _routes[pathName] : path;
 
-    return !showDefaultLang && l === defaultLang ? translatedPath : `/${l}${translatedPath}`;
+  return !showDefaultLang && l === defaultLang ? translatedPath : `/${l}${translatedPath}`;
   };
 }
 
