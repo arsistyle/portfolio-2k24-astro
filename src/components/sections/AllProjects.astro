@@ -1,11 +1,11 @@
 ---
-import { getLangFromUrl, useTranslatedPath, useTranslations } from '@/i18n/utils';
+import { getLangFromUrl } from '@/i18n/utils';
 import { filterProjects } from '@/utils';
-import type { ProjectWithLang } from '@/types';
+import type { Langs, ProjectWithLang } from '@/types';
 
 import { ProjectsList } from '@/components/index.astro';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url) as Langs;
 
 const projects: ProjectWithLang[] = await Astro.glob('@/data/projects/*.json');
 const projectList = await filterProjects({ projects, lang });
