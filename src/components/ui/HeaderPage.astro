@@ -1,0 +1,15 @@
+---
+import { Typography } from '../index.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+
+const { title = '', breadcrumbs = [] } = Astro.props;
+---
+
+<div class="flex items-center justify-center px-5 pt-12">
+  <div class="container">
+    <div class='flex flex-col gap-6'>
+      <Breadcrumbs {breadcrumbs} />
+      <Typography type='h1' class='dark:text-white'>{title}</Typography>
+    </div>
+  </div>
+</div>

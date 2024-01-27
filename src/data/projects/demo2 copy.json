@@ -1,0 +1,18 @@
+{
+  "en": {
+    "id": 2,
+    "title": "Demo 2",
+    "name": "demo2",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et turpis sed est aliquet sagittis. Donec id purus ut orci pharetra tincidunt. Aliquam erat volutpat.",
+    "image": "https://picsum.photos/615/615",
+    "category": "Web development"
+  },
+  "es": {
+    "id": 2,
+    "title": "Demo 2",
+    "name": "demo2",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et turpis sed est aliquet sagittis. Donec id purus ut orci pharetra tincidunt. Aliquam erat volutpat.",
+    "image": "https://picsum.photos/615/615",
+    "category": "Web development"
+  }
+}

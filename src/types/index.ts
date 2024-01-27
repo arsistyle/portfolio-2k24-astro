@@ -1,5 +1,12 @@
 export type Langs = 'en' | 'es';
 
+export type BreadcrumbTypes = 'link' | 'separator' | 'current';
+export type BreadcrumbsItem = {
+  name?: string;
+  type: BreadcrumbTypes;
+  url?: string;
+};
+
 export type Project = {
   name: string;
   description: string;
@@ -10,4 +17,4 @@ export type Project = {
 
 export type ProjectWithLang = {
   [key in Langs]: Project;
-}
+};

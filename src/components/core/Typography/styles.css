@@ -1,26 +1,23 @@
 .h1 {
-  @apply font-bold text-[clamp(2.2rem,6vw,6rem)] leading-[1em];
+  @apply font-bold text-[clamp(2.2rem,6vw,4.813rem)] leading-[1em];
 }
 .h1.heading {
   @apply font-black text-[clamp(2.8rem,8vw,8rem)] leading-[1em] break-words sm:break-normal;
 }
 
 .h2 {
-  @apply font-bold text-[clamp(18rem,3.75vw,3.75rem)] leading-[1em];
+  @apply font-bold text-[clamp(18rem,3.75vw,3.688rem)] leading-[1em];
 }
 
 .h3 {
-  @apply font-bold text-[clamp(2.25rem,3vw,3rem)] leading-[1em];
+  @apply font-bold text-[clamp(2.25rem,3vw,2.188rem)] leading-[1em];
 }
 
 .h4 {
-  @apply font-bold text-[clamp(1.875rem,2.25vw,2.25rem)] leading-[1em];
+  @apply font-bold text-[clamp(1.875rem,2.25vw,1.688rem)] leading-[1em];
 }
 .h5 {
-  @apply font-bold text-[clamp(1.5rem,2vw,2rem)] leading-[1em];
-}
-.h6 {
-  @apply font-bold text-[clamp(1.25rem,2vw,1.33rem)] leading-[1em];
+  @apply font-bold text-[clamp(1.5rem,2vw,1.313rem)] leading-[1em];
 }
 
 .p.highlight {

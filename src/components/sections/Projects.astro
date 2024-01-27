@@ -1,14 +1,17 @@
 ---
 import { getLangFromUrl, useTranslatedPath, useTranslations } from '@/i18n/utils';
+import { filterProjects } from '@/utils';
 import type { ProjectWithLang } from '@/types';
 
 import { ProjectsList, Typography } from '../index.astro';
 
+const PROJECTS_LIMIT = 4;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
+
 const projects: ProjectWithLang[] = await Astro.glob('@/data/projects/*.json');
-const projectsByLang = projects.map((project) => project[lang]) || [];
+const projectList = await filterProjects({projects, lang, limit: PROJECTS_LIMIT});
 ---
 
 <section
@@ -17,15 +20,15 @@ const projectsByLang = projects.map((project) => project[lang]) || [];
   <div class='container'>
     <div class='flex justify-between items-center flex-wrap gap-6 mb-12 md:mb-20'>
       <Typography type='h3' class='dark:text-white max-w-4xl leading-tight text-balance'>
-        {t('projects.title')}
+        {t('home.projects.title')}
       </Typography>
       <Typography
         type='h6'
         class='transition dark:text-white/60 dark:hover:text-white/70 text-dark/60 hover:text-dark/70 ml-auto'
       >
-        <a href={translatePath('/projects')} class='text-inherit'>{t('projects.seeAll')}</a>
+        <a href={translatePath('/projects')} class='text-inherit'>{t('home.projects.seeAll')}</a>
       </Typography>
     </div>
-    <ProjectsList projects={projectsByLang} />
+    <ProjectsList projects={projectList} />
   </div>
 </section>

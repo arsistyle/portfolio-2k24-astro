@@ -6,40 +6,44 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<section class='flex items-center justify-center px-5 py-14 md:py-40 bg-dark relative z-10 overflow-hidden'>
-  <div class='container'>
-    <div class='grid items-center grid-cols-2 sm:grid-cols-12 gap-8'>
-      <div class='hero-info relative z-10 col-span-2 sm:col-span-8'>
-        <h1 class='mb-2'>
-          <div
-            class='inline-flex p-2 mb-2 text-[clamp(1.6rem,5vw,3.75rem)] leading-[1em] font-bold bg-secondary-400 dark:bg-secondary-300 text-white dark:text-dark'
+<section class='bg-dark relative z-10'>
+  <div class='flex justify-center overflow-hidden px-5 py-14 md:py-40 w-full'>
+    <div class='container'>
+      <div class='grid items-center grid-cols-2 sm:grid-cols-12 gap-8'>
+        <div class='hero-info relative z-10 col-span-2 sm:col-span-8'>
+          <h1 class='mb-2'>
+            <div
+              class='inline-flex p-2 mb-2 text-[clamp(1.6rem,5vw,3.75rem)] leading-[1em] font-bold bg-secondary-400 dark:bg-secondary-300 text-white dark:text-dark'
+            >
+              {t('home.hero.greeting')}
+            </div>
+            <div class='font-black text-dark dark:text-white h1 heading mix-blend-difference'>
+              <span class='whitespace-nowrap'>{t('home.hero.name')}</span>
+              <span class='whitespace-nowrap'>{t('home.hero.lastname')}</span>
+            </div>
+          </h1>
+          <h2
+            class='text-[clamp(1.6rem,5vw,3.75rem)] font-bold text-primary-400 dark:text-primary-300'
           >
-            {t('hero.greeting')}
-          </div>
-          <div class='font-black text-dark dark:text-white h1 heading mix-blend-difference'>
-            <span class='whitespace-nowrap'>{t('hero.name')}</span>
-            <span class='whitespace-nowrap'>{t('hero.lastname')}</span>
-          </div>
-        </h1>
-        <h2
-          class='text-[clamp(1.6rem,5vw,3.75rem)] font-bold text-primary-400 dark:text-primary-300'
-        >
-          {t('hero.job')}
-        </h2>
-      </div>
-      <div class='col-span-4'>
-        <div class='avatar'>
-          <div class='flex justify-end aspect-square w-full h-full sm:w-96 sm:h-96 translate-x-[20%] sm:translate-x-0 -mb-36 sm:mb-0 animate-avatar bg-secondary-300 overflow-clip'>
-            <img
-              src='https://png2.cleanpng.com/sh/f21bae3b67cef14517431a7a77c5f35d/L0KzQYm3VMIzN6Jsj5H0aYP2gLBuTfNwdJYyiAJ7b4X2dX7xlfdpbZJpRdx4bnX2PcPwlvVzbJJxfZ9qcnPreba0gf5lepZ8RdHxLUXkdLW8UMJiO5U2TNUALkm8RIiBUcc1OWY3TKYAM0S0SIO8UMIveJ9s/kisspng-cole-sprouse-jughead-jones-riverdale-archie-andrew-oh-5add502a3d14c5.9947817415244534182502.png'
-              class='block object-cover object-top w-full h-full'
-              alt='Israel Larrondo'
-              loading='lazy'
-            />
+            {t('home.hero.job')}
+          </h2>
+        </div>
+        <div class='col-span-4'>
+          <div class='avatar'>
+            <div
+              class='flex justify-end aspect-square w-full h-full sm:w-96 sm:h-96 translate-x-[20%] sm:translate-x-0 -mb-36 sm:mb-0 animate-avatar bg-secondary-300 overflow-clip'
+            >
+              <img
+                src='https://png2.cleanpng.com/sh/f21bae3b67cef14517431a7a77c5f35d/L0KzQYm3VMIzN6Jsj5H0aYP2gLBuTfNwdJYyiAJ7b4X2dX7xlfdpbZJpRdx4bnX2PcPwlvVzbJJxfZ9qcnPreba0gf5lepZ8RdHxLUXkdLW8UMJiO5U2TNUALkm8RIiBUcc1OWY3TKYAM0S0SIO8UMIveJ9s/kisspng-cole-sprouse-jughead-jones-riverdale-archie-andrew-oh-5add502a3d14c5.9947817415244534182502.png'
+                class='block object-cover object-top w-full h-full'
+                alt='Israel Larrondo'
+                loading='lazy'
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <BackgroundGrid />
+  <BackgroundGrid class='absolute -top-96 bottom-0' />
 </section>

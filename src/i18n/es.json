@@ -2,13 +2,14 @@
   "nav.home": "Inicio",
   "nav.projects": "Proyectos",
 
-  "hero.greeting": "Hola, soy",
-  "hero.name": "Israel Larrondo",
-  "hero.job": "Diseñador Front-End",
+  "home.hero.greeting": "Hola, soy",
+  "home.hero.name": "Israel",
+  "home.hero.lastname": "Larrondo",
+  "home.hero.job": "Diseñador Front-End",
+  "home.experience.title": "+7 years of experience as Front-End Designer",
+  "home.projects.title": "Trabajos recientes",
 
-  "experience.title": "+7 years of experience as Front-End Designer",
-
-  "projects.title": "Trabajos recientes",
+  "projects.title": "Proyectos",
 
   "footer.title": "Let me demonstrate my experience",
   "footer.description": "My portfolio speaks for itself, but I'm eager to show you how I can apply my skills to your next project.",
