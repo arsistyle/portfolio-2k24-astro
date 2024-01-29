@@ -16,15 +16,15 @@ const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || [];
   <div class='container'>
     <Typography
       type='h3'
-      class='dark:text-white max-w-4xl leading-tight text-balance mb-12 md:mb-20'
+      class='h2 dark:text-white max-w-3xl leading-tight text-balance mb-12 md:mb-20'
     >
       {t('home.experience.title')}
     </Typography>
-    <div class='grid grid-cols-2 gap-12 md:gap-20'>
+    <div class='grid grid-cols-2 gap-8 md:gap-12 md:gap-20'>
       {
         jobs.map((text: string) => (
-          <div class='grid grid-flow-col gap-4 col-span-2 md:col-span-1'>
-            <div class='w-12 h-12 text-primary-400 dark:text-primary-300'>
+          <div class='col-span-2 grid gap-4 grid-cols-[2rem_1fr] md:grid-cols-[3rem_1fr] md:col-span-1 text-left'>
+            <div class='w-8 md:w-12 h-8 md:h-12 text-primary-400 dark:text-primary-300'>
               <Check />
             </div>
             <p class='p highlight text-dark dark:text-white text-pretty'>{text}</p>

@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import { getLangFromUrl } from '../i18n/utils';
 import '@fontsource-variable/syne';
 
@@ -26,4 +27,6 @@ const lang = getLangFromUrl(Astro.url);
   <body class='bg-white dark:bg-dark'>
     <slot />
   </body>
+  <ViewTransitions />
 </html>
+

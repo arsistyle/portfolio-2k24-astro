@@ -4,7 +4,11 @@
     "title": "Demo y un título más largo para probar",
     "name": "demo",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et turpis sed est aliquet sagittis. Donec id purus ut orci pharetra tincidunt. Aliquam erat volutpat.",
-    "image": "https://picsum.photos/615/615",
+    "image": {
+      "small": "https://picsum.photos/360/360",
+      "medium": "https://picsum.photos/615/615",
+      "large": "https://picsum.photos/1280/768"
+    },
     "category": "Web development"
   },
   "es": {
@@ -12,7 +16,11 @@
     "title": "Demo",
     "name": "demo",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et turpis sed est aliquet sagittis. Donec id purus ut orci pharetra tincidunt. Aliquam erat volutpat.",
-    "image": "https://picsum.photos/615/615",
-    "category": "Web development"
+    "category": "Web development",
+    "image": {
+      "small": "https://picsum.photos/360/360",
+      "medium": "https://picsum.photos/615/615",
+      "large": "https://picsum.photos/1280/768"
+    }
   }
 }

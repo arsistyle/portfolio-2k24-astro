@@ -1,10 +1,9 @@
 ---
-import { BackgroundGrid } from '../components/index.astro';
-import { SectionAllProjects } from '../components/sections/index.astro';
-import { Header, Footer } from '../components/shared/index.astro';
-import HeaderPage from '../components/ui/HeaderPage.astro';
-import { getLangFromUrl, useTranslatedPath, useTranslations } from '../i18n/utils';
-import Layout from '../layouts/Layout.astro';
+import { SectionAllProjects } from '../../components/sections/index.astro';
+import { Header, Footer } from '../../components/shared/index.astro';
+import HeaderPage from '../../components/ui/HeaderPage.astro';
+import { getLangFromUrl, useTranslatedPath, useTranslations } from '../../i18n/utils';
+import Layout from '../../layouts/Layout.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -31,7 +30,6 @@ const breadcrumbs = [
   <div class="bg-white dark:bg-dark relative z-10">
     <HeaderPage title={t('projects.title')} {breadcrumbs} />
     <SectionAllProjects />
-    <BackgroundGrid class="absolute -top-96 bottom-0" />
   </div>
   <Footer />
 </Layout>
