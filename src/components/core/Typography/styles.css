@@ -1,25 +1,43 @@
 .h1 {
-  @apply font-bold text-[clamp(2.2rem,6vw,4.813rem)] leading-[1em];
+  @apply font-bold text-[clamp(2.4rem,6vw,4.813rem)];
 }
 .h1.heading {
-  @apply font-black text-[clamp(2.8rem,8vw,8rem)] leading-[1em] break-words sm:break-normal;
+  @apply font-black text-[clamp(2.8rem,8vw,8rem)]  break-words sm:break-normal;
 }
 
 .h2 {
-  @apply font-bold text-[clamp(18rem,3.75vw,3.688rem)] leading-[1em];
+  @apply font-bold text-[clamp(1.9rem,3.75vw,3.688rem)];
 }
 
 .h3 {
-  @apply font-bold text-[clamp(2.25rem,3vw,2.188rem)] leading-[1em];
+  @apply font-bold text-[clamp(1.7rem,3vw,2.875rem)];
 }
 
 .h4 {
-  @apply font-bold text-[clamp(1.875rem,2.25vw,1.688rem)] leading-[1em];
+  @apply font-bold text-[clamp(1.5rem,2.25vw,2.188rem)];
 }
 .h5 {
-  @apply font-bold text-[clamp(1.5rem,2vw,1.313rem)] leading-[1em];
+  @apply font-bold text-[clamp(1.3rem,2vw,1.688rem)];
 }
 
 .p.highlight {
-  @apply text-xl;
+  @apply text-[clamp(1.1rem,1.6vw,1.4rem)] leading-7;
+  /* @apply text-xl */
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.p {
+  @apply leading-[1em];
+}
+
+.content .h2,
+.content .h3,
+.content .h4,
+.content .h5,
+.content .p {
+  @apply my-[.75em];
 }

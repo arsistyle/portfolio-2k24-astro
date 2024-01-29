@@ -1,0 +1,11 @@
+---
+import { default as ProjectEnDemo } from './en/demo.astro';
+import { default as ProjectEsDemo } from './es/demo.astro';
+
+export const PROJECTS_CONTENT: Record<string, any> = {
+  demo: {
+    en: ProjectEnDemo,
+    es: ProjectEsDemo,
+  },
+};
+---

@@ -9,6 +9,7 @@ export type BreadcrumbsItem = {
 
 export type Project = {
   name: string;
+  title: string
   description: string;
   image: string;
   url: string;
