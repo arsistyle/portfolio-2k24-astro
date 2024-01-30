@@ -1,29 +1,32 @@
 ---
+import { Image } from 'astro:assets';
 import { PROJECTS_CONTENT } from '../../data/projects/content/index.astro';
 
 const { project, lang = 'en' } = Astro.props;
 const { image, title, name } = project || {};
 
-const projectContent = PROJECTS_CONTENT[name];
-const Content = projectContent[lang];
-
-
+const projectContent = PROJECTS_CONTENT[name] || {};
+const Content = projectContent[lang] || null;
 ---
 
 <section class='flex items-center justify-center px-5 py-14 md:pb-40'>
   <div class='container'>
     <div class='relative mb-16'>
-      <img
+      <Image
         src={image.large}
         alt={title}
         class='w-full h-full object-cover rounded-4xl'
         transition:name='project-image'
-        transition:persist
-        data-src={image.medium}
+        width={1920}
+        height={1080}
       />
     </div>
-    <div class="content">
-      <Content />
-    </div>
+    {
+      Content && (
+        <div class='content'>
+          <Content />
+        </div>
+      )
+    }
   </div>
 </section>

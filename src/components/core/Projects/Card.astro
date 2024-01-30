@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { GoArrowRight } from 'react-icons/go';
+
 import { Typography } from '../index.astro';
 import { getLangFromUrl, useTranslatedPath } from '../../../i18n/utils';
 
@@ -30,11 +32,13 @@ const { category, title, image, name } = project || {};
     {
       image && (
         <div class='absolute inset-0 transition overflow-clip group-hover:scale-105 rounded-4xl'>
-          <img
+          <Image
             src={image.medium}
             class='w-full h-full object-cover rounded-4xl'
             alt={title}
             transition:name='project-image'
+            width={768}
+            height={576}
           />
           <div class='transition absolute inset-0 bg-gradient-to-t from-dark to-dark/0 z-10 rounded-4xl translate-y-1/4 group-hover:translate-y-0' />
         </div>

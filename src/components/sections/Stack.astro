@@ -1,5 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import { Marquee } from '../index.astro';
+
+import badge from '../../assets/img/stack-badge.svg'
 
 import stack from '../../data/stack';
 ---
@@ -8,7 +11,7 @@ import stack from '../../data/stack';
   <div class='relative flex items-center w-full'>
     <div class='skills-badge w-52 h-52 absolute -left-28 lg:-left-6 -top-6 -bottom-6 z-10'>
       <!-- <StackBadge /> -->
-      <img src='/assets/img/stack-badge.svg' alt='Stack' />
+      <Image src={badge} alt='Stack' />
     </div>
     <div class='flex justify-center w-full pl-20 lg:pl-44'>
       <svg viewBox='0 0 255 255' class='hidden'>
