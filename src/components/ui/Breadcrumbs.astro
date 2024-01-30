@@ -6,7 +6,7 @@ const { breadcrumbs = [] } = Astro.props;
 const totalBreads = breadcrumbs.length;
 ---
 
-<Typography class='flex gap-2 flex-wrap text-white'>
+<Typography class='flex gap-2 flex-wrap text-dark dark:text-white'>
   {
     breadcrumbs.map(({ name, type, url }: BreadcrumbsItem, key: number) => {
       if (type === 'link') {

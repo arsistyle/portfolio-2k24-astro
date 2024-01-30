@@ -10,7 +10,7 @@ const t = useTranslations(lang);
 
 ---
 
-<section class='bg-dark relative z-10'>
+<section class='bg-white dark:bg-dark relative z-10'>
   <div class='flex justify-center overflow-hidden px-5 py-14 md:py-40 w-full'>
     <div class='container'>
       <div class='grid items-center grid-cols-2 sm:grid-cols-12 gap-8'>
@@ -27,7 +27,7 @@ const t = useTranslations(lang);
             </div>
           </h1>
           <h2
-            class='text-[clamp(1.6rem,5vw,3.75rem)] font-bold text-primary-400 dark:text-primary-300'
+            class='text-[clamp(1.6rem,5vw,3.75rem)] font-bold text-primary-500 dark:text-primary-300'
           >
             {t('home.hero.job')}
           </h2>
@@ -35,7 +35,7 @@ const t = useTranslations(lang);
         <div class='col-span-4'>
           <div class='avatar'>
             <div
-              class='flex justify-end aspect-square w-full h-full sm:w-96 sm:h-96 translate-x-[20%] sm:translate-x-0 -mb-36 sm:mb-0 animate-avatar bg-secondary-300 overflow-clip'
+              class='flex justify-end aspect-square w-full h-full sm:w-96 sm:h-96 translate-x-[20%] sm:translate-x-0 -mb-36 sm:mb-0 animate-avatar bg-secondary-400 dark:bg-secondary-300 overflow-clip'
             >
               <Image
                 src={avatar}

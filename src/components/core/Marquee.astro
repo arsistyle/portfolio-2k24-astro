@@ -11,12 +11,12 @@ const totalWidth = total * remToPixel * 2
 ---
 
 <div class='marquee relative overflow-hidden'>
-  <div class="absolute top-0 left-0 bottom-0 w-20 h-full z-[1] bg-gradient-to-r from-secondary-300 to-secondary-300/0" />
+  <div class="absolute top-0 left-0 bottom-0 w-20 h-full z-[1] bg-gradient-to-r from-secondary-400 dark:from-secondary-300 to-secondary-300/0" />
   <div class='flex justify-start items-center w-[200%] md:min-w-[200%] min-w-[1400px] animateMarquee' style={`min-width: ${totalWidth}px` }>
     <slot />
     <slot />
   </div>
-  <div class="absolute top-0 right-0 bottom-0 w-20 h-full z-[1] bg-gradient-to-l from-secondary-300 to-secondary-300/0" />
+  <div class="absolute top-0 right-0 bottom-0 w-20 h-full z-[1] bg-gradient-to-l from-secondary-400 dark:from-secondary-300 to-secondary-300/0" />
 </div>
 
 <style>
