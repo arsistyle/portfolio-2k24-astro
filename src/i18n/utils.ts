@@ -8,7 +8,7 @@ export function getLangFromUrl(url: URL) {
 
 export function useTranslations(lang: keyof typeof ui) {
   return function t(key: keyof (typeof ui)[typeof defaultLang]) {
-    const currentLang = ui[lang] || ui[defaultLang]
+    const currentLang = ui[lang] || ui[defaultLang];
     return currentLang[key as keyof typeof currentLang];
   };
 }
@@ -21,11 +21,11 @@ export function useTranslatedPath(lang: keyof typeof ui) {
   return function translatePath(path: string, l: string = lang) {
     const pathName = path.replaceAll('/', '');
     const _routes: Routes = routes[l];
-  const hasTranslation =
-    defaultLang !== l && _routes !== undefined && _routes[pathName] !== undefined;
-  const translatedPath = hasTranslation ? '/' + _routes[pathName] : path;
+    const hasTranslation =
+      defaultLang !== l && _routes !== undefined && _routes[pathName] !== undefined;
+    const translatedPath = hasTranslation ? '/' + _routes[pathName] : path;
 
-  return !showDefaultLang && l === defaultLang ? translatedPath : `/${l}${translatedPath}`;
+    return !showDefaultLang && l === defaultLang ? translatedPath : `/${l}${translatedPath}`;
   };
 }
 
@@ -57,3 +57,11 @@ export function getRouteFromUrl(url: URL): string | undefined {
 
   return undefined;
 }
+
+export const cleanUrl = (pageUrl: string) => {
+  const routesKeys = Object.keys(routes) || [];
+  const regexString = `\/(${routesKeys.join('|')})`;
+  const regex = new RegExp(regexString, 'g');
+  const cleanedUrl = pageUrl ? pageUrl.replace(regex, '').replace(/^\/[a-z]{2}\b/, '') : '/';
+  return cleanedUrl || '/';
+};

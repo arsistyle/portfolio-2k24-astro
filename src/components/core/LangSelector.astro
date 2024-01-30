@@ -1,0 +1,35 @@
+---
+import type { Langs } from '../../types';
+
+import { getLangFromUrl, useTranslatedPath, cleanUrl } from '../../i18n/utils';
+
+const url = Astro.url;
+const lang = getLangFromUrl(url) as Langs;
+const pathname = url.pathname;
+
+const mainClasses = 'px-2 py-1 text-sm font-bold transition';
+const defaultClasses =
+  'bg-dark/5 dark:bg-white/5 hover:bg-dark/10 hover:dark:bg-white/10 text-dark dark:text-white';
+const activeClasses = 'pointer-events-none bg-primary-400 dark:bg-primary-300 text-dark dark:text-dark';
+
+const translatePath = (lang: Langs) => useTranslatedPath(lang)(cleanUrl(pathname));
+---
+
+<div class='flex'>
+  <a
+    href={translatePath('en')}
+    class:list={[
+      mainClasses,
+      'pl-3 rounded-l-main',
+      lang === 'en' ? activeClasses : defaultClasses,
+    ]}>EN</a
+  >
+  <a
+    href={translatePath('es')}
+    class:list={[
+      mainClasses,
+      'pr-3 rounded-r-main',
+      lang === 'es' ? activeClasses : defaultClasses,
+    ]}>ES</a
+  >
+</div>

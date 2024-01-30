@@ -26,6 +26,6 @@ export const routes: Routes = {
     projects: 'projects',
   },
   es: {
-    projects: 'proyectos',
+    projects: 'projects',
   },
 };

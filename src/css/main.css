@@ -16,6 +16,7 @@ body {
   scrollbar-gutter: stable both-edges;
   font-family: 'Syne Variable', sans-serif;
   min-height: 100dvh;
+  color-scheme: dark light;
   @apply bg-white;
 }
 @media (prefers-color-scheme: dark) {
