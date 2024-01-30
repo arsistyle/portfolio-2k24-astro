@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { Typography } from '../index.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -11,8 +12,8 @@ const t = useTranslations(lang);
       <div class='grid md:grid-cols-12 gap-6'>
         <div class='md:col-span-8'>
           <div class='flex flex-col gap-4'>
-            <h4 class='text-dark h4'>{t('footer.title')}</h4>
-            <p class='text-dark p'>{t('footer.description')}</p>
+            <Typography type="h4" class='text-dark'>{t('footer.title')}</Typography>
+            <Typography class='text-dark text-pretty'>{t('footer.description')}</Typography>
           </div>
         </div>
         <div class='md:col-span-4 self-center'>
@@ -38,7 +39,7 @@ const t = useTranslations(lang);
   </div>
   <div class='bg-dark p-6 px-14'>
     <div class='container mx-auto text-center'>
-      <div class='text-white'>{t('footer.copyright')}</div>
+      <Typography class='text-white'>{t('footer.copyright')}</Typography>
     </div>
   </div>
 </footer>

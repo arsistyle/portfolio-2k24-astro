@@ -1,7 +1,7 @@
 ---
 import { getLangFromUrl, useTranslatedPath } from '../../i18n/utils';
 
-import { Logo } from '../../components/index.astro';
+import { LangSelector, Logo } from '../../components/index.astro';
 import { Nav } from '../../components/ui/index.astro';
 
 const lang = getLangFromUrl(Astro.url);
@@ -17,6 +17,7 @@ const translatePath = useTranslatedPath(lang);
     </a>
     <div class='flex items-center gap-8 ml-auto'>
       <Nav />
+      <LangSelector />
       <!-- <SwitchScheme client:load /> -->
     </div>
   </div>
