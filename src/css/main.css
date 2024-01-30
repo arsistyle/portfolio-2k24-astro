@@ -4,6 +4,10 @@
 
 @import 'tailwindcss/utilities';
 
+* {
+  min-width: 0;
+}
+
 html {
   scroll-timeline-name: --mainTimeline;
 }
