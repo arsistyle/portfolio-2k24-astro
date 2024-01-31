@@ -4,7 +4,6 @@ import type { Langs, ProjectWithLang } from '../../../../types';
 import { getLangFromUrl, useTranslatedPath, useTranslations } from '../../../../i18n/utils';
 import { filterProjects } from '../../../../utils';
 
-import { Footer, Header } from '../../../../components/shared/index.astro';
 import { HeaderPage } from '../../../../components/ui/index.astro';
 import { SectionProjectDetail } from '../../../../components/sections/index.astro';
 import Layout from '../../../../layouts/Layout.astro';
@@ -53,10 +52,8 @@ const breadcrumbs = [
 ---
 
 <Layout title={`Israel Larrondo | ${title}`}>
-  <Header />
   <div class='bg-white dark:bg-dark relative z-10'>
     <HeaderPage title={title} {breadcrumbs} />
     <SectionProjectDetail project={post} />
   </div>
-  <Footer />
 </Layout>

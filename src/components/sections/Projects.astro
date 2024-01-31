@@ -1,6 +1,4 @@
 ---
-
-
 import { getLangFromUrl, useTranslatedPath, useTranslations } from '../../i18n/utils';
 import type { ProjectWithLang } from '../../types';
 import { filterProjects } from '../../utils';
@@ -12,7 +10,7 @@ const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 
 const projects: ProjectWithLang[] = await Astro.glob('../../data/projects/*.json');
-const projectList = await filterProjects({projects, lang, limit: PROJECTS_LIMIT});
+const projectList = await filterProjects({ projects, lang, limit: PROJECTS_LIMIT });
 ---
 
 <section

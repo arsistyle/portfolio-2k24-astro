@@ -1,20 +1,18 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import {
   SectionHero,
   SectionExperience,
   SectionStack,
   SectionProjects,
 } from '../components/sections/index.astro';
-import { Header, Footer } from '../components/shared/index.astro';
 import Layout from '../layouts/Layout.astro';
-
 ---
 
 <Layout title='Israel Larrondo | Portafolio'>
-  <Header />
   <SectionHero />
   <SectionExperience />
   <SectionStack />
   <SectionProjects />
-  <Footer />
+  <ViewTransitions  />
 </Layout>
