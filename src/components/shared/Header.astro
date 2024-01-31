@@ -1,7 +1,7 @@
 ---
 import { getLangFromUrl, useTranslatedPath } from '../../i18n/utils';
 
-import { LangSelector, Logo } from '../../components/index.astro';
+import { LangSelector, Logo, SwitchScheme } from '../../components/index.astro';
 import { Nav } from '../../components/ui/index.astro';
 
 const lang = getLangFromUrl(Astro.url);
@@ -18,7 +18,7 @@ const translatePath = useTranslatedPath(lang);
     <div class='flex items-center gap-8 ml-auto'>
       <Nav />
       <LangSelector />
-      <!-- <SwitchScheme client:load /> -->
+      <SwitchScheme transition:persist />
     </div>
   </div>
 </header>
