@@ -1,0 +1,59 @@
+---
+import { getLangFromUrl } from '../../i18n/utils';
+import { Typography } from '../index.astro';
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<section
+  class='flex items-center justify-center px-5 pb-8 pt-14 md:pb-24 md:pt-40 bg-white dark:bg-dark relative z-10'
+>
+  {
+    lang == 'es' ? (
+      <div class='container'>
+        <Typography class='h3 font-normal dark:text-white leading-normal mb-10 text-pretty'>
+          👀{' '}
+          <span class='font-bold mark-text'>
+            <span>Soy un especialista en Diseño Web y Desarrollo Front-End</span>
+          </span>
+          , dedicado a encontrar soluciones para desafíos digitales. Actualmente, diseño proyectos
+          con
+          <span class='font-bold mark-text'>
+            <span>Figma</span>
+          </span>{' '}
+          y los desarrollo utilizando{' '}
+          <span class='font-bold mark-text'>
+            <span>Astro y Tailwind</span>
+          </span>
+          . De hecho, este portafolio que estás viendo también está construido con estas tecnologías
+          y exhibe mis proyectos de diseño y desarrollo.
+        </Typography>
+        <Typography class='h3 font-normal dark:text-white leading-normal text-pretty'>
+          ¡Echa un vistazo y déjame impresionarte! 🔥
+        </Typography>
+      </div>
+    ) : (
+      <div class='container'>
+        <Typography class='h3 font-normal dark:text-white leading-normal mb-10 text-pretty'>
+          👀{' '}
+          <span class='font-bold mark-text'>
+            <span>I am a specialist in Web Design and Front-End Development.</span>
+          </span>
+          , dedicated to finding solutions for digital challenges. Currently, I design projects with
+          <span class='font-bold mark-text'>
+            <span>Figma</span>
+          </span>{' '}
+          and develop them using{' '}
+          <span class='font-bold mark-text'>
+            <span>Astro and Tailwind</span>
+          </span>
+          . In fact, this portfolio you're looking at is also built with these technologies and
+          showcases my design and development projects.
+        </Typography>
+        <Typography class='h3 font-normal dark:text-white leading-normal text-pretty'>
+          Take a look and let me impress you! 🔥
+        </Typography>
+      </div>
+    )
+  }
+</section>

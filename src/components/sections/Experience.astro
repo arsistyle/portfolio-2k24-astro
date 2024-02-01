@@ -11,7 +11,7 @@ const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || [];
 ---
 
 <section
-  class='flex items-center justify-center px-5 py-14 md:py-40 bg-white dark:bg-dark relative z-10'
+  class='flex items-center justify-center px-5 pt-8 md:pt-24 pb-14 md:pb-40 bg-white dark:bg-dark relative z-10'
 >
   <div class='container'>
     <Typography
@@ -20,7 +20,7 @@ const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || [];
     >
       {t('home.experience.title')}
     </Typography>
-    <div class='grid grid-cols-2 gap-8 md:gap-12 md:gap-20'>
+    <div class='grid grid-cols-2 gap-8 sm:gap-12 md:gap-20'>
       {
         jobs.map((text: string) => (
           <div class='col-span-2 grid gap-4 grid-cols-[2rem_1fr] md:grid-cols-[3rem_1fr] md:col-span-1 text-left'>

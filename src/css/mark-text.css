@@ -1,0 +1,28 @@
+.mark-text {
+  --highlighted: 0;
+  animation: highlight steps(1) both;
+  animation-timeline: view();
+  animation-range: entry 170% cover 40%;
+  @apply text-white;
+}
+
+.mark-text span {
+  background: linear-gradient(90deg, theme('colors.primary.300') 50%, theme('colors.dark') 50%) 110%
+    0 / 200% 100% no-repeat;
+  background-position: calc((1 - var(--highlighted)) * 110%) 0;
+  transition: background-position 1s, color 1s;
+  @apply px-1;
+}
+
+/* .mark-text:after {
+  content: attr(data-text);
+  font-weight: inherit;
+  @apply absolute inline top-0 left-0 bg-red-500 bg-clip-text text-transparent;
+} */
+
+@keyframes highlight {
+  to {
+    --highlighted: 1;
+    @apply text-dark;
+  }
+}

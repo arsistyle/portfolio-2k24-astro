@@ -6,7 +6,7 @@
 }
 
 .hero-info {
-  animation-name: translateY50;
+  animation-name: translateY150;
   /* animation-duration: 1ms; */
   animation-direction: alternate;
   animation-timeline: --mainTimeline;
