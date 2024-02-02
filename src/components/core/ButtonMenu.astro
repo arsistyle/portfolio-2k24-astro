@@ -1,0 +1,16 @@
+---
+import { TbMenu } from 'react-icons/tb';
+---
+
+<div
+  class='button-menu transition flex items-center justify-center w-10 h-10 aspect-square p-1 rounded-full bg-dark/5 dark:bg-white/5 hover:bg-dark/10 dark:hover:bg-white/10 cursor-pointer text-dark/60 dark:text-white'
+  role='button'
+>
+  <div class='dark:block'><TbMenu /></div>
+</div>
+
+<style>
+  .button-menu.active {
+    @apply bg-primary-400 text-dark hover:bg-primary-300 dark:bg-primary-500 dark:hover:bg-primary-400;
+  }
+</style>

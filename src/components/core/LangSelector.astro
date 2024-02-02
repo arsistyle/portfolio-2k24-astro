@@ -1,35 +1,33 @@
 ---
-import type { Langs } from '../../types';
+import { IoLanguage } from 'react-icons/io5';
 
+import type { Langs } from '../../types';
 import { getLangFromUrl, useTranslatedPath, cleanUrl } from '../../i18n/utils';
 
 const url = Astro.url;
 const lang = getLangFromUrl(url) as Langs;
 const pathname = url.pathname;
-
-const mainClasses = 'px-2 py-1 text-sm font-bold transition';
-const defaultClasses =
-  'bg-dark/5 dark:bg-white/5 hover:bg-dark/10 hover:dark:bg-white/10 text-dark dark:text-white';
-const activeClasses = 'pointer-events-none bg-primary-500 dark:bg-primary-300 text-dark dark:text-dark';
-
 const translatePath = (lang: Langs) => useTranslatedPath(lang)(cleanUrl(pathname));
+
+const mainClasses = 'text-xs transition rounded-full';
+const defaultClasses =
+  'text-dark/60 dark:text-white/60 hover:text-dark/80 hover:dark:text-white/80';
+const activeClasses = 'pointer-events-none text-secondary-500 dark:text-primary-300';
+
 ---
 
-<div class='flex'>
-  <a
-    href={translatePath('en')}
-    class:list={[
-      mainClasses,
-      'pl-3 rounded-l-main',
-      lang === 'en' ? activeClasses : defaultClasses,
-    ]}>EN</a
-  >
-  <a
-    href={translatePath('es')}
-    class:list={[
-      mainClasses,
-      'pr-3 rounded-r-main',
-      lang === 'es' ? activeClasses : defaultClasses,
-    ]}>ES</a
-  >
+<div
+  class='flex gap-3 px-4 h-8 items-center bg-dark/5 dark:bg-white/5 hover:bg-dark/10 hover:dark:bg-white/10 rounded-main'
+>
+  <IoLanguage className='text-dark dark:text-white' />
+  <div class='flex gap-2'>
+    <a
+      href={translatePath('en')}
+      class:list={[mainClasses, lang === 'en' ? activeClasses : defaultClasses]}>EN</a
+    >
+    <a
+      href={translatePath('es')}
+      class:list={[mainClasses, lang === 'es' ? activeClasses : defaultClasses]}>ES</a
+    >
+  </div>
 </div>

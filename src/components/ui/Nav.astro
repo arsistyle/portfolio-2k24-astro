@@ -18,7 +18,7 @@ const isThisPage = (pageUrl = '', currentPath = '', lang = '') => {
 };
 ---
 
-<ul class='flex gap-5'>
+<ul class='flex flex-col lg:flex-row gap-5'>
   {
     NAV_ITEMS?.map(({ name, href = '' }: NavItem) => {
       const path = translatePath(href);
@@ -28,7 +28,7 @@ const isThisPage = (pageUrl = '', currentPath = '', lang = '') => {
         <li>
           <a
             href={path}
-            class={`text-xl font-bold text-dark dark:text-white font-Syne transition hover:opacity-80 ${
+            class={`block text-2xl text-center lg:text-xl font-bold text-dark dark:text-white font-Syne transition hover:opacity-80 ${
               isActive ? '' : 'opacity-60'
             }`}
           >

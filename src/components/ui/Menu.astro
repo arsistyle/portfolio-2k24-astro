@@ -1,0 +1,54 @@
+---
+import { LangSelector, SwitchScheme } from '../index.astro';
+import Nav from './Nav.astro';
+---
+
+<div
+  class='menu fixed p-4 flex items-center justify-center w-full left-0 right-0 top-20 lg:hidden z-50'
+  id='menu'
+>
+  <div class='container h-full'>
+    <div
+      class='flex justify-center items-center bg-white/80 dark:bg-dark/90 backdrop-blur-md w-full h-full rounded-3xl py-16 px-8'
+    >
+      <div class='flex flex-col gap-12'>
+        <Nav />
+        <div class='flex items-center gap-4 ml-auto'>
+          <LangSelector />
+          <SwitchScheme />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .menu {
+    @apply transition  opacity-0 -translate-y-9 pointer-events-none;
+  }
+
+  .menu.active {
+    @apply  opacity-100 translate-y-0 pointer-events-auto;
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const documentClasses = document.documentElement.classList;
+    const menu = document.querySelector('#menu');
+    const buttonsMenu = document.querySelectorAll('.button-menu');
+
+    menu?.classList.remove('active');
+
+    buttonsMenu.forEach((button) => {
+      button.classList.remove('active');
+      button.addEventListener('click', () => {
+        if (button.role === 'button') {
+          button.classList.toggle('active');
+        }
+
+        menu?.classList.toggle('active');
+      });
+    });
+  });
+</script>

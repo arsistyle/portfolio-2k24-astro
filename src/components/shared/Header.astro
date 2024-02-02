@@ -1,24 +1,26 @@
 ---
 import { getLangFromUrl, useTranslatedPath } from '../../i18n/utils';
 
-import { LangSelector, Logo, SwitchScheme } from '../../components/index.astro';
-import { Nav } from '../../components/ui/index.astro';
+import { ButtonMenu, LangSelector, Logo, SwitchScheme } from '../../components/index.astro';
+import { Nav, Menu } from '../../components/ui/index.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
 ---
 
-<header class='sticky top-0 left-0 right-0 z-50 px-4 pt-4'>
+<header class='sticky top-0 left-0 right-0 z-50 px-4 pt-4 h-16'>
   <div
     class='container flex items-center justify-between gap-4 p-3 px-8 m-auto transition rounded-main backdrop-blur-md bg-white/60 dark:bg-dark/60'
   >
     <a href={translatePath('/')} class='text-dark dark:text-white' title='Arsi Logo'>
       <Logo />
     </a>
-    <div class='flex items-center gap-8 ml-auto'>
+    <div class='items-center gap-4 ml-auto hidden lg:flex'>
       <Nav />
       <LangSelector />
-      <SwitchScheme transition:persist />
+      <SwitchScheme />
     </div>
+    <div class='lg:hidden'><ButtonMenu /></div>
   </div>
+  <Menu />
 </header>
