@@ -6,7 +6,7 @@ import { ProjectsList } from '../index.astro';
 
 const lang = getLangFromUrl(Astro.url) as Langs;
 
-const projects: ProjectWithLang[] = await Astro.glob('../../data/projects/*.json');
+const projects: ProjectWithLang[] = await Astro.glob('../../content/projects/*.json');
 const projectList = await filterProjects({ projects, lang });
 ---
 

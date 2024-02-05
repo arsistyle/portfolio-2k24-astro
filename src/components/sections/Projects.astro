@@ -9,7 +9,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 
-const projects: ProjectWithLang[] = await Astro.glob('../../data/projects/*.json');
+const projects: ProjectWithLang[] = await Astro.glob('../../content/projects/*.json');
 const projectList = await filterProjects({ projects, lang, limit: PROJECTS_LIMIT });
 ---
 

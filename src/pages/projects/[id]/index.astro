@@ -9,7 +9,7 @@ import Layout from '../../../layouts/Layout.astro';
 import ProjectDetail from '../../../components/sections/ProjectDetail.astro';
 
 export async function getStaticPaths() {
-  const projects: ProjectWithLang[] = await Astro.glob('../../../data/projects/*.json');
+  const projects: ProjectWithLang[] = await Astro.glob('../../../content/projects/*.json');
   const lang: Langs = 'en';
   const projectList = await filterProjects({ projects, lang });
 
