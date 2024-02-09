@@ -16,7 +16,7 @@ const Content = projectContent[lang] || null;
         src={image.large}
         alt={title}
         class='w-full h-full object-cover rounded-4xl'
-        transition:name='project-image'
+        transition:name={`project-image-${name}`}
         width={1920}
         height={1080}
       />

@@ -36,7 +36,7 @@ const { category, title, image, name } = project || {};
             src={image.medium}
             class='w-full h-full object-cover rounded-4xl'
             alt={title}
-            transition:name='project-image'
+            transition:name={`project-image-${name}`}
             width={768}
             height={576}
           />

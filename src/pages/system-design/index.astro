@@ -1,61 +1,68 @@
 ---
-import HeaderPage from '../../components/ui/HeaderPage.astro';
-import { Typography, Button } from '../../components/index.astro';
-import { getLangFromUrl, useTranslatedPath, useTranslations } from '../../i18n/utils';
-import Layout from '../../layouts/Layout.astro';
+import HeaderPage from "../../components/ui/HeaderPage.astro";
+import { Typography, Button } from "../../components/index.astro";
+import {
+  getLangFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from "../../i18n/utils";
+import SystemDesign from "../../layouts/SystemDesign.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 
-const title = 'System Desing';
+const title = "System Desing";
 
 const breadcrumbs = [
   {
-    name: t('nav.home'),
-    type: 'link',
-    url: translatePath('/'),
+    name: t("nav.home"),
+    type: "link",
+    url: translatePath("/"),
   },
   {
-    type: 'separator',
+    type: "separator",
   },
   {
     name: title,
-    type: 'current',
+    type: "current",
   },
 ];
 ---
 
-<Layout title={`Israel Larrondo | ${title}`}>
-  <div class='bg-white dark:bg-dark relative z-10'>
-    <HeaderPage title={title} {breadcrumbs} />
-    <div class='content container mx-auto py-16'>
-      <Typography type='h4' class='dark:text-white text-dark'>Button colors</Typography>
-      <div class='flex flex-wrap gap-4 p-8 bg-gray-500/10 mb-16'>
-        <Button>Im a Button</Button>
-        <Button color='primary'>Im a Button</Button>
-        <Button color='secondary'>Im a Button</Button>
-      </div>
-      <Typography type='h4' class='dark:text-white text-dark'>Button filled</Typography>
-      <div class='flex flex-wrap gap-4 p-8 bg-gray-500/10 mb-16'>
-        <Button variant='filled'>Im a Button</Button>
-        <Button color='primary' variant='filled'>Im a Button</Button>
-        <Button color='secondary' variant='filled'>Im a Button</Button>
-      </div>
-      <Typography type='h4' class='dark:text-white text-dark'>Button outlined</Typography>
-      <div class='flex flex-wrap gap-4 p-8 bg-gray-500/10 mb-16'>
-        <Button variant='outlined'>Im a Button</Button>
-        <Button color='primary' variant='outlined'>Im a Button</Button>
-        <Button color='secondary' variant='outlined'>Im a Button</Button>
-      </div>
-      <Typography type='h4' class='dark:text-white text-dark'>Button sizes</Typography>
-      <div class='flex flex-wrap items-center gap-4 p-8 bg-gray-500/10 mb-16'>
-        <Button color='primary' variant='filled' size='xs'>Im a Button</Button>
-        <Button color='primary' variant='filled' size='sm'>Im a Button</Button>
-        <Button color='primary' variant='filled' size='md'>Im a Button</Button>
-        <Button color='primary' variant='filled' size='lg'>Im a Button</Button>
-        <Button color='primary' variant='filled' size='xl'>Im a Button</Button>
-      </div>
-    </div>
+<SystemDesign title={title} {breadcrumbs}>
+  <Typography type="h4" class="dark:text-white text-dark">
+    Button colors
+  </Typography>
+  <div class="flex flex-wrap gap-4 p-8 bg-gray-500/10 mb-16">
+    <Button>Im a Button</Button>
+    <Button color="primary">Im a Button</Button>
+    <Button color="secondary">Im a Button</Button>
   </div>
-</Layout>
+  <Typography type="h4" class="dark:text-white text-dark">
+    Button filled
+  </Typography>
+  <div class="flex flex-wrap gap-4 p-8 bg-gray-500/10 mb-16">
+    <Button variant="filled">Im a Button</Button>
+    <Button color="primary" variant="filled">Im a Button</Button>
+    <Button color="secondary" variant="filled">Im a Button</Button>
+  </div>
+  <Typography type="h4" class="dark:text-white text-dark">
+    Button outlined
+  </Typography>
+  <div class="flex flex-wrap gap-4 p-8 bg-gray-500/10 mb-16">
+    <Button variant="outlined">Im a Button</Button>
+    <Button color="primary" variant="outlined">Im a Button</Button>
+    <Button color="secondary" variant="outlined">Im a Button</Button>
+  </div>
+  <Typography type="h4" class="dark:text-white text-dark">
+    Button sizes
+  </Typography>
+  <div class="flex flex-wrap items-center gap-4 p-8 bg-gray-500/10 mb-16">
+    <Button color="primary" variant="filled" size="xs">Im a Button</Button>
+    <Button color="primary" variant="filled" size="sm">Im a Button</Button>
+    <Button color="primary" variant="filled" size="md">Im a Button</Button>
+    <Button color="primary" variant="filled" size="lg">Im a Button</Button>
+    <Button color="primary" variant="filled" size="xl">Im a Button</Button>
+  </div>
+</SystemDesign>

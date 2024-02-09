@@ -1,0 +1,51 @@
+---
+import { getLangFromUrl } from "../i18n/utils";
+import "@fontsource-variable/syne";
+
+import "../css/styles.css";
+import Header from "../components/shared/Header.astro";
+import Footer from "../components/shared/Footer.astro";
+import { ViewTransitions } from "astro:transitions";
+import HeaderPage from "../components/ui/HeaderPage.astro";
+
+interface Props {
+  title: string;
+  breadcrumbs: any[];
+}
+
+const { props } = Astro;
+
+const { title, breadcrumbs } = props;
+const lang = getLangFromUrl(Astro.url);
+---
+
+<!doctype html>
+<html lang={lang} class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{`Israel Larrondo | ${title}`}</title>
+    <ViewTransitions />
+  </head>
+
+  <body class="bg-white dark:bg-dark">
+    <Header lang={false} />
+    <main class="bg-white dark:bg-dark relative z-10">
+      <div class="container mx-auto">
+        <HeaderPage title={title} {breadcrumbs} />
+        <div class="grid grid-cols-3 px-5 py-10">
+          <div class="col-span-1">
+            Nav Menú
+          </div>
+          <div class="col-span-2">
+            <slot />
+          </div>
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
