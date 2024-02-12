@@ -20,9 +20,12 @@
   @apply font-bold text-[clamp(1.3rem,2vw,1.688rem)];
 }
 
+.h6 {
+  @apply font-bold text-[clamp(1.2rem,1.7vw,1.5rem)];
+}
+
 .p.highlight {
   @apply text-[clamp(1.1rem,1.6vw,1.4rem)] leading-7;
-  /* @apply text-xl */
 }
 
 .h1,
@@ -30,6 +33,7 @@
 .h3,
 .h4,
 .h5,
+.h6,
 .p {
   @apply leading-[1em];
 }
@@ -38,6 +42,7 @@
 .content .h3,
 .content .h4,
 .content .h5,
+.content .h6,
 .content .p {
   @apply my-[.75em];
 }

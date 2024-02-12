@@ -1,26 +1,39 @@
 ---
-import { getLangFromUrl, useTranslatedPath } from '../../i18n/utils';
+import { getLangFromUrl, useTranslatedPath } from "../../i18n/utils";
 
-import { ButtonMenu, LangSelector, Logo, SwitchScheme } from '../../components/index.astro';
-import { Nav, Menu } from '../../components/ui/index.astro';
+import {
+  ButtonMenu,
+  LangSelector,
+  Logo,
+  SwitchScheme,
+} from "../../components/index.astro";
+import { Nav, Menu } from "../../components/ui/index.astro";
 
-const lang = getLangFromUrl(Astro.url);
+const { url, props } = Astro;
+
+const lang = getLangFromUrl(url);
 const translatePath = useTranslatedPath(lang);
+
+const { lang: langSelector = true } = props || {};
 ---
 
-<header class='sticky top-0 left-0 right-0 z-50 px-4 pt-4 h-16'>
+<header class="sticky top-0 left-0 right-0 z-50 px-4 pt-4 h-16">
   <div
-    class='container flex items-center justify-between gap-4 p-3 px-8 m-auto transition rounded-main backdrop-blur-md bg-white/60 dark:bg-dark/60'
+    class="container flex items-center justify-between gap-4 p-3 px-8 m-auto transition rounded-main backdrop-blur-md bg-white/60 dark:bg-dark/60"
   >
-    <a href={translatePath('/')} class='text-dark dark:text-white' title='Arsi Logo'>
+    <a
+      href={translatePath("/")}
+      class="text-dark dark:text-white"
+      title="Arsi Logo"
+    >
       <Logo />
     </a>
-    <div class='items-center gap-4 ml-auto hidden lg:flex'>
+    <div class="items-center gap-4 ml-auto hidden lg:flex">
       <Nav />
-      <LangSelector />
+      {langSelector && <LangSelector />}
       <SwitchScheme />
     </div>
-    <div class='lg:hidden'><ButtonMenu /></div>
+    <div class="lg:hidden"><ButtonMenu /></div>
   </div>
   <Menu />
 </header>

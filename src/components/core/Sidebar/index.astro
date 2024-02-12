@@ -1,0 +1,32 @@
+---
+import type { NavProps } from "../../../types";
+import { Typography } from "../index.astro";
+
+const { data } = Astro.props;
+const { items } = data as NavProps;
+---
+
+<aside>
+  {
+    items.map(({ label, items }) => (
+      <div class="relative">
+        <Typography type="h6" class="py-4 text-dark dark:text-white">
+          {label}
+        </Typography>
+        {items.map(({ label, path }) => (
+          <ul class="relative">
+            <li>
+              <Typography
+                type="a"
+                href={path}
+                class="flex py-2 text-dark/60 dark:text-white/60 hover:opacity-70 transition-opacity"
+              >
+                {label}
+              </Typography>
+            </li>
+          </ul>
+        ))}
+      </div>
+    ))
+  }
+</aside>
