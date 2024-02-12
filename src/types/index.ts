@@ -19,3 +19,31 @@ export type Project = {
 export type ProjectWithLang = {
   [key in Langs]: Project;
 };
+
+
+/*
+
+  PageLayout
+
+*/
+
+export type NavItemProps = {
+  label: string;
+  name: string;
+  path: string;
+};
+
+export type NavItemsProps = {
+  label: string;
+  items: NavItemProps[];
+};
+
+export type NavProps = {
+  items: NavItemsProps[];
+};
+
+export type PageLayoutProps = {
+  title: string;
+  breadcrumbs: any[];
+  nav?: NavProps;
+};

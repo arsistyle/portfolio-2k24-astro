@@ -1,18 +1,30 @@
 ---
-import HeaderPage from "../../components/ui/HeaderPage.astro";
-import { Typography, Button } from "../../components/index.astro";
+// Types
+import type { NavProps } from "../../types";
+
+// Data
+import menuComponents from "../../content/menu-components";
+
+
+// Utils
 import {
   getLangFromUrl,
   useTranslatedPath,
   useTranslations,
 } from "../../i18n/utils";
-import SystemDesign from "../../layouts/SystemDesign.astro";
 
-const lang = getLangFromUrl(Astro.url);
+// Components
+import { Typography, Button } from "../../components/index.astro";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+// Consts
+const { url } = Astro;
+
+const lang = getLangFromUrl(url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 
-const title = "System Desing";
+const title = "Components";
 
 const breadcrumbs = [
   {
@@ -28,9 +40,12 @@ const breadcrumbs = [
     type: "current",
   },
 ];
+
+const navData: NavProps = menuComponents
+
 ---
 
-<SystemDesign title={title} {breadcrumbs}>
+<PageLayout title={title} {breadcrumbs} nav={navData}>
   <Typography type="h4" class="dark:text-white text-dark">
     Button colors
   </Typography>
@@ -65,4 +80,4 @@ const breadcrumbs = [
     <Button color="primary" variant="filled" size="lg">Im a Button</Button>
     <Button color="primary" variant="filled" size="xl">Im a Button</Button>
   </div>
-</SystemDesign>
+</PageLayout>

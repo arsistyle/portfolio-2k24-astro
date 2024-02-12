@@ -1,26 +1,33 @@
 ---
-import './styles.css';
+import "./styles.css";
 
 interface TypographyProps {
   type?: keyof typeof TAGS;
-  class? : string
+  class?: string;
 }
 
-const { type = 'p', class: className = '' } = Astro.props as TypographyProps;
+const {
+  type = "p",
+  class: className = "",
+  ...props
+} = Astro.props as TypographyProps;
 
 const TAGS = {
-  h1: 'h1',
-  h2: 'h2',
-  h3: 'h3',
-  h4: 'h4',
-  h5: 'h5',
-  h6: 'h6',
-  p: 'p',
+  h1: "h1",
+  h2: "h2",
+  h3: "h3",
+  h4: "h4",
+  h5: "h5",
+  h6: "h6",
+  p: "p",
+  a: "a",
+  span: "span",
+  li: "li",
 } as const;
 
-const Tag = TAGS[type] || 'p';
+const Tag = TAGS[type] || "p";
 ---
 
-<Tag class={`${className} ${type || ''}`}>
+<Tag class={`${className} ${type || ""}`} {...props}>
   <slot />
 </Tag>
