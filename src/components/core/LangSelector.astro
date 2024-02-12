@@ -9,7 +9,7 @@ const lang = getLangFromUrl(url) as Langs;
 const pathname = url.pathname;
 const translatePath = (lang: Langs) => useTranslatedPath(lang)(cleanUrl(pathname));
 
-const mainClasses = 'text-xs transition rounded-full';
+const mainClasses = 'text-xs transition-colors rounded-full';
 const defaultClasses =
   'text-dark/60 dark:text-white/60 hover:text-dark/80 hover:dark:text-white/80';
 const activeClasses = 'pointer-events-none text-secondary-500 dark:text-primary-300';
@@ -17,7 +17,7 @@ const activeClasses = 'pointer-events-none text-secondary-500 dark:text-primary-
 ---
 
 <div
-  class='flex gap-3 px-4 h-8 items-center bg-dark/5 dark:bg-white/5 hover:bg-dark/10 hover:dark:bg-white/10 rounded-main'
+  class='flex gap-3 px-4 h-8 items-center bg-dark/5 dark:bg-white/5 hover:bg-dark/10 hover:dark:bg-white/10 rounded-main transition-colors'
 >
   <IoLanguage className='text-dark dark:text-white' />
   <div class='flex gap-2'>

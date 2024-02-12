@@ -22,16 +22,16 @@ const { category, title, image, name } = project || {};
     <div
       class='w-full flex flex-col gap-3 justify-end items-start relative z-20 inset-0 p-6 md:p-9'
     >
-      <Typography class='h5 transition text-white/70 group-hover:text-white'>
+      <Typography class='h5 transition-colors text-white/70 group-hover:text-white'>
         {category}
       </Typography>
-      <Typography type='h3' class='h4 transition text-white group-hover:text-primary-500 group-hover:dark:text-primary-300' transition:name="page-title">
+      <Typography type='h3' class='h4 transition-colors text-white group-hover:text-primary-500 group-hover:dark:text-primary-300' transition:name="page-title">
         {title}
       </Typography>
     </div>
     {
       image && (
-        <div class='absolute inset-0 transition overflow-clip group-hover:scale-105 rounded-4xl'>
+        <div class='mask-linear absolute inset-0 transition-transform overflow-clip group-hover:scale-105 rounded-4xl'>
           <Image
             src={image.medium}
             class='w-full h-full object-cover rounded-4xl'
@@ -40,9 +40,16 @@ const { category, title, image, name } = project || {};
             width={768}
             height={576}
           />
-          <div class='transition absolute inset-0 bg-gradient-to-t from-dark to-dark/0 z-10 rounded-4xl translate-y-1/4 group-hover:translate-y-0' />
+          <div class='transition-transform absolute inset-0 bg-gradient-to-t from-dark to-dark/0 z-10 rounded-4xl translate-y-1/4 group-hover:translate-y-0 hidden' />
         </div>
       )
     }
   </a>
 </article>
+
+
+<style>
+  .card__image {
+    mask-image: linear-gradient(to bottom,rgba(0,0,0,1) 40%, transparent 90%)
+  }
+</style>
