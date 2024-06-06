@@ -46,4 +46,5 @@ export type PageLayoutProps = {
   title: string;
   breadcrumbs: any[];
   nav?: NavProps;
+  name?: string 
 };

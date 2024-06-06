@@ -16,7 +16,7 @@ type Props = PageLayoutProps;
 
 const { props } = Astro;
 
-const { title, breadcrumbs, nav } = props;
+const { title, breadcrumbs, nav, name } = props;
 const lang = getLangFromUrl(Astro.url);
 
 const hasNav = nav && Object.keys(nav)?.length;
@@ -38,7 +38,7 @@ const hasNav = nav && Object.keys(nav)?.length;
     <Header lang={false} />
     <main class="bg-white dark:bg-dark relative z-10">
       <div class="container mx-auto">
-        <HeaderPage title={title} {breadcrumbs} />
+        <HeaderPage title={title} {breadcrumbs} name={name} />
         <div class="grid grid-cols-8 px-5 py-10 gap-12 md:gap-4">
           {
             hasNav && (

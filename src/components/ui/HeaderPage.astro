@@ -1,15 +1,24 @@
 ---
-import { Typography } from '../index.astro';
-import Breadcrumbs from './Breadcrumbs.astro';
+import { Typography } from "../index.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
 
-const { title = '', breadcrumbs = [], class: className } = Astro.props;
+const {
+  title = "",
+  breadcrumbs = [],
+  class: className,
+  name = "",
+} = Astro.props;
 ---
 
 <div class=`flex items-center justify-center px-5 pt-12 ${className}`>
   <div class="container">
-    <div class='flex flex-col gap-6'>
+    <div class="flex flex-col gap-6">
       <Breadcrumbs {breadcrumbs} />
-      <Typography type='h1' class='dark:text-white text-balance'  transition:name="page-title">{title}</Typography>
+      <Typography
+        type="h1"
+        class="dark:text-white text-balance"
+        transition:name={`page-title-${name}`}>{title}</Typography
+      >
     </div>
   </div>
 </div>
