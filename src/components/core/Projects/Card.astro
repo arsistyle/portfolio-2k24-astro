@@ -13,31 +13,19 @@ const { category, title, image, name } = project || {};
 ---
 
 <article class="group relative">
-  <a href={`${translatePath(`/projects`)}/${name}`} class="flex aspect-[4/3]">
+  <a
+    href={`${translatePath(`/projects`)}/${name}`}
+    class="flex flex-col aspect-[4/3]"
+  >
     <div
       class="transition absolute z-10 w-12 h-12 p-2 rounded-full bg-white group-hover:bg-primary-500 group-hover:dark:bg-primary-300 flex items-center justify-center right-5 top-5 text-dark -rotate-45 group-hover:rotate-0 group-hover:scale-125 group-hover:-translate-y-2 group-hover:translate-x-2"
     >
       <GoArrowRight className="w-full h-full " />
     </div>
-    <div
-      class="w-full flex flex-col gap-3 justify-end items-start relative z-20 inset-0 p-6 md:p-9"
-    >
-      <Typography
-        class="h5 transition-colors text-white/70 group-hover:text-white"
-      >
-        {category}
-      </Typography>
-      <Typography
-        type="h3"
-        class="h4 transition-colors text-white group-hover:text-primary-500 group-hover:dark:text-primary-300"
-        transition:name={`project-title-${name}`}
-      >
-        {title}
-      </Typography>
-    </div>
+
     {
       image && (
-        <div class="mask-linear absolute inset-0 transition-transform overflow-clip group-hover:scale-105 rounded-4xl">
+        <div class="mask-linear relative inset-0 transition-transform overflow-clip group-hover:scale-105 rounded-4xl">
           <Image
             src={image.medium}
             class="w-full h-full object-cover rounded-4xl"
@@ -50,6 +38,22 @@ const { category, title, image, name } = project || {};
         </div>
       )
     }
+    <div
+      class="w-full flex flex-col gap-3 justify-end items-start relative z-20 inset-0 py-6 md:py-8"
+    >
+      <Typography
+        class="h5 transition-colors text-dark/60 group-hover:text-dark/70 dark:text-white/70 dark:group-hover:text-white"
+      >
+        {category}
+      </Typography>
+      <Typography
+        type="h3"
+        class="h4 transition-colors text-dark group-hover:text-primary-500 dark:text-white dark:group-hover:text-primary-300"
+        transition:name={`project-title-${name}`}
+      >
+        {title}
+      </Typography>
+    </div>
   </a>
 </article>
 
