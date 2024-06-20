@@ -11,26 +11,26 @@
     "lint": "npx oxlint@latest"
   },
   "dependencies": {
-    "@astrojs/check": "^0.5.1",
-    "@astrojs/react": "^3.0.10",
+    "@astrojs/check": "^0.7.0",
+    "@astrojs/react": "^3.4.0",
     "@astrojs/tailwind": "^5.1.0",
-    "@fontsource-variable/syne": "^5.0.18",
+    "@fontsource-variable/syne": "^5.0.20",
     "@pyncz/tailwind-mask-image": "^2.0.0",
     "@types/js-cookie": "^3.0.6",
-    "@types/react": "^18.2.55",
-    "@types/react-dom": "^18.2.19",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@types/smooth-scroll": "^16.1.4",
-    "astro": "^4.3.5",
+    "astro": "^4.9.3",
     "js-cookie": "^3.0.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-final-marquee": "^1.0.3",
-    "react-icons": "^5.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-final-marquee": "^1.0.4",
+    "react-icons": "^5.2.1",
     "smooth-scroll": "^16.1.3",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.3.3"
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.4.5"
   },
   "devDependencies": {
-    "postcss-nesting": "^12.0.2"
+    "postcss-nesting": "^12.1.5"
   }
 }

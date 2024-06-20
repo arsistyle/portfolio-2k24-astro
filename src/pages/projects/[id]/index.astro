@@ -25,7 +25,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 const { post } = Astro.props;
-const { title } = post;
+const { title, name } = post;
 
 const breadcrumbs = [
   {
@@ -53,7 +53,7 @@ const breadcrumbs = [
 
 <Layout title={`Israel Larrondo | ${title}`}>
   <div class='bg-white dark:bg-dark relative z-10'>
-    <HeaderPage title={title} {breadcrumbs} />
+    <HeaderPage title={title} {breadcrumbs} name={name} />
     <ProjectDetail project={post} />
   </div>
 </Layout>
