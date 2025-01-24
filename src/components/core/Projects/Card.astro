@@ -9,7 +9,7 @@ const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
 
 const { project } = Astro.props;
-const { category, title, image, name } = project || {};
+const { category, title, images, name } = project || {};
 ---
 
 <article class="group relative">
@@ -24,17 +24,16 @@ const { category, title, image, name } = project || {};
     </div>
 
     {
-      image && (
-        <div class="mask-linear relative inset-0 transition-transform overflow-clip group-hover:scale-105 rounded-4xl">
+      images && (
+        <div class="relative inset-0 transition-transform overflow-clip group-hover:scale-105 rounded-4xl">
           <Image
-            src={image.medium}
+            src={images.medium}
             class="w-full h-full object-cover rounded-4xl"
             alt={title}
             transition:name={`project-image-${name}`}
             width={768}
             height={576}
           />
-          <div class="transition-transform absolute inset-0 bg-gradient-to-t from-dark to-dark/0 z-10 rounded-4xl translate-y-1/4 group-hover:translate-y-0 hidden" />
         </div>
       )
     }
@@ -42,7 +41,7 @@ const { category, title, image, name } = project || {};
       class="w-full flex flex-col gap-3 justify-end items-start relative z-20 inset-0 py-6 md:py-8"
     >
       <Typography
-        class="h5 transition-colors text-dark/60 group-hover:text-dark/70 dark:text-white/70 dark:group-hover:text-white"
+        class="h6 transition-colors text-dark/60 group-hover:text-dark/70 dark:text-white/70 dark:group-hover:text-white"
       >
         {category}
       </Typography>
@@ -56,13 +55,3 @@ const { category, title, image, name } = project || {};
     </div>
   </a>
 </article>
-
-<style>
-  .card__image {
-    mask-image: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 1) 40%,
-      transparent 90%
-    );
-  }
-</style>

@@ -5,11 +5,11 @@ export const filterProjects = async ({
   lang,
   limit = null,
 }: {
-  projects: ProjectWithLang[];
+  projects: any;
   lang: Langs;
   limit?: number | null;
 }) => {
-  const projectsByLang = projects.map((project) => project[lang]) || [];
+  const projectsByLang = projects.map((project: any) => project[lang]) || [];
   const projectList = limit ? projectsByLang.slice(0, limit) : projectsByLang;
   return projectList;
 };
