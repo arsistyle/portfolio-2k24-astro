@@ -1,6 +1,6 @@
 ---
 import { getLangFromUrl, useTranslatedPath, useTranslations } from '../../i18n/utils';
-import type { ProjectWithLang } from '../../types';
+import type { Project, ProjectWithLang } from '../../types';
 import { filterProjects } from '../../utils';
 import { ProjectsList, Typography } from '../index.astro';
 
@@ -9,8 +9,29 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 
-const projects: ProjectWithLang[] = await Astro.glob('../../content/projects/*.json');
-const projectList = await filterProjects({ projects, lang, limit: PROJECTS_LIMIT });
+// const projects: ProjectWithLang[] = await Astro.glob('../../content/projects/*.mdx');
+// const projectList = await filterProjects({ projects, lang, limit: PROJECTS_LIMIT });
+
+const projects = await Astro.glob("../../content/projects/**/*.mdx");
+const projectList: Project[] = projects
+  .filter((p) => p.frontmatter.lang === lang)
+  .map(
+    ({
+      frontmatter: { lang, name, title, category, images, description },
+      Content,
+    }) => ({
+      lang,
+      name,
+      title,
+      category,
+      images,
+      description,
+      Content,
+    })
+  );
+
+
+
 ---
 
 <section

@@ -1,17 +1,35 @@
 ---
-import type { Langs, ProjectWithLang } from '../../../types';
+import type { Langs, Project } from "../../../types";
 
-import { getLangFromUrl, useTranslatedPath, useTranslations } from '../../../i18n/utils';
-import { filterProjects } from '../../../utils';
+import {
+  getLangFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from "../../../i18n/utils";
 
-import { HeaderPage } from '../../../components/ui/index.astro';
-import Layout from '../../../layouts/Layout.astro';
-import ProjectDetail from '../../../components/sections/ProjectDetail.astro';
+import { HeaderPage } from "../../../components/ui/index.astro";
+import Layout from "../../../layouts/Layout.astro";
+import ProjectDetail from "../../../components/sections/ProjectDetail.astro";
 
 export async function getStaticPaths() {
-  const projects: ProjectWithLang[] = await Astro.glob('../../../content/projects/*.json');
-  const lang: Langs = 'en';
-  const projectList = await filterProjects({ projects, lang });
+  const projects = await Astro.glob("../../../content/projects/**/*.mdx");
+  const lang: Langs = "en";
+  const projectList: Project[] = projects
+    .filter((p) => p.frontmatter.lang === lang)
+    .map(
+      ({
+        frontmatter: { lang, name, title, category, images, description },
+        Content,
+      }) => ({
+        lang,
+        name,
+        title,
+        category,
+        images,
+        description,
+        Content,
+      })
+    );
 
   return projectList.map((post) => {
     return {
@@ -29,30 +47,30 @@ const { title, name } = post;
 
 const breadcrumbs = [
   {
-    name: t('nav.home'),
-    type: 'link',
-    url: translatePath('/'),
+    name: t("nav.home"),
+    type: "link",
+    url: translatePath("/"),
   },
   {
-    type: 'separator',
+    type: "separator",
   },
   {
-    name: t('nav.projects'),
-    type: 'link',
-    url: translatePath('/projects'),
+    name: t("nav.projects"),
+    type: "link",
+    url: translatePath("/projects"),
   },
   {
-    type: 'separator',
+    type: "separator",
   },
   {
     name: title,
-    type: 'current',
+    type: "current",
   },
 ];
 ---
 
 <Layout title={`Israel Larrondo | ${title}`}>
-  <div class='bg-white dark:bg-dark relative z-10'>
+  <div class="bg-white dark:bg-dark relative z-10">
     <HeaderPage title={title} {breadcrumbs} name={name} />
     <ProjectDetail project={post} />
   </div>

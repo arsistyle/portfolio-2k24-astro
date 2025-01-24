@@ -1,6 +1,6 @@
-export type Langs = 'en' | 'es';
+export type Langs = "en" | "es";
 
-export type BreadcrumbTypes = 'link' | 'separator' | 'current';
+export type BreadcrumbTypes = "link" | "separator" | "current";
 export type BreadcrumbsItem = {
   name?: string;
   type: BreadcrumbTypes;
@@ -9,17 +9,21 @@ export type BreadcrumbsItem = {
 
 export type Project = {
   name: string;
-  title: string
+  lang: Langs;
+  title: string;
   description: string;
-  image: string;
-  url: string;
+  images: {
+    small: string;
+    medium: string;
+    large: string;
+  };
   category: string;
+  content?: any
 };
 
 export type ProjectWithLang = {
   [key in Langs]: Project;
 };
-
 
 /*
 
@@ -46,5 +50,5 @@ export type PageLayoutProps = {
   title: string;
   breadcrumbs: any[];
   nav?: NavProps;
-  name?: string 
+  name?: string;
 };

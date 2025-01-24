@@ -3,17 +3,17 @@ import { Image } from 'astro:assets';
 import { PROJECTS_CONTENT } from '../../content/projects/content/index.astro';
 
 const { project, lang = 'en' } = Astro.props;
-const { image, title, name } = project || {};
+const { images, title, name, Content } = project || {};
 
-const projectContent = PROJECTS_CONTENT[name] || {};
-const Content = projectContent[lang] || null;
+// const projectContent = PROJECTS_CONTENT[name] || {};
+// const Content = projectContent[lang] || null;
 ---
 
 <section class='flex items-center justify-center px-5 py-14 md:pb-40'>
   <div class='container'>
     <div class='relative mb-16'>
       <Image
-        src={image.large}
+        src={images.large}
         alt={title}
         class='w-full h-full object-cover rounded-4xl'
         transition:name={`project-image-${name}`}
