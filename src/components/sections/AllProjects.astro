@@ -1,7 +1,6 @@
 ---
 import { getLangFromUrl } from "../../i18n/utils";
 import type { Langs, Project } from "../../types";
-import { filterProjects } from "../../utils";
 import { ProjectsList } from "../index.astro";
 
 const lang = getLangFromUrl(Astro.url) as Langs;
@@ -23,13 +22,6 @@ const projectList: Project[] = projects
       Content,
     })
   );
-
-console.log("projectList", projectList);
-
-// console.log('projects', projects.map((p) => ({
-//   ...p.frontmatter,
-//   Content: p.Content
-// })));
 ---
 
 <section class="flex items-center justify-center px-5 py-14 md:pb-40">
