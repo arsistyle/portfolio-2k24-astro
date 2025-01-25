@@ -15,6 +15,10 @@
 
   "shop.title": "Shop",
 
+  "404.title": "404",
+  "404.description": "The page you are looking for does not exist.",
+  "404.cta": "Go back home",
+
   "footer.title": "Let me demonstrate my experience",
   "footer.description": "My portfolio speaks for itself, but I'm eager to show you how I can apply my skills to your next project.",
   "footer.cta": "Let's talk about work",
