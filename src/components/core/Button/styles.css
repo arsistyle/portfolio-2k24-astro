@@ -1,7 +1,7 @@
 /* Default */
 
 .btn {
-  @apply transition inline-flex items-center justify-center dark:text-white text-dark rounded-md hover:scale-105 font-semibold border-transparent border max-w-full text-ellipsis overflow-clip whitespace-nowrap select-none;
+  @apply transition inline-flex items-center justify-center gap-4 dark:text-white text-dark rounded-md hover:scale-105 font-semibold border-transparent border max-w-full text-ellipsis overflow-clip whitespace-nowrap select-none;
 }
 
 /* Sizes */

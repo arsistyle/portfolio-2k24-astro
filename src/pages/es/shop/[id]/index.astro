@@ -9,6 +9,7 @@ import {
 
 import { HeaderPage } from "../../../../components/ui/index.astro";
 import Layout from "../../../../layouts/Layout.astro";
+import ProductDetail from "../../../../components/sections/ProductDetail.astro";
 
 export async function getStaticPaths() {
   const lang: Langs = "es";
@@ -86,7 +87,7 @@ const breadcrumbs = [
 
 <Layout title={`Israel Larrondo | ${title}`}>
   <div class="bg-white dark:bg-dark relative z-10">
-    <HeaderPage title={title} {breadcrumbs} name={name} />
-    
+    <HeaderPage {breadcrumbs} name={name} />
+    <ProductDetail product={post} />
   </div>
 </Layout>

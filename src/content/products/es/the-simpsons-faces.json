@@ -7,18 +7,33 @@
   "category": "Vector",
   "thumbnail": "https://placehold.co/600x600",
   "gallery": [
-    "https://placehold.co/600x600",
-    "https://placehold.co/600x600",
-    "https://placehold.co/600x600"
+    {
+      "src": "https://placehold.co/600x600",
+      "alt": "Imagen 1",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "src": "https://placehold.co/600x600",
+      "alt": "Imagen 2",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "src": "https://placehold.co/600x600",
+      "alt": "Imagen 3",
+      "width": 600,
+      "height": 600
+    }
   ],
   "paymentMethods": [
     {
-      "name": "PayPal purchase",
+      "name": "Pagar con PayPal",
       "url": "https://example.com/buy-now",
       "paymentName": "paypal"
     },
     {
-      "name": "Gumroad purchase",
+      "name": "Comprar en Gumroad",
       "url": "https://example.com/buy-now",
       "paymentName": "gumroad"
     }

@@ -13,7 +13,7 @@ const { products } = Astro.props;
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-20">
   {
-    products.map(({ name, title, thumbnail, price, category }: Product) => (
+    products.map(({ name, title, thumbnail, category }: Product) => (
       <article class="group relative">
         <a
           href={translatePath(`/shop/${name}`)}
@@ -28,7 +28,7 @@ const { products } = Astro.props;
                 src={thumbnail}
                 class="w-full h-full object-cover rounded-4xl"
                 alt={title}
-                transition:name={`project-image-${name}`}
+                transition:name={`product-image-${name}`}
                 width={768}
                 height={576}
               />
@@ -41,7 +41,7 @@ const { products } = Astro.props;
             <Typography
               type="h3"
               class="h4 transition-colors text-dark group-hover:text-primary-500 dark:text-white dark:group-hover:text-primary-300"
-              transition:name={`project-title-${name}`}
+              transition:name={`product-title-${name}`}
             >
               {title}
             </Typography>

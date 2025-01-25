@@ -1,3 +1,5 @@
+import type { ButtonProps } from "../components/core/Button/index.astro";
+
 export type Langs = "en" | "es";
 
 export type BreadcrumbTypes = "link" | "separator" | "current";
@@ -40,18 +42,33 @@ export type ProjectWithLang = {
 export type Product = {
   category: string;
   description: string;
-  gallery: string[];
+  gallery: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  }[];
   lang: Langs;
   name: string;
   paymentMethods: {
     name: string;
     url: string;
     paymentName: string;
-  };
+  }[];
   price: number;
   thumbnail: string;
   title: string;
 };
+
+
+
+export type ProductPaymentButtons = {
+  [key: string]: {
+    className: string;
+    color: ButtonProps["color"];
+    icon: any;
+  };
+}
 
 /*
 
