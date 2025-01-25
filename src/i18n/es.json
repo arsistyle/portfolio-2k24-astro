@@ -14,6 +14,10 @@
 
   "shop.title": "Tienda",
 
+  "404.title": "404",
+  "404.description": "La página que busca no existe.",
+  "404.cta": "Ir al inicio",
+
   "footer.title": "Déjame demostrarte mi experiencia",
   "footer.description": "Mi portafolio habla por sí solo, pero estoy ansioso por mostrarte cómo puedo aplicar mis habilidades en tu próximo proyecto.",
   "footer.cta": "Hablemos de trabajo",

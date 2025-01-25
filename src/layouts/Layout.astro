@@ -1,37 +1,39 @@
 ---
-import { getLangFromUrl } from '../i18n/utils';
-import '@fontsource-variable/syne';
+import { getLangFromUrl } from "../i18n/utils";
+import "@fontsource-variable/syne";
 
-import '../css/styles.css';
-import Header from '../components/shared/Header.astro';
-import Footer from '../components/shared/Footer.astro';
-import { ViewTransitions } from 'astro:transitions';
+import "../css/styles.css";
+import Header from "../components/shared/Header.astro";
+import Footer from "../components/shared/Footer.astro";
+import { ViewTransitions } from "astro:transitions";
 
 interface Props {
   title: string;
+  showHeader?: boolean;
+  showFooter?: boolean;
 }
 
 const { props } = Astro;
 
-const { title } = props;
+const { title, showHeader = true, showFooter = true } = props;
 const lang = getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
-<html lang={lang} class='dark'>
+<html lang={lang} class="dark">
   <head>
-    <meta charset='UTF-8' />
-    <meta name='description' content='Astro description' />
-    <meta name='viewport' content='width=device-width' />
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-    <meta name='generator' content={Astro.generator} />
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ViewTransitions />
   </head>
 
-  <body class='bg-white dark:bg-dark flex flex-col min-h-screen'>
-    <Header />
+  <body class="bg-white dark:bg-dark flex flex-col min-h-screen">
+    {showHeader && <Header />}
     <slot />
-    <Footer />
+    {showFooter && <Footer />}
   </body>
 </html>
