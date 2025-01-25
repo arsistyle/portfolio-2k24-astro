@@ -1,6 +1,7 @@
 {
   "nav.home": "Home",
   "nav.projects": "Projects",
+  "nav.shop": "Shop",
 
   "home.hero.greeting": "👋 Hi, im",
   "home.hero.name": "Israel",
@@ -12,6 +13,7 @@
 
   "projects.title": "Projects",
 
+  "shop.title": "Shop",
 
   "footer.title": "Let me demonstrate my experience",
   "footer.description": "My portfolio speaks for itself, but I'm eager to show you how I can apply my skills to your next project.",

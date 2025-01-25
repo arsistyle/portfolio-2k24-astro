@@ -7,6 +7,12 @@ export type BreadcrumbsItem = {
   url?: string;
 };
 
+/*
+
+  Project
+
+*/
+
 export type Project = {
   name: string;
   lang: Langs;
@@ -18,11 +24,33 @@ export type Project = {
     large: string;
   };
   category: string;
-  content?: any
+  content?: any;
 };
 
 export type ProjectWithLang = {
   [key in Langs]: Project;
+};
+
+/*
+
+  Product
+
+*/
+
+export type Product = {
+  category: string;
+  description: string;
+  gallery: string[];
+  lang: Langs;
+  name: string;
+  paymentMethods: {
+    name: string;
+    url: string;
+    paymentName: string;
+  };
+  price: number;
+  thumbnail: string;
+  title: string;
 };
 
 /*

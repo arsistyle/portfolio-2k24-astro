@@ -1,6 +1,7 @@
 {
   "nav.home": "Inicio",
   "nav.projects": "Proyectos",
+  "nav.shop": "Tienda",
 
   "home.hero.greeting": "👋 Hola, soy",
   "home.hero.name": "Israel",
@@ -10,6 +11,8 @@
   "home.projects.title": "Trabajos recientes",
 
   "projects.title": "Proyectos",
+
+  "shop.title": "Tienda",
 
   "footer.title": "Déjame demostrarte mi experiencia",
   "footer.description": "Mi portafolio habla por sí solo, pero estoy ansioso por mostrarte cómo puedo aplicar mis habilidades en tu próximo proyecto.",

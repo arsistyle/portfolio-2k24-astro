@@ -1,0 +1,26 @@
+{
+  "lang": "es",
+  "title": "Caras de los Simpsons",
+  "name": "the-simpsons-faces",
+  "description": "Una colección de las caras de los Simpson en Vector.",
+  "price": 19.99,
+  "category": "Vector",
+  "thumbnail": "https://placehold.co/600x600",
+  "gallery": [
+    "https://placehold.co/600x600",
+    "https://placehold.co/600x600",
+    "https://placehold.co/600x600"
+  ],
+  "paymentMethods": [
+    {
+      "name": "PayPal purchase",
+      "url": "https://example.com/buy-now",
+      "paymentName": "paypal"
+    },
+    {
+      "name": "Gumroad purchase",
+      "url": "https://example.com/buy-now",
+      "paymentName": "gumroad"
+    }
+  ]
+}
