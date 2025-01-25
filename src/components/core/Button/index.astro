@@ -12,6 +12,8 @@ interface Props {
   type?: 'button' | 'submit' | 'reset' | undefined | null;
 }
 
+export type ButtonProps = Props;
+
 const {
   tag = 'button',
   variant,
@@ -38,5 +40,7 @@ const Tag = tag;
   disabled={disabled}
   href={!disabled ? href: undefined}
 >
+  <slot name='startIcon' />
   <slot />
+  <slot name='endIcon' />
 </Tag>
