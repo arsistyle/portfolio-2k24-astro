@@ -38,7 +38,7 @@ const paymentButtons: ProductPaymentButtons = {
         <Image
           src={thumbnail}
           alt={title}
-          class="w-full h-full object-cover rounded-4xl"
+          class="w-full h-full object-cover rounded-4xl pointer-events-none"
           transition:name={`product-image-${name}`}
           width={1920}
           height={1080}
@@ -71,6 +71,7 @@ const paymentButtons: ProductPaymentButtons = {
                   const Icon = paymentButtons[paymentName]?.icon;
                   return (
                     <Button
+                      tag="a"
                       href={url}
                       size="lg"
                       class={`button ${paymentButtons[paymentName]?.className}`}
