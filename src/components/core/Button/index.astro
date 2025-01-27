@@ -25,6 +25,8 @@ const {
   class: className,
   href,
   type,
+  target,
+  rel,
 } = Astro.props;
 const Tag = tag;
 ---
@@ -41,6 +43,8 @@ const Tag = tag;
   type={type}
   disabled={disabled}
   href={!disabled ? href: undefined}
+  target={target}
+  rel={rel}
 >
   <slot name='startIcon' />
   <slot />
