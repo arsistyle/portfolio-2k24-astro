@@ -26,7 +26,7 @@ const { products } = Astro.props;
             <div class="relative inset-0 transition-transform overflow-clip group-hover:scale-105 rounded-4xl">
               <Image
                 src={thumbnail}
-                class="w-full h-full object-cover rounded-4xl"
+                class="w-full h-full object-cover rounded-4xl pointer-events-none"
                 alt={title}
                 transition:name={`product-image-${name}`}
                 width={768}
