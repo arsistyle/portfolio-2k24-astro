@@ -1,58 +1,58 @@
 ---
-import type { PageLayoutProps } from "../types";
+import type { PageLayoutProps } from "../types"
 
-import { ViewTransitions } from "astro:transitions";
-import "@fontsource-variable/syne";
+import { ViewTransitions } from "astro:transitions"
+import "@fontsource-variable/syne"
 
-import { getLangFromUrl } from "../i18n/utils";
+import { getLangFromUrl } from "../i18n/utils"
 
-import { Header, Footer } from "../components/shared/index.astro";
-import HeaderPage from "../components/ui/HeaderPage.astro";
-import { Sidebar } from "../components/index.astro";
+import { Header, Footer } from "../components/shared/index.astro"
+import HeaderPage from "../components/ui/HeaderPage.astro"
+import { Sidebar } from "../components/index.astro"
 
-import "../css/styles.css";
+import "../css/styles.css"
 
-type Props = PageLayoutProps;
+type Props = PageLayoutProps
 
-const { props } = Astro;
+const { props } = Astro
 
-const { title, breadcrumbs, nav, name } = props;
-const lang = getLangFromUrl(Astro.url);
+const { title, breadcrumbs, nav, name } = props
+const lang = getLangFromUrl(Astro.url)
 
-const hasNav = nav && Object.keys(nav)?.length;
+const hasNav = nav && Object.keys(nav)?.length
 ---
 
 <!doctype html>
 <html lang={lang} class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{`Israel Larrondo | ${title}`}</title>
-    <ViewTransitions />
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{`Israel Larrondo | ${title}`}</title>
+		<ViewTransitions />
+	</head>
 
-  <body class="bg-white dark:bg-dark">
-    <Header lang={false} />
-    <main class="bg-white dark:bg-dark relative z-10">
-      <div class="container mx-auto">
-        <HeaderPage title={title} {breadcrumbs} name={name} />
-        <div class="grid grid-cols-8 px-5 py-10 gap-12 md:gap-4">
-          {
-            hasNav && (
-              <div class="col-span-8 md:col-span-2">
-                <Sidebar data={nav} />
-              </div>
-            )
-          }
-          <div class={nav ? "col-span-8 md:col-span-6" : "col-span-8"}>
-            <slot />
-          </div>
-        </div>
-      </div>
-    </main>
-    <Footer />
-  </body>
+	<body class="bg-white dark:bg-dark">
+		<Header lang={false} />
+		<main class="relative z-10 bg-white dark:bg-dark">
+			<div class="container mx-auto">
+				<HeaderPage title={title} {breadcrumbs} name={name} />
+				<div class="grid grid-cols-8 gap-12 px-5 py-10 md:gap-4">
+					{
+						hasNav && (
+							<div class="col-span-8 md:col-span-2">
+								<Sidebar data={nav} />
+							</div>
+						)
+					}
+					<div class={nav ? "col-span-8 md:col-span-6" : "col-span-8"}>
+						<slot />
+					</div>
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
 </html>

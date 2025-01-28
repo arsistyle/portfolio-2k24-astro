@@ -1,57 +1,54 @@
 ---
-import { Image } from "astro:assets";
-import { GoArrowRight } from "react-icons/go";
+import { Image } from "astro:assets"
+import { GoArrowRight } from "react-icons/go"
 
-import { Typography } from "../index.astro";
-import { getLangFromUrl, useTranslatedPath } from "../../../i18n/utils";
+import { Typography } from "@/components/index.astro"
+import { getLangFromUrl, useTranslatedPath } from "@/i18n/utils"
 
-const lang = getLangFromUrl(Astro.url);
-const translatePath = useTranslatedPath(lang);
+const lang = getLangFromUrl(Astro.url)
+const translatePath = useTranslatedPath(lang)
 
-const { project } = Astro.props;
-const { category, title, images, name } = project || {};
+const { project } = Astro.props
+const { category, title, images, name } = project || {}
 ---
 
 <article class="group relative">
-  <a
-    href={`${translatePath(`/projects`)}/${name}`}
-    class="flex flex-col aspect-[4/3]"
-  >
-    <div
-      class="transition absolute z-10 w-12 h-12 p-2 rounded-full bg-white group-hover:bg-primary-500 group-hover:dark:bg-primary-300 flex items-center justify-center right-5 top-5 text-dark -rotate-45 group-hover:rotate-0 group-hover:scale-125 group-hover:-translate-y-2 group-hover:translate-x-2"
-    >
-      <GoArrowRight className="w-full h-full " />
-    </div>
+	<a href={`${translatePath(`/projects`)}/${name}`} class="flex aspect-[4/3] flex-col">
+		<div
+			class="absolute right-5 top-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 text-dark transition group-hover:-translate-y-2 group-hover:translate-x-2 group-hover:rotate-0 group-hover:scale-125 group-hover:bg-primary-500 group-hover:dark:bg-primary-300"
+		>
+			<GoArrowRight className="h-full w-full" />
+		</div>
 
-    {
-      images && (
-        <div class="relative inset-0 transition-transform overflow-clip group-hover:scale-105 rounded-4xl">
-          <Image
-            src={images.medium}
-            class="w-full h-full object-cover rounded-4xl"
-            alt={title}
-            transition:name={`project-image-${name}`}
-            width={768}
-            height={576}
-          />
-        </div>
-      )
-    }
-    <div
-      class="w-full flex flex-col gap-3 justify-end items-start relative z-20 inset-0 py-6 md:py-8"
-    >
-      <Typography
-        class="h6 transition-colors text-dark/60 group-hover:text-dark/70 dark:text-white/70 dark:group-hover:text-white"
-      >
-        {category}
-      </Typography>
-      <Typography
-        type="h3"
-        class="h4 transition-colors text-dark group-hover:text-primary-500 dark:text-white dark:group-hover:text-primary-300"
-        transition:name={`project-title-${name}`}
-      >
-        {title}
-      </Typography>
-    </div>
-  </a>
+		{
+			images && (
+				<div class="relative inset-0 overflow-clip rounded-4xl transition-transform group-hover:scale-105">
+					<Image
+						src={images.medium}
+						class="h-full w-full rounded-4xl object-cover"
+						alt={title}
+						transition:name={`project-image-${name}`}
+						width={768}
+						height={576}
+					/>
+				</div>
+			)
+		}
+		<div
+			class="relative inset-0 z-20 flex w-full flex-col items-start justify-end gap-3 py-6 md:py-8"
+		>
+			<Typography
+				class="h6 text-dark/60 transition-colors group-hover:text-dark/70 dark:text-white/70 dark:group-hover:text-white"
+			>
+				{category}
+			</Typography>
+			<Typography
+				type="h3"
+				class="h4 text-dark transition-colors group-hover:text-primary-500 dark:text-white dark:group-hover:text-primary-300"
+				transition:name={`project-title-${name}`}
+			>
+				{title}
+			</Typography>
+		</div>
+	</a>
 </article>

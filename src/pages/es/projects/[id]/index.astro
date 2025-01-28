@@ -1,77 +1,68 @@
 ---
-import type { Langs, Project } from "../../../../types";
+import type { Langs, Project } from "../../../../types"
 
-import {
-  getLangFromUrl,
-  useTranslatedPath,
-  useTranslations,
-} from "../../../../i18n/utils";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "../../../../i18n/utils"
 
-import { HeaderPage } from "../../../../components/ui/index.astro";
-import Layout from "../../../../layouts/Layout.astro";
-import ProjectDetail from "../../../../components/sections/ProjectDetail.astro";
+import { HeaderPage } from "../../../../components/ui/index.astro"
+import Layout from "../../../../layouts/Layout.astro"
+import ProjectDetail from "../../../../components/sections/ProjectDetail.astro"
 
 export async function getStaticPaths() {
-  const projects = await Astro.glob("../../../../content/projects/**/*.mdx");
-  const lang: Langs = "es";
-  const projectList: Project[] = projects
-    .filter((p) => p.frontmatter.lang === lang)
-    .map(
-      ({
-        frontmatter: { lang, name, title, category, images, description },
-        Content,
-      }) => ({
-        lang,
-        name,
-        title,
-        category,
-        images,
-        description,
-        Content,
-      })
-    );
+	const projects = await Astro.glob("../../../../content/projects/**/*.mdx")
+	const lang: Langs = "es"
+	const projectList: Project[] = projects
+		.filter((p) => p.frontmatter.lang === lang)
+		.map(({ frontmatter: { lang, name, title, category, images, description }, Content }) => ({
+			lang,
+			name,
+			title,
+			category,
+			images,
+			description,
+			Content,
+		}))
 
-  return projectList.map((post) => {
-    return {
-      params: { id: post.name },
-      props: { post },
-    };
-  });
+	return projectList.map((post) => {
+		return {
+			params: { id: post.name },
+			props: { post },
+		}
+	})
 }
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
-const { post } = Astro.props;
-const { title, name } = post;
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+const { post } = Astro.props
+const { title, name } = post
 
 const breadcrumbs = [
-  {
-    name: t("nav.home"),
-    type: "link",
-    url: translatePath("/"),
-  },
-  {
-    type: "separator",
-  },
-  {
-    name: t("nav.projects"),
-    type: "link",
-    url: translatePath("/projects"),
-  },
-  {
-    type: "separator",
-  },
-  {
-    name: title,
-    type: "current",
-  },
-];
+	{
+		name: t("nav.home"),
+		type: "link",
+		url: translatePath("/"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: t("nav.projects"),
+		type: "link",
+		url: translatePath("/projects"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: title,
+		type: "current",
+	},
+]
 ---
 
 <Layout title={`Israel Larrondo | ${title}`}>
-  <div class="bg-white dark:bg-dark relative z-10">
-    <HeaderPage title={title} {breadcrumbs} name={name} />
-    <ProjectDetail project={post} />
-  </div>
+	<div class="relative z-10 bg-white dark:bg-dark">
+		<HeaderPage title={title} {breadcrumbs} name={name} />
+		<ProjectDetail project={post} />
+	</div>
 </Layout>

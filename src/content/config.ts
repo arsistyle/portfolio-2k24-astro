@@ -1,13 +1,13 @@
-import { z, defineCollection } from "astro:content";
+import { z, defineCollection } from "astro:content"
 
 const projectsCollection = defineCollection({
-  type: "content",
-});
+	type: "content",
+})
 const proyectosCollection = defineCollection({
-  type: "content",
-});
+	type: "content",
+})
 
 export const collections = {
-  projects: projectsCollection,
-  proyectos: proyectosCollection,
-};
+	projects: projectsCollection,
+	proyectos: proyectosCollection,
+}

@@ -1,94 +1,94 @@
 /* Default */
 
 .btn {
-  @apply transition inline-flex items-center justify-center gap-4 dark:text-white text-dark rounded-md hover:scale-105 font-semibold border-transparent border max-w-full text-ellipsis overflow-clip whitespace-nowrap select-none;
+	@apply inline-flex max-w-full select-none items-center justify-center gap-4 overflow-clip text-ellipsis whitespace-nowrap rounded-md border border-transparent font-semibold text-dark transition hover:scale-105 dark:text-white;
 }
 
 /* Sizes */
 
 .btn--xs {
-  @apply px-2 py-1 text-xs;
+	@apply px-2 py-1 text-xs;
 }
 
 .btn--sm {
-  @apply px-3 py-1 text-sm;
+	@apply px-3 py-1 text-sm;
 }
 
 .btn--md {
-  @apply px-4 py-2;
+	@apply px-4 py-2;
 }
 
 .btn--lg {
-  @apply px-6 py-3;
+	@apply px-6 py-3;
 }
 
 .btn--xl {
-  @apply px-8 py-4 text-lg;
+	@apply px-8 py-4 text-lg;
 }
 
 /* Disabled */
 
 .btn--disabled {
-  @apply opacity-50 cursor-not-allowed pointer-events-none select-none;
+	@apply pointer-events-none cursor-not-allowed select-none opacity-50;
 }
 
 /* Colors */
 
 .btn--dark {
-  @apply text-dark dark:text-dark;
+	@apply text-dark dark:text-dark;
 }
 
 .btn--primary {
-  @apply text-primary-400 dark:text-primary-300;
+	@apply text-primary-400 dark:text-primary-300;
 }
 
 .btn--secondary {
-  @apply text-secondary-400 dark:text-secondary-300;
+	@apply text-secondary-400 dark:text-secondary-300;
 }
 
 .btn--light {
-  @apply text-white dark:text-white;
+	@apply text-white dark:text-white;
 }
 
 /* Filled */
 
 .btn--filled {
-  @apply bg-gray-300 text-dark dark:text-dark;
+	@apply bg-gray-300 text-dark dark:text-dark;
 }
 
 .btn--filled.btn--dark {
-  @apply bg-dark text-white;
+	@apply bg-dark text-white;
 }
 
 .btn--filled.btn--primary {
-  @apply bg-primary-400 dark:bg-primary-300 text-dark;
+	@apply bg-primary-400 text-dark dark:bg-primary-300;
 }
 
 .btn--filled.btn--secondary {
-  @apply bg-secondary-400 dark:bg-secondary-300 text-white dark:text-dark;
+	@apply bg-secondary-400 text-white dark:bg-secondary-300 dark:text-dark;
 }
 
 .btn--filled.btn--light {
-  @apply bg-white text-dark hover:bg-gray-100;
+	@apply bg-white text-dark hover:bg-gray-100;
 }
 
 /* Outline */
 .btn--outlined {
-  @apply border-gray-500 text-dark dark:border-gray-300 dark:text-gray-300;
+	@apply border-gray-500 text-dark dark:border-gray-300 dark:text-gray-300;
 }
 
 .btn--outlined.btn--dark {
-  @apply border-dark text-dark;
+	@apply border-dark text-dark;
 }
 
 .btn--outlined.btn--primary {
-  @apply border-primary-400 dark:border-primary-300 text-primary-400 dark:text-primary-300;
+	@apply border-primary-400 text-primary-400 dark:border-primary-300 dark:text-primary-300;
 }
 
 .btn--outlined.btn--secondary {
-  @apply border-secondary-400 dark:border-secondary-300 text-secondary-400 dark:text-secondary-300;
+	@apply border-secondary-400 text-secondary-400 dark:border-secondary-300 dark:text-secondary-300;
 }
 
 .btn--outlined.btn--light {
-  @apply border-white  hover:border-gray-100 text-white;
+	@apply border-white text-white hover:border-gray-100;
 }

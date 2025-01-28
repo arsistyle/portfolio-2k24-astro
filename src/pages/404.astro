@@ -1,43 +1,33 @@
 ---
-import {
-  getLangFromUrl,
-  useTranslations,
-  useTranslatedPath,
-} from "../i18n/utils";
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "../i18n/utils"
 
-import { BackgroundGrid, Button, Typography } from "../components/index.astro";
-import Layout from "../layouts/Layout.astro";
+import { BackgroundGrid, Button, Typography } from "../components/index.astro"
+import Layout from "../layouts/Layout.astro"
 
-import Magnet from "../components/core/Magnet";
-import { BiArrowBack } from "react-icons/bi";
+import Magnet from "../components/core/Magnet"
+import { BiArrowBack } from "react-icons/bi"
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 ---
 
-<Layout
-  title="Israel Larrondo | Error 404, Not Found"
-  showFooter={false}
-  showHeader={false}
->
-  <div
-    class="container relative flex flex-col gap-12 justify-center items-center text-center mx-auto h-screen"
-  >
-    <Magnet client:only
-      ><Typography
-        type="h1"
-        class="font-black text-[clamp(2.8rem,20vw,14rem)] text-white mb-24 cursor-default"
-        >{t("404.title")}</Typography
-      ></Magnet
-    >
-    <Typography type="p" class="highlight text-white"
-      >{t("404.description")}</Typography
-    >
-    <Button tag="a" href={translatePath("/")} variant="outlined" size="lg">
-      <BiArrowBack slot="startIcon" />
-      {t("404.cta")}
-    </Button>
-  </div>
-  <BackgroundGrid class="absolute -top-96 bottom-0" />
+<Layout title="Israel Larrondo | Error 404, Not Found" showFooter={false} showHeader={false}>
+	<div
+		class="container relative mx-auto flex h-screen flex-col items-center justify-center gap-12 text-center"
+	>
+		<Magnet client:only
+			><Typography
+				type="h1"
+				class="mb-24 cursor-default text-[clamp(2.8rem,20vw,14rem)] font-black text-white"
+				>{t("404.title")}</Typography
+			></Magnet
+		>
+		<Typography type="p" class="highlight text-white">{t("404.description")}</Typography>
+		<Button tag="a" href={translatePath("/")} variant="outlined" size="lg">
+			<BiArrowBack slot="startIcon" />
+			{t("404.cta")}
+		</Button>
+	</div>
+	<BackgroundGrid class="absolute -top-96 bottom-0" />
 </Layout>

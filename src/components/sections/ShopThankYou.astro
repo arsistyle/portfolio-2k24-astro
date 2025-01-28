@@ -1,52 +1,46 @@
 ---
-import { getLangFromUrl, useTranslations } from "../../i18n/utils";
-import { Button, Typography } from "../index.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import { Button, Typography } from "@/components/index.astro"
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
-
-
 <div class="container mx-auto">
-  <div
-    class="flex flex-col items-center justify-center text-center min-h-[75vh] py-[10vh] gap-10"
-  >
-    <Typography type="h1" class="dark:text-white text-balance"
-      >{t("shop.thankYou.title")}</Typography
-    >
-    <Typography type="p" class="highlight dark:text-white text-balance"
-      >{t("shop.thankYou.description")}</Typography
-    >
+	<div class="flex min-h-[75vh] flex-col items-center justify-center gap-10 py-[10vh] text-center">
+		<Typography type="h1" class="text-balance dark:text-white"
+			>{t("shop.thankYou.title")}</Typography
+		>
+		<Typography type="p" class="highlight text-balance dark:text-white"
+			>{t("shop.thankYou.description")}</Typography
+		>
 
-    <div
-      class="px-8 py-4 max-w-[600px] bg-yellow-100 text-yellow-900 rounded text-balance"
-    >
-      {t("shop.thankYou.alert")}
-    </div>
+		<div class="max-w-[600px] text-balance rounded bg-yellow-100 px-8 py-4 text-yellow-900">
+			{t("shop.thankYou.alert")}
+		</div>
 
-    <Button
-      tag="a"
-      color="secondary"
-      class="download-file mt-8"
-      size="xl"
-      target="_blank"
-      rel="noopener noreferrer"
-      variant="filled">{t("shop.thankYou.cta")}</Button
-    >
-  </div>
+		<Button
+			tag="a"
+			color="secondary"
+			class="download-file mt-8"
+			size="xl"
+			target="_blank"
+			rel="noopener noreferrer"
+			variant="filled">{t("shop.thankYou.cta")}</Button
+		>
+	</div>
 </div>
 
 <script is:inline>
-  const button = document.querySelector(".download-file");
-  const url = window.location.href;
+	const button = document.querySelector(".download-file")
+	const url = window.location.href
 
-  const newUrl = new URL(url);
-  const fileUrl = atob(newUrl.searchParams.get("fileUrl") || "");
+	const newUrl = new URL(url)
+	const fileUrl = atob(newUrl.searchParams.get("fileUrl") || "")
 
-  if (fileUrl) {
-    button?.setAttribute("href", fileUrl);
-  } else {
-    window.location.href = "/";
-  }
+	if (fileUrl) {
+		button?.setAttribute("href", fileUrl)
+	} else {
+		window.location.href = "/"
+	}
 </script>

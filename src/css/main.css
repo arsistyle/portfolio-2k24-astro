@@ -1,26 +1,26 @@
-@import 'tailwindcss/base';
+@import "tailwindcss/base";
 
-@import 'tailwindcss/components';
+@import "tailwindcss/components";
 
-@import 'tailwindcss/utilities';
+@import "tailwindcss/utilities";
 
 * {
-  min-width: 0;
+	min-width: 0;
 }
 
 html {
-  scroll-timeline-name: --mainTimeline;
+	scroll-timeline-name: --mainTimeline;
 }
 
 body {
-  scrollbar-gutter: stable both-edges;
-  font-family: 'Syne Variable', sans-serif;
-  min-height: 100dvh;
-  color-scheme: dark light;
-  @apply bg-white;
+	scrollbar-gutter: stable both-edges;
+	font-family: "Syne Variable", sans-serif;
+	min-height: 100dvh;
+	color-scheme: dark light;
+	@apply bg-white;
 }
 @media (prefers-color-scheme: dark) {
-  body {
-    @apply bg-dark;
-  }
+	body {
+		@apply bg-dark;
+	}
 }
