@@ -2,6 +2,7 @@
   "nav.home": "Inicio",
   "nav.projects": "Proyectos",
   "nav.shop": "Tienda",
+  "nav.shop.thankYou": "Gracias por tu compra",
 
   "home.hero.greeting": "👋 Hola, soy",
   "home.hero.name": "Israel",
@@ -13,6 +14,10 @@
   "projects.title": "Proyectos",
 
   "shop.title": "Tienda",
+  "shop.thankYou.title": "¡Gracias por tu compra!",
+  "shop.thankYou.description": "Tu pago se ha procesado correctamente.",
+  "shop.thankYou.alert": "Ahora puedes descargar tu archivo, pero ten en cuenta que este sitio no almacena ningún dato del usuario, así que descarga y guarda tu archivo en un lugar seguro.",
+  "shop.thankYou.cta": "Descarga tu archivo",
 
   "404.title": "404",
   "404.description": "La página que busca no existe.",
