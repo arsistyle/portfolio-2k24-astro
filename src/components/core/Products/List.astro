@@ -1,9 +1,11 @@
 ---
-import type { Product } from "../../../types";
-import { getLangFromUrl, useTranslatedPath } from "../../../i18n/utils";
 import { GoArrowRight } from "react-icons/go";
 import Image from "astro/components/Image.astro";
-import { Typography } from "../index.astro";
+
+import { getLangFromUrl, useTranslatedPath } from "@/i18n/utils";
+import type { Product } from "@/types";
+
+import { Typography } from "@/components/core/index.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
