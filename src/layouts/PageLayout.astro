@@ -1,14 +1,14 @@
 ---
-import type { PageLayoutProps } from "../types"
-
 import { ViewTransitions } from "astro:transitions"
 import "@fontsource-variable/syne"
 
-import { getLangFromUrl } from "../i18n/utils"
+import type { PageLayoutProps } from "@/types"
 
-import { Header, Footer } from "../components/shared/index.astro"
-import HeaderPage from "../components/ui/HeaderPage.astro"
-import { Sidebar } from "../components/index.astro"
+import { getLangFromUrl } from "@/i18n/utils"
+
+import { Header, Footer } from "@/components/shared/index.astro"
+import HeaderPage from "@/components/ui/HeaderPage.astro"
+import { Sidebar } from "@/components/index.astro"
 
 import "../css/styles.css"
 

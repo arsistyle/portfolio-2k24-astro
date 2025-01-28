@@ -1,14 +1,14 @@
 ---
-import type { Langs, Project } from "../../../types"
+import type { Langs, Project } from "@/types"
 
-import { getLangFromUrl, useTranslatedPath, useTranslations } from "../../../i18n/utils"
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
-import { HeaderPage } from "../../../components/ui/index.astro"
-import Layout from "../../../layouts/Layout.astro"
-import ProjectDetail from "../../../components/sections/ProjectDetail.astro"
+import { HeaderPage } from "@/components/ui/index.astro"
+import Layout from "@/layouts/Layout.astro"
+import ProjectDetail from "@/components/sections/ProjectDetail.astro"
 
 export async function getStaticPaths() {
-	const projects = await Astro.glob("../../../content/projects/**/*.mdx")
+	const projects = await Astro.glob("@/content/projects/**/*.mdx")
 	const lang: Langs = "en"
 	const projectList: Project[] = projects
 		.filter((p) => p.frontmatter.lang === lang)
