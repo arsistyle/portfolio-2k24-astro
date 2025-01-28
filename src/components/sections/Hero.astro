@@ -1,52 +1,51 @@
 ---
-import { Image } from 'astro:assets';
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
-import { BackgroundGrid } from '../index.astro';
+import { Image } from "astro:assets"
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import { BackgroundGrid } from "@/components/index.astro"
 
-import avatar from '../../assets/img/avatar.png';
+import avatar from "@/assets/img/avatar.png"
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
-<section class='bg-white dark:bg-dark relative z-10'>
-  <div class='flex justify-center overflow-hidden px-5 py-14 md:py-40 w-full'>
-    <div class='container'>
-      <div class='grid items-center grid-cols-2 sm:grid-cols-12 gap-8'>
-        <div class='hero-info relative z-10 col-span-2 sm:col-span-8'>
-          <h1 class='mb-2'>
-            <div
-              class='inline-flex p-2 mb-2 text-[clamp(1.6rem,5vw,3.75rem)] leading-[1em] font-bold bg-secondary-400 dark:bg-secondary-300 text-white dark:text-dark'
-            >
-              {t('home.hero.greeting')}
-            </div>
-            <div class='font-black text-dark dark:text-white h1 heading mix-blend-difference'>
-              <span class='whitespace-nowrap'>{t('home.hero.name')}</span>
-              <span class='whitespace-nowrap'>{t('home.hero.lastname')}</span>
-            </div>
-          </h1>
-          <h2
-            class='text-[clamp(1.6rem,5vw,3.75rem)] font-bold text-primary-500 dark:text-primary-300'
-          >
-            {t('home.hero.job')}
-          </h2>
-        </div>
-        <div class='col-span-4'>
-          <div class='avatar'>
-            <div
-              class='flex justify-end aspect-square w-full h-full sm:w-96 sm:h-96 translate-x-[20%] sm:translate-x-0 -mb-36 sm:mb-0 animate-avatar bg-secondary-400 dark:bg-secondary-300 overflow-clip'
-            >
-              <Image
-                src={avatar}
-                class='block object-cover object-top w-full h-full'
-                alt='Israel Larrondo'
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <BackgroundGrid class='absolute -top-96 bottom-0' />
+<section class="relative z-10 bg-white dark:bg-dark">
+	<div class="flex w-full justify-center overflow-hidden px-5 py-14 md:py-40">
+		<div class="container">
+			<div class="grid grid-cols-2 items-center gap-8 sm:grid-cols-12">
+				<div class="hero-info relative z-10 col-span-2 sm:col-span-8">
+					<h1 class="mb-2">
+						<div
+							class="mb-2 inline-flex bg-secondary-400 p-2 text-[clamp(1.6rem,5vw,3.75rem)] font-bold leading-[1em] text-white dark:bg-secondary-300 dark:text-dark"
+						>
+							{t("home.hero.greeting")}
+						</div>
+						<div class="h1 heading font-black text-dark mix-blend-difference dark:text-white">
+							<span class="whitespace-nowrap">{t("home.hero.name")}</span>
+							<span class="whitespace-nowrap">{t("home.hero.lastname")}</span>
+						</div>
+					</h1>
+					<h2
+						class="text-[clamp(1.6rem,5vw,3.75rem)] font-bold text-primary-500 dark:text-primary-300"
+					>
+						{t("home.hero.job")}
+					</h2>
+				</div>
+				<div class="col-span-4">
+					<div class="avatar">
+						<div
+							class="-mb-36 flex aspect-square h-full w-full translate-x-[20%] animate-avatar justify-end overflow-clip bg-secondary-400 dark:bg-secondary-300 sm:mb-0 sm:h-96 sm:w-96 sm:translate-x-0"
+						>
+							<Image
+								src={avatar}
+								class="block h-full w-full object-cover object-top"
+								alt="Israel Larrondo"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<BackgroundGrid class="absolute -top-96 bottom-0" />
 </section>

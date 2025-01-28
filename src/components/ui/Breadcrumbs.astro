@@ -1,32 +1,32 @@
 ---
-import type { BreadcrumbsItem } from '../../types';
-import { Typography } from '../index.astro';
+import type { BreadcrumbsItem } from "@/types"
+import { Typography } from "@/components/index.astro"
 
-const { breadcrumbs = [] } = Astro.props;
-const totalBreads = breadcrumbs.length;
+const { breadcrumbs = [] } = Astro.props
+const totalBreads = breadcrumbs.length
 ---
 
-<Typography class='flex gap-2 flex-wrap text-dark dark:text-white'>
-  {
-    breadcrumbs.map(({ name, type, url }: BreadcrumbsItem, key: number) => {
-      if (type === 'link') {
-        const link = <a href={url}>{name}</a>;
-        if (key < totalBreads) {
-          return (
-            <span class='flex gap-2'>
-              <>
-                {link}
-                <span>/</span>
-              </>
-            </span>
-          );
-        }
-        return link;
-      }
-      if (type === 'current') {
-        return <span class='opacity-60'>{name}</span>;
-      }
-      return null;
-    })
-  }
+<Typography class="flex flex-wrap gap-2 text-dark dark:text-white">
+	{
+		breadcrumbs.map(({ name, type, url }: BreadcrumbsItem, key: number) => {
+			if (type === "link") {
+				const link = <a href={url}>{name}</a>
+				if (key < totalBreads) {
+					return (
+						<span class="flex gap-2">
+							<>
+								{link}
+								<span>/</span>
+							</>
+						</span>
+					)
+				}
+				return link
+			}
+			if (type === "current") {
+				return <span class="opacity-60">{name}</span>
+			}
+			return null
+		})
+	}
 </Typography>

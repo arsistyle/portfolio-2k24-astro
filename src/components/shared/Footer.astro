@@ -1,42 +1,42 @@
 ---
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
-import { Button, Typography } from '../index.astro';
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import { Button, Typography } from "@/components/index.astro"
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
-<footer class='sticky bottom-0 z-0 mt-auto'>
-  <div class='bg-primary-500 dark:bg-primary-300 rounded-t-4xl md:rounded-t-main p-7 md:p-14'>
-    <div class='container mx-auto'>
-      <div class='grid md:grid-cols-12 gap-6'>
-        <div class='md:col-span-8'>
-          <div class='flex flex-col gap-4'>
-            <Typography type='h4' class='text-dark'>{t('footer.title')}</Typography>
-            <Typography class='text-dark text-pretty'>{t('footer.description')}</Typography>
-          </div>
-        </div>
-        <div class='md:col-span-4 self-center'>
-          <div class='flex justify-end'>
-            <Button
-              tag='a'
-              href='/contact'
-              class='text-primary-300'
-              variant='filled'
-              color='dark'
-              size='lg'
-              disabled
-            >
-              {t('footer.cta')}
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class='bg-dark p-6 px-14'>
-    <div class='container mx-auto text-center'>
-      <Typography class='text-white'>{t('footer.copyright')}</Typography>
-    </div>
-  </div>
+<footer class="sticky bottom-0 z-0 mt-auto">
+	<div class="rounded-t-4xl bg-primary-500 p-7 dark:bg-primary-300 md:rounded-t-main md:p-14">
+		<div class="container mx-auto">
+			<div class="grid gap-6 md:grid-cols-12">
+				<div class="md:col-span-8">
+					<div class="flex flex-col gap-4">
+						<Typography type="h4" class="text-dark">{t("footer.title")}</Typography>
+						<Typography class="text-pretty text-dark">{t("footer.description")}</Typography>
+					</div>
+				</div>
+				<div class="self-center md:col-span-4">
+					<div class="flex justify-end">
+						<Button
+							tag="a"
+							href="/contact"
+							class="text-primary-300"
+							variant="filled"
+							color="dark"
+							size="lg"
+							disabled
+						>
+							{t("footer.cta")}
+						</Button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bg-dark p-6 px-14">
+		<div class="container mx-auto text-center">
+			<Typography class="text-white">{t("footer.copyright")}</Typography>
+		</div>
+	</div>
 </footer>

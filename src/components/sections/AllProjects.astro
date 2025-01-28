@@ -1,31 +1,26 @@
 ---
-import { getLangFromUrl } from "../../i18n/utils";
-import type { Langs, Project } from "../../types";
-import { ProjectsList } from "../index.astro";
+import { getLangFromUrl } from "@/i18n/utils"
+import type { Langs, Project } from "@/types"
+import { ProjectsList } from "@/components/index.astro"
 
-const lang = getLangFromUrl(Astro.url) as Langs;
+const lang = getLangFromUrl(Astro.url) as Langs
 
-const projects = await Astro.glob("../../content/projects/**/*.mdx");
+const projects = await Astro.glob("@/content/projects/**/*.mdx")
 const projectList: Project[] = projects
-  .filter((p) => p.frontmatter.lang === lang)
-  .map(
-    ({
-      frontmatter: { lang, name, title, category, images, description },
-      Content,
-    }) => ({
-      lang,
-      name,
-      title,
-      category,
-      images,
-      description,
-      Content,
-    })
-  );
+	.filter((p) => p.frontmatter.lang === lang)
+	.map(({ frontmatter: { lang, name, title, category, images, description }, Content }) => ({
+		lang,
+		name,
+		title,
+		category,
+		images,
+		description,
+		Content,
+	}))
 ---
 
 <section class="flex items-center justify-center px-5 py-14 md:pb-40">
-  <div class="container">
-    <ProjectsList projects={projectList} />
-  </div>
+	<div class="container">
+		<ProjectsList projects={projectList} />
+	</div>
 </section>

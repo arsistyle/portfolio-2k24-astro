@@ -1,93 +1,89 @@
 ---
-import type { Langs, Product } from "../../../../types";
+import type { Langs, Product } from "@/types"
 
-import {
-  getLangFromUrl,
-  useTranslatedPath,
-  useTranslations,
-} from "../../../../i18n/utils";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
-import { HeaderPage } from "../../../../components/ui/index.astro";
-import Layout from "../../../../layouts/Layout.astro";
-import ProductDetail from "../../../../components/sections/ProductDetail.astro";
+import { HeaderPage } from "@/components/ui/index.astro"
+import Layout from "@/layouts/Layout.astro"
+import ProductDetail from "@/components/sections/ProductDetail.astro"
 
 export async function getStaticPaths() {
-  const lang: Langs = "es";
-  const products = await Astro.glob("../../../../content/products/**/*.json");
+	const lang: Langs = "es"
+	const products = await Astro.glob("@/content/products/**/*.json")
 
-const productList: Product[] = products
-  .filter((p) => p.default.lang === lang)
-  .map(
-    ({
-      default: {
-        id,
-        slug,
-        name,
-        title,
-        category,
-        thumbnail,
-        gallery,
-        description,
-        price,
-        paymentMethods,
-        lang,
-      },
-    }) => ({
-      id,
-      slug,
-      name,
-      title,
-      category,
-      thumbnail,
-      gallery,
-      description,
-      price,
-      paymentMethods,
-      lang,
-    })
-  );
+	const productList: Product[] = products
+		.filter((p) => p.default.lang === lang)
+		.map(
+			({
+				default: {
+					id,
+					slug,
+					name,
+					title,
+					category,
+					thumbnail,
+					gallery,
+					description,
+					price,
+					paymentMethods,
+					lang,
+				},
+			}) => ({
+				id,
+				slug,
+				name,
+				title,
+				category,
+				thumbnail,
+				gallery,
+				description,
+				price,
+				paymentMethods,
+				lang,
+			})
+		)
 
-  return productList.map((post) => {
-    return {
-      params: { id: post.name },
-      props: { post },
-    };
-  });
+	return productList.map((post) => {
+		return {
+			params: { id: post.name },
+			props: { post },
+		}
+	})
 }
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
-const { post } = Astro.props;
-const { title, name } = post;
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+const { post } = Astro.props
+const { title, name } = post
 
 const breadcrumbs = [
-  {
-    name: t("nav.home"),
-    type: "link",
-    url: translatePath("/"),
-  },
-  {
-    type: "separator",
-  },
-  {
-    name: t("nav.shop"),
-    type: "link",
-    url: translatePath("/shop"),
-  },
-  {
-    type: "separator",
-  },
-  {
-    name: title,
-    type: "current",
-  },
-];
+	{
+		name: t("nav.home"),
+		type: "link",
+		url: translatePath("/"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: t("nav.shop"),
+		type: "link",
+		url: translatePath("/shop"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: title,
+		type: "current",
+	},
+]
 ---
 
 <Layout title={`Israel Larrondo | ${title}`}>
-  <div class="bg-white dark:bg-dark relative z-10">
-    <HeaderPage {breadcrumbs} name={name} />
-    <ProductDetail product={post} />
-  </div>
+	<div class="relative z-10 bg-white dark:bg-dark">
+		<HeaderPage {breadcrumbs} name={name} />
+		<ProductDetail product={post} />
+	</div>
 </Layout>

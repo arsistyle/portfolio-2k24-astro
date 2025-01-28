@@ -1,39 +1,41 @@
 ---
-import { getLangFromUrl } from "../i18n/utils";
-import "@fontsource-variable/syne";
+import { ViewTransitions } from "astro:transitions"
+import "@fontsource-variable/syne"
 
-import "../css/styles.css";
-import Header from "../components/shared/Header.astro";
-import Footer from "../components/shared/Footer.astro";
-import { ViewTransitions } from "astro:transitions";
+import { getLangFromUrl } from "@/i18n/utils"
+
+import Header from "@/components/shared/Header.astro"
+import Footer from "@/components/shared/Footer.astro"
+
+import "@/css/styles.css"
 
 interface Props {
-  title: string;
-  showHeader?: boolean;
-  showFooter?: boolean;
+	title: string
+	showHeader?: boolean
+	showFooter?: boolean
 }
 
-const { props } = Astro;
+const { props } = Astro
 
-const { title, showHeader = true, showFooter = true } = props;
-const lang = getLangFromUrl(Astro.url);
+const { title, showHeader = true, showFooter = true } = props
+const lang = getLangFromUrl(Astro.url)
 ---
 
 <!doctype html>
 <html lang={lang} class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <ViewTransitions />
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<ViewTransitions />
+	</head>
 
-  <body class="bg-white dark:bg-dark flex flex-col min-h-screen">
-    {showHeader && <Header />}
-    <slot />
-    {showFooter && <Footer />}
-  </body>
+	<body class="flex min-h-screen flex-col bg-white dark:bg-dark">
+		{showHeader && <Header />}
+		<slot />
+		{showFooter && <Footer />}
+	</body>
 </html>

@@ -1,83 +1,69 @@
 ---
 // Types
-import type { NavProps } from "../../types";
+import type { NavProps } from "@/types"
 
 // Data
-import menuComponents from "../../content/menu-components";
-
+import menuComponents from "@/content/menu-components"
 
 // Utils
-import {
-  getLangFromUrl,
-  useTranslatedPath,
-  useTranslations,
-} from "../../i18n/utils";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
 // Components
-import { Typography, Button } from "../../components/index.astro";
-import PageLayout from "../../layouts/PageLayout.astro";
+import { Typography, Button } from "@/components/index.astro"
+import PageLayout from "@/layouts/PageLayout.astro"
 
 // Consts
-const { url } = Astro;
+const { url } = Astro
 
-const lang = getLangFromUrl(url);
-const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
+const lang = getLangFromUrl(url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 
-const title = "Components";
+const title = "Components"
 
 const breadcrumbs = [
-  {
-    name: t("nav.home"),
-    type: "link",
-    url: translatePath("/"),
-  },
-  {
-    type: "separator",
-  },
-  {
-    name: title,
-    type: "current",
-  },
-];
+	{
+		name: t("nav.home"),
+		type: "link",
+		url: translatePath("/"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: title,
+		type: "current",
+	},
+]
 
 const navData: NavProps = menuComponents
-
 ---
 
 <PageLayout title={title} {breadcrumbs} nav={navData}>
-  <Typography type="h4" class="dark:text-white text-dark">
-    Button colors
-  </Typography>
-  <div class="flex flex-wrap gap-4 p-8 bg-gray-500/10 mb-16">
-    <Button>Im a Button</Button>
-    <Button color="primary">Im a Button</Button>
-    <Button color="secondary">Im a Button</Button>
-  </div>
-  <Typography type="h4" class="dark:text-white text-dark">
-    Button filled
-  </Typography>
-  <div class="flex flex-wrap gap-4 p-8 bg-gray-500/10 mb-16">
-    <Button variant="filled">Im a Button</Button>
-    <Button color="primary" variant="filled">Im a Button</Button>
-    <Button color="secondary" variant="filled">Im a Button</Button>
-  </div>
-  <Typography type="h4" class="dark:text-white text-dark">
-    Button outlined
-  </Typography>
-  <div class="flex flex-wrap gap-4 p-8 bg-gray-500/10 mb-16">
-    <Button variant="outlined">Im a Button</Button>
-    <Button color="primary" variant="outlined">Im a Button</Button>
-    <Button color="secondary" variant="outlined">Im a Button</Button>
-  </div>
-  <Typography type="h4" class="dark:text-white text-dark">
-    Button sizes
-  </Typography>
-  <div class="flex flex-wrap items-center gap-4 p-8 bg-gray-500/10 mb-16">
-    <Button color="primary" variant="filled" size="xs">Im a Button</Button>
-    <Button color="primary" variant="filled" size="sm">Im a Button</Button>
-    <Button color="primary" variant="filled" size="md">Im a Button</Button>
-    <Button color="primary" variant="filled" size="lg">Im a Button</Button>
-    <Button color="primary" variant="filled" size="xl">Im a Button</Button>
-  </div>
+	<Typography type="h4" class="text-dark dark:text-white"> Button colors </Typography>
+	<div class="mb-16 flex flex-wrap gap-4 bg-gray-500/10 p-8">
+		<Button>Im a Button</Button>
+		<Button color="primary">Im a Button</Button>
+		<Button color="secondary">Im a Button</Button>
+	</div>
+	<Typography type="h4" class="text-dark dark:text-white"> Button filled </Typography>
+	<div class="mb-16 flex flex-wrap gap-4 bg-gray-500/10 p-8">
+		<Button variant="filled">Im a Button</Button>
+		<Button color="primary" variant="filled">Im a Button</Button>
+		<Button color="secondary" variant="filled">Im a Button</Button>
+	</div>
+	<Typography type="h4" class="text-dark dark:text-white"> Button outlined </Typography>
+	<div class="mb-16 flex flex-wrap gap-4 bg-gray-500/10 p-8">
+		<Button variant="outlined">Im a Button</Button>
+		<Button color="primary" variant="outlined">Im a Button</Button>
+		<Button color="secondary" variant="outlined">Im a Button</Button>
+	</div>
+	<Typography type="h4" class="text-dark dark:text-white"> Button sizes </Typography>
+	<div class="mb-16 flex flex-wrap items-center gap-4 bg-gray-500/10 p-8">
+		<Button color="primary" variant="filled" size="xs">Im a Button</Button>
+		<Button color="primary" variant="filled" size="sm">Im a Button</Button>
+		<Button color="primary" variant="filled" size="md">Im a Button</Button>
+		<Button color="primary" variant="filled" size="lg">Im a Button</Button>
+		<Button color="primary" variant="filled" size="xl">Im a Button</Button>
+	</div>
 </PageLayout>

@@ -1,57 +1,41 @@
 ---
-import {
-  getLangFromUrl,
-  useTranslatedPath,
-  useTranslations,
-} from "../../i18n/utils";
-import type { Project } from "../../types";
-import { ProjectsList, Typography } from "../index.astro";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "../../i18n/utils"
+import type { Project } from "../../types"
+import { ProjectsList, Typography } from "../index.astro"
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 
-const projects = await Astro.glob("../../content/projects/**/*.mdx");
+const projects = await Astro.glob("@/content/projects/**/*.mdx")
 const projectList: Project[] = projects
-  .filter((p) => p.frontmatter.lang === lang)
-  .map(
-    ({
-      frontmatter: { lang, name, title, category, images, description },
-      Content,
-    }) => ({
-      lang,
-      name,
-      title,
-      category,
-      images,
-      description,
-      Content,
-    })
-  );
+	.filter((p) => p.frontmatter.lang === lang)
+	.map(({ frontmatter: { lang, name, title, category, images, description }, Content }) => ({
+		lang,
+		name,
+		title,
+		category,
+		images,
+		description,
+		Content,
+	}))
 ---
 
 <section
-  class="flex items-center justify-center px-5 py-14 md:py-40 bg-white dark:bg-dark relative z-10"
+	class="relative z-10 flex items-center justify-center bg-white px-5 py-14 dark:bg-dark md:py-40"
 >
-  <div class="container">
-    <div
-      class="flex justify-between items-center flex-wrap gap-6 mb-12 md:mb-20"
-    >
-      <Typography
-        type="h3"
-        class="dark:text-white max-w-4xl leading-tight text-balance"
-      >
-        {t("home.projects.title")}
-      </Typography>
-      <Typography
-        type="h5"
-        class="transition-colors dark:text-white/60 dark:hover:text-white/70 text-dark/60 hover:text-dark/70 ml-auto"
-      >
-        <a href={translatePath("/projects")} class="text-inherit"
-          >{t("home.projects.seeAll")}</a
-        >
-      </Typography>
-    </div>
-    <ProjectsList projects={projectList} />
-  </div>
+	<div class="container">
+		<div class="mb-12 flex flex-wrap items-center justify-between gap-6 md:mb-20">
+			<Typography type="h3" class="max-w-4xl text-balance leading-tight dark:text-white">
+				{t("home.projects.title")}
+			</Typography>
+			<Typography
+				type="h5"
+				class="ml-auto text-dark/60 transition-colors hover:text-dark/70 dark:text-white/60 dark:hover:text-white/70"
+			>
+				<a href={translatePath("/projects")} class="text-inherit">{t("home.projects.seeAll")}</a>
+			</Typography>
+		</div>
+		<ProjectsList projects={projectList} />
+	</div>
 </section>

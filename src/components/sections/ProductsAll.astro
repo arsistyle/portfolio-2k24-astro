@@ -1,47 +1,47 @@
 ---
-import List from "../core/Products/List.astro";
-import { getLangFromUrl } from "../../i18n/utils";
-import type { Langs, Product } from "../../types";
+import { getLangFromUrl } from "@/i18n/utils"
+import type { Langs, Product } from "@/types"
+import List from "@/components/core/Products/List.astro"
 
-const lang = getLangFromUrl(Astro.url) as Langs;
+const lang = getLangFromUrl(Astro.url) as Langs
 
-const products = await Astro.glob("../../content/products/**/*.json");
+const products = await Astro.glob("@/content/products/**/*.json")
 
 const productList: Product[] = products
-  .filter((p) => p.default.lang === lang)
-  .map(
-    ({
-      default: {
-        id,
-        slug,
-        name,
-        title,
-        category,
-        thumbnail,
-        gallery,
-        description,
-        price,
-        paymentMethods,
-        lang,
-      },
-    }) => ({
-      id,
-      slug,
-      name,
-      title,
-      category,
-      thumbnail,
-      gallery,
-      description,
-      price,
-      paymentMethods,
-      lang,
-    })
-  );
+	.filter((p) => p.default.lang === lang)
+	.map(
+		({
+			default: {
+				id,
+				slug,
+				name,
+				title,
+				category,
+				thumbnail,
+				gallery,
+				description,
+				price,
+				paymentMethods,
+				lang,
+			},
+		}) => ({
+			id,
+			slug,
+			name,
+			title,
+			category,
+			thumbnail,
+			gallery,
+			description,
+			price,
+			paymentMethods,
+			lang,
+		})
+	)
 ---
 
 <section class="flex items-center justify-center px-5 py-14 md:pb-40">
-  <div class="container">
-    <List products={productList} />
-  </div>
+	<div class="container">
+		<List products={productList} />
+	</div>
 </section>
