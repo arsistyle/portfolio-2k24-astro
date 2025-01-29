@@ -9,6 +9,12 @@ export type BreadcrumbsItem = {
 	url?: string
 }
 
+export type MDXContent = {
+	Content: () => any
+	file: string
+	url: string
+}
+
 /*
 
   Project
@@ -28,6 +34,19 @@ export type Project = {
 	category: string
 	content?: any
 }
+
+export type ProjectMDXContent = MDXContent & {
+	frontmatter: Project
+}
+
+export type ProjectFromImport = Pick<
+	Project,
+	"lang" | "name" | "title" | "category" | "images" | "description"
+> & {
+	Content: ProjectMDXContent["Content"]
+}
+
+export type ProjectMDXGlobResult = Record<string, ProjectMDXContent>
 
 /*
 
@@ -55,6 +74,27 @@ export type Product = {
 	thumbnail: string
 	title: string
 }
+
+export type ProductMDXContent = MDXContent & {
+	default: Product
+}
+
+export type ProductFromImport = Pick<
+	Product,
+	| "category"
+	| "description"
+	| "gallery"
+	| "lang"
+	| "name"
+	| "paymentMethods"
+	| "price"
+	| "thumbnail"
+	| "title"
+> & {
+	Content: MDXContent["Content"]
+}
+
+export type ProductMDXGlobResult = Record<string, ProductMDXContent>
 
 export type ProductPaymentButtons = {
 	[key: string]: {

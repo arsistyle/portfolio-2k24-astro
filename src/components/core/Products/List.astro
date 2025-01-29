@@ -17,8 +17,8 @@ const { products } = Astro.props
 	{
 		products.map(({ name, title, thumbnail, category }: Product) => (
 			<article class="group relative">
-				<a href={translatePath(`/shop/${name}`)} class="flex aspect-[4/3] flex-col">
-					<div class="absolute right-5 top-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 text-dark transition group-hover:-translate-y-2 group-hover:translate-x-2 group-hover:rotate-0 group-hover:scale-125 group-hover:bg-primary-500 group-hover:dark:bg-primary-300">
+				<a href={translatePath(`/shop/${name}`)} class="flex aspect-4/3 flex-col">
+					<div class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:-translate-y-2 group-hover:translate-x-2 group-hover:scale-125 group-hover:rotate-0">
 						<GoArrowRight className="w-full h-full " />
 					</div>
 					{thumbnail && (
@@ -34,12 +34,12 @@ const { products } = Astro.props
 						</div>
 					)}
 					<div class="relative inset-0 z-20 flex w-full flex-col items-start justify-end gap-3 py-6 md:py-8">
-						<Typography class="h6 text-dark/60 transition-colors group-hover:text-dark/70 dark:text-white/70 dark:group-hover:text-white">
+						<Typography class="h6 text-dark/60 group-hover:text-dark/70 transition-colors dark:text-white/70 dark:group-hover:text-white">
 							{category}
 						</Typography>
 						<Typography
 							type="h3"
-							class="h4 text-dark transition-colors group-hover:text-primary-500 dark:text-white dark:group-hover:text-primary-300"
+							class="h4 text-dark group-hover:text-primary-500 dark:group-hover:text-primary-300 transition-colors dark:text-white"
 							transition:name={`product-title-${name}`}
 						>
 							{title}

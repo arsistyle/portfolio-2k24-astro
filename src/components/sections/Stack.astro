@@ -6,9 +6,9 @@ import badge from "@/assets/img/stack-badge.svg"
 import stack from "@/content/stack"
 ---
 
-<section class="relative z-20 flex h-40 justify-center bg-secondary-400 dark:bg-secondary-300">
+<section class="bg-secondary-400 dark:bg-secondary-300 relative z-20 flex h-40 justify-center">
 	<div class="relative flex w-full items-center">
-		<div class="skills-badge absolute -bottom-6 -left-28 -top-6 z-10 h-52 w-52 lg:-left-6">
+		<div class="skills-badge absolute -top-6 -bottom-6 -left-28 z-10 h-52 w-52 lg:-left-6">
 			<!-- <StackBadge /> -->
 			<Image src={badge} alt="Stack" />
 		</div>
@@ -21,14 +21,14 @@ import stack from "@/content/stack"
 			<Marquee total={stack.length || 0} itemWidth={"32"}>
 				{
 					stack.map(({ label, icon: Icon }) => (
-						<div class="group relative flex h-32 w-32 flex-1 items-center justify-center py-10 text-dark xl:w-52">
+						<div class="group text-dark relative flex h-32 w-32 flex-1 items-center justify-center py-10 xl:w-52">
 							<div class="h-full w-full xl:px-10" data-tip={label}>
 								{Icon && <Icon className="w-full h-full text-dark" />}
 							</div>
-							<div class="pointer-events-none absolute bottom-2/3 z-10 mx-auto w-max rounded-lg bg-primary-500 px-3 py-2 text-center text-xs text-black opacity-0 transition group-hover:opacity-100 dark:bg-primary-300">
+							<div class="bg-primary-500 dark:bg-primary-300 pointer-events-none absolute bottom-2/3 z-10 mx-auto w-max rounded-lg px-3 py-2 text-center text-xs text-black opacity-0 transition group-hover:opacity-100">
 								{label}
 								<svg
-									class="absolute left-0 top-full h-2 w-full text-primary-500 dark:text-primary-300"
+									class="text-primary-500 dark:text-primary-300 absolute top-full left-0 h-2 w-full"
 									viewBox="0 0 255 255"
 								>
 									<use href="#tooltip-arrow" />

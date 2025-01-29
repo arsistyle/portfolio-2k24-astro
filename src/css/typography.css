@@ -2,7 +2,7 @@
 	@apply text-[clamp(2.4rem,6vw,4.813rem)] font-bold;
 }
 .h1.heading {
-	@apply break-words text-[clamp(2.8rem,8vw,8rem)] font-black sm:break-normal;
+	@apply text-[clamp(2.8rem,8vw,8rem)] font-black break-words sm:break-normal;
 }
 
 .h2 {

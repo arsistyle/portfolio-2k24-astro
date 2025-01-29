@@ -1,5 +1,5 @@
 ---
-import type { Langs, Product } from "@/types"
+import type { Langs, ProductFromImport, ProductMDXContent, ProductMDXGlobResult } from "@/types"
 
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
@@ -9,15 +9,18 @@ import ProductDetail from "@/components/sections/ProductDetail.astro"
 
 export async function getStaticPaths() {
 	const lang: Langs = "es"
-	const products = await Astro.glob("@/content/products/**/*.json")
+	const productFiles = (await import.meta.glob<ProductMDXContent>("@/content/products/**/*.json", {
+		eager: true,
+	})) as ProductMDXGlobResult
 
-	const productList: Product[] = products
-		.filter((p) => p.default.lang === lang)
+	const productList: ProductFromImport[] = Object.values(productFiles)
+		.filter(
+			(product): product is ProductMDXContent & { default: { lang: Langs } } =>
+				product.default.lang === lang
+		)
 		.map(
 			({
 				default: {
-					id,
-					slug,
 					name,
 					title,
 					category,
@@ -28,9 +31,8 @@ export async function getStaticPaths() {
 					paymentMethods,
 					lang,
 				},
+				Content,
 			}) => ({
-				id,
-				slug,
 				name,
 				title,
 				category,
@@ -40,6 +42,7 @@ export async function getStaticPaths() {
 				price,
 				paymentMethods,
 				lang,
+				Content,
 			})
 		)
 
@@ -82,7 +85,7 @@ const breadcrumbs = [
 ---
 
 <Layout title={`Israel Larrondo | ${title}`}>
-	<div class="relative z-10 bg-white dark:bg-dark">
+	<div class="dark:bg-dark relative z-10 bg-white">
 		<HeaderPage {breadcrumbs} name={name} />
 		<ProductDetail product={post} />
 	</div>

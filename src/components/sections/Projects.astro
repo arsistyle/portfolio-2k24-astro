@@ -1,15 +1,21 @@
 ---
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "../../i18n/utils"
-import type { Project } from "../../types"
+import type { Langs, ProjectFromImport, ProjectMDXContent, ProjectMDXGlobResult } from "../../types"
 import { ProjectsList, Typography } from "../index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 
-const projects = await Astro.glob("@/content/projects/**/*.mdx")
-const projectList: Project[] = projects
-	.filter((p) => p.frontmatter.lang === lang)
+const projectFiles = (await import.meta.glob<ProjectMDXContent>("@/content/projects/**/*.mdx", {
+	eager: true,
+})) as ProjectMDXGlobResult
+
+const projectList: ProjectFromImport[] = Object.values(projectFiles)
+	.filter(
+		(project): project is ProjectMDXContent & { frontmatter: { lang: Langs } } =>
+			project.frontmatter.lang === lang
+	)
 	.map(({ frontmatter: { lang, name, title, category, images, description }, Content }) => ({
 		lang,
 		name,
@@ -22,16 +28,16 @@ const projectList: Project[] = projects
 ---
 
 <section
-	class="relative z-10 flex items-center justify-center bg-white px-5 py-14 dark:bg-dark md:py-40"
+	class="dark:bg-dark relative z-10 flex items-center justify-center bg-white px-5 py-14 md:py-40"
 >
 	<div class="container">
 		<div class="mb-12 flex flex-wrap items-center justify-between gap-6 md:mb-20">
-			<Typography type="h3" class="max-w-4xl text-balance leading-tight dark:text-white">
+			<Typography type="h3" class="max-w-4xl leading-tight text-balance dark:text-white">
 				{t("home.projects.title")}
 			</Typography>
 			<Typography
 				type="h5"
-				class="ml-auto text-dark/60 transition-colors hover:text-dark/70 dark:text-white/60 dark:hover:text-white/70"
+				class="text-dark/60 hover:text-dark/70 ml-auto transition-colors dark:text-white/60 dark:hover:text-white/70"
 			>
 				<a href={translatePath("/projects")} class="text-inherit">{t("home.projects.seeAll")}</a>
 			</Typography>

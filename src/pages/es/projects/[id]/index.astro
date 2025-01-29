@@ -1,5 +1,5 @@
 ---
-import type { Langs, Project } from "@/types"
+import type { Langs, ProjectFromImport, ProjectMDXContent, ProjectMDXGlobResult } from "@/types"
 
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
@@ -8,10 +8,16 @@ import Layout from "@/layouts/Layout.astro"
 import ProjectDetail from "@/components/sections/ProjectDetail.astro"
 
 export async function getStaticPaths() {
-	const projects = await Astro.glob("@/content/projects/**/*.mdx")
 	const lang: Langs = "es"
-	const projectList: Project[] = projects
-		.filter((p) => p.frontmatter.lang === lang)
+	const projectFiles = (await import.meta.glob<ProjectMDXContent>("@/content/projects/**/*.mdx", {
+		eager: true,
+	})) as ProjectMDXGlobResult
+
+	const projectList: ProjectFromImport[] = Object.values(projectFiles)
+		.filter(
+			(project): project is ProjectMDXContent & { frontmatter: { lang: Langs } } =>
+				project.frontmatter.lang === lang
+		)
 		.map(({ frontmatter: { lang, name, title, category, images, description }, Content }) => ({
 			lang,
 			name,
@@ -61,7 +67,7 @@ const breadcrumbs = [
 ---
 
 <Layout title={`Israel Larrondo | ${title}`}>
-	<div class="relative z-10 bg-white dark:bg-dark">
+	<div class="dark:bg-dark relative z-10 bg-white">
 		<HeaderPage title={title} {breadcrumbs} name={name} />
 		<ProjectDetail project={post} />
 	</div>

@@ -12,9 +12,9 @@ const translatePath = useTranslatedPath(lang)
 const { lang: langSelector = true } = props || {}
 ---
 
-<header class="sticky left-0 right-0 top-0 z-50 h-16 px-4 pt-4">
+<header class="sticky top-0 right-0 left-0 z-50 h-16 px-4 pt-4">
 	<div
-		class="container m-auto flex items-center justify-between gap-4 rounded-main bg-white/60 p-3 px-8 backdrop-blur-md dark:bg-dark/60"
+		class="rounded-main dark:bg-dark/60 container m-auto flex items-center justify-between gap-4 bg-white/60 p-3 px-8 backdrop-blur-md"
 	>
 		<a href={translatePath("/")} class="text-dark dark:text-white" title="Arsi Logo">
 			<Logo />

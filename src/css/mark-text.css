@@ -19,6 +19,6 @@
 @keyframes highlight {
 	to {
 		--highlighted: 1;
-		@apply text-dark;
+		color: theme("colors.dark");
 	}
 }
