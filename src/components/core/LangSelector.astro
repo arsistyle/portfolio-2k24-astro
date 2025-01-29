@@ -10,12 +10,12 @@ const pathname = url.pathname
 const translatePath = (lang: Langs) => useTranslatedPath(lang)(cleanUrl(pathname))
 
 const mainClasses = "text-xs transition-colors rounded-full"
-const defaultClasses = "text-dark/60 dark:text-white/60 hover:text-dark/80 hover:dark:text-white/80"
+const defaultClasses = "text-dark/60 dark:text-white/60 hover:text-dark/80 dark:hover:text-white/80"
 const activeClasses = "pointer-events-none text-secondary-500 dark:text-primary-300"
 ---
 
 <div
-	class="flex h-8 items-center gap-3 rounded-main bg-dark/5 px-4 transition-colors hover:bg-dark/10 dark:bg-white/5 hover:dark:bg-white/10"
+	class="rounded-main bg-dark/5 hover:bg-dark/10 flex h-8 items-center gap-3 px-4 transition-colors dark:bg-white/5 dark:hover:bg-white/10"
 >
 	<IoLanguage className="text-dark dark:text-white" />
 	<div class="flex gap-2">

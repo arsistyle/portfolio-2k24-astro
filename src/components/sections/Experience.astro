@@ -11,12 +11,12 @@ const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || []
 ---
 
 <section
-	class="relative z-10 flex items-center justify-center bg-white px-5 pb-14 pt-8 dark:bg-dark md:pb-40 md:pt-24"
+	class="dark:bg-dark relative z-10 flex items-center justify-center bg-white px-5 pt-8 pb-14 md:pt-24 md:pb-40"
 >
 	<div class="container">
 		<Typography
 			type="h3"
-			class="h2 mb-12 max-w-3xl text-balance leading-tight dark:text-white md:mb-20"
+			class="h2 mb-12 max-w-3xl leading-tight text-balance md:mb-20 dark:text-white"
 		>
 			{t("home.experience.title")}
 		</Typography>
@@ -24,10 +24,10 @@ const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || []
 			{
 				jobs.map((text: string) => (
 					<div class="col-span-2 grid grid-cols-[2rem_1fr] gap-4 text-left md:col-span-1 md:grid-cols-[3rem_1fr]">
-						<div class="h-8 w-8 text-primary-500 dark:text-primary-300 md:h-12 md:w-12">
+						<div class="text-primary-500 dark:text-primary-300 h-8 w-8 md:h-12 md:w-12">
 							<Check />
 						</div>
-						<p class="p highlight text-pretty text-dark dark:text-white">{text}</p>
+						<p class="p highlight text-dark text-pretty dark:text-white">{text}</p>
 					</div>
 				))
 			}

@@ -11,7 +11,7 @@ const totalWidth = total * remToPixel * 2
 
 <div class="marquee relative overflow-hidden">
 	<div
-		class="absolute bottom-0 left-0 top-0 z-[1] h-full w-20 bg-gradient-to-r from-secondary-400 to-secondary-300/0 dark:from-secondary-300"
+		class="from-secondary-400 to-secondary-300/0 dark:from-secondary-300 absolute top-0 bottom-0 left-0 z-1 h-full w-20 bg-linear-to-r"
 	>
 	</div>
 	<div
@@ -22,7 +22,7 @@ const totalWidth = total * remToPixel * 2
 		<slot />
 	</div>
 	<div
-		class="absolute bottom-0 right-0 top-0 z-[1] h-full w-20 bg-gradient-to-l from-secondary-400 to-secondary-300/0 dark:from-secondary-300"
+		class="from-secondary-400 to-secondary-300/0 dark:from-secondary-300 absolute top-0 right-0 bottom-0 z-1 h-full w-20 bg-linear-to-l"
 	>
 	</div>
 </div>

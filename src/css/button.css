@@ -1,7 +1,7 @@
 /* Default */
 
 .btn {
-	@apply inline-flex max-w-full origin-bottom select-none items-center justify-center gap-2 overflow-clip text-ellipsis whitespace-nowrap border border-transparent font-semibold text-dark transition hover:scale-105 dark:text-white;
+	@apply text-dark inline-flex max-w-full origin-bottom items-center justify-center gap-2 overflow-clip border border-transparent font-semibold text-ellipsis whitespace-nowrap transition select-none hover:scale-105 dark:text-white;
 }
 
 /* Sizes */
@@ -29,7 +29,7 @@
 /* Disabled */
 
 .btn--disabled {
-	@apply pointer-events-none cursor-not-allowed select-none opacity-50;
+	@apply pointer-events-none cursor-not-allowed opacity-50 select-none;
 }
 
 /* Colors */
@@ -53,7 +53,7 @@
 /* Filled */
 
 .btn--filled {
-	@apply bg-gray-300 text-dark dark:text-dark;
+	@apply text-dark dark:text-dark bg-gray-300;
 }
 
 .btn--filled.btn--dark {
@@ -61,20 +61,20 @@
 }
 
 .btn--filled.btn--primary {
-	@apply bg-primary-400 text-white dark:bg-primary-300;
+	@apply bg-primary-400 dark:bg-primary-300 text-white;
 }
 
 .btn--filled.btn--secondary {
-	@apply bg-secondary-400 text-white dark:bg-secondary-300 dark:text-dark;
+	@apply bg-secondary-400 dark:bg-secondary-300 dark:text-dark text-white;
 }
 
 .btn--filled.btn--light {
-	@apply bg-white text-dark hover:bg-gray-100;
+	@apply text-dark bg-white hover:bg-gray-100;
 }
 
 /* Outline */
 .btn--outlined {
-	@apply border-gray-500 text-dark dark:border-gray-300 dark:text-gray-300;
+	@apply text-dark border-gray-500 dark:border-gray-300 dark:text-gray-300;
 }
 
 .btn--outlined.btn--dark {
