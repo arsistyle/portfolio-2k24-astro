@@ -1,7 +1,7 @@
 /* Default */
 
 .btn {
-	@apply inline-flex max-w-full select-none items-center justify-center gap-4 overflow-clip text-ellipsis whitespace-nowrap rounded-md border border-transparent font-semibold text-dark transition hover:scale-105 dark:text-white;
+	@apply inline-flex max-w-full origin-bottom select-none items-center justify-center gap-2 overflow-clip text-ellipsis whitespace-nowrap border border-transparent font-semibold text-dark transition hover:scale-105 dark:text-white;
 }
 
 /* Sizes */
@@ -61,7 +61,7 @@
 }
 
 .btn--filled.btn--primary {
-	@apply bg-primary-400 text-dark dark:bg-primary-300;
+	@apply bg-primary-400 text-white dark:bg-primary-300;
 }
 
 .btn--filled.btn--secondary {
@@ -91,4 +91,14 @@
 
 .btn--outlined.btn--light {
 	@apply border-white text-white hover:border-gray-100;
+}
+
+/* Shape */
+
+.btn--circle {
+	@apply aspect-square h-14 w-14 items-center justify-center rounded-full p-0;
+}
+
+.btn--rounded {
+	@apply rounded-md;
 }
