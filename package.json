@@ -17,7 +17,6 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^4.0.7",
     "@astrojs/react": "^4.2.0",
-    "@astrojs/tailwind": "^5.1.5",
     "@fontsource-variable/syne": "^5.1.1",
     "@pyncz/tailwind-mask-image": "^2.0.0",
     "@tailwindcss/vite": "^4.0.0",
