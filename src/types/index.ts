@@ -29,10 +29,6 @@ export type Project = {
 	content?: any
 }
 
-export type ProjectWithLang = {
-	[key in Langs]: Project
-}
-
 /*
 
   Product
