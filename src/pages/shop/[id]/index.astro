@@ -9,7 +9,7 @@ import ProductDetail from "@/components/sections/ProductDetail.astro"
 
 export async function getStaticPaths() {
 	const lang: Langs = "en"
-	const productFiles = (await import.meta.glob<ProductMDXContent>("@/content/products/**/*.json", {
+	const productFiles = (import.meta.glob<ProductMDXContent>("@/content/products/**/*.json", {
 		eager: true,
 	})) as ProductMDXGlobResult
 

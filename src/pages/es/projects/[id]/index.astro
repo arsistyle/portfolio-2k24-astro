@@ -9,7 +9,7 @@ import ProjectDetail from "@/components/sections/ProjectDetail.astro"
 
 export async function getStaticPaths() {
 	const lang: Langs = "es"
-	const projectFiles = (await import.meta.glob<ProjectMDXContent>("@/content/projects/**/*.mdx", {
+	const projectFiles = (import.meta.glob<ProjectMDXContent>("@/content/projects/**/*.mdx", {
 		eager: true,
 	})) as ProjectMDXGlobResult
 

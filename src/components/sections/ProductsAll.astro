@@ -2,7 +2,6 @@
 import { getLangFromUrl } from "@/i18n/utils"
 import type {
 	Langs,
-	Product,
 	ProductFromImport,
 	ProductMDXContent,
 	ProductMDXGlobResult,
@@ -11,7 +10,7 @@ import List from "@/components/core/Products/List.astro"
 
 const lang = getLangFromUrl(Astro.url) as Langs
 
-const productFiles = (await import.meta.glob<ProductMDXContent>("@/content/products/**/*.json", {
+const productFiles = (import.meta.glob<ProductMDXContent>("@/content/products/**/*.json", {
 	eager: true,
 })) as ProductMDXGlobResult
 

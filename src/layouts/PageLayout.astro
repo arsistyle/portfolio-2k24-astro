@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from "astro:transitions"
+import { ClientRouter } from "astro:transitions"
 import "@fontsource-variable/syne"
 
 import type { PageLayoutProps } from "@/types"
@@ -10,7 +10,7 @@ import { Header, Footer } from "@/components/shared/index.astro"
 import HeaderPage from "@/components/ui/HeaderPage.astro"
 import { Sidebar } from "@/components/index.astro"
 
-import "../css/styles.css"
+import "@/css/global.css"
 
 type Props = PageLayoutProps
 
@@ -31,7 +31,7 @@ const hasNav = nav && Object.keys(nav)?.length
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{`Israel Larrondo | ${title}`}</title>
-		<ViewTransitions />
+		<ClientRouter />
 	</head>
 
 	<body class="dark:bg-dark bg-white">

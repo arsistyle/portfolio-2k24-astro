@@ -5,7 +5,7 @@ import { ProjectsList } from "@/components/index.astro"
 
 const lang = getLangFromUrl(Astro.url) as Langs
 
-const projectFiles = (await import.meta.glob<ProjectMDXContent>("@/content/projects/**/*.mdx", {
+const projectFiles = (import.meta.glob<ProjectMDXContent>("@/content/projects/**/*.mdx", {
 	eager: true,
 })) as ProjectMDXGlobResult
 
