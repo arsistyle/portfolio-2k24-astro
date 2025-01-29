@@ -1,4 +1,4 @@
-import type { ButtonProps } from "../components/core/Button/index.astro"
+import type { ButtonProps } from "../components/core/Button/types"
 
 export type Langs = "en" | "es"
 
