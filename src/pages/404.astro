@@ -12,22 +12,28 @@ const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 ---
 
-<Layout title="Israel Larrondo | Error 404, Not Found" showFooter={false} showHeader={false}>
-	<div
-		class="relative container mx-auto flex h-screen flex-col items-center justify-center gap-12 text-center"
-	>
-		<Magnet client:only
-			><Typography
-				type="h1"
-				class="mb-24 cursor-default text-[clamp(2.8rem,20vw,14rem)] font-black text-white"
-				>{t("404.title")}</Typography
-			></Magnet
-		>
-		<Typography type="p" class="highlight text-white">{t("404.description")}</Typography>
-		<Button tag="a" href={translatePath("/")} variant="outlined" size="lg">
-			<BiArrowBack slot="startIcon" />
-			{t("404.cta")}
-		</Button>
-	</div>
-	<BackgroundGrid class="absolute -top-96 bottom-0" />
+<Layout
+  title="Israel Larrondo | Error 404, Not Found"
+  showFooter={false}
+  showHeader={false}
+>
+  <div
+    class="container relative flex flex-col gap-12 justify-center items-center text-center mx-auto h-screen"
+  >
+    <Magnet client:only
+      ><h1
+        class="font-black text-[clamp(2.8rem,20vw,14rem)] text-white mb-24 cursor-default leading-[0.75em]"
+        >{t("404.title")}</h1
+      ></Magnet
+    >
+    <Typography type="p" class="highlight text-white"
+      >{t("404.description")}</Typography
+    >
+    <Button tag="a" href={translatePath("/")} variant="outlined" size="lg">
+      <BiArrowBack slot="startIcon" />
+      {t("404.cta")}
+    </Button>
+  </div>
+  <BackgroundGrid class="absolute -top-96 bottom-0" />
+
 </Layout>
