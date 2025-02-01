@@ -1,34 +1,19 @@
 ---
+import { getProjects } from "@/utils/getProjects"
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "../../i18n/utils"
-import type { Langs, ProjectFromImport, ProjectMDXContent, ProjectMDXGlobResult } from "../../types"
 import { ProjectsList, Typography } from "../index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 
-const projectFiles = (import.meta.glob<ProjectMDXContent>("@/content/projects/**/*.mdx", {
-	eager: true,
-})) as ProjectMDXGlobResult
-
-const projectList: ProjectFromImport[] = Object.values(projectFiles)
-	.filter(
-		(project): project is ProjectMDXContent & { frontmatter: { lang: Langs } } =>
-			project.frontmatter.lang === lang
-	)
-	.map(({ frontmatter: { lang, name, title, category, images, description }, Content }) => ({
-		lang,
-		name,
-		title,
-		category,
-		images,
-		description,
-		Content,
-	}))
+const projectList = getProjects({
+	lang,
+})
 ---
 
 <section
-	class="dark:bg-dark relative z-10 flex items-center justify-center bg-white px-5 py-14 md:py-40"
+	class="dark:bg-dark relative z-10 flex items-center justify-center bg-white py-14 md:py-40"
 >
 	<div class="container">
 		<div class="mb-12 flex flex-wrap items-center justify-between gap-6 md:mb-20">

@@ -9,7 +9,7 @@ const lang = getLangFromUrl(Astro.url)
 const translatePath = useTranslatedPath(lang)
 
 const { project } = Astro.props
-const { category, title, images, name } = project || {}
+const { categories = [], title = "", images = [], name = "" } = project || {}
 ---
 
 <article class="group relative">
@@ -37,11 +37,18 @@ const { category, title, images, name } = project || {}
 		<div
 			class="relative inset-0 z-20 flex w-full flex-col items-start justify-end gap-3 py-6 md:py-8"
 		>
-			<Typography
-				class="h6 text-dark/60 group-hover:text-dark/70 transition-colors dark:text-white/70 dark:group-hover:text-white"
-			>
-				{category}
-			</Typography>
+			<div class="flex gap-2">
+				{
+					categories.map((cat: string, i: number) => (
+						<Fragment>
+							<Typography type="span" class="highlight text-dark/60 dark:text-white/70">
+								{cat}
+							</Typography>
+							{i < categories.length - 1 && <span class="text-dark/40 dark:text-white/60">|</span>}
+						</Fragment>
+					))
+				}
+			</div>
 			<Typography
 				type="h3"
 				class="h4 text-dark group-hover:text-primary-500 dark:group-hover:text-primary-300 transition-colors dark:text-white"

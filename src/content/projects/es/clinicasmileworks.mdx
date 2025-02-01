@@ -2,14 +2,29 @@
 name: "clinicasmileworks"
 lang: "es"
 title: "Clínica Smile Works"
-description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et turpis sed est aliquet sagittis. Donec id purus ut orci pharetra tincidunt. Aliquam erat volutpat."
-category: "Web development"
+categories: ["Desarrollo web", "UX / UI"]
+date: 202410
+og_image: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/projects/clinicasmileworks/og-image-es.png"
 images:
-  small: "https://picsum.photos/360/360"
-  medium: "/assets/img/projects/mocho.medium.jpg"
-  large: "/assets/img/projects/mocho.large.jpg"
+  small: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/projects/clinicasmileworks/shot--sm.jpg"
+  medium: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/projects/clinicasmileworks/shot--md.jpg"
+  large: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/projects/clinicasmileworks/shot--xl.jpg"
 ---
 
-<div>
-	<h2>Holanda</h2>
-</div>
+import { Typography, Button, ProjectInfo } from "@/components/index.astro"
+
+<ProjectInfo
+	description="Proyecto creado para una Clínica dental, el cual incluyó Diseño UX / UI y  Desarrollo web."
+	actions={[
+		{
+			url: "https://clinicasmileworks.cl",
+			type: "website",
+		},
+		{
+			url: "https://github.com/arsistyle/clinicasmileworks",
+			type: "source",
+		},
+	]}
+	tools={["Astro", "React", "TailwindCSS", "TypeScript", "Figma", "Cloudflare"]}
+	categories={["Desarrollo web", "UX / UI"]}
+/>

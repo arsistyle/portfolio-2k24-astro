@@ -1,16 +1,18 @@
 ---
 import { getLangFromUrl } from "@/i18n/utils"
 import type { Langs } from "@/types"
-import List from "@/components/core/Products/List.astro"
-import { getProducts } from "@/utils/getProducts"
+import { ProjectsList } from "@/components/index.astro"
+import { getProjects } from "@/utils/getProjects"
 
 const lang = getLangFromUrl(Astro.url) as Langs
 
-const productList = getProducts({ lang })
+const projectList = getProjects({
+	lang,
+})
 ---
 
 <section class="flex items-center justify-center pb-14 md:pb-40">
 	<div class="container">
-		<List products={productList} />
+		<ProjectsList projects={projectList} />
 	</div>
 </section>

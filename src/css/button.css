@@ -61,7 +61,7 @@
 }
 
 .btn--filled.btn--primary {
-	@apply bg-primary-400 dark:bg-primary-300 text-white;
+	@apply bg-primary-400 dark:bg-primary-300 dark:text-dark text-white;
 }
 
 .btn--filled.btn--secondary {

@@ -1,50 +1,15 @@
 ---
-import type { Langs, ProductFromImport, ProductMDXContent, ProductMDXGlobResult } from "@/types"
+import type { Langs } from "@/types"
 
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
-import { HeaderPage } from "@/components/ui/index.astro"
-import Layout from "@/layouts/Layout.astro"
 import ProductDetail from "@/components/sections/ProductDetail.astro"
+import PageLayout from "@/layouts/PageLayout.astro"
+import { getProducts } from "@/utils/getProducts"
 
 export async function getStaticPaths() {
 	const lang: Langs = "en"
-	const productFiles = (import.meta.glob<ProductMDXContent>("@/content/products/**/*.json", {
-		eager: true,
-	})) as ProductMDXGlobResult
-
-	const productList: ProductFromImport[] = Object.values(productFiles)
-		.filter(
-			(product): product is ProductMDXContent & { default: { lang: Langs } } =>
-				product.default.lang === lang
-		)
-		.map(
-			({
-				default: {
-					name,
-					title,
-					category,
-					thumbnail,
-					gallery,
-					description,
-					price,
-					paymentMethods,
-					lang,
-				},
-				Content,
-			}) => ({
-				name,
-				title,
-				category,
-				thumbnail,
-				gallery,
-				description,
-				price,
-				paymentMethods,
-				lang,
-				Content,
-			})
-		)
+	const productList = getProducts({ lang })
 
 	return productList.map((post) => {
 		return {
@@ -58,7 +23,7 @@ const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 const { post } = Astro.props
-const { title, name } = post
+const { title, og_image } = post
 
 const breadcrumbs = [
 	{
@@ -84,9 +49,10 @@ const breadcrumbs = [
 ]
 ---
 
-<Layout title={`Israel Larrondo | ${title}`}>
-	<div class="dark:bg-dark relative z-10 bg-white">
-		<HeaderPage {breadcrumbs} name={name} />
-		<ProductDetail product={post} />
-	</div>
-</Layout>
+<PageLayout
+	title={`Israel Larrondo | ${t("shop.title")} - ${title}`}
+	{breadcrumbs}
+	og_image={og_image}
+>
+	<ProductDetail product={post} />
+</PageLayout>

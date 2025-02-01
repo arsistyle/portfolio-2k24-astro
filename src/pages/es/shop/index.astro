@@ -1,4 +1,5 @@
 ---
+import PageLayout from "@/layouts/PageLayout.astro"
 import ProductsAll from "../../../components/sections/ProductsAll.astro"
 import HeaderPage from "../../../components/ui/HeaderPage.astro"
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "../../../i18n/utils"
@@ -24,9 +25,6 @@ const breadcrumbs = [
 ]
 ---
 
-<Layout title="Israel Larrondo | Shop">
-	<div class="dark:bg-dark relative z-10 bg-white">
-		<HeaderPage title={t("shop.title")} {breadcrumbs} />
-		<ProductsAll />
-	</div>
-</Layout>
+<PageLayout title="Israel Larrondo | Shop" pageTitle={t("shop.title")} {breadcrumbs}>
+	<ProductsAll />
+</PageLayout>
