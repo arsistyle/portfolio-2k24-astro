@@ -13,6 +13,12 @@
 
   "projects.title": "Proyectos",
 
+  "projects.detail.actions.visit": "Website",
+  "projects.detail.actions.source": "Código fuente",
+  "projects.detail.categories.title": "Categorías",
+  "projects.detail.tools.title": "Herramientas",
+  "projects.detail.actions.title": "Enlaces",
+
   "shop.title": "Tienda",
   "shop.thankYou.title": "¡Gracias por tu compra!",
   "shop.thankYou.description": "Tu pago se ha procesado correctamente.",

@@ -17,7 +17,13 @@ const {
 	rel,
 	shape = "rounded",
 	title = "",
+	slotProps = {},
 } = Astro.props
+
+const { startIcon, endIcon } = Astro.slots
+
+const { startIcon: startIconProps, endIcon: endIconProps } = slotProps || {}
+
 const Tag = tag
 ---
 
@@ -38,7 +44,19 @@ const Tag = tag
 	rel={rel}
 	title={title}
 >
-	<slot name="startIcon" />
+	{
+		startIcon && (
+			<span class="aspect-square" {...startIconProps}>
+				<slot name="startIcon" />
+			</span>
+		)
+	}
 	<slot />
-	<slot name="endIcon" />
+	{
+		endIcon && (
+			<span class="aspect-square" {...endIconProps}>
+				<slot name="endIcon" />
+			</span>
+		)
+	}
 </Tag>

@@ -14,6 +14,12 @@
 
   "projects.title": "Projects",
 
+  "projects.detail.actions.visit": "Website",
+  "projects.detail.actions.source": "Source code",
+  "projects.detail.categories.title": "Categories",
+  "projects.detail.tools.title": "Tools",
+  "projects.detail.actions.title": "Links",
+
   "shop.title": "Shop",
   "shop.thankYou.title": "Thank you for your purchase!",
   "shop.thankYou.description": "Your payment has been processed successfully.",

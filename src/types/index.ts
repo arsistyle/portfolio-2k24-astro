@@ -31,8 +31,10 @@ export type Project = {
 		medium: string
 		large: string
 	}
-	category: string
+	categories: string[]
 	content?: any
+	date: number
+	og_image?: string
 }
 
 export type ProjectMDXContent = MDXContent & {
@@ -41,7 +43,7 @@ export type ProjectMDXContent = MDXContent & {
 
 export type ProjectFromImport = Pick<
 	Project,
-	"lang" | "name" | "title" | "category" | "images" | "description"
+	"lang" | "name" | "title" | "categories" | "images" | "description" | "og_image"
 > & {
 	Content: ProjectMDXContent["Content"]
 }
@@ -73,6 +75,7 @@ export type Product = {
 	price: number
 	thumbnail: string
 	title: string
+	og_image?: string
 }
 
 export type ProductMDXContent = MDXContent & {
@@ -90,6 +93,7 @@ export type ProductFromImport = Pick<
 	| "price"
 	| "thumbnail"
 	| "title"
+	| "og_image"
 > & {
 	Content: MDXContent["Content"]
 }
@@ -126,8 +130,15 @@ export type NavProps = {
 }
 
 export type PageLayoutProps = {
-	title: string
+	pageTitle?: string
+	title?: string
 	breadcrumbs: any[]
 	nav?: NavProps
 	name?: string
+	description?: string
+	og_image?: string
+	og_title?: string
+	og_type?: string
+	canonical?: string
+	langSelector?: boolean
 }

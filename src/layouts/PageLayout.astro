@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from "astro:transitions"
+import { SEO } from "astro-seo"
 import "@fontsource-variable/syne"
 
 import type { PageLayoutProps } from "@/types"
@@ -11,13 +12,26 @@ import HeaderPage from "@/components/ui/HeaderPage.astro"
 import { Sidebar } from "@/components/index.astro"
 
 import "@/css/global.css"
+import { SEO_DATA } from "@/constants"
 
 type Props = PageLayoutProps
 
 const { props } = Astro
-
-const { title, breadcrumbs, nav, name } = props
 const lang = getLangFromUrl(Astro.url)
+
+const {
+	pageTitle,
+	title = SEO_DATA[lang].title,
+	description = SEO_DATA[lang].description,
+	og_image = SEO_DATA[lang].image,
+	og_title = SEO_DATA[lang].title,
+	og_type = "website",
+	canonical = SEO_DATA[lang].canonical_url,
+	breadcrumbs,
+	nav,
+	name,
+	langSelector = true,
+} = props
 
 const hasNav = nav && Object.keys(nav)?.length
 ---
@@ -26,28 +40,41 @@ const hasNav = nav && Object.keys(nav)?.length
 <html lang={lang} class="dark">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{`Israel Larrondo | ${title}`}</title>
+		<SEO
+			title={title}
+			description={description}
+			canonical={canonical}
+			openGraph={{
+				basic: {
+					title: og_title || title,
+					image: og_image,
+					type: og_type,
+				},
+				optional: {
+					description,
+				},
+			}}
+		/>
 		<ClientRouter />
 	</head>
 
 	<body class="dark:bg-dark bg-white">
-		<Header lang={false} />
+		<Header lang={langSelector} />
 		<main class="dark:bg-dark relative z-10 bg-white">
-			<div class="container mx-auto">
-				<HeaderPage title={title} {breadcrumbs} name={name} />
-				<div class="grid grid-cols-8 gap-12 px-5 py-10 md:gap-4">
+			<div class="container mx-auto max-w-6xl">
+				<HeaderPage title={pageTitle} {breadcrumbs} name={name} />
+				<div class="grid grid-cols-4 gap-12 px-5 py-10 md:gap-4">
 					{
 						hasNav && (
-							<div class="col-span-8 md:col-span-2">
+							<div class="col-span-4 md:col-span-2">
 								<Sidebar data={nav} />
 							</div>
 						)
 					}
-					<div class={nav ? "col-span-8 md:col-span-6" : "col-span-8"}>
+					<div class={nav ? "col-span-4 md:col-span-6" : "col-span-4"}>
 						<slot />
 					</div>
 				</div>

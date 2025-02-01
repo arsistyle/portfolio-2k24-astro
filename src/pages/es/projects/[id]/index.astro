@@ -3,30 +3,16 @@ import type { Langs, ProjectFromImport, ProjectMDXContent, ProjectMDXGlobResult 
 
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
-import { HeaderPage } from "@/components/ui/index.astro"
-import Layout from "@/layouts/Layout.astro"
 import ProjectDetail from "@/components/sections/ProjectDetail.astro"
+import PageLayout from "@/layouts/PageLayout.astro"
+import { getProjects } from "@/utils/getProjects"
 
 export async function getStaticPaths() {
 	const lang: Langs = "es"
-	const projectFiles = (import.meta.glob<ProjectMDXContent>("@/content/projects/**/*.mdx", {
-		eager: true,
-	})) as ProjectMDXGlobResult
 
-	const projectList: ProjectFromImport[] = Object.values(projectFiles)
-		.filter(
-			(project): project is ProjectMDXContent & { frontmatter: { lang: Langs } } =>
-				project.frontmatter.lang === lang
-		)
-		.map(({ frontmatter: { lang, name, title, category, images, description }, Content }) => ({
-			lang,
-			name,
-			title,
-			category,
-			images,
-			description,
-			Content,
-		}))
+	const projectList = getProjects({
+		lang,
+	})
 
 	return projectList.map((post) => {
 		return {
@@ -40,7 +26,7 @@ const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 const { post } = Astro.props
-const { title, name } = post
+const { title, og_image } = post
 
 const breadcrumbs = [
 	{
@@ -66,9 +52,11 @@ const breadcrumbs = [
 ]
 ---
 
-<Layout title={`Israel Larrondo | ${title}`}>
-	<div class="dark:bg-dark relative z-10 bg-white">
-		<HeaderPage title={title} {breadcrumbs} name={name} />
-		<ProjectDetail project={post} />
-	</div>
-</Layout>
+<PageLayout
+	title={`Israel Larrondo | ${t("projects.title")} - ${title}`}
+	pageTitle={title}
+	og_image={og_image}
+	{breadcrumbs}
+>
+	<ProjectDetail project={post} />
+</PageLayout>
