@@ -1,53 +1,52 @@
 ---
-import type { Product } from "../../../types";
-import { getLangFromUrl, useTranslatedPath } from "../../../i18n/utils";
-import { GoArrowRight } from "react-icons/go";
-import Image from "astro/components/Image.astro";
-import { Typography } from "../index.astro";
+import { GoArrowRight } from "react-icons/go"
+import { Image } from "astro:assets"
 
-const lang = getLangFromUrl(Astro.url);
-const translatePath = useTranslatedPath(lang);
+import { getLangFromUrl, useTranslatedPath } from "@/i18n/utils"
+import type { Product } from "@/types"
 
-const { products } = Astro.props;
+import { Typography } from "@/components/index.astro"
+
+const lang = getLangFromUrl(Astro.url)
+const translatePath = useTranslatedPath(lang)
+
+const { products } = Astro.props
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-20">
-  {
-    products.map(({ name, title, thumbnail, category }: Product) => (
-      <article class="group relative">
-        <a
-          href={translatePath(`/shop/${name}`)}
-          class="flex flex-col aspect-[4/3]"
-        >
-          <div class="transition absolute z-10 w-12 h-12 p-2 rounded-full bg-white group-hover:bg-primary-500 group-hover:dark:bg-primary-300 flex items-center justify-center right-5 top-5 text-dark -rotate-45 group-hover:rotate-0 group-hover:scale-125 group-hover:-translate-y-2 group-hover:translate-x-2">
-            <GoArrowRight className="w-full h-full " />
-          </div>
-          {thumbnail && (
-            <div class="relative inset-0 transition-transform overflow-clip group-hover:scale-105 rounded-4xl">
-              <Image
-                src={thumbnail}
-                class="w-full h-full object-cover rounded-4xl"
-                alt={title}
-                transition:name={`product-image-${name}`}
-                width={768}
-                height={576}
-              />
-            </div>
-          )}
-          <div class="w-full flex flex-col gap-3 justify-end items-start relative z-20 inset-0 py-6 md:py-8">
-            <Typography class="h6 transition-colors text-dark/60 group-hover:text-dark/70 dark:text-white/70 dark:group-hover:text-white">
-              {category}
-            </Typography>
-            <Typography
-              type="h3"
-              class="h4 transition-colors text-dark group-hover:text-primary-500 dark:text-white dark:group-hover:text-primary-300"
-              transition:name={`product-title-${name}`}
-            >
-              {title}
-            </Typography>
-          </div>
-        </a>
-      </article>
-    ))
-  }
+<div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 lg:grid-cols-3">
+	{
+		products.map(({ name, title, thumbnail, category }: Product) => (
+			<article class="group relative">
+				<a href={translatePath(`/shop/${name}`)} class="flex aspect-4/3 flex-col">
+					<div class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:-translate-y-2 group-hover:translate-x-2 group-hover:scale-125 group-hover:rotate-0">
+						<GoArrowRight className="w-full h-full " />
+					</div>
+					{thumbnail && (
+						<div class="relative inset-0 overflow-clip rounded-4xl transition-transform group-hover:scale-105">
+							<Image
+								src={thumbnail}
+								class="pointer-events-none h-full w-full rounded-4xl object-cover"
+								alt={title}
+								transition:name={`product-image-${name}`}
+								width={768}
+								height={576}
+							/>
+						</div>
+					)}
+					<div class="relative inset-0 z-20 flex w-full flex-col items-start justify-end gap-3 py-6 md:py-8">
+						<Typography class="h6 text-dark/60 group-hover:text-dark/70 transition-colors dark:text-white/70 dark:group-hover:text-white">
+							{category}
+						</Typography>
+						<Typography
+							type="h3"
+							class="h4 text-dark group-hover:text-primary-500 dark:group-hover:text-primary-300 transition-colors dark:text-white"
+							transition:name={`product-title-${name}`}
+						>
+							{title}
+						</Typography>
+					</div>
+				</a>
+			</article>
+		))
+	}
 </div>

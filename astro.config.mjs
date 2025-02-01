@@ -1,13 +1,16 @@
-import { defineConfig, passthroughImageService } from "astro/config";
-import tailwind from "@astrojs/tailwind";
-import mdx from "@astrojs/mdx";
+import { defineConfig, passthroughImageService } from "astro/config"
+import mdx from "@astrojs/mdx"
+import tailwindcss from "@tailwindcss/vite"
 
-import react from "@astrojs/react";
+import react from "@astrojs/react"
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [mdx(), tailwind(), react()],
-  image: {
-    service: passthroughImageService(),
-  },
-});
+	integrations: [mdx(), react()],
+	image: {
+		service: passthroughImageService(),
+	},
+	vite: {
+		plugins: [tailwindcss()],
+	},
+})

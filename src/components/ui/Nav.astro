@@ -1,41 +1,41 @@
 ---
-import { getLangFromUrl, useTranslations, useTranslatedPath } from '../../i18n/utils';
-import { NAV_ITEMS } from '../../constants';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@/i18n/utils"
+import { NAV_ITEMS } from "@/constants"
 
-import type { NavItem } from '../../constants/types';
+import type { NavItem } from "@/constants/types"
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
-const { pathname } = Astro.url;
-const currentPath = pathname.replace(`/${lang}`, '');
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+const { pathname } = Astro.url
+const currentPath = pathname.replace(`/${lang}`, "")
 
-const isThisPage = (pageUrl = '', currentPath = '', lang = '') => {
-  const currentPage = pageUrl.replace(`/${lang}`, '');
-  const paths = currentPath.replace('/', '').split('/');
-  const [current] = paths;
-  return currentPage === `/${current}`;
-};
+const isThisPage = (pageUrl = "", currentPath = "", lang = "") => {
+	const currentPage = pageUrl.replace(`/${lang}`, "")
+	const paths = currentPath.replace("/", "").split("/")
+	const [current] = paths
+	return currentPage === `/${current}`
+}
 ---
 
-<ul class='flex flex-col lg:flex-row gap-5'>
-  {
-    NAV_ITEMS?.map(({ name, href = '' }: NavItem) => {
-      const path = translatePath(href);
-      const isActive = isThisPage(path, currentPath, lang);
+<ul class="flex flex-col gap-5 lg:flex-row">
+	{
+		NAV_ITEMS?.map(({ name, href = "" }: NavItem) => {
+			const path = translatePath(href)
+			const isActive = isThisPage(path, currentPath, lang)
 
-      return (
-        <li>
-          <a
-            href={path}
-            class={`block text-2xl text-center lg:text-xl font-bold text-dark dark:text-white font-Syne transition-opacity hover:opacity-80 ${
-              isActive ? '' : 'opacity-60'
-            }`}
-          >
-            {t(name)}
-          </a>
-        </li>
-      );
-    })
-  }
+			return (
+				<li>
+					<a
+						href={path}
+						class={`font-Syne text-dark block text-center text-2xl font-bold transition-opacity hover:opacity-80 lg:text-xl dark:text-white ${
+							isActive ? "" : "opacity-60"
+						}`}
+					>
+						{t(name)}
+					</a>
+				</li>
+			)
+		})
+	}
 </ul>

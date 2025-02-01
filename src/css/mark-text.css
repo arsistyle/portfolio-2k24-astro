@@ -1,26 +1,24 @@
 .mark-text {
-  --highlighted: 0;
-  animation: highlight steps(1) both;
-  animation-timeline: view();
-  animation-range: entry 170% cover 40%;
-  @apply text-dark dark:text-white;
+	--highlighted: 0;
+	animation: highlight steps(1) both;
+	animation-timeline: view();
+	animation-range: entry 170% cover 40%;
+	@apply text-dark dark:text-white;
 }
 
 .mark-text span {
-  background: linear-gradient(
-      90deg,
-      theme("colors.primary.300") 50%,
-      transparent 50%
-    )
-    110% 0 / 200% 100% no-repeat;
-  background-position: calc((1 - var(--highlighted)) * 110%) 0;
-  transition: background-position 1s, color 1s;
-  @apply px-1;
+	background: linear-gradient(90deg, theme("colors.primary.300") 50%, transparent 50%) 110% 0 / 200%
+		100% no-repeat;
+	background-position: calc((1 - var(--highlighted)) * 110%) 0;
+	transition:
+		background-position 1s,
+		color 1s;
+	@apply px-1;
 }
 
 @keyframes highlight {
-  to {
-    --highlighted: 1;
-    @apply text-dark;
-  }
+	to {
+		--highlighted: 1;
+		color: theme("colors.dark");
+	}
 }

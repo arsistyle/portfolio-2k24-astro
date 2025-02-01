@@ -1,46 +1,46 @@
 ---
-import { TbMoonFilled, TbMoonOff } from 'react-icons/tb';
+import { TbMoonFilled, TbMoonOff } from "react-icons/tb"
 ---
 
 <div
-  class='schemeSelector transition-colors flex items-center justify-center w-8 h-8 aspect-square p-1 rounded-full bg-dark/5 dark:bg-white/5 hover:bg-dark/10 dark:hover:bg-white/10 cursor-pointer'
+	class="schemeSelector bg-dark/5 hover:bg-dark/10 flex aspect-square h-8 w-8 cursor-pointer items-center justify-center rounded-full p-1 transition-colors dark:bg-white/5 dark:hover:bg-white/10"
 >
-  <div class='hidden dark:block text-dark/60 dark:text-white'><TbMoonFilled /></div>
-  <div class='dark:text-white/40 block dark:hidden'><TbMoonOff /></div>
+	<div class="text-dark/60 hidden dark:block dark:text-white"><TbMoonFilled /></div>
+	<div class="block dark:hidden dark:text-white/40"><TbMoonOff /></div>
 </div>
 
 <script>
-  import { Cookies } from '../../utils';
+	import { Cookies } from "../../utils"
 
-  document.addEventListener('astro:page-load', () => {
-    const documentClasses = document.documentElement.classList;
-    const schemeSelectors = document.querySelectorAll('.schemeSelector');
+	document.addEventListener("astro:page-load", () => {
+		const documentClasses = document.documentElement.classList
+		const schemeSelectors = document.querySelectorAll(".schemeSelector")
 
-    schemeSelectors.forEach((schemeSelector) => {
-      if (
-        Cookies.get('color-theme') === 'dark' ||
-        (!Cookies.get('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
-        schemeSelector?.classList.add('isDark');
-        documentClasses.add('dark');
-      } else {
-        schemeSelector?.classList.remove('isDark');
-        documentClasses.remove('dark');
-      }
+		schemeSelectors.forEach((schemeSelector) => {
+			if (
+				Cookies.get("color-theme") === "dark" ||
+				(!Cookies.get("color-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches)
+			) {
+				schemeSelector?.classList.add("isDark")
+				documentClasses.add("dark")
+			} else {
+				schemeSelector?.classList.remove("isDark")
+				documentClasses.remove("dark")
+			}
 
-      const handleClick = () => {
-        schemeSelector?.classList.toggle('isDark');
+			const handleClick = () => {
+				schemeSelector?.classList.toggle("isDark")
 
-        if (documentClasses.contains('dark')) {
-          documentClasses.remove('dark');
-          Cookies.set('color-theme', 'light');
-        } else {
-          documentClasses.add('dark');
-          Cookies.set('color-theme', 'dark');
-        }
-      };
+				if (documentClasses.contains("dark")) {
+					documentClasses.remove("dark")
+					Cookies.set("color-theme", "light")
+				} else {
+					documentClasses.add("dark")
+					Cookies.set("color-theme", "dark")
+				}
+			}
 
-      schemeSelector?.addEventListener('click', handleClick);
-    });
-  });
+			schemeSelector?.addEventListener("click", handleClick)
+		})
+	})
 </script>

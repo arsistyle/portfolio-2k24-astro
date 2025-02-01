@@ -1,58 +1,85 @@
 ---
-import type { PageLayoutProps } from "../types";
+import { ClientRouter } from "astro:transitions"
+import { SEO } from "astro-seo"
+import "@fontsource-variable/syne"
 
-import { ViewTransitions } from "astro:transitions";
-import "@fontsource-variable/syne";
+import type { PageLayoutProps } from "@/types"
 
-import { getLangFromUrl } from "../i18n/utils";
+import { getLangFromUrl } from "@/i18n/utils"
 
-import { Header, Footer } from "../components/shared/index.astro";
-import HeaderPage from "../components/ui/HeaderPage.astro";
-import { Sidebar } from "../components/index.astro";
+import { Header, Footer } from "@/components/shared/index.astro"
+import HeaderPage from "@/components/ui/HeaderPage.astro"
+import { Sidebar } from "@/components/index.astro"
 
-import "../css/styles.css";
+import "@/css/global.css"
+import { SEO_DATA } from "@/constants"
 
-type Props = PageLayoutProps;
+type Props = PageLayoutProps
 
-const { props } = Astro;
+const { props } = Astro
+const lang = getLangFromUrl(Astro.url)
 
-const { title, breadcrumbs, nav, name } = props;
-const lang = getLangFromUrl(Astro.url);
+const {
+	pageTitle,
+	title = SEO_DATA[lang].title,
+	description = SEO_DATA[lang].description,
+	og_image = SEO_DATA[lang].image,
+	og_title = SEO_DATA[lang].title,
+	og_type = "website",
+	canonical = SEO_DATA[lang].canonical_url,
+	breadcrumbs,
+	nav,
+	name,
+	langSelector = true,
+} = props
 
-const hasNav = nav && Object.keys(nav)?.length;
+const hasNav = nav && Object.keys(nav)?.length
 ---
 
 <!doctype html>
 <html lang={lang} class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{`Israel Larrondo | ${title}`}</title>
-    <ViewTransitions />
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<SEO
+			title={title}
+			description={description}
+			canonical={canonical}
+			openGraph={{
+				basic: {
+					title: og_title || title,
+					image: og_image,
+					type: og_type,
+				},
+				optional: {
+					description,
+				},
+			}}
+		/>
+		<ClientRouter />
+	</head>
 
-  <body class="bg-white dark:bg-dark">
-    <Header lang={false} />
-    <main class="bg-white dark:bg-dark relative z-10">
-      <div class="container mx-auto">
-        <HeaderPage title={title} {breadcrumbs} name={name} />
-        <div class="grid grid-cols-8 px-5 py-10 gap-12 md:gap-4">
-          {
-            hasNav && (
-              <div class="col-span-8 md:col-span-2">
-                <Sidebar data={nav} />
-              </div>
-            )
-          }
-          <div class={nav ? "col-span-8 md:col-span-6" : "col-span-8"}>
-            <slot />
-          </div>
-        </div>
-      </div>
-    </main>
-    <Footer />
-  </body>
+	<body class="dark:bg-dark bg-white">
+		<Header lang={langSelector} />
+		<main class="dark:bg-dark relative z-10 bg-white">
+			<div class="container mx-auto max-w-6xl">
+				<HeaderPage title={pageTitle} {breadcrumbs} name={name} />
+				<div class="grid grid-cols-4 gap-12 px-5 py-10 md:gap-4">
+					{
+						hasNav && (
+							<div class="col-span-4 md:col-span-2">
+								<Sidebar data={nav} />
+							</div>
+						)
+					}
+					<div class={nav ? "col-span-4 md:col-span-6" : "col-span-4"}>
+						<slot />
+					</div>
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
 </html>

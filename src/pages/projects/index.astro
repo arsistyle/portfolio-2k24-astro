@@ -1,32 +1,28 @@
 ---
-import { SectionAllProjects } from '../../components/sections/index.astro';
-import HeaderPage from '../../components/ui/HeaderPage.astro';
-import { getLangFromUrl, useTranslatedPath, useTranslations } from '../../i18n/utils';
-import Layout from '../../layouts/Layout.astro';
+import { SectionAllProjects } from "@/components/sections/index.astro"
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
+import PageLayout from "@/layouts/PageLayout.astro"
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 
 const breadcrumbs = [
-  {
-    name: t('nav.home'),
-    type: 'link',
-    url: translatePath('/'),
-  },
-  {
-    type: 'separator',
-  },
-  {
-    name: t('nav.projects'),
-    type: 'current',
-  },
-];
+	{
+		name: t("nav.home"),
+		type: "link",
+		url: translatePath("/"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: t("nav.projects"),
+		type: "current",
+	},
+]
 ---
 
-<Layout title='Israel Larrondo | Projects'>
-  <div class="bg-white dark:bg-dark relative z-10">
-    <HeaderPage title={t('projects.title')} {breadcrumbs} />
-    <SectionAllProjects />
-  </div>
-</Layout>
+<PageLayout title="Israel Larrondo | Projects" pageTitle={t("projects.title")} {breadcrumbs}>
+	<SectionAllProjects />
+</PageLayout>

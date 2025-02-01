@@ -1,39 +1,70 @@
 ---
-import { getLangFromUrl } from "../i18n/utils";
-import "@fontsource-variable/syne";
+import { ClientRouter } from "astro:transitions"
+import { SEO } from "astro-seo"
+import "@fontsource-variable/syne"
 
-import "../css/styles.css";
-import Header from "../components/shared/Header.astro";
-import Footer from "../components/shared/Footer.astro";
-import { ViewTransitions } from "astro:transitions";
+import { getLangFromUrl } from "@/i18n/utils"
+
+import Header from "@/components/shared/Header.astro"
+import Footer from "@/components/shared/Footer.astro"
+
+import "@/css/global.css"
+import { SEO_DATA } from "@/constants"
 
 interface Props {
-  title: string;
-  showHeader?: boolean;
-  showFooter?: boolean;
+	title: string
+	showHeader?: boolean
+	showFooter?: boolean
+	description?: string
+	og_image?: string
+	og_title?: string
+	og_type?: string
+	canonical?: string
 }
 
-const { props } = Astro;
+const { props } = Astro
+const lang = getLangFromUrl(Astro.url)
 
-const { title, showHeader = true, showFooter = true } = props;
-const lang = getLangFromUrl(Astro.url);
+const {
+	title = SEO_DATA[lang].title,
+	description = SEO_DATA[lang].description,
+	og_image = SEO_DATA[lang].image,
+	og_title = SEO_DATA[lang].title,
+	og_type = "website",
+	canonical = SEO_DATA[lang].canonical_url,
+	showHeader = true,
+	showFooter = true,
+} = props
 ---
 
 <!doctype html>
 <html lang={lang} class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <ViewTransitions />
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<SEO
+			title={title}
+			description={description}
+			canonical={canonical}
+			openGraph={{
+				basic: {
+					title: og_title || title,
+					image: og_image,
+					type: og_type,
+				},
+				optional: {
+					description,
+				},
+			}}
+		/>
+		<ClientRouter />
+	</head>
 
-  <body class="bg-white dark:bg-dark flex flex-col min-h-screen">
-    {showHeader && <Header />}
-    <slot />
-    {showFooter && <Footer />}
-  </body>
+	<body class="dark:bg-dark flex min-h-screen flex-col bg-white">
+		{showHeader && <Header />}
+		<slot />
+		{showFooter && <Footer />}
+	</body>
 </html>

@@ -1,0 +1,41 @@
+---
+import HeaderPage from "@/components/ui/HeaderPage.astro"
+import Layout from "@/layouts/Layout.astro"
+
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
+import ShopThankYou from "@/components/sections/ShopThankYou.astro"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+
+const breadcrumbs = [
+	{
+		name: t("nav.home"),
+		type: "link",
+		url: translatePath("/"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: t("nav.shop"),
+		type: "link",
+		url: translatePath("/shop"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: t("nav.shop.thankYou"),
+		type: "current",
+	},
+]
+---
+
+<Layout title="Israel Larrondo | Shop - Thank You!">
+	<div class="dark:bg-dark relative z-10 bg-white">
+		<HeaderPage {breadcrumbs} />
+		<ShopThankYou />
+	</div>
+</Layout>

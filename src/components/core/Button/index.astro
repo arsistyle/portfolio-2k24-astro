@@ -1,46 +1,62 @@
 ---
-import './styles.css';
+import { twMerge } from "tailwind-merge"
+import type { ButtonProps } from "./types"
 
-interface Props {
-  tag?: 'button' | 'a' | 'span';
-  variant?: 'filled' | 'outlined';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  color?: 'primary' | 'secondary' | 'dark' | 'light';
-  class?: string;
-  disabled?: boolean;
-  href?: string;
-  type?: 'button' | 'submit' | 'reset' | undefined | null;
-}
-
-export type ButtonProps = Props;
+type Props = ButtonProps
 
 const {
-  tag = 'button',
-  variant,
-  size = 'md',
-  disabled = false,
-  color,
-  class: className,
-  href,
-  type,
-} = Astro.props;
-const Tag = tag;
+	tag = "button",
+	variant,
+	size = "md",
+	disabled = false,
+	color,
+	class: className,
+	href,
+	type,
+	target,
+	rel,
+	shape = "rounded",
+	title = "",
+	slotProps = {},
+} = Astro.props
+
+const { startIcon, endIcon } = Astro.slots
+
+const { startIcon: startIconProps, endIcon: endIconProps } = slotProps || {}
+
+const Tag = tag
 ---
 
 <Tag
-  class:list={[
-    'btn',
-    variant && `btn--${variant}`,
-    size && `btn--${size}`,
-    color && `btn--${color}`,
-    disabled && 'btn--disabled',
-    className,
-  ]}
-  type={type}
-  disabled={disabled}
-  href={!disabled ? href: undefined}
+	class:list={twMerge(
+		"btn",
+		variant && `btn--${variant}`,
+		size && `btn--${size}`,
+		color && `btn--${color}`,
+		disabled && "btn--disabled",
+		shape && `btn--${shape}`,
+		className
+	)}
+	type={type}
+	disabled={disabled}
+	href={!disabled ? href : undefined}
+	target={target}
+	rel={rel}
+	title={title}
 >
-  <slot name='startIcon' />
-  <slot />
-  <slot name='endIcon' />
+	{
+		startIcon && (
+			<span class="aspect-square" {...startIconProps}>
+				<slot name="startIcon" />
+			</span>
+		)
+	}
+	<slot />
+	{
+		endIcon && (
+			<span class="aspect-square" {...endIconProps}>
+				<slot name="endIcon" />
+			</span>
+		)
+	}
 </Tag>
