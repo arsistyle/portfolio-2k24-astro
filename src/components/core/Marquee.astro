@@ -1,0 +1,45 @@
+---
+import theme from "tailwindcss/defaultTheme"
+const { total, itemWidth } = Astro.props
+
+const { spacing } = theme
+const width = spacing[itemWidth as keyof typeof spacing]
+const remValue = Number(width.replace("rem", "")) || 0
+const remToPixel = remValue * 16
+const totalWidth = total * remToPixel * 2
+---
+
+<div class="marquee relative overflow-hidden">
+	<div
+		class="from-secondary-400 to-secondary-300/0 dark:from-secondary-300 absolute top-0 bottom-0 left-0 z-1 h-full w-20 bg-linear-to-r"
+	>
+	</div>
+	<div
+		class="animateMarquee flex w-[200%] min-w-[1400px] items-center justify-start md:min-w-[200%]"
+		style={`min-width: ${totalWidth}px`}
+	>
+		<slot />
+		<slot />
+	</div>
+	<div
+		class="from-secondary-400 to-secondary-300/0 dark:from-secondary-300 absolute top-0 right-0 bottom-0 z-1 h-full w-20 bg-linear-to-l"
+	>
+	</div>
+</div>
+
+<style>
+	.animateMarquee {
+		animation: animateMarquee 20s linear infinite forwards;
+	}
+	.animateMarquee:hover {
+		animation-play-state: paused;
+	}
+	@keyframes animateMarquee {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(-50%);
+		}
+	}
+</style>

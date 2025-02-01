@@ -1,0 +1,31 @@
+---
+import { IoLanguage } from "react-icons/io5"
+
+import type { Langs } from "@/types"
+import { getLangFromUrl, useTranslatedPath, cleanUrl } from "@/i18n/utils"
+
+const url = Astro.url
+const lang = getLangFromUrl(url) as Langs
+const pathname = url.pathname
+const translatePath = (lang: Langs) => useTranslatedPath(lang)(cleanUrl(pathname))
+
+const mainClasses = "text-xs transition-colors rounded-full"
+const defaultClasses = "text-dark/60 dark:text-white/60 hover:text-dark/80 dark:hover:text-white/80"
+const activeClasses = "pointer-events-none text-secondary-500 dark:text-primary-300"
+---
+
+<div
+	class="rounded-main bg-dark/5 hover:bg-dark/10 flex h-8 items-center gap-3 px-4 transition-colors dark:bg-white/5 dark:hover:bg-white/10"
+>
+	<IoLanguage className="text-dark dark:text-white" />
+	<div class="flex gap-2">
+		<a
+			href={translatePath("en")}
+			class:list={[mainClasses, lang === "en" ? activeClasses : defaultClasses]}>EN</a
+		>
+		<a
+			href={translatePath("es")}
+			class:list={[mainClasses, lang === "es" ? activeClasses : defaultClasses]}>ES</a
+		>
+	</div>
+</div>

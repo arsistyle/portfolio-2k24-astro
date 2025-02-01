@@ -1,0 +1,79 @@
+{
+  "lang": "en",
+  "title": "Bob Squarepants faces",
+  "name": "bob-squarepants-faces",
+  "description": "A collection of the faces of Bob Squarepants in Vector.",
+  "price": 5.0,
+  "category": "Vector",
+  "thumbnail": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/sells/bob-squarepants--faces/cover.gif",
+  "og_image": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/sells/bob-squarepants--faces/og-image.png",
+  "gallery": [
+    {
+      "src": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/sells/bob-squarepants--faces/bob-squarepants.png",
+      "alt": "",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "src": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/sells/bob-squarepants--faces/bob-squarepants-stroke.png",
+      "alt": "",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "src": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/sells/bob-squarepants--faces/bob-squarepants--bob.png",
+      "alt": "",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "src": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/sells/bob-squarepants--faces/bob-squarepants--bob-stroke.png",
+      "alt": "",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "src": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/sells/bob-squarepants--faces/bob-squarepants--patrick.png",
+      "alt": "",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "src": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/sells/bob-squarepants--faces/bob-squarepants--patrick-stroke.png",
+      "alt": "",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "src": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/sells/bob-squarepants--faces/bob-squarepants--squidward.png",
+      "alt": "",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "src": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/sells/bob-squarepants--faces/bob-squarepants--squidward-stroke.png",
+      "alt": "",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "src": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/sells/bob-squarepants--faces/bob-squarepants--mr-krab.png",
+      "alt": "",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "src": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/sells/bob-squarepants--faces/bob-squarepants--mr-krab-stroke.png",
+      "alt": "",
+      "width": 600,
+      "height": 600
+    }
+  ],
+  "paymentMethods": [
+    {
+      "name": "PayPal purchase",
+      "url": "https://www.paypal.com/ncp/payment/ZP3G6U9CVAZW2",
+      "paymentName": "paypal"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "nav.home": "Inicio",
+  "nav.projects": "Proyectos",
+  "nav.shop": "Tienda",
+  "nav.shop.thankYou": "Gracias por tu compra",
+
+  "home.hero.greeting": "👋 Hola, soy",
+  "home.hero.name": "Israel",
+  "home.hero.lastname": "Larrondo",
+  "home.hero.job": "Diseñador Front-End 🔥",
+  "home.experience.title": "+7 años de experiencia como Diseñador Front-End",
+  "home.projects.title": "Trabajos recientes",
+
+  "projects.title": "Proyectos",
+
+  "projects.detail.actions.visit": "Website",
+  "projects.detail.actions.source": "Código fuente",
+  "projects.detail.categories.title": "Categorías",
+  "projects.detail.tools.title": "Herramientas",
+  "projects.detail.actions.title": "Enlaces",
+
+  "shop.title": "Tienda",
+  "shop.thankYou.title": "¡Gracias por tu compra!",
+  "shop.thankYou.description": "Tu pago se ha procesado correctamente.",
+  "shop.thankYou.alert": "Ahora puedes descargar tu archivo, pero ten en cuenta que este sitio no almacena ningún dato del usuario, así que descarga y guarda tu archivo en un lugar seguro.",
+  "shop.thankYou.cta": "Descarga tu archivo",
+
+  "404.title": "404",
+  "404.description": "La página que busca no existe.",
+  "404.cta": "Ir al inicio",
+
+  "footer.title": "Déjame demostrarte mi experiencia",
+  "footer.description": "Mi portafolio habla por sí solo, pero estoy ansioso por mostrarte cómo puedo aplicar mis habilidades en tu próximo proyecto.",
+  "footer.cta": "Hablemos de trabajo",
+  "footer.cta.notAvailable": "No disponible por el momento",
+  "footer.copyright": "Todos los contenidos y diseños © Arsi."
+}

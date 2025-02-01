@@ -1,0 +1,52 @@
+---
+import { GoArrowRight } from "react-icons/go"
+import { Image } from "astro:assets"
+
+import { getLangFromUrl, useTranslatedPath } from "@/i18n/utils"
+import type { Product } from "@/types"
+
+import { Typography } from "@/components/index.astro"
+
+const lang = getLangFromUrl(Astro.url)
+const translatePath = useTranslatedPath(lang)
+
+const { products } = Astro.props
+---
+
+<div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 lg:grid-cols-3">
+	{
+		products.map(({ name, title, thumbnail, category }: Product) => (
+			<article class="group relative">
+				<a href={translatePath(`/shop/${name}`)} class="flex aspect-4/3 flex-col">
+					<div class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:-translate-y-2 group-hover:translate-x-2 group-hover:scale-125 group-hover:rotate-0">
+						<GoArrowRight className="w-full h-full " />
+					</div>
+					{thumbnail && (
+						<div class="relative inset-0 overflow-clip rounded-4xl transition-transform group-hover:scale-105">
+							<Image
+								src={thumbnail}
+								class="pointer-events-none h-full w-full rounded-4xl object-cover"
+								alt={title}
+								transition:name={`product-image-${name}`}
+								width={768}
+								height={576}
+							/>
+						</div>
+					)}
+					<div class="relative inset-0 z-20 flex w-full flex-col items-start justify-end gap-3 py-6 md:py-8">
+						<Typography class="h6 text-dark/60 group-hover:text-dark/70 transition-colors dark:text-white/70 dark:group-hover:text-white">
+							{category}
+						</Typography>
+						<Typography
+							type="h3"
+							class="h4 text-dark group-hover:text-primary-500 dark:group-hover:text-primary-300 transition-colors dark:text-white"
+							transition:name={`product-title-${name}`}
+						>
+							{title}
+						</Typography>
+					</div>
+				</a>
+			</article>
+		))
+	}
+</div>

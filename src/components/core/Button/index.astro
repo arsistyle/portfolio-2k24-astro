@@ -1,0 +1,62 @@
+---
+import { twMerge } from "tailwind-merge"
+import type { ButtonProps } from "./types"
+
+type Props = ButtonProps
+
+const {
+	tag = "button",
+	variant,
+	size = "md",
+	disabled = false,
+	color,
+	class: className,
+	href,
+	type,
+	target,
+	rel,
+	shape = "rounded",
+	title = "",
+	slotProps = {},
+} = Astro.props
+
+const { startIcon, endIcon } = Astro.slots
+
+const { startIcon: startIconProps, endIcon: endIconProps } = slotProps || {}
+
+const Tag = tag
+---
+
+<Tag
+	class:list={twMerge(
+		"btn",
+		variant && `btn--${variant}`,
+		size && `btn--${size}`,
+		color && `btn--${color}`,
+		disabled && "btn--disabled",
+		shape && `btn--${shape}`,
+		className
+	)}
+	type={type}
+	disabled={disabled}
+	href={!disabled ? href : undefined}
+	target={target}
+	rel={rel}
+	title={title}
+>
+	{
+		startIcon && (
+			<span class="aspect-square" {...startIconProps}>
+				<slot name="startIcon" />
+			</span>
+		)
+	}
+	<slot />
+	{
+		endIcon && (
+			<span class="aspect-square" {...endIconProps}>
+				<slot name="endIcon" />
+			</span>
+		)
+	}
+</Tag>

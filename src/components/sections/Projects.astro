@@ -1,0 +1,32 @@
+---
+import { getProjects } from "@/utils/getProjects"
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "../../i18n/utils"
+import { ProjectsList, Typography } from "../index.astro"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+
+const projectList = getProjects({
+	lang,
+})
+---
+
+<section
+	class="dark:bg-dark relative z-10 flex items-center justify-center bg-white py-14 md:py-40"
+>
+	<div class="container">
+		<div class="mb-12 flex flex-wrap items-center justify-between gap-6 md:mb-20">
+			<Typography type="h3" class="max-w-4xl leading-tight text-balance dark:text-white">
+				{t("home.projects.title")}
+			</Typography>
+			<Typography
+				type="h5"
+				class="text-dark/60 hover:text-dark/70 ml-auto transition-colors dark:text-white/60 dark:hover:text-white/70"
+			>
+				<a href={translatePath("/projects")} class="text-inherit">{t("home.projects.seeAll")}</a>
+			</Typography>
+		</div>
+		<ProjectsList projects={projectList} />
+	</div>
+</section>

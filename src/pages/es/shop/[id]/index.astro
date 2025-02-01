@@ -1,0 +1,57 @@
+---
+import type { Langs } from "@/types"
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
+import ProductDetail from "@/components/sections/ProductDetail.astro"
+import PageLayout from "@/layouts/PageLayout.astro"
+import { getProducts } from "@/utils/getProducts"
+
+export async function getStaticPaths() {
+	const lang: Langs = "es"
+
+	const productList = getProducts({ lang })
+
+	return productList.map((post) => {
+		return {
+			params: { id: post.name },
+			props: { post },
+		}
+	})
+}
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+const { post } = Astro.props
+const { title, og_image } = post
+
+const breadcrumbs = [
+	{
+		name: t("nav.home"),
+		type: "link",
+		url: translatePath("/"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: t("nav.shop"),
+		type: "link",
+		url: translatePath("/shop"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: title,
+		type: "current",
+	},
+]
+---
+
+<PageLayout
+	title={`Israel Larrondo | ${t("shop.title")} - ${title}`}
+	og_image={og_image}
+	{breadcrumbs}
+>
+	<ProductDetail product={post} />
+</PageLayout>

@@ -1,0 +1,38 @@
+{
+  "nav.home": "Home",
+  "nav.projects": "Projects",
+  "nav.shop": "Shop",
+  "nav.shop.thankYou": "Thank you for your purchase",
+
+  "home.hero.greeting": "👋 Hi, im",
+  "home.hero.name": "Israel",
+  "home.hero.lastname": "Larrondo",
+  "home.hero.job": "Front-End Designer 🔥",
+  "home.experience.title": "+7 years of experience as Front-End Designer",
+  "home.projects.title": "Recent work",
+  "home.projects.seeAll": "See all",
+
+  "projects.title": "Projects",
+
+  "projects.detail.actions.visit": "Website",
+  "projects.detail.actions.source": "Source code",
+  "projects.detail.categories.title": "Categories",
+  "projects.detail.tools.title": "Tools",
+  "projects.detail.actions.title": "Links",
+
+  "shop.title": "Shop",
+  "shop.thankYou.title": "Thank you for your purchase!",
+  "shop.thankYou.description": "Your payment has been processed successfully.",
+  "shop.thankYou.alert": "You can now download your file, but please note that this site does not store any user data, so download and store your file in a safe place.",
+  "shop.thankYou.cta": "Download your file",
+
+  "404.title": "404",
+  "404.description": "The page you are looking for does not exist.",
+  "404.cta": "Go back home",
+
+  "footer.title": "Let me demonstrate my experience",
+  "footer.description": "My portfolio speaks for itself, but I'm eager to show you how I can apply my skills to your next project.",
+  "footer.cta": "Let's talk about work",
+  "footer.cta.notAvailable": "Not available at the moment",
+  "footer.copyright": "All contents and designs © Arsi."
+}

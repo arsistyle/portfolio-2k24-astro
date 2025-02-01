@@ -1,0 +1,28 @@
+---
+import { Image } from "astro:assets"
+
+const { project } = Astro.props
+const { images, title, name, Content } = project || {}
+---
+
+<section class="flex items-center justify-center pb-14 md:pb-40">
+	<div class="container">
+		<div class="relative mx-auto mb-5 md:mb-16">
+			<Image
+				src={images.large}
+				alt={title}
+				class="h-full w-full rounded-2xl object-cover md:rounded-4xl"
+				transition:name={`project-image-${name}`}
+				width={1920}
+				height={1080}
+			/>
+		</div>
+		{
+			Content && (
+				<div class="content">
+					<Content />
+				</div>
+			)
+		}
+	</div>
+</section>

@@ -1,0 +1,130 @@
+---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import { Typography } from "./index.astro"
+import type { Langs } from "@/types"
+import { BiWorld } from "react-icons/bi"
+import { Button } from "./index.astro"
+import { BsGithub } from "react-icons/bs"
+import type { ButtonProps } from "./Button/types"
+
+interface Props {
+	description?: string
+	actions: {
+		title: string
+		url: string
+		type: "website" | "source"
+	}[]
+	tools: string[]
+	categories: string[]
+}
+
+interface ButtonsTypesProps {
+	[key: string]: {
+		title: string
+		icon: any
+		props: ButtonProps
+	}
+}
+
+const lang = getLangFromUrl(Astro.url) as Langs
+const t = useTranslations(lang)
+
+const { actions = [], description, tools = [], categories = [] } = Astro.props
+
+const buttonsTypes: ButtonsTypesProps = {
+	website: {
+		title: t("projects.detail.actions.visit"),
+		icon: BiWorld,
+		props: {
+			color: "secondary",
+		},
+	},
+	source: {
+		title: t("projects.detail.actions.source"),
+		icon: BsGithub,
+		props: {},
+	},
+}
+---
+
+<div class="content text-dark container dark:text-white">
+	<div class="grid grid-cols-4 gap-5 md:grid-cols-12 md:gap-10">
+		<div class="col-span-4 md:col-span-12 lg:col-span-8">
+			{
+				description && (
+					<Typography type="p" class="highlight text-dark dark:text-white">
+						{description}
+					</Typography>
+				)
+			}
+		</div>
+		<div class="col-span-4 md:col-span-12 lg:col-span-4">
+			<div class="flex flex-col gap-6">
+				{
+					categories?.length > 0 && (
+						<div>
+							<Typography type="h6" class="text-dark dark:text-white">
+								{t("projects.detail.categories.title")}
+							</Typography>
+							<div class="flex gap-2">
+								{categories.map((cat, i) => (
+									<Fragment>
+										<Typography type="span" class="highlight text-dark/60 dark:text-white/70">
+											{cat}
+										</Typography>
+										{i < categories.length - 1 && (
+											<span class="text-dark/40 dark:text-white/60">|</span>
+										)}
+									</Fragment>
+								))}
+							</div>
+						</div>
+					)
+				}
+				{
+					tools?.length > 0 && (
+						<div>
+							<Typography type="h6" class="text-dark dark:text-white">
+								{t("projects.detail.tools.title")}
+							</Typography>
+							<div class="mb-4 flex flex-wrap gap-2">
+								{tools.map((tech) => (
+									<div class="text-dark bg-primary-100 inline-flex cursor-default rounded-xs px-3 py-1 font-semibold">
+										{tech}
+									</div>
+								))}
+							</div>
+						</div>
+					)
+				}
+				{
+					actions?.length > 0 && (
+						<div>
+							<Typography type="h6" class="text-dark dark:text-white">
+								{t("projects.detail.actions.title")}
+							</Typography>
+							<div class="mb-10 flex flex-wrap gap-4">
+								{actions.map((action) => {
+									const { title, icon: Icon, props } = buttonsTypes[action.type]
+									return (
+										<Button
+											{...props}
+											tag="a"
+											href={action.url}
+											variant="filled"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											<Icon slot="startIcon" />
+											{title}
+										</Button>
+									)
+								})}
+							</div>
+						</div>
+					)
+				}
+			</div>
+		</div>
+	</div>
+</div>

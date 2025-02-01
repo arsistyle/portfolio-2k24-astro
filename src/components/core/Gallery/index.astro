@@ -1,0 +1,53 @@
+---
+import { Image } from "astro:assets"
+import "photoswipe/style.css"
+
+interface Props {
+	images: {
+		src: string
+		width: number
+		height: number
+		alt: string
+	}[]
+	imageClassName?: string
+	className?: string
+}
+
+const { images, imageClassName, className } = Astro.props
+---
+
+<div class:list={["gallery", className]}>
+	{
+		images.map(({ src, alt, width, height }) => (
+			<a
+				href={src}
+				data-pswp-width={width}
+				data-pswp-height={height}
+				class:list={[
+					"overflow-hidden rounded-2xl transition-opacity hover:opacity-75",
+					imageClassName,
+				]}
+				onclick="(e) => e.preventDefault()"
+			>
+				<Image
+					alt={alt}
+					width={width}
+					height={height}
+					src={src}
+					class="h-full w-full object-cover"
+				/>
+			</a>
+		))
+	}
+</div>
+
+<script>
+	import PhotoSwipeLightbox from "photoswipe/lightbox"
+
+	const lightbox = new PhotoSwipeLightbox({
+		gallery: ".gallery",
+		children: "a",
+		pswpModule: () => import("photoswipe"),
+	})
+	lightbox.init()
+</script>

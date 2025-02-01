@@ -1,0 +1,11 @@
+---
+import Grid from "./Grid.astro"
+
+const { class: className = "" } = Astro.props
+---
+
+<div class=`w-full px-4 pointer-events-none select-none -z-50 ${className}`>
+	<div class="container m-auto grid h-full grid-cols-6 md:grid-cols-12">
+		<Grid />
+	</div>
+</div>

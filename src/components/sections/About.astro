@@ -1,0 +1,14 @@
+---
+import { getLangFromUrl } from "@/i18n/utils"
+import { SECTIONS_CONTENT } from "@/content/index.astro"
+
+const lang = getLangFromUrl(Astro.url)
+
+const { about: AboutContent } = SECTIONS_CONTENT[lang]
+---
+
+<section
+	class="dark:bg-dark relative z-10 flex items-center justify-center bg-white px-5 pt-14 pb-8 md:pt-40 md:pb-24"
+>
+	<AboutContent />
+</section>

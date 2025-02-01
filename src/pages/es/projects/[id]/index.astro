@@ -1,0 +1,62 @@
+---
+import type { Langs, ProjectFromImport, ProjectMDXContent, ProjectMDXGlobResult } from "@/types"
+
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
+
+import ProjectDetail from "@/components/sections/ProjectDetail.astro"
+import PageLayout from "@/layouts/PageLayout.astro"
+import { getProjects } from "@/utils/getProjects"
+
+export async function getStaticPaths() {
+	const lang: Langs = "es"
+
+	const projectList = getProjects({
+		lang,
+	})
+
+	return projectList.map((post) => {
+		return {
+			params: { id: post.name },
+			props: { post },
+		}
+	})
+}
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+const { post } = Astro.props
+const { title, og_image } = post
+
+const breadcrumbs = [
+	{
+		name: t("nav.home"),
+		type: "link",
+		url: translatePath("/"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: t("nav.projects"),
+		type: "link",
+		url: translatePath("/projects"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: title,
+		type: "current",
+	},
+]
+---
+
+<PageLayout
+	title={`Israel Larrondo | ${t("projects.title")} - ${title}`}
+	pageTitle={title}
+	og_image={og_image}
+	{breadcrumbs}
+>
+	<ProjectDetail project={post} />
+</PageLayout>

@@ -1,0 +1,37 @@
+---
+interface BreadcrumbsItem {
+	name?: string
+	type: BreadcrumbTypes
+	url?: string
+}
+
+type BreadcrumbTypes = "link" | "separator" | "current"
+
+const { breadcrumbs = [] } = Astro.props
+const totalBreads = breadcrumbs.length
+---
+
+<nav class="text-dark flex flex-wrap gap-2 dark:text-white">
+	{
+		breadcrumbs.map(({ name, type, url }: BreadcrumbsItem, key: number) => {
+			if (type === "link") {
+				const link = <a href={url}>{name}</a>
+				if (key < totalBreads) {
+					return (
+						<span class="flex gap-2">
+							<>
+								{link}
+								<span>/</span>
+							</>
+						</span>
+					)
+				}
+				return link
+			}
+			if (type === "current") {
+				return <span class="opacity-60">{name}</span>
+			}
+			return null
+		})
+	}
+</nav>

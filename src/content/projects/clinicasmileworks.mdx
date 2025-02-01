@@ -1,0 +1,30 @@
+---
+name: "clinicasmileworks"
+lang: "en"
+title: "Clínica Smile Works"
+categories: ["Web development", "UX / UI"]
+date: 202410
+og_image: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/projects/clinicasmileworks/og-image.png"
+images:
+  small: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/projects/clinicasmileworks/shot--sm.jpg"
+  medium: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/projects/clinicasmileworks/shot--md.jpg"
+  large: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/projects/clinicasmileworks/shot--xl.jpg"
+---
+
+import { Typography, Button, ProjectInfo } from "@/components/index.astro"
+
+<ProjectInfo
+	description="Proyecto creado para una Clínica dental, el cual incluyó Diseño UX / UI y  Desarrollo web."
+	actions={[
+		{
+			url: "https://clinicasmileworks.cl",
+			type: "website",
+		},
+		{
+			url: "https://github.com/arsistyle/clinicasmileworks",
+			type: "source",
+		},
+	]}
+	tools={["Astro", "React", "TailwindCSS", "TypeScript", "Figma", "Cloudflare"]}
+	categories={["Web development", "UX / UI"]}
+/>

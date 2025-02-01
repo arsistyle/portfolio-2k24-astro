@@ -3,38 +3,37 @@ import { ClientRouter } from "astro:transitions"
 import { SEO } from "astro-seo"
 import "@fontsource-variable/syne"
 
+import type { PageLayoutProps } from "@/types"
+
 import { getLangFromUrl } from "@/i18n/utils"
 
-import Header from "@/components/shared/Header.astro"
-import Footer from "@/components/shared/Footer.astro"
+import { Header, Footer } from "@/components/shared/index.astro"
+import HeaderPage from "@/components/ui/HeaderPage.astro"
+import { Sidebar } from "@/components/index.astro"
 
 import "@/css/global.css"
 import { SEO_DATA } from "@/constants"
 
-interface Props {
-	title: string
-	showHeader?: boolean
-	showFooter?: boolean
-	description?: string
-	og_image?: string
-	og_title?: string
-	og_type?: string
-	canonical?: string
-}
+type Props = PageLayoutProps
 
 const { props } = Astro
 const lang = getLangFromUrl(Astro.url)
 
 const {
+	pageTitle,
 	title = SEO_DATA[lang].title,
 	description = SEO_DATA[lang].description,
 	og_image = SEO_DATA[lang].image,
 	og_title = SEO_DATA[lang].title,
 	og_type = "website",
 	canonical = SEO_DATA[lang].canonical_url,
-	showHeader = true,
-	showFooter = true,
+	breadcrumbs,
+	nav,
+	name,
+	langSelector = true,
 } = props
+
+const hasNav = nav && Object.keys(nav)?.length
 ---
 
 <!doctype html>
@@ -62,9 +61,25 @@ const {
 		<ClientRouter />
 	</head>
 
-	<body class="dark:bg-dark flex min-h-screen flex-col bg-white">
-		{showHeader && <Header />}
-		<slot />
-		{showFooter && <Footer />}
+	<body class="dark:bg-dark bg-white">
+		<Header lang={langSelector} />
+		<main class="dark:bg-dark relative z-10 bg-white">
+			<div class="container mx-auto max-w-6xl">
+				<HeaderPage title={pageTitle} {breadcrumbs} name={name} />
+				<div class="grid grid-cols-4 gap-12 px-5 py-10 md:gap-4">
+					{
+						hasNav && (
+							<div class="col-span-4 md:col-span-2">
+								<Sidebar data={nav} />
+							</div>
+						)
+					}
+					<div class={nav ? "col-span-4 md:col-span-6" : "col-span-4"}>
+						<slot />
+					</div>
+				</div>
+			</div>
+		</main>
+		<Footer />
 	</body>
 </html>
