@@ -1,12 +1,15 @@
 ---
-import { getLangFromUrl, useTranslations } from "@/i18n/utils"
-import { Typography } from "./index.astro"
-import type { Langs } from "@/types"
 import { BiWorld } from "react-icons/bi"
-import { Button } from "./index.astro"
 import { BsGithub } from "react-icons/bs"
+
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import type { Langs } from "@/types"
+
+import { Typography, Button } from "./index.astro"
 import type { ButtonProps } from "./Button/types"
 
+const validTypes = ["paypal", "gumroad"] as const
+type ValidType = (typeof validTypes)[number]
 interface Props {
 	description?: string
 	actions: {
@@ -45,6 +48,8 @@ const buttonsTypes: ButtonsTypesProps = {
 		props: {},
 	},
 }
+
+const validActions = actions.filter((action) => validTypes.includes(action.type as ValidType))
 ---
 
 <div class="content text-dark container dark:text-white">
@@ -98,13 +103,13 @@ const buttonsTypes: ButtonsTypesProps = {
 					)
 				}
 				{
-					actions?.length > 0 && (
+					validActions?.length > 0 && (
 						<div>
 							<Typography type="h6" class="text-dark dark:text-white">
 								{t("projects.detail.actions.title")}
 							</Typography>
 							<div class="mb-10 flex flex-wrap gap-4">
-								{actions.map((action) => {
+								{validActions.map((action) => {
 									const { title, icon: Icon, props } = buttonsTypes[action.type]
 									return (
 										<Button

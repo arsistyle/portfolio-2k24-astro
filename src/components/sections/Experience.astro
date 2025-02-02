@@ -8,6 +8,9 @@ const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 
 const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || []
+
+const experienceText = t("home.experience.title")
+const experienceStart = "2017-03-01"
 ---
 
 <section
@@ -18,7 +21,7 @@ const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || []
 			type="h3"
 			class="h2 mb-12 max-w-3xl leading-tight text-balance md:mb-20 dark:text-white"
 		>
-			{t("home.experience.title")}
+			<span id="yearsExperience" style="display:none"></span>
 		</Typography>
 		<div class="grid grid-cols-2 gap-8 sm:gap-12 md:gap-20">
 			{
@@ -34,3 +37,16 @@ const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || []
 		</div>
 	</div>
 </section>
+
+<script is:inline define:vars={{ experienceText, experienceStart }}>
+	const date = new Date()
+	const startDate = new Date(experienceStart)
+
+	const years = date.getFullYear() - startDate.getFullYear()
+
+	const totalExperience = experienceText.replace(/\{YEARS_EXPERIENCE}/, String(years))
+
+	const yearsExperience = document.getElementById("yearsExperience")
+	yearsExperience.innerHTML = totalExperience
+	yearsExperience.style.display = ""
+</script>
