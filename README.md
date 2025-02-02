@@ -1,54 +1,57 @@
-# Astro Starter Kit: Basics
+# Israel Larrondo Portfolio
 
-```sh
-npm create astro@latest -- --template basics
-```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+![Portfolio cover](https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/github-cover.png)
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Welcome to my personal portfolio, built with [Astro](https://astro.build/) and [TailwindCSS](https://tailwindcss.com/). This project showcases my skills and projects in web development, design, and more.
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+## Table of Contents
 
-## 🚀 Project Structure
+- [Introduction](#introduction)
+- [Skills](#skills)
+- [Features](#features)
+- [Contributions](#contributions)
+- [License](#license)
+- [Contact](#contact)
 
-Inside of your Astro project, you'll see the following folders and files:
+## Introduction
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+I am a passionate front-end designer specializing in UX, UI, and development. My goal is to create responsive and user-friendly websites while continuously learning and improving my skills to deliver high-quality work.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Skills
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+I am proficient in the following technologies and tools:
 
-Any static assets, like images, can be placed in the `public/` directory.
+- Astro
+- Tailwind
+- React
+- Next.js
+- HTML5
+- CSS3
+- JavaScript
+- TypeScript
+- Figma
+- Adobe Photoshop
+- Adobe Illustrator
 
-## 🧞 Commands
+## Features
 
-All commands are run from the root of the project, from a terminal:
+- **Responsive Design**: The portfolio adapts to different screen sizes.
+- **Optimized Performance**: Utilizes modern techniques to ensure fast loading times.
+- **Accessibility**: Implemented best practices to ensure the site is accessible to everyone.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Contributions
 
-## 👀 Want to learn more?
+If you would like to contribute to this project, feel free to open an issue or submit a pull request. Any help is welcome!
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## License
+
+This project is licensed under the MIT License.
+
+## Contact
+
+You can find me on [LinkedIn](https://www.linkedin.com/in/israellarrondo/) or email me at [arsistyle@gmail.com](mailto:arsistyle@gmail.com).
+
+---
+
+Thank you for visiting my portfolio! I hope you enjoy exploring it.

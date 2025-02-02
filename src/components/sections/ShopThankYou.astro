@@ -36,11 +36,30 @@ const t = useTranslations(lang)
 	const url = window.location.href
 
 	const newUrl = new URL(url)
-	const fileUrl = atob(newUrl.searchParams.get("fileUrl") || "")
+	const encodedFileUrl = newUrl.searchParams.get("fileUrl")
 
-	if (fileUrl) {
+	let fileUrl = ""
+
+	try {
+		if (encodedFileUrl) {
+			fileUrl = atob(encodedFileUrl)
+		}
+	} catch (e) {
+		console.error("Error al decodificar la URL:", e)
+	}
+
+	if (isValidUrl(fileUrl)) {
 		button?.setAttribute("href", fileUrl)
 	} else {
 		window.location.href = "/"
+	}
+
+	function isValidUrl(string) {
+		try {
+			new URL(string)
+			return true
+		} catch (_) {
+			return false
+		}
 	}
 </script>
