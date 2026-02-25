@@ -1,31 +1,45 @@
+import IconGemini from "@/components/icons/gemini"
+import IconAi from "@/components/icons/IconAi"
+import IconPrompt from "@/components/icons/IconPrompt"
+import IconNanoBanana from "@/components/icons/nanobanana"
+import type { JSX } from "astro/jsx-runtime"
+
 export interface CategoryConfig {
-	/** Unique kebab-case slug used in MDX frontmatter, e.g. "nano-banana" */
 	name: string
-	/** Display label */
 	label: string
-	/** Optional emoji or symbol shown before the label */
-	icon?: string
-	/** Optional custom class for special styling */
 	className?: string
-	/** Sort priority — lower numbers appear first. Featured items use 0-9 */
 	order: number
+	icon?: JSX.Element
 }
 
-/**
- * Central registry of blog categories.
- * Categories not listed here will still appear in the filter,
- * appended at the end in alphabetical order.
- */
 export const CATEGORIES: CategoryConfig[] = [
+	{
+		name: "ai",
+		label: "AI",
+		order: 0,
+		icon: IconAi,
+	},
+	{
+		name: "prompt",
+		label: "Prompt",
+		order: 0,
+		icon: IconPrompt,
+	},
 	{
 		name: "nano-banana",
 		label: "Nano Banana",
-		icon: "✦",
-		order: 0,
-		className:
-			"border-blue-400 [&_span]:text-blue-400 dark:border-blue-400 dark:[&_span]:text-blue-400",
+		order: 1,
+		className: "border-yellow-400! dark:border-yellow-400!",
+		icon: IconNanoBanana,
 	},
-	{ name: "prompts", label: "Prompts", icon: "✍️", order: 1 },
+	{
+		name: "gemini",
+		label: "Gemini",
+		order: 1,
+		className:
+			"border-blue-400! [&_.icon]:text-blue-400 dark:border-blue-400! dark:[&_.icon]:text-blue-400",
+		icon: IconGemini,
+	},
 	{ name: "blog", label: "Blog", order: 10 },
 	{ name: "chat", label: "Chat", order: 10 },
 	{ name: "dashboard", label: "Dashboard", order: 10 },
@@ -44,6 +58,5 @@ export const CATEGORIES: CategoryConfig[] = [
 
 export const CATEGORY_SLUGS = CATEGORIES.map((c) => c.name) as [string, ...string[]]
 
-/** Look up a category config by name. Returns undefined for unknown categories. */
 export const getCategoryConfig = (name: string): CategoryConfig | undefined =>
 	CATEGORIES.find((c) => c.name === name)

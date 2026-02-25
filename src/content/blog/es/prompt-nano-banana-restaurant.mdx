@@ -1,4 +1,5 @@
 ---
+status: active
 title: "Crea un Sitio de Restaurante"
 slug: "prompt-nano-banana-restaurant"
 description: "Genera un sitio de restaurante con menú, galería de fotos, formulario de reservas y mapa de ubicación."
@@ -7,11 +8,12 @@ categories: ["nano-banana", "restaurant", "prompts"]
 lang: "es"
 image: "/blog/prompt-nano-banana-portfolio.png"
 ---
+status: active
 
 import CodeBlock from "@/components/core/CodeBlock/CodeBlock.astro"
 import { Typography } from "@/components/index.astro"
 
-<div class="blog-content">
+<div >
 
 <Typography type="h4" class="dark:text-white">El Prompt</Typography>
 
@@ -34,26 +36,26 @@ Copia y pega el siguiente prompt en Nano Banana para generar este proyecto. Pers
 
 <Typography type="h4" class="dark:text-white mt-12">Flujo de uso</Typography>
 
-<div class="blog-flow">
+<div class="mt-6 flex flex-col gap-4">
 
-<div class="blog-flow-step">
-  <span class="blog-flow-step-number">1</span>
+<div class="flex gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition-colors hover:border-gray-300 dark:border-gray-700/50 dark:bg-white/[0.02] dark:hover:border-gray-600">
+  <span class="bg-primary-400/15 text-primary-600 dark:text-primary-300 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold">1</span>
   <div>
     <Typography type="h6" class="dark:text-white">Abre Nano Banana</Typography>
     <p class="dark:text-gray-300 text-gray-700">Accede a la interfaz de Nano Banana e inicia una nueva conversación.</p>
   </div>
 </div>
 
-<div class="blog-flow-step">
-  <span class="blog-flow-step-number">2</span>
+<div class="flex gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition-colors hover:border-gray-300 dark:border-gray-700/50 dark:bg-white/[0.02] dark:hover:border-gray-600">
+  <span class="bg-primary-400/15 text-primary-600 dark:text-primary-300 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold">2</span>
   <div>
     <Typography type="h6" class="dark:text-white">Pega el prompt</Typography>
     <p class="dark:text-gray-300 text-gray-700">Copia el bloque de código y pégalo. Modifica colores, estructura y contenido según necesites.</p>
   </div>
 </div>
 
-<div class="blog-flow-step">
-  <span class="blog-flow-step-number">3</span>
+<div class="flex gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition-colors hover:border-gray-300 dark:border-gray-700/50 dark:bg-white/[0.02] dark:hover:border-gray-600">
+  <span class="bg-primary-400/15 text-primary-600 dark:text-primary-300 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold">3</span>
   <div>
     <Typography type="h6" class="dark:text-white">Genera y refina</Typography>
     <p class="dark:text-gray-300 text-gray-700">Revisa el código generado y pide ajustes específicos hasta que estés satisfecho con el resultado.</p>

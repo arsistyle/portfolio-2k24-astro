@@ -1,40 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-
-const NANO_BANANA = "Nano Banana"
-
-const NanoBananaIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 32 32"
-		width="12"
-		height="12"
-		style={{ display: "inline-block", flexShrink: 0, verticalAlign: "middle" }}
-	>
-		<defs>
-			<linearGradient
-				id="nb-filter-grad"
-				spreadMethod="pad"
-				gradientUnits="userSpaceOnUse"
-				x1="-33"
-				y1="26"
-				x2="31"
-				y2="-28"
-			>
-				<stop offset="0%" stopColor="rgb(52,107,241)" />
-				<stop offset="45%" stopColor="rgb(49,134,255)" />
-				<stop offset="99%" stopColor="rgb(79,160,255)" />
-			</linearGradient>
-		</defs>
-		<g transform="matrix(0.1248,0,0,0.1248,4.986,4.986)" opacity="1">
-			<g opacity="1" transform="matrix(1,0,0,1,88.25,88.25)">
-				<path
-					fill="url(#nb-filter-grad)"
-					d="M-3.9,-84.95 C-5.28,-79.47 -7.08,-74.14 -9.32,-68.93 C-15.16,-55.37 -23.16,-43.5 -33.33,-33.33 C-43.5,-23.17 -55.37,-15.16 -68.93,-9.32 C-74.13,-7.08 -79.47,-5.28 -84.95,-3.9 C-86.74,-3.45 -88,-1.85 -88,0 C-88,1.85 -86.74,3.45 -84.95,3.9 C-79.47,5.28 -74.14,7.08 -68.93,9.32 C-55.37,15.16 -43.51,23.16 -33.33,33.33 C-23.16,43.5 -15.15,55.37 -9.32,68.93 C-7.08,74.13 -5.28,79.47 -3.9,84.95 C-3.45,86.74 -1.84,88 0,88 C1.85,88 3.45,86.74 3.9,84.95 C5.28,79.47 7.08,74.14 9.32,68.93 C15.16,55.37 23.16,43.51 33.33,33.33 C43.5,23.16 55.37,15.15 68.93,9.32 C74.13,7.08 79.47,5.28 84.95,3.9 C86.74,3.45 88,1.84 88,0 C88,-1.85 86.74,-3.45 84.95,-3.9 C79.47,-5.28 74.14,-7.08 68.93,-9.32 C55.37,-15.16 43.51,-23.16 33.33,-33.33 C23.16,-43.5 15.15,-55.37 9.32,-68.93 C7.08,-74.13 5.28,-79.47 3.9,-84.95 C3.45,-86.74 1.85,-88 0,-88 C-1.85,-88 -3.45,-86.74 -3.9,-84.95z"
-				/>
-			</g>
-		</g>
-	</svg>
-)
+import { CATEGORIES } from "@/config/categories"
 
 const SearchIcon = () => (
 	<svg
@@ -89,7 +54,7 @@ const CloseIcon = () => (
 interface CategoryWithCount {
 	name: string
 	label: string
-	icon?: string
+	icon?: any
 	className?: string
 	order: number
 	count: number
@@ -257,10 +222,10 @@ export default function CategoryFilter({
 	const selectedCount = selected.length
 
 	return (
-		<div className="blog-filter-bar">
+		<div className="flex flex-wrap items-center gap-3">
 			{/* Search */}
-			<div className="blog-search-wrapper">
-				<span className="blog-search-icon">
+			<div className="relative flex-1">
+				<span className="text-dark absolute top-1/2 left-3 -translate-y-1/2 dark:text-gray-400">
 					<SearchIcon />
 				</span>
 				<input
@@ -268,13 +233,13 @@ export default function CategoryFilter({
 					value={search}
 					onChange={(e) => handleSearch(e.target.value)}
 					placeholder={searchPlaceholder}
-					className="blog-search-input"
+					className="border-dark/60 w-full rounded-xl border bg-transparent py-2.5 pr-3 pl-10 text-sm text-gray-700 transition-colors outline-none placeholder:text-gray-400 focus:border-gray-400 dark:border-gray-700 dark:text-gray-200 dark:placeholder:text-gray-500 dark:focus:border-gray-500"
 				/>
 				{search && (
 					<button
 						type="button"
 						onClick={() => handleSearch("")}
-						className="blog-search-clear"
+						className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-xs text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-200"
 						aria-label="Clear search"
 					>
 						✕
@@ -286,29 +251,41 @@ export default function CategoryFilter({
 			<button
 				type="button"
 				onClick={openModal}
-				className={`blog-filter-btn ${selectedCount > 0 ? "has-selection" : ""}`}
+				className={`hover:border-primary-400 dark:hover:border-primary-400 flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 bg-transparent px-4 py-2.5 text-sm font-medium text-gray-600 transition-colors dark:border-gray-700 dark:text-gray-400 ${selectedCount > 0 ? "border-primary-400 text-primary-600 dark:border-primary-400 dark:text-primary-300" : ""}`}
 			>
 				<FilterIcon />
 				<span>{filterLabel}</span>
-				{selectedCount > 0 && <span className="blog-filter-badge">{selectedCount}</span>}
+				{selectedCount > 0 && (
+					<span className="bg-primary-400 text-dark flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold">
+						{selectedCount}
+					</span>
+				)}
 			</button>
 
 			{/* Results counter */}
-			<span className="blog-results-count">
+			<span className="text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
 				{resultCount} {resultsLabel}
 			</span>
 
 			{/* Filter Modal */}
 			{modalOpen && (
-				<div className="blog-modal-overlay" onClick={() => setModalOpen(false)}>
-					<div className="blog-modal" onClick={(e) => e.stopPropagation()}>
+				<div
+					className="animate-blog-overlay-in fixed inset-0 z-50 flex items-start justify-center bg-black/50 pt-[15vh] backdrop-blur-sm"
+					onClick={() => setModalOpen(false)}
+				>
+					<div
+						className="animate-blog-modal-in flex max-h-[70vh] w-full max-w-lg flex-col rounded-2xl bg-white shadow-2xl dark:bg-gray-900"
+						onClick={(e) => e.stopPropagation()}
+					>
 						{/* Header */}
-						<div className="blog-modal-header">
-							<h3 className="blog-modal-title">{filterLabel.toUpperCase()}</h3>
+						<div className="flex items-center justify-between border-b border-gray-100 px-6 py-4 dark:border-gray-800">
+							<h3 className="text-base font-bold tracking-wide text-gray-800 dark:text-gray-100">
+								{filterLabel.toUpperCase()}
+							</h3>
 							<button
 								type="button"
 								onClick={() => setModalOpen(false)}
-								className="blog-modal-close"
+								className="cursor-pointer rounded-lg p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200"
 								aria-label="Close"
 							>
 								<CloseIcon />
@@ -316,28 +293,39 @@ export default function CategoryFilter({
 						</div>
 
 						{/* Body — category pills */}
-						<div className="blog-modal-body">
-							<div className="blog-modal-pills">
+						<div className="flex-1 overflow-y-auto px-6 py-5">
+							<div className="flex flex-wrap gap-2.5">
 								{categories.map((cat) => {
 									const isActive = pending.includes(cat.name)
 									const customClass = cat.className
+									const config = CATEGORIES.find((c) => c.name === cat.name)
+									const Icon = config?.icon
 									return (
 										<button
 											key={cat.name}
 											type="button"
 											onClick={() => togglePending(cat.name)}
 											className={[
-												"blog-pill",
-												isActive ? "blog-pill--active" : "",
+												"flex cursor-pointer items-center gap-1.5 rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 transition-all duration-200 select-none hover:border-gray-400 dark:border-gray-700 dark:text-gray-400 dark:hover:border-gray-500",
+												isActive
+													? "border-primary-400 bg-primary-400/10 text-primary-600 dark:border-primary-400 dark:text-primary-300"
+													: "",
 												customClass,
-												customClass && isActive ? `${customClass}-active` : "",
 											]
 												.filter(Boolean)
 												.join(" ")}
 										>
-											{cat.icon && <span className="blog-pill-icon">{cat.icon}</span>}
+											{Icon && (
+												<span className="icon text-xl leading-1">
+													<Icon />
+												</span>
+											)}
 											{cat.label}
-											<span className="blog-pill-count">{cat.count}</span>
+											<span
+												className={`ml-0.5 text-xs ${isActive ? "text-primary-400 dark:text-primary-400" : "text-gray-400 dark:text-gray-500"}`}
+											>
+												{cat.count}
+											</span>
 										</button>
 									)
 								})}
@@ -345,18 +333,18 @@ export default function CategoryFilter({
 						</div>
 
 						{/* Footer */}
-						<div className="blog-modal-footer">
+						<div className="flex gap-3 border-t border-gray-100 px-6 py-4 dark:border-gray-800">
 							<button
 								type="button"
 								onClick={clearPending}
-								className="blog-modal-btn blog-modal-btn--clear"
+								className="flex-1 cursor-pointer rounded-xl border border-gray-200 bg-transparent px-4 py-3 text-sm font-bold tracking-wide text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
 							>
 								{clearAllLabel}
 							</button>
 							<button
 								type="button"
 								onClick={confirmFilter}
-								className="blog-modal-btn blog-modal-btn--confirm"
+								className="bg-primary-400 hover:bg-primary-500 text-dark flex-1 cursor-pointer rounded-xl px-4 py-3 text-sm font-bold tracking-wide transition-colors"
 							>
 								{confirmLabel}
 							</button>

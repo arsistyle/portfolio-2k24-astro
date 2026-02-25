@@ -16,6 +16,7 @@ const blogCollection = defineCollection({
 		lang: z.enum(["en", "es"]),
 		image: z.string(),
 		categories: z.array(z.enum(CATEGORY_SLUGS)),
+		status: z.enum(["active", "draft"]),
 	}),
 })
 

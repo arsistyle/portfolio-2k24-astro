@@ -5,6 +5,9 @@ import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils
 
 import PageLayout from "@/layouts/PageLayout.astro"
 import { getBlogPosts } from "@/utils/getBlogPosts"
+import { getCategoryConfig } from "@/config/categories"
+import { Typography } from "@/components/index.astro"
+import { twMerge } from "tailwind-merge"
 
 export async function getStaticPaths() {
 	const lang: Langs = "en"
@@ -22,7 +25,7 @@ const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 const { post } = Astro.props
-const { title, Content, slug, image } = post
+const { title, categories, Content, slug, image } = post
 
 const breadcrumbs = [
 	{
@@ -46,13 +49,69 @@ const breadcrumbs = [
 		type: "current",
 	},
 ]
+
+const enrichedCategories = categories.map((slug) => {
+	const config = getCategoryConfig(slug)
+	return {
+		slug,
+		...config,
+	}
+})
 ---
 
 <PageLayout title={`Israel Larrondo | Blog - ${title}`} pageTitle={title} {breadcrumbs}>
-	<article class="blog-article">
-		<div class="blog-hero-image">
-			<img src={image} alt={title} transition:name={`blog-image-${slug}`} />
+	<article class="pb-12">
+		<div class="mb-8 aspect-[16/9] w-full overflow-hidden rounded-2xl">
+			<img
+				src={image}
+				alt={title}
+				class="h-full w-full object-cover"
+				transition:name={`blog-image-${slug}`}
+			/>
 		</div>
-		<Content />
+		<div class="grid grid-cols-4 gap-5 md:grid-cols-12 md:gap-10">
+			<div
+				class="[&_p]:text-dark col-span-4 md:col-span-12 lg:col-span-8 [&_p]:mb-4 [&_p]:leading-relaxed dark:[&_p]:text-gray-300"
+			>
+				<Content />
+			</div>
+			<div class="col-span-4 md:col-span-12 lg:col-span-4">
+				<div class="flex flex-col gap-6">
+					{
+						enrichedCategories?.length > 0 && (
+							<div class="flex flex-col gap-4">
+								<Typography type="h6" class="text-dark dark:text-white">
+									{t("blog.categories")}
+								</Typography>
+								<div class="flex flex-wrap gap-2">
+									{enrichedCategories.map((cat) => {
+										const Icon = cat.icon
+
+										return (
+											cat.label && (
+												<a
+													href={translatePath(`/blog?categories=${cat.slug}`)}
+													class={twMerge(
+														"border-dark/60 text-dark flex cursor-pointer items-center gap-1.5 rounded-full border px-4 py-2 font-semibold transition-all duration-200 select-none dark:border-gray-700 dark:text-gray-400",
+														cat.className
+													)}
+												>
+													{Icon && (
+														<span class="icon text-lg leading-1">
+															<Icon />
+														</span>
+													)}
+													{cat.label}
+												</a>
+											)
+										)
+									})}
+								</div>
+							</div>
+						)
+					}
+				</div>
+			</div>
+		</div>
 	</article>
 </PageLayout>

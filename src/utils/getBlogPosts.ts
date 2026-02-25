@@ -6,11 +6,13 @@ export const getBlogPosts = ({ lang }: { lang: Langs }) => {
 		eager: true,
 	}) as BlogPostMDXGlobResult
 
+	const now = new Date()
 	const postList: BlogPostFromImport[] = Object.values(blogFiles)
-		.filter(
-			(post): post is BlogPostMDXContent & { frontmatter: { lang: Langs } } =>
-				post.frontmatter.lang === lang
-		)
+		.filter((post): post is BlogPostMDXContent & { frontmatter: { lang: Langs } } => {
+			const { lang: postLang, status, date } = post.frontmatter
+			const postDate = new Date(date)
+			return postLang === lang && status === "active" && postDate <= now
+		})
 		.map(({ frontmatter, Content }) => ({
 			...frontmatter,
 			Content,
@@ -31,7 +33,7 @@ export const getAllCategories = (posts: BlogPostFromImport[]): string[] => {
 export interface CategoryWithCount {
 	name: string
 	label: string
-	icon?: string
+	icon?: any
 	className?: string
 	order: number
 	count: number
@@ -57,7 +59,6 @@ export const getCategoriesWithCount = (
 			return {
 				name,
 				label: cfg?.label ?? name,
-				icon: cfg?.icon,
 				className: cfg?.className,
 				order: cfg?.order ?? FALLBACK_ORDER,
 				count,

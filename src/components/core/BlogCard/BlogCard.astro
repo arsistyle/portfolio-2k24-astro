@@ -3,6 +3,7 @@ import { GoArrowRight } from "react-icons/go"
 import { Typography } from "@/components/index.astro"
 import { getCategoryConfig } from "@/config/categories"
 import { twMerge } from "tailwind-merge"
+import { Image } from "astro:assets"
 
 interface Props {
 	title: string
@@ -20,15 +21,13 @@ const enrichedCategories = categories.map((slug) => {
 	const config = getCategoryConfig(slug)
 	return {
 		slug,
-		label: config?.label || slug,
-		icon: config?.icon,
-		className: config?.className,
+		...config,
 	}
 })
 ---
 
 <article
-	class="blog-card group relative"
+	class="blog-card group data-[animating]:animate-blog-card-in relative"
 	data-categories={categories.join(",")}
 	data-search={`${title} ${description}`}
 >
@@ -40,15 +39,17 @@ const enrichedCategories = categories.map((slug) => {
 		</div>
 
 		<div
-			class="relative inset-0 aspect-video overflow-clip rounded-4xl transition-transform group-hover:scale-105"
+			class="relative aspect-video w-full overflow-hidden rounded-4xl transition-transform group-hover:scale-105"
 		>
-			<img
+			<Image
 				src={image}
-				class="h-full w-full rounded-4xl object-cover"
+				class="absolute inset-0 h-full w-full rounded-4xl object-cover"
 				alt={title}
 				loading="lazy"
 				decoding="async"
 				transition:name={`blog-image-${slug}`}
+				width={1920}
+				height={1080}
 			/>
 		</div>
 		<div
@@ -56,17 +57,27 @@ const enrichedCategories = categories.map((slug) => {
 		>
 			<div class="flex flex-wrap gap-2">
 				{
-					enrichedCategories.map((cat) => (
-						<span
-							class={twMerge(
-								"border-dark/60 text-dark flex cursor-pointer items-center gap-1.5 rounded-full border px-2 py-1 text-xs font-semibold transition-all duration-200 select-none dark:border-gray-700 dark:text-gray-400",
-								cat.className
-							)}
-						>
-							{cat.icon && <span class="mr-1">{cat.icon}</span>}
-							{cat.label}
-						</span>
-					))
+					enrichedCategories.map((cat) => {
+						const Icon = cat.icon
+
+						return (
+							cat.label && (
+								<span
+									class={twMerge(
+										"border-dark/60 text-dark flex cursor-pointer items-center gap-1.5 rounded-full border px-2 py-1 text-xs font-semibold transition-all duration-200 select-none dark:border-gray-700 dark:text-gray-400",
+										cat.className
+									)}
+								>
+									{Icon && (
+										<span class="icon text-lg leading-1">
+											<Icon />
+										</span>
+									)}
+									{cat.label}
+								</span>
+							)
+						)
+					})
 				}
 			</div>
 			<Typography

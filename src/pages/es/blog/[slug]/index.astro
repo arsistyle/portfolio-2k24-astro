@@ -49,10 +49,19 @@ const breadcrumbs = [
 ---
 
 <PageLayout title={`Israel Larrondo | Blog - ${title}`} pageTitle={title} {breadcrumbs}>
-	<article class="blog-article">
-		<div class="blog-hero-image">
-			<img src={image} alt={title} transition:name={`blog-image-${slug}`} />
+	<article class="pb-12">
+		<div class="mb-8 aspect-[16/9] w-full overflow-hidden rounded-2xl">
+			<img
+				src={image}
+				alt={title}
+				class="h-full w-full object-cover"
+				transition:name={`blog-image-${slug}`}
+			/>
 		</div>
-		<Content />
+		<div
+			class="[&_code]:text-primary-600 dark:[&_code]:text-primary-300 [&_code]:rounded [&_code]:bg-gray-100 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-sm [&_code]:font-medium dark:[&_code]:bg-white/10 [&_p]:mb-4 [&_p]:leading-relaxed [&_p]:text-gray-700 dark:[&_p]:text-gray-300"
+		>
+			<Content />
+		</div>
 	</article>
 </PageLayout>

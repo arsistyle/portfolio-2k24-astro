@@ -64,6 +64,7 @@ export type BlogPost = {
 	categories: string[]
 	lang: Langs
 	image: string
+	status: "active" | "draft"
 }
 
 export type BlogPostMDXContent = MDXContent & {
