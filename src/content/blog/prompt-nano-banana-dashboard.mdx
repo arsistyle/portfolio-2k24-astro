@@ -1,0 +1,131 @@
+---
+title: "Create a Dashboard with Nano Banana"
+slug: "prompt-nano-banana-dashboard"
+description: "Generate an interactive and visually appealing dashboard with this Nano Banana prompt. Ideal for admin panels and metrics."
+date: "2026-02-24"
+categories: ["nano-banana", "dashboard", "prompts"]
+lang: "en"
+image: "/blog/prompt-nano-banana-dashboard.png"
+---
+
+import CodeBlock from "@/components/core/CodeBlock/CodeBlock.astro"
+import { Typography } from "@/components/index.astro"
+
+<div class="blog-content">
+
+<Typography type="h4" class="dark:text-white">
+	The Prompt
+</Typography>
+
+<p class="mb-6 text-gray-700 dark:text-gray-300">
+	Use this prompt to ask Nano Banana to generate a modern dashboard with charts, metrics, and a
+	sidebar navigation.
+</p>
+
+<CodeBlock
+  code={`Create a modern and interactive admin dashboard.
+
+Structure:
+
+- Collapsible left sidebar with navigation (Dashboard, Users, Products, Settings)
+- Top header with search bar, notifications and user avatar
+- Main area with metric card grid (4 cards: Sales, Users, Orders, Revenue)
+- CSS-simulated bar chart (last 7 days)
+- "Latest transactions" table with 5 example rows
+- "Recent activity" widget with timeline
+
+Style:
+
+- Dark mode with #17191b background and #1e2124 card backgrounds
+- Green (#6afbac) accents for positive indicators and red (#f33623) for negative
+- Rounded borders (16px) on cards
+- Subtle shadows for depth
+- Smooth hover transitions (0.3s ease)
+- Skeleton loading states on cards
+
+Technical:
+
+- Vanilla HTML, CSS and JavaScript
+- CSS Grid for main layout
+- CSS Variables for color system
+- Hardcoded example data
+- Responsive: sidebar hides on mobile with hamburger button
+- Entry animations with @keyframes`}
+  lang="text"
+  />
+
+<Typography type="h4" class="mt-12 dark:text-white">
+	Workflow
+</Typography>
+
+<div class="blog-flow">
+
+<div class="blog-flow-step">
+	<span class="blog-flow-step-number">1</span>
+	<div>
+		<Typography type="h6" class="dark:text-white">
+			Start Nano Banana
+		</Typography>
+		<p class="text-gray-700 dark:text-gray-300">
+			Open a new conversation in Nano Banana. If you already have a project in progress, create a
+			new chat to keep the context clean.
+		</p>
+	</div>
+</div>
+
+<div class="blog-flow-step">
+	<span class="blog-flow-step-number">2</span>
+	<div>
+		<Typography type="h6" class="dark:text-white">
+			Send the base prompt
+		</Typography>
+		<p class="text-gray-700 dark:text-gray-300">
+			Paste the complete prompt. Nano Banana will process all instructions and generate a functional
+			dashboard with all specified sections.
+		</p>
+	</div>
+</div>
+
+<div class="blog-flow-step">
+	<span class="blog-flow-step-number">3</span>
+	<div>
+		<Typography type="h6" class="dark:text-white">
+			Customize the metrics
+		</Typography>
+		<p class="text-gray-700 dark:text-gray-300">
+			Ask for specific changes: "Change the metrics to: Active Customers, MRR, Churn Rate and NPS"
+			or "Add a line chart for monthly trends".
+		</p>
+	</div>
+</div>
+
+<div class="blog-flow-step">
+	<span class="blog-flow-step-number">4</span>
+	<div>
+		<Typography type="h6" class="dark:text-white">
+			Connect real data
+		</Typography>
+		<p class="text-gray-700 dark:text-gray-300">
+			Once satisfied with the design, ask Nano Banana to replace hardcoded data with{" "}
+			<code>fetch()</code> calls to your API. Example: "Replace the example data with calls to my
+			API at /api/metrics".
+		</p>
+	</div>
+</div>
+
+<div class="blog-flow-step">
+	<span class="blog-flow-step-number">5</span>
+	<div>
+		<Typography type="h6" class="dark:text-white">
+			Integrate into your project
+		</Typography>
+		<p class="text-gray-700 dark:text-gray-300">
+			Export the code and adapt it to your stack. If you use React or Vue, ask Nano Banana: "Convert
+			this dashboard to React components with Tailwind CSS".
+		</p>
+	</div>
+</div>
+
+</div>
+
+</div>

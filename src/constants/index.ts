@@ -12,6 +12,10 @@ export const NAV_ITEMS: NavItem[] = [
 		href: "/projects",
 	},
 	{
+		name: "nav.blog",
+		href: "/blog",
+	},
+	{
 		name: "nav.shop",
 		href: "/shop",
 	},

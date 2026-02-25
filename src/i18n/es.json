@@ -1,6 +1,7 @@
 {
   "nav.home": "Inicio",
   "nav.projects": "Proyectos",
+  "nav.blog": "Blog",
   "nav.shop": "Tienda",
   "nav.shop.thankYou": "Gracias por tu compra",
 
@@ -18,6 +19,20 @@
   "projects.detail.categories.title": "Categorías",
   "projects.detail.tools.title": "Herramientas",
   "projects.detail.actions.title": "Enlaces",
+
+  "blog.title": "Blog",
+  "blog.categories": "Categorías",
+  "blog.all": "Todas",
+  "blog.copyPrompt": "Copiar prompt",
+  "blog.copied": "¡Copiado!",
+  "blog.loadMore": "Cargar más",
+  "blog.empty": "Aún no hay entradas. ¡Pronto habrá contenido!",
+  "blog.noResults": "No se encontraron entradas para esta categoría",
+  "blog.search": "Buscar entradas...",
+  "blog.results": "entradas",
+  "blog.filter": "Filtrar",
+  "blog.clearAll": "BORRAR TODO",
+  "blog.confirm": "CONFIRMAR",
 
   "shop.title": "Tienda",
   "shop.thankYou.title": "¡Gracias por tu compra!",

@@ -15,7 +15,7 @@ const { categories = [], title = "", images = [], name = "" } = project || {}
 <article class="group relative">
 	<a href={`${translatePath(`/projects`)}/${name}`} class="flex aspect-4/3 flex-col">
 		<div
-			class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:-translate-y-2 group-hover:translate-x-2 group-hover:scale-125 group-hover:rotate-0"
+			class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:scale-125 group-hover:rotate-0"
 		>
 			<GoArrowRight className="h-full w-full" />
 		</div>
@@ -37,15 +37,12 @@ const { categories = [], title = "", images = [], name = "" } = project || {}
 		<div
 			class="relative inset-0 z-20 flex w-full flex-col items-start justify-end gap-3 py-6 md:py-8"
 		>
-			<div class="flex gap-2">
+			<div class="flex flex-wrap gap-2">
 				{
-					categories.map((cat: string, i: number) => (
-						<Fragment>
-							<Typography type="span" class="highlight text-dark/60 dark:text-white/70">
-								{cat}
-							</Typography>
-							{i < categories.length - 1 && <span class="text-dark/40 dark:text-white/60">|</span>}
-						</Fragment>
+					categories.map((cat: string) => (
+						<span class="text-dark/60 rounded-full border border-gray-200 px-3 py-1 text-xs font-medium dark:border-gray-700 dark:text-white/70">
+							{cat}
+						</span>
 					))
 				}
 			</div>

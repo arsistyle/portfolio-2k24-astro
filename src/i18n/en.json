@@ -1,6 +1,7 @@
 {
   "nav.home": "Home",
   "nav.projects": "Projects",
+  "nav.blog": "Blog",
   "nav.shop": "Shop",
   "nav.shop.thankYou": "Thank you for your purchase",
 
@@ -19,6 +20,20 @@
   "projects.detail.categories.title": "Categories",
   "projects.detail.tools.title": "Tools",
   "projects.detail.actions.title": "Links",
+
+  "blog.title": "Blog",
+  "blog.categories": "Categories",
+  "blog.all": "All",
+  "blog.copyPrompt": "Copy prompt",
+  "blog.copied": "Copied!",
+  "blog.loadMore": "Load more",
+  "blog.empty": "No posts yet. Stay tuned!",
+  "blog.noResults": "No posts found for this category",
+  "blog.search": "Search posts...",
+  "blog.results": "posts",
+  "blog.filter": "Filter",
+  "blog.clearAll": "CLEAR ALL",
+  "blog.confirm": "CONFIRM",
 
   "shop.title": "Shop",
   "shop.thankYou.title": "Thank you for your purchase!",

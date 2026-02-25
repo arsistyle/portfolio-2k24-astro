@@ -1,0 +1,86 @@
+---
+interface Props {
+	code: string
+	lang?: string
+}
+
+const { code, lang = "text" } = Astro.props
+const id = `code-block-${Math.random().toString(36).slice(2, 9)}`
+---
+
+<div class="code-block-wrapper">
+	<div class="code-block-header">
+		<span class="code-block-lang">{lang}</span>
+		<button class="code-block-copy" data-code-id={id} aria-label="Copy to clipboard" type="button">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="16"
+				height="16"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="code-block-copy-icon"
+			>
+				<rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+				<path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+			</svg>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="16"
+				height="16"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="code-block-check-icon code-block-icon-hidden"
+			>
+				<polyline points="20 6 9 17 4 12"></polyline>
+			</svg>
+		</button>
+	</div>
+	<pre id={id} class="code-block-pre"><code class="code-block-code">{code}</code></pre>
+</div>
+
+<script>
+	function initCodeBlocks() {
+		document.querySelectorAll(".code-block-copy").forEach((btn) => {
+			btn.addEventListener("click", async () => {
+				const codeId = btn.getAttribute("data-code-id")
+				if (!codeId) return
+
+				const codeEl = document.getElementById(codeId)
+				if (!codeEl) return
+
+				const text = codeEl.textContent || ""
+
+				try {
+					await navigator.clipboard.writeText(text)
+
+					const copyIcon = btn.querySelector(".code-block-copy-icon") as HTMLElement
+					const checkIcon = btn.querySelector(".code-block-check-icon") as HTMLElement
+
+					if (copyIcon && checkIcon) {
+						copyIcon.classList.add("code-block-icon-hidden")
+						checkIcon.classList.remove("code-block-icon-hidden")
+
+						setTimeout(() => {
+							copyIcon.classList.remove("code-block-icon-hidden")
+							checkIcon.classList.add("code-block-icon-hidden")
+						}, 2000)
+					}
+				} catch (err) {
+					console.error("Failed to copy:", err)
+				}
+			})
+		})
+	}
+
+	initCodeBlocks()
+
+	document.addEventListener("astro:after-swap", initCodeBlocks)
+</script>
