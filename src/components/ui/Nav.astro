@@ -1,28 +1,31 @@
 ---
-import { getLangFromUrl, useTranslations, useTranslatedPath } from "@/i18n/utils"
-import { NAV_ITEMS } from "@/constants"
-
-import type { NavItem } from "@/constants/types"
+import { getLangFromUrl, useTranslations, useTranslatedPath, cleanUrl } from "@/i18n/utils"
+import { getEnabledRoutes } from "@/config/routes"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 const { pathname } = Astro.url
-const currentPath = pathname.replace(`/${lang}`, "")
+const currentPath = cleanUrl(pathname)
 
-const isThisPage = (pageUrl = "", currentPath = "", lang = "") => {
-	const currentPage = pageUrl.replace(`/${lang}`, "")
+const env = import.meta.env.MODE
+
+const enabledRoutes = getEnabledRoutes(lang, env)
+
+const isThisPage = (pageUrl = "", currentPath = "") => {
 	const paths = currentPath.replace("/", "").split("/")
 	const [current] = paths
-	return currentPage === `/${current}`
+	const pagePaths = pageUrl.replace("/", "").split("/")
+	const [pageRoot] = pagePaths
+	return pageRoot === current
 }
 ---
 
 <ul class="flex flex-col gap-5 lg:flex-row">
 	{
-		NAV_ITEMS?.map(({ name, href = "" }: NavItem) => {
+		enabledRoutes?.map(({ name, href = "" }) => {
 			const path = translatePath(href)
-			const isActive = isThisPage(path, currentPath, lang)
+			const isActive = isThisPage(href, currentPath)
 
 			return (
 				<li>
@@ -32,7 +35,7 @@ const isThisPage = (pageUrl = "", currentPath = "", lang = "") => {
 							isActive ? "" : "opacity-60"
 						}`}
 					>
-						{t(name)}
+						{t(name as any)}
 					</a>
 				</li>
 			)

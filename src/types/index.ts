@@ -60,6 +60,7 @@ export type BlogPost = {
 	title: string
 	slug: string
 	description: string
+	search_context: string
 	date: string
 	categories: string[]
 	lang: Langs

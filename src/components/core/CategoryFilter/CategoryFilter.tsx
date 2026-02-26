@@ -1,55 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { CATEGORIES } from "@/config/categories"
-
-const SearchIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		width="16"
-		height="16"
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="currentColor"
-		strokeWidth="2"
-		strokeLinecap="round"
-		strokeLinejoin="round"
-	>
-		<circle cx="11" cy="11" r="8" />
-		<path d="m21 21-4.3-4.3" />
-	</svg>
-)
-
-const FilterIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		width="16"
-		height="16"
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="currentColor"
-		strokeWidth="2"
-		strokeLinecap="round"
-		strokeLinejoin="round"
-	>
-		<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-	</svg>
-)
-
-const CloseIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		width="20"
-		height="20"
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="currentColor"
-		strokeWidth="2"
-		strokeLinecap="round"
-		strokeLinejoin="round"
-	>
-		<path d="M18 6 6 18" />
-		<path d="m6 6 12 12" />
-	</svg>
-)
+import { IconSearch, IconFilter, IconX } from "@tabler/icons-react"
 
 interface CategoryWithCount {
 	name: string
@@ -226,7 +177,7 @@ export default function CategoryFilter({
 			{/* Search */}
 			<div className="relative flex-1">
 				<span className="text-dark absolute top-1/2 left-3 -translate-y-1/2 dark:text-gray-400">
-					<SearchIcon />
+					<IconSearch size={16} />
 				</span>
 				<input
 					type="text"
@@ -253,7 +204,7 @@ export default function CategoryFilter({
 				onClick={openModal}
 				className={`hover:border-primary-400 dark:hover:border-primary-400 flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 bg-transparent px-4 py-2.5 text-sm font-medium text-gray-600 transition-colors dark:border-gray-700 dark:text-gray-400 ${selectedCount > 0 ? "border-primary-400 text-primary-600 dark:border-primary-400 dark:text-primary-300" : ""}`}
 			>
-				<FilterIcon />
+				<IconFilter size={16} />
 				<span>{filterLabel}</span>
 				{selectedCount > 0 && (
 					<span className="bg-primary-400 text-dark flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold">
@@ -288,7 +239,7 @@ export default function CategoryFilter({
 								className="cursor-pointer rounded-lg p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200"
 								aria-label="Close"
 							>
-								<CloseIcon />
+								<IconX size={20} />
 							</button>
 						</div>
 

@@ -1,31 +1,37 @@
 ---
 import type { NavProps } from "@/types"
 import { Typography } from "@/components/index.astro"
+import { cleanUrl } from "@/i18n/utils"
 
 const { data } = Astro.props
 const { items } = data as NavProps
+const { pathname } = Astro.url
+const currentPath = cleanUrl(pathname)
 ---
 
-<aside>
+<aside class="sticky top-20">
 	{
 		items.map(({ label, items }) => (
 			<div class="relative">
 				<Typography type="h6" class="text-dark py-4 dark:text-white">
 					{label}
 				</Typography>
-				{items.map(({ label, path }) => (
-					<ul class="relative">
-						<li>
-							<Typography
-								type="a"
-								href={path}
-								class="text-dark/60 flex py-2 transition-opacity hover:opacity-70 dark:text-white/60"
-							>
-								{label}
-							</Typography>
-						</li>
-					</ul>
-				))}
+				{items.map(({ label, path }) => {
+					const isActive = cleanUrl(path) === currentPath
+					return (
+						<ul class="relative">
+							<li>
+								<Typography
+									type="a"
+									href={path}
+									class={`flex py-2 transition-opacity hover:opacity-70 dark:text-white ${isActive ? "text-dark opacity-100" : "text-dark/60 opacity-60"}`}
+								>
+									{label}
+								</Typography>
+							</li>
+						</ul>
+					)
+				})}
 			</div>
 		))
 	}

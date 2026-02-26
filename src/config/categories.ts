@@ -1,8 +1,9 @@
 import IconGemini from "@/components/icons/gemini"
-import IconAi from "@/components/icons/IconAi"
-import IconPrompt from "@/components/icons/IconPrompt"
+import IconAi from "@/components/icons/ai"
+import IconPrompt from "@/components/icons/prompt"
 import IconNanoBanana from "@/components/icons/nanobanana"
 import type { JSX } from "astro/jsx-runtime"
+import IconArsi from "@/components/icons/arsi"
 
 export interface CategoryConfig {
 	name: string
@@ -41,19 +42,64 @@ export const CATEGORIES: CategoryConfig[] = [
 		icon: IconGemini,
 	},
 	{ name: "blog", label: "Blog", order: 10 },
-	{ name: "chat", label: "Chat", order: 10 },
-	{ name: "dashboard", label: "Dashboard", order: 10 },
-	{ name: "e-commerce", label: "E-commerce", order: 10 },
-	{ name: "email", label: "Email", order: 10 },
-	{ name: "forms", label: "Forms", order: 10 },
-	{ name: "gallery", label: "Gallery", order: 10 },
-	{ name: "landing-page", label: "Landing Page", order: 10 },
-	{ name: "mobile", label: "Mobile", order: 10 },
-	{ name: "portfolio", label: "Portfolio", order: 10 },
-	{ name: "productivity", label: "Productivity", order: 10 },
-	{ name: "restaurant", label: "Restaurant", order: 10 },
-	{ name: "saas", label: "SaaS", order: 10 },
-	{ name: "social-media", label: "Social Media", order: 10 },
+	{
+		name: "personal",
+		label: "Personal",
+		order: 10,
+		icon: IconArsi,
+		className: "[&_.icon]:text-secondary-500! dark:[&_.icon]:text-secondary!",
+	},
+	{ name: "front-end", label: "Front-End", order: 10 },
+	{
+		name: "ui-ux",
+		label: "UI/UX",
+		order: 10,
+	},
+	{
+		name: "resources",
+		label: "Resources",
+		order: 10,
+	},
+	{
+		name: "templates",
+		label: "Templates",
+		order: 10,
+	},
+	{
+		name: "tools",
+		label: "Tools",
+		order: 10,
+	},
+	{
+		name: "astro",
+		label: "Astro",
+		order: 10,
+	},
+	{
+		name: "react",
+		label: "React",
+		order: 10,
+	},
+	{
+		name: "css",
+		label: "CSS",
+		order: 10,
+	},
+	{
+		name: "javascript",
+		label: "JavaScript",
+		order: 10,
+	},
+	{
+		name: "typescript",
+		label: "TypeScript",
+		order: 10,
+	},
+	{
+		name: "html",
+		label: "HTML",
+		order: 10,
+	},
 ]
 
 export const CATEGORY_SLUGS = CATEGORIES.map((c) => c.name) as [string, ...string[]]

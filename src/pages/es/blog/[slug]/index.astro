@@ -1,10 +1,7 @@
 ---
 import type { Langs } from "@/types"
-
-import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
-
-import PageLayout from "@/layouts/PageLayout.astro"
 import { getBlogPosts } from "@/utils/getBlogPosts"
+import PostLayout from "@/layouts/PostLayout.astro"
 
 export async function getStaticPaths() {
 	const lang: Langs = "es"
@@ -18,50 +15,10 @@ export async function getStaticPaths() {
 	})
 }
 
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
-const translatePath = useTranslatedPath(lang)
 const { post } = Astro.props
-const { title, Content, slug, image } = post
-
-const breadcrumbs = [
-	{
-		name: t("nav.home"),
-		type: "link",
-		url: translatePath("/"),
-	},
-	{
-		type: "separator",
-	},
-	{
-		name: t("nav.blog"),
-		type: "link",
-		url: translatePath("/blog"),
-	},
-	{
-		type: "separator",
-	},
-	{
-		name: title,
-		type: "current",
-	},
-]
+const { title, categories, Content, slug, image } = post
 ---
 
-<PageLayout title={`Israel Larrondo | Blog - ${title}`} pageTitle={title} {breadcrumbs}>
-	<article class="pb-12">
-		<div class="mb-8 aspect-[16/9] w-full overflow-hidden rounded-2xl">
-			<img
-				src={image}
-				alt={title}
-				class="h-full w-full object-cover"
-				transition:name={`blog-image-${slug}`}
-			/>
-		</div>
-		<div
-			class="[&_code]:text-primary-600 dark:[&_code]:text-primary-300 [&_code]:rounded [&_code]:bg-gray-100 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-sm [&_code]:font-medium dark:[&_code]:bg-white/10 [&_p]:mb-4 [&_p]:leading-relaxed [&_p]:text-gray-700 dark:[&_p]:text-gray-300"
-		>
-			<Content />
-		</div>
-	</article>
-</PageLayout>
+<PostLayout title={title} slug={slug} image={image} categories={categories}>
+	<Content />
+</PostLayout>

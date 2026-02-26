@@ -34,12 +34,28 @@
   "blog.filter": "Filter",
   "blog.clearAll": "CLEAR ALL",
   "blog.confirm": "CONFIRM",
+  "blog.prev": "Previous",
+  "blog.next": "Next",
+  "blog.share": "Share",
 
   "shop.title": "Shop",
   "shop.thankYou.title": "Thank you for your purchase!",
   "shop.thankYou.description": "Your payment has been processed successfully.",
   "shop.thankYou.alert": "You can now download your file, but please note that this site does not store any user data, so download and store your file in a safe place.",
   "shop.thankYou.cta": "Download your file",
+
+  "paypal.donate": "Donate via PayPal",
+  "paypal.completed.title": "Thank you for your donation!",
+  "paypal.completed.description": "Your generosity means the world to me. Thanks to your support, I can keep creating quality content.",
+  "paypal.completed.cta": "Go to home",
+  "paypal.cancel.title": "Donation cancelled",
+  "paypal.cancel.description": "No worries! If you changed your mind, you can always come back. Thanks for considering it.",
+  "paypal.cancel.cta": "Go to home",
+
+  "ad.fallback.title": "Hey! You have AdBlock enabled 🙈",
+  "ad.fallback.description": "I need to eat 😅 If you don't want to see ads, you can support me donating.",
+  "ad.fallback.shopCta": "Visit the Shop",
+  "ad.fallback.donatePaypalCta": "Donate with PayPal",
 
   "404.title": "404",
   "404.description": "The page you are looking for does not exist.",

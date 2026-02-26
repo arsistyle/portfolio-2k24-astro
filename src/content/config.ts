@@ -12,6 +12,7 @@ const blogCollection = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
+		search_context: z.string(),
 		date: z.string(),
 		lang: z.enum(["en", "es"]),
 		image: z.string(),

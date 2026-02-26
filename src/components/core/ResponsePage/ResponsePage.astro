@@ -1,0 +1,56 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import HeaderPage from "@/components/ui/HeaderPage.astro"
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
+
+interface Props {
+	pageTitle: string
+	icon: string
+	titleKey: string
+	descriptionKey: string
+	ctaKey: string
+	ctaPath?: string
+}
+
+const { pageTitle, icon, titleKey, descriptionKey, ctaKey, ctaPath = "/" } = Astro.props
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+
+const breadcrumbs = [
+	{
+		name: t("nav.home"),
+		type: "link",
+		url: translatePath("/"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: t(titleKey as any),
+		type: "current",
+	},
+]
+---
+
+<Layout title={`Israel Larrondo | ${pageTitle}`}>
+	<div class="dark:bg-dark relative z-10 bg-white">
+		<HeaderPage {breadcrumbs} />
+		<div class="container mx-auto flex flex-col items-center gap-6 px-5 py-20 text-center">
+			<span class="text-9xl">{icon}</span>
+			<h1 class="h1 text-dark text-3xl font-bold dark:text-white">
+				{t(titleKey as any)}
+			</h1>
+			<p class="text-lg leading-relaxed text-gray-600 dark:text-gray-400">
+				{t(descriptionKey as any)}
+			</p>
+			<a
+				href={translatePath(ctaPath)}
+				class="bg-primary-500 hover:bg-primary-600 mt-4 inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-black transition-colors"
+			>
+				{t(ctaKey as any)}
+			</a>
+		</div>
+	</div>
+</Layout>

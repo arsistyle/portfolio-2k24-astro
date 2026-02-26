@@ -5,11 +5,13 @@ import "@fontsource-variable/syne"
 
 import type { PageLayoutProps } from "@/types"
 
-import { getLangFromUrl } from "@/i18n/utils"
+import { getLangFromUrl, cleanUrl } from "@/i18n/utils"
+import { isRouteEnabled } from "@/config/routes"
 
 import { Header, Footer } from "@/components/shared/index.astro"
 import HeaderPage from "@/components/ui/HeaderPage.astro"
 import { Sidebar } from "@/components/index.astro"
+import NotFoundLayout from "@/layouts/NotFoundLayout.astro"
 
 import "@/css/global.css"
 import { SEO_DATA } from "@/constants"
@@ -18,68 +20,83 @@ type Props = PageLayoutProps
 
 const { props } = Astro
 const lang = getLangFromUrl(Astro.url)
+const env = import.meta.env.MODE
+const currentPath = cleanUrl(Astro.url.pathname)
+
+const isEnabled = isRouteEnabled(currentPath, lang, env)
+
+if (!isEnabled) {
+	Astro.response.status = 404
+}
 
 const {
 	pageTitle,
-	title = SEO_DATA[lang].title,
-	description = SEO_DATA[lang].description,
-	og_image = SEO_DATA[lang].image,
-	og_title = SEO_DATA[lang].title,
+	title = SEO_DATA[lang].title || "",
+	description = SEO_DATA[lang].description || "",
+	og_image = SEO_DATA[lang].image || "",
+	og_title = SEO_DATA[lang].title || "",
 	og_type = "website",
-	canonical = SEO_DATA[lang].canonical_url,
+	canonical = SEO_DATA[lang].canonical_url || "",
 	breadcrumbs,
 	nav,
 	name,
 	langSelector = true,
 } = props
 
-const hasNav = nav && Object.keys(nav)?.length
+const hasNav = nav && Boolean(Object.keys(nav)?.length)
+
+console.log(Astro.url, nav, hasNav)
 ---
 
-<!doctype html>
-<html lang={lang} class="dark">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<SEO
-			title={title}
-			description={description}
-			canonical={canonical}
-			openGraph={{
-				basic: {
-					title: og_title || title,
-					image: og_image,
-					type: og_type,
-				},
-				optional: {
-					description,
-				},
-			}}
-		/>
-		<ClientRouter />
-	</head>
+{
+	isEnabled ? (
+		<Fragment>
+			<html lang={lang} class="dark">
+				<head>
+					<meta charset="UTF-8" />
+					<meta name="viewport" content="width=device-width" />
+					<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+					<meta name="generator" content={Astro.generator} />
+					<SEO
+						title={title}
+						description={description}
+						canonical={canonical}
+						openGraph={{
+							basic: {
+								title: og_title || title,
+								image: og_image,
+								type: og_type,
+							},
+							optional: {
+								description,
+							},
+						}}
+					/>
+					<ClientRouter />
+				</head>
 
-	<body class="dark:bg-dark bg-white">
-		<Header lang={langSelector} />
-		<main class="dark:bg-dark relative z-10 bg-white">
-			<div class="container mx-auto max-w-6xl">
-				<HeaderPage title={pageTitle} {breadcrumbs} name={name} />
-				<div class="grid grid-cols-4 gap-12 px-5 py-10 md:gap-4">
-					{
-						hasNav && (
-							<div class="col-span-4 md:col-span-2">
-								<Sidebar data={nav} />
+				<body class="dark:bg-dark bg-white">
+					<Header lang={langSelector} />
+					<main class="dark:bg-dark relative z-10 bg-white">
+						<div class="container mx-auto max-w-6xl">
+							<HeaderPage title={pageTitle} {breadcrumbs} name={name} />
+							<div class="grid grid-cols-12 gap-12 px-5 py-10 md:gap-4">
+								{hasNav && (
+									<div class="col-span-12 md:col-span-3">
+										<Sidebar data={nav} />
+									</div>
+								)}
+								<div class={hasNav ? "col-span-12 md:col-span-9" : "col-span-12"}>
+									<slot />
+								</div>
 							</div>
-						)
-					}
-					<div class={nav ? "col-span-4 md:col-span-6" : "col-span-4"}>
-						<slot />
-					</div>
-				</div>
-			</div>
-		</main>
-		<Footer />
-	</body>
-</html>
+						</div>
+					</main>
+					<Footer />
+				</body>
+			</html>
+		</Fragment>
+	) : (
+		<NotFoundLayout />
+	)
+}
