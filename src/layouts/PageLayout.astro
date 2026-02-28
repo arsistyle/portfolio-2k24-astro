@@ -14,7 +14,7 @@ import { Sidebar } from "@/components/index.astro"
 import NotFoundLayout from "@/layouts/NotFoundLayout.astro"
 
 import "@/css/global.css"
-import { SEO_DATA } from "@/constants"
+import { SEO_DATA, TWITTER_HANDLE } from "@/constants"
 
 type Props = PageLayoutProps
 
@@ -58,16 +58,25 @@ const hasNav = nav && Boolean(Object.keys(nav)?.length)
 					<SEO
 						title={title}
 						description={description}
-						canonical={canonical}
+						canonical={canonical || Astro.url.href}
 						openGraph={{
 							basic: {
 								title: og_title || title,
 								image: og_image,
 								type: og_type,
+								url: Astro.url.href,
 							},
 							optional: {
 								description,
 							},
+						}}
+						twitter={{
+							card: "summary_large_image",
+							site: TWITTER_HANDLE,
+							creator: TWITTER_HANDLE,
+							title: og_title || title,
+							description,
+							image: og_image,
 						}}
 					/>
 					<ClientRouter />
