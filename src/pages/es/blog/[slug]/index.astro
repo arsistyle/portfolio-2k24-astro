@@ -1,0 +1,24 @@
+---
+import type { Langs } from "@/types"
+import { getBlogPosts } from "@/utils/getBlogPosts"
+import PostLayout from "@/layouts/PostLayout.astro"
+
+export async function getStaticPaths() {
+	const lang: Langs = "es"
+	const postList = getBlogPosts({ lang, includeFuture: true })
+
+	return postList.map((post) => {
+		return {
+			params: { slug: post.slug },
+			props: { post },
+		}
+	})
+}
+
+const { post } = Astro.props
+const { title, categories, Content, slug, image, og_image } = post
+---
+
+<PostLayout title={title} slug={slug} image={image} og_image={og_image} categories={categories}>
+	<Content />
+</PostLayout>

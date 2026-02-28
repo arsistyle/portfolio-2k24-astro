@@ -1,0 +1,26 @@
+---
+import { useTranslatedPath, useTranslations } from "@/i18n/utils"
+import BlogLayout from "@/layouts/BlogLayout.astro"
+import type { Langs } from "@/types"
+
+const lang: Langs = "en"
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+
+const breadcrumbs = [
+	{
+		name: t("nav.home"),
+		type: "link" as const,
+		url: translatePath("/"),
+	},
+	{
+		type: "separator" as const,
+	},
+	{
+		name: t("nav.blog"),
+		type: "current" as const,
+	},
+]
+---
+
+<BlogLayout {lang} title="Israel Larrondo | Blog" pageTitle={t("blog.title")} {breadcrumbs} />

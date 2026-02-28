@@ -1,21 +1,4 @@
-import type { NavItem } from "./types"
-
 export const MAIN_URL = "https://arsi.dev"
-
-export const NAV_ITEMS: NavItem[] = [
-	{
-		name: "nav.home",
-		href: "/",
-	},
-	{
-		name: "nav.projects",
-		href: "/projects",
-	},
-	{
-		name: "nav.shop",
-		href: "/shop",
-	},
-]
 
 export const SEO_DATA = {
 	es: {
@@ -29,5 +12,14 @@ export const SEO_DATA = {
 		image: `${MAIN_URL}/og-image.png`,
 		description: "Portfolio of projects and something else.",
 		canonical_url: MAIN_URL,
+	},
+}
+
+export const PAYPAL_DONATE = {
+	es: {
+		donate_url: `https://www.paypal.com/donate/?hosted_button_id=EU4QEGXJW44EE`,
+	},
+	en: {
+		donate_url: `https://www.paypal.com/donate/?hosted_button_id=EU4QEGXJW44EE`,
 	},
 }

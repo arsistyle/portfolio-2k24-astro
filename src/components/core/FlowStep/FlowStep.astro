@@ -1,0 +1,29 @@
+---
+import { twMerge } from "tailwind-merge"
+
+interface Props {
+	icon: string
+	title: string
+	class?: string
+}
+
+const { icon, title, class: className } = Astro.props
+---
+
+<div
+	class={twMerge(
+		"dark:bg-black-700 flex gap-4 rounded-2xl bg-gray-100 p-5 transition-colors",
+		className
+	)}
+>
+	<span
+		class="bg-primary-400/15 text-primary-600 dark:text-primary-300 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm leading-none font-bold"
+		>{icon}</span
+	>
+	<div>
+		<h6 class="text-dark m-0! mb-1! text-base font-bold dark:text-white">{title}</h6>
+		<div class="text-gray-700 dark:text-gray-300 [&_p]:mb-0">
+			<slot />
+		</div>
+	</div>
+</div>

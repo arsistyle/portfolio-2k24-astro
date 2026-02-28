@@ -1,0 +1,153 @@
+---
+import { useTranslatedPath, useTranslations } from "@/i18n/utils"
+import PageLayout from "@/layouts/PageLayout.astro"
+import { getBlogPosts, getCategoriesWithCount } from "@/utils/getBlogPosts"
+import BlogCard from "@/components/core/BlogCard/BlogCard.astro"
+import CategoryFilter from "@/components/core/CategoryFilter/CategoryFilter"
+import { Typography } from "@/components/index.astro"
+import { CATEGORIES } from "@/config/categories"
+import type { Langs, BreadcrumbsItem } from "@/types"
+
+interface Props {
+	lang: Langs
+	title: string
+	pageTitle: string
+	breadcrumbs: BreadcrumbsItem[]
+}
+
+const { lang, title, pageTitle, breadcrumbs } = Astro.props
+
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+
+const posts = getBlogPosts({ lang })
+const categoriesWithCount = getCategoriesWithCount(posts, CATEGORIES)
+const hasPosts = posts.length > 0
+const hasCategories = categoriesWithCount.length > 0
+---
+
+<PageLayout {title} {pageTitle} {breadcrumbs}>
+	<div class="flex min-h-[70vh] flex-col gap-8">
+		{
+			hasCategories && hasPosts && (
+				<CategoryFilter
+					categories={categoriesWithCount}
+					allLabel={t("blog.all")}
+					noResultsLabel={t("blog.noResults")}
+					searchPlaceholder={t("blog.search")}
+					resultsLabel={t("blog.results")}
+					filterLabel={t("blog.filter")}
+					clearAllLabel={t("blog.clearAll")}
+					confirmLabel={t("blog.confirm")}
+					postsPerPage={6}
+					client:load
+				/>
+			)
+		}
+
+		{
+			hasPosts ? (
+				<>
+					<div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20">
+						{posts.map((post) => (
+							<BlogCard
+								title={post.title}
+								description={post.description}
+								search_context={post.search_context}
+								date={post.date}
+								categories={post.categories}
+								href={translatePath(`/blog/${post.slug}`)}
+								slug={post.slug}
+								image={post.image}
+							/>
+						))}
+					</div>
+					<div id="blog-scroll-sentinel" class="h-1 w-full" />
+					<div
+						id="blog-no-results"
+						class="animate-blog-card-in flex min-h-[50vh] flex-col items-center justify-center rounded-4xl border border-dashed border-gray-300 px-8 py-16 text-center dark:border-gray-700"
+						style="display:none"
+					>
+						<Typography type="h5" class="text-gray-500 dark:text-gray-400">
+							{t("blog.noResults")}
+						</Typography>
+					</div>
+				</>
+			) : (
+				<div class="flex min-h-[50vh] flex-col items-center justify-center rounded-4xl border border-dashed border-gray-300 px-8 py-20 text-center dark:border-gray-700">
+					<Typography type="h5" class="text-gray-500 dark:text-gray-400">
+						{t("blog.empty")}
+					</Typography>
+				</div>
+			)
+		}
+	</div>
+</PageLayout>
+
+<script>
+	function initInfiniteScroll() {
+		const sentinel = document.getElementById("blog-scroll-sentinel")
+		if (!sentinel) return
+
+		// Disconnect existing observer if it exists to avoid leaks across navigations
+		if ((window as any).blogObserver) {
+			;(window as any).blogObserver.disconnect()
+		}
+
+		const POSTS_PER_PAGE = 6
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (!entry.isIntersecting) return
+
+					const rawCategories = sentinel.getAttribute("data-categories") || ""
+					const activeCategories = rawCategories ? rawCategories.split(",").filter(Boolean) : []
+					const hasFilter = activeCategories.length > 0
+					const searchQuery = (sentinel.getAttribute("data-search") || "").toLowerCase().trim()
+					const visibleCount = parseInt(sentinel.getAttribute("data-visible-count") || "0", 10)
+					const cards = document.querySelectorAll<HTMLElement>(".blog-card")
+
+					let matchIndex = 0
+					let totalMatching = 0
+					let newVisible = 0
+
+					cards.forEach((card) => {
+						const cardCategories = card.getAttribute("data-categories")?.split(",") || []
+						const cardSearch = (card.getAttribute("data-search") || "").toLowerCase()
+						const matchesCategory =
+							!hasFilter || activeCategories.some((c) => cardCategories.includes(c))
+						const matchesSearch = !searchQuery || cardSearch.includes(searchQuery)
+
+						if (matchesCategory && matchesSearch) {
+							totalMatching++
+							if (matchIndex < visibleCount + POSTS_PER_PAGE) {
+								if (matchIndex >= visibleCount) {
+									card.style.display = ""
+									card.setAttribute("data-animating", "")
+									setTimeout(() => card.removeAttribute("data-animating"), 400)
+									newVisible++
+								}
+							}
+							matchIndex++
+						}
+					})
+
+					const newCount = visibleCount + newVisible
+					sentinel.setAttribute("data-visible-count", String(newCount))
+
+					if (newCount >= totalMatching) {
+						sentinel.style.display = "none"
+					}
+				})
+			},
+			{ rootMargin: "200px" }
+		)
+
+		observer.observe(sentinel)
+		;(window as any).blogObserver = observer
+	}
+
+	initInfiniteScroll()
+	document.addEventListener("astro:after-swap", initInfiniteScroll)
+</script>

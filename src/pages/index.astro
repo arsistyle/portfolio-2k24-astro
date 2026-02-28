@@ -1,18 +1,16 @@
 ---
-import {
-	SectionHero,
-	SectionExperience,
-	SectionStack,
-	SectionProjects,
-	SectionAbout,
-} from "@/components/sections/index.astro"
+import About from "@/components/sections/About.astro"
+import Experience from "@/components/sections/Experience.astro"
+import Hero from "@/components/sections/Hero.astro"
 import Layout from "@/layouts/Layout.astro"
+import Projects from "@/components/sections/Projects.astro"
+import Stack from "@/components/sections/Stack.astro"
 ---
 
 <Layout title="Israel Larrondo | Portfolio">
-	<SectionHero />
-	<SectionAbout />
-	<SectionExperience />
-	<SectionStack />
-	<SectionProjects />
+	<Hero />
+	<About />
+	<Experience />
+	<Stack />
+	<Projects />
 </Layout>

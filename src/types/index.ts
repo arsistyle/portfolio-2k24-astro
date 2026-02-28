@@ -52,6 +52,35 @@ export type ProjectMDXGlobResult = Record<string, ProjectMDXContent>
 
 /*
 
+  Blog
+
+*/
+
+export type BlogPost = {
+	title: string
+	slug: string
+	description: string
+	search_context: string
+	date: string
+	categories: string[]
+	lang: Langs
+	image: string
+	og_image?: string
+	status: "active" | "draft"
+}
+
+export type BlogPostMDXContent = MDXContent & {
+	frontmatter: BlogPost
+}
+
+export type BlogPostFromImport = BlogPost & {
+	Content: BlogPostMDXContent["Content"]
+}
+
+export type BlogPostMDXGlobResult = Record<string, BlogPostMDXContent>
+
+/*
+
   Product
 
 */

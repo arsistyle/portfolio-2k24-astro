@@ -1,0 +1,96 @@
+---
+import { GoArrowRight } from "react-icons/go"
+import { Typography } from "@/components/index.astro"
+import { getCategoryConfig } from "@/config/categories"
+import { twMerge } from "tailwind-merge"
+import { Image } from "astro:assets"
+
+interface Props {
+	title: string
+	description: string
+	search_context: string
+	date: string
+	categories: string[]
+	href: string
+	slug: string
+	image: string
+}
+
+const { title, description, search_context, date, categories, href, slug, image } = Astro.props
+
+const enrichedCategories = categories.map((slug) => {
+	const config = getCategoryConfig(slug)
+	return {
+		slug,
+		...config,
+	}
+})
+---
+
+<article
+	class="blog-card group data-[animating]:animate-blog-card-in relative"
+	data-categories={categories.join(",")}
+	data-search={`${title} ${search_context} ${description}`}
+>
+	<a href={href} class="flex flex-col gap-6">
+		<div
+			class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:scale-125 group-hover:rotate-0"
+		>
+			<GoArrowRight className="h-full w-full" />
+		</div>
+
+		<div
+			class="relative aspect-video w-full overflow-hidden rounded-4xl transition-transform group-hover:scale-105"
+		>
+			<Image
+				src={image}
+				class="absolute inset-0 h-full w-full rounded-4xl object-cover"
+				alt={title}
+				loading="lazy"
+				decoding="async"
+				transition:name={`blog-image-${slug}`}
+				width={1920}
+				height={1080}
+			/>
+		</div>
+		<div class="relative inset-0 z-20 flex w-full flex-col items-start justify-end gap-4">
+			<Typography
+				type="h3"
+				class="h4 text-dark group-hover:text-primary-500 dark:group-hover:text-primary-300 transition-colors dark:text-white"
+				transition:name={`blog-title-${slug}`}
+			>
+				{title}
+			</Typography>
+			<Typography class="text-dark/70 leading-5! dark:text-white/70">
+				{description}
+			</Typography>
+			{
+				enrichedCategories.length > 0 && (
+					<div class="flex flex-wrap gap-2">
+						{enrichedCategories.map((cat) => {
+							const Icon = cat.icon
+
+							return (
+								cat.label && (
+									<span
+										class={twMerge(
+											"border-dark/60 text-dark flex cursor-pointer items-center gap-1.5 rounded-full border px-2 py-1 text-xs font-semibold transition-all duration-200 select-none dark:border-gray-700 dark:text-gray-400",
+											cat.className
+										)}
+									>
+										{Icon && (
+											<span class="icon text-lg leading-1">
+												<Icon />
+											</span>
+										)}
+										{cat.label}
+									</span>
+								)
+							)
+						})}
+					</div>
+				)
+			}
+		</div>
+	</a>
+</article>
