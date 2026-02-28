@@ -1,0 +1,141 @@
+---
+import type { Langs } from "@/types"
+
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
+
+import PageLayout from "@/layouts/PageLayout.astro"
+import { getCategoryConfig } from "@/config/categories"
+import { Typography } from "@/components/index.astro"
+import { twMerge } from "tailwind-merge"
+import BlogPaginator from "@/components/core/BlogPaginator/BlogPaginator"
+import ShareButtons from "@/components/core/ShareButtons/ShareButtons"
+import AdSlot from "@/components/core/AdSlot/AdSlot.astro"
+import DonationBox from "@/components/core/DonationBox/DonationBox.astro"
+
+interface Props {
+	title: string
+	slug: string
+	image: string
+	og_image?: string
+	categories: string[]
+}
+
+const { title, slug, image, og_image, categories } = Astro.props
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+
+const breadcrumbs = [
+	{
+		name: t("nav.home"),
+		type: "link",
+		url: translatePath("/"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: t("nav.blog"),
+		type: "link",
+		url: translatePath("/blog"),
+	},
+	{
+		type: "separator",
+	},
+	{
+		name: title,
+		type: "current",
+	},
+]
+
+const enrichedCategories = categories.map((slug) => {
+	const config = getCategoryConfig(slug)
+	return {
+		slug,
+		...config,
+	}
+})
+---
+
+<PageLayout
+	title={`Israel Larrondo | Blog - ${title}`}
+	pageTitle={title}
+	og_image={og_image || image}
+	{breadcrumbs}
+>
+	<article class="pb-12">
+		<div class="mb-8 aspect-[16/9] w-full overflow-clip rounded-4xl">
+			<img
+				src={image}
+				alt={title}
+				class="h-full w-full rounded-4xl object-cover"
+				transition:name={`blog-image-${slug}`}
+			/>
+		</div>
+		<div class="grid grid-cols-4 gap-5 md:grid-cols-12 md:gap-10">
+			<div class="content text-dark col-span-4 md:col-span-12 lg:col-span-8 dark:text-white">
+				<slot />
+				<DonationBox />
+			</div>
+			<aside class="sidebar col-span-4 md:col-span-12 lg:col-span-4">
+				<div class="flex flex-col gap-6 md:gap-12">
+					{
+						enrichedCategories?.length > 0 && (
+							<div class="flex flex-col gap-4">
+								<Typography type="h6" class="text-dark dark:text-white">
+									{t("blog.categories")}
+								</Typography>
+								<div class="flex flex-wrap gap-2">
+									{enrichedCategories.map((cat) => {
+										const Icon = cat.icon
+
+										return (
+											cat.label && (
+												<a
+													href={translatePath(`/blog?categories=${cat.slug}`)}
+													class={twMerge(
+														"border-dark/60 text-dark flex cursor-pointer items-center gap-1.5 rounded-full border px-4 py-2 font-semibold transition-all duration-200 select-none dark:border-gray-700 dark:text-gray-400",
+														cat.className
+													)}
+												>
+													{Icon && (
+														<span class="icon text-lg leading-1">
+															<Icon />
+														</span>
+													)}
+													{cat.label}
+												</a>
+											)
+										)
+									})}
+								</div>
+							</div>
+						)
+					}
+					<div class="flex flex-col gap-4">
+						<Typography type="h6" class="text-dark dark:text-white">
+							{t("blog.share")}
+						</Typography>
+						<ShareButtons
+							title={title}
+							slug={slug}
+							basePath={translatePath("/blog")}
+							copiedLabel={t("blog.copied")}
+							client:idle
+						/>
+					</div>
+					<AdSlot format="vertical" />
+				</div>
+			</aside>
+		</div>
+	</article>
+	<BlogPaginator
+		slug={slug}
+		lang={lang}
+		basePath={translatePath("/blog")}
+		prevLabel={t("blog.prev")}
+		nextLabel={t("blog.next")}
+		client:idle
+	/>
+</PageLayout>

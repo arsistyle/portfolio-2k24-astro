@@ -1,0 +1,102 @@
+---
+interface Props {
+	code: string
+	lang?: string
+}
+
+const { code, lang = "text" } = Astro.props
+const id = `code-block-${Math.random().toString(36).slice(2, 9)}`
+---
+
+<div
+	class="code-block [&_code]:text-black-400 overflow-hidden rounded-2xl [&_code]:rounded [&_code]:font-medium dark:[&_code]:text-white/75"
+>
+	<div
+		class="dark:bg-black-700 mb-1 flex items-center justify-between rounded-t-xl bg-gray-100 px-4 py-2.5"
+	>
+		<span class="text-black-700 text-xs font-medium tracking-wider capitalize dark:text-gray-400"
+			>{lang}</span
+		>
+		<button
+			class="code-block-copy text-black-400 flex cursor-pointer items-center gap-1 rounded-lg p-1.5 transition-colors hover:bg-white/10 hover:text-white dark:text-gray-400"
+			data-code-id={id}
+			aria-label="Copy to clipboard"
+			type="button"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="16"
+				height="16"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="code-block-copy-icon"
+			>
+				<rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+				<path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+			</svg>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="16"
+				height="16"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="code-block-check-icon hidden"
+			>
+				<polyline points="20 6 9 17 4 12"></polyline>
+			</svg>
+		</button>
+	</div>
+	<pre
+		id={id}
+		class="dark:bg-black-700 bg-gray-100 p-4 lg:p-8"><code class="block font-mono text-sm leading-relaxed break-words whitespace-pre-wrap text-black-400 dark:text-white/75">{code}</code></pre>
+</div>
+
+<script>
+	function initCodeBlocks() {
+		// Event delegation to avoid multiple listeners with SPA navigation
+		if ((window as any).codeBlocksInitialized) return
+		;(window as any).codeBlocksInitialized = true
+
+		document.addEventListener("click", async (e) => {
+			const btn = (e.target as HTMLElement).closest(".code-block-copy")
+			if (!btn) return
+
+			const codeId = btn.getAttribute("data-code-id")
+			if (!codeId) return
+
+			const codeEl = document.getElementById(codeId)
+			if (!codeEl) return
+
+			const text = codeEl.textContent || ""
+
+			try {
+				await navigator.clipboard.writeText(text)
+
+				const copyIcon = btn.querySelector(".code-block-copy-icon") as HTMLElement
+				const checkIcon = btn.querySelector(".code-block-check-icon") as HTMLElement
+
+				if (copyIcon && checkIcon) {
+					copyIcon.classList.add("hidden")
+					checkIcon.classList.remove("hidden")
+
+					setTimeout(() => {
+						copyIcon.classList.remove("hidden")
+						checkIcon.classList.add("hidden")
+					}, 2000)
+				}
+			} catch (err) {
+				console.error("Failed to copy:", err)
+			}
+		})
+	}
+
+	initCodeBlocks()
+</script>

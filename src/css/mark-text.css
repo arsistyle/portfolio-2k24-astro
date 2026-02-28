@@ -13,7 +13,7 @@
 	transition:
 		background-position 1s,
 		color 1s;
-	@apply px-1;
+	@apply px-1 mix-blend-darken dark:mix-blend-lighten;
 }
 
 @keyframes highlight {

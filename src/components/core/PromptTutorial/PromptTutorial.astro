@@ -1,0 +1,70 @@
+---
+import { Typography } from "@/components/index.astro"
+import FlowSteps from "@/components/core/FlowStep/FlowSteps.astro"
+import FlowStep from "@/components/core/FlowStep/FlowStep.astro"
+import Button from "@/components/core/Button/index.astro"
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@/i18n/utils"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+---
+
+<div
+	class="prompt-tutorial border-secondary-500/30 bg-primary-50/50 dark:border-secondary-400/20 mb-12 rounded-4xl border-2 border-dashed p-6 md:p-10 dark:bg-white/[0.03]"
+>
+	<div class="mb-8 flex flex-col gap-4 text-left">
+		<div class="flex items-center gap-3">
+			<span
+				class="bg-secondary-500 ring-secondary-500/20 flex h-10 w-10 items-center justify-center rounded-xl text-2xl shadow-lg ring-4"
+			>
+				💡
+			</span>
+			<Typography type="h4" class="text-primary-600 dark:text-primary-400 m-0!">
+				{t("prompt.tutorial.title")}
+			</Typography>
+		</div>
+		<Typography class="text-dark/80 text-lg leading-relaxed dark:text-gray-300">
+			{t("prompt.tutorial.description")}
+		</Typography>
+		<div class="flex flex-wrap gap-4 pt-2">
+			<Button
+				tag="a"
+				href={translatePath("/blog/how-to-use-prompts")}
+				color="primary"
+				variant="filled"
+				shape="rounded"
+				class="font-bold"
+			>
+				{t("prompt.tutorial.link.prompts")}
+			</Button>
+			<Button
+				tag="a"
+				href={translatePath("/blog/how-to-use-nano-banana")}
+				color="secondary"
+				variant="outlined"
+				shape="rounded"
+				class="font-bold"
+			>
+				{t("prompt.tutorial.link.nanobanana")}
+			</Button>
+		</div>
+	</div>
+
+	<div class="border-secondary-500/10 border-t pt-8 dark:border-white/10">
+		<Typography type="h5" class="text-primary-700 dark:text-primary-400 mb-6! tracking-widest">
+			{t("prompt.tutorial.steps.title")}
+		</Typography>
+		<FlowSteps>
+			<FlowStep icon="1" title={t("prompt.tutorial.step1.title")} class="bg-black-600!">
+				<p>{t("prompt.tutorial.step1.description")}</p>
+			</FlowStep>
+			<FlowStep icon="2" title={t("prompt.tutorial.step2.title")} class="bg-black-600!">
+				<p>{t("prompt.tutorial.step2.description")}</p>
+			</FlowStep>
+			<FlowStep icon="3" title={t("prompt.tutorial.step3.title")} class="bg-black-600!">
+				<p>{t("prompt.tutorial.step3.description")}</p>
+			</FlowStep>
+		</FlowSteps>
+	</div>
+</div>

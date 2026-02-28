@@ -11,9 +11,6 @@
 @theme {
 	--font-family-syne: '"Syne Variable", sans-serif';
 
-	--color-white: #ffffff;
-	--color-dark: #17191b;
-
 	--color-primary-50: #f0fff6;
 	--color-primary-100: #c3fedd;
 	--color-primary-200: #97fdc4;
@@ -52,6 +49,15 @@
 	--color-gray-600: #a3a3a3;
 	--color-gray-700: #8e8e8e;
 
+	--color-black-100: #3f4244;
+	--color-black-200: #393c3e;
+	--color-black-300: #343638;
+	--color-black-400: #2e3032;
+	--color-black-500: #282b2d;
+	--color-black-600: #222527;
+	--color-black-700: #1d1f21;
+	--color-black-800: #17191b;
+
 	--color-success-100: #ecfdf4;
 	--color-success-200: #a5ecc4;
 	--color-success-300: #5eda94;
@@ -85,6 +91,8 @@
 	--color-warning-700: #3a2000;
 
 	--color-transparent: transparent;
+	--color-white: #ffffff;
+	--color-dark: var(--color-black-800);
 
 	--radius-main: 64px;
 	--radius-100: 100px;
@@ -92,6 +100,37 @@
 	--radius-4xl: 2.25rem;
 
 	--animate-avatar: avatar linear 6s infinite forwards;
+	--animate-blog-card-in: blogCardFadeIn 0.35s ease-out both;
+	--animate-blog-overlay-in: blogOverlayIn 0.15s ease-out;
+	--animate-blog-modal-in: blogModalIn 0.2s ease-out;
+}
+@keyframes blogCardFadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(12px) scale(0.97);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+@keyframes blogOverlayIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+@keyframes blogModalIn {
+	from {
+		opacity: 0;
+		transform: scale(0.96) translateY(-8px);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1) translateY(0);
+	}
 }
 @keyframes avatar {
 	0% {
@@ -124,4 +163,12 @@ body {
 	font-family: "Syne Variable", sans-serif;
 	min-height: 100dvh;
 	color-scheme: dark light;
+}
+
+.content {
+	& .code-block,
+	& .prompt-tutorial,
+	& .flow-steps {
+		@apply my-6;
+	}
 }

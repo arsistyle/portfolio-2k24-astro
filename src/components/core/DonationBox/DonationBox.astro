@@ -1,0 +1,36 @@
+---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import { BsPaypal } from "react-icons/bs"
+import { PAYPAL_DONATE } from "@/constants"
+import { Typography } from "../index.astro"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const paypalDonateUrl = PAYPAL_DONATE[lang].donate_url
+---
+
+<div
+	class="donation-box dark:bg-black-500 mt-12 mb-8 flex flex-col items-center gap-6 rounded-3xl border border-gray-200 bg-gray-100 p-8 text-center dark:border-gray-800"
+>
+	<div class="flex flex-col gap-2">
+		<Typography type="h4" class="text-dark leading-tight font-bold dark:text-white">
+			{t("blog.donation.title")}
+		</Typography>
+		<Typography
+			type="p"
+			class="text-dark/60 mx-auto max-w-lg text-sm md:text-base dark:text-gray-400"
+		>
+			{t("blog.donation.description")}
+		</Typography>
+	</div>
+
+	<a
+		href={paypalDonateUrl}
+		target="_blank"
+		rel="noopener noreferrer"
+		class="inline-flex items-center justify-center gap-3 rounded-2xl border border-[#0070ba] bg-[#0070ba] px-8 py-4 text-base font-bold text-white shadow-lg shadow-[#0070ba]/20 transition-all hover:scale-105 active:scale-95 md:text-lg"
+	>
+		<BsPaypal size={24} />
+		{t("paypal.donate")}
+	</a>
+</div>
