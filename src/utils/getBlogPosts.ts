@@ -1,7 +1,13 @@
 import type { Langs, BlogPostFromImport, BlogPostMDXContent, BlogPostMDXGlobResult } from "@/types"
 import type { CategoryConfig } from "@/config/categories"
 
-export const getBlogPosts = ({ lang }: { lang: Langs }) => {
+export const getBlogPosts = ({
+	lang,
+	includeFuture = false,
+}: {
+	lang: Langs
+	includeFuture?: boolean
+}) => {
 	const blogFiles = import.meta.glob<BlogPostMDXContent>("@/content/blog/**/*.mdx", {
 		eager: true,
 	}) as BlogPostMDXGlobResult
@@ -11,7 +17,8 @@ export const getBlogPosts = ({ lang }: { lang: Langs }) => {
 		.filter((post): post is BlogPostMDXContent & { frontmatter: { lang: Langs } } => {
 			const { lang: postLang, status, date } = post.frontmatter
 			const postDate = new Date(date)
-			return postLang === lang && status === "active" && postDate <= now
+			const isDev = import.meta.env.DEV
+			return postLang === lang && status === "active" && (isDev || includeFuture || postDate <= now)
 		})
 		.map(({ frontmatter, Content }) => ({
 			...frontmatter,

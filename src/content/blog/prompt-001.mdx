@@ -5,7 +5,7 @@ slug: "prompt-001"
 description: "Cinematic portrait of a man with urban style looking at himself in the mirror under intense red light. A dramatic, high-contrast image, ideal for illustrating themes of introspection, men's fashion, identity, or nighttime aesthetics."
 search_context: "Cinematic portrait of a man with glasses, a goatee, and cross necklaces looking intensely at his reflection in a mirror under dramatic red lighting."
 date: "2026-03-01T00:00:00"
-categories: ["nano-banana"]
+categories: ["nano-banana", "prompt", "ai"]
 lang: "en"
 image: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/blog/nanobanana/001.webp"
 og_image: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/blog/og/nanobanana-001.png"
@@ -14,6 +14,7 @@ og_image: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/blog/og/nanobanan
 import FlowStep from "@/components/core/FlowStep/FlowStep.astro"
 import FlowSteps from "@/components/core/FlowStep/FlowSteps.astro"
 import CodeBlock from "@/components/core/CodeBlock/CodeBlock.astro"
+import PromptTutorial from "@/components/core/PromptTutorial/PromptTutorial.astro"
 
 Cinematic portrait of a man with glasses, a goatee, and cross necklaces looking intensely at his reflection in a mirror under dramatic red lighting.
 
@@ -22,3 +23,5 @@ Cinematic portrait of a man with glasses, a goatee, and cross necklaces looking 
 <CodeBlock
 	code={`Image from subject, low angle over-the-shoulder shot focusing on a mirror reflection, looking directly into the mirror with the back of the head and shoulder blurred in the foreground, wearing a dark textured velvet jacket and layered gold necklaces including a prominent cross pendant, cinematic photography with 50mm film grain and shallow depth of field, intense red and warm orange monochromatic gel lighting, high contrast with deep shadows and a soft volumetric glow, dark atmospheric background with hazy textures.`}
 />
+
+<PromptTutorial />

@@ -10,7 +10,7 @@ export interface CategoryConfig {
 	label: string
 	className?: string
 	order: number
-	icon?: JSX.Element
+	icon?: any
 }
 
 export const CATEGORIES: CategoryConfig[] = [

@@ -39,10 +39,14 @@ export default function ShareButtons({ title, slug, basePath, copiedLabel = "Cop
 		window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, "_blank")
 	}
 
-	const copyLink = () => {
-		navigator.clipboard.writeText(getUrl())
-		setCopied(true)
-		setTimeout(() => setCopied(false), 2000)
+	const copyLink = async () => {
+		try {
+			await navigator.clipboard.writeText(getUrl())
+			setCopied(true)
+			setTimeout(() => setCopied(false), 2000)
+		} catch (err) {
+			console.error("Failed to copy link:", err)
+		}
 	}
 
 	const btnClass =

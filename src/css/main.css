@@ -164,3 +164,11 @@ body {
 	min-height: 100dvh;
 	color-scheme: dark light;
 }
+
+.content {
+	& .code-block,
+	& .prompt-tutorial,
+	& .flow-steps {
+		@apply my-6;
+	}
+}

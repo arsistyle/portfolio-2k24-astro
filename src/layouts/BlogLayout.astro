@@ -89,6 +89,11 @@ const hasCategories = categoriesWithCount.length > 0
 		const sentinel = document.getElementById("blog-scroll-sentinel")
 		if (!sentinel) return
 
+		// Disconnect existing observer if it exists to avoid leaks across navigations
+		if ((window as any).blogObserver) {
+			;(window as any).blogObserver.disconnect()
+		}
+
 		const POSTS_PER_PAGE = 6
 
 		const observer = new IntersectionObserver(
@@ -140,6 +145,7 @@ const hasCategories = categoriesWithCount.length > 0
 		)
 
 		observer.observe(sentinel)
+		;(window as any).blogObserver = observer
 	}
 
 	initInfiniteScroll()

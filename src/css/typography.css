@@ -48,7 +48,7 @@
 	& h4:not([class]),
 	& h5:not([class]),
 	& h6:not([class]) {
-		@apply text-dark my-[1.25em] leading-[1.2em] font-bold dark:text-white;
+		@apply text-dark my-6 leading-[1.2em] font-bold dark:text-white;
 	}
 
 	& h2:not([class]) {
@@ -72,7 +72,7 @@
 	}
 
 	& p:not([class]) {
-		@apply text-dark my-[1.5em] leading-[1.6em] font-normal dark:text-white;
+		@apply text-dark my-6 leading-[1.6em] font-normal dark:text-white;
 	}
 
 	& a:not([class]) {

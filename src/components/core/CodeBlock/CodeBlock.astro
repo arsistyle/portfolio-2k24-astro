@@ -61,39 +61,42 @@ const id = `code-block-${Math.random().toString(36).slice(2, 9)}`
 
 <script>
 	function initCodeBlocks() {
-		document.querySelectorAll(".code-block-copy").forEach((btn) => {
-			btn.addEventListener("click", async () => {
-				const codeId = btn.getAttribute("data-code-id")
-				if (!codeId) return
+		// Event delegation to avoid multiple listeners with SPA navigation
+		if ((window as any).codeBlocksInitialized) return
+		;(window as any).codeBlocksInitialized = true
 
-				const codeEl = document.getElementById(codeId)
-				if (!codeEl) return
+		document.addEventListener("click", async (e) => {
+			const btn = (e.target as HTMLElement).closest(".code-block-copy")
+			if (!btn) return
 
-				const text = codeEl.textContent || ""
+			const codeId = btn.getAttribute("data-code-id")
+			if (!codeId) return
 
-				try {
-					await navigator.clipboard.writeText(text)
+			const codeEl = document.getElementById(codeId)
+			if (!codeEl) return
 
-					const copyIcon = btn.querySelector(".code-block-copy-icon") as HTMLElement
-					const checkIcon = btn.querySelector(".code-block-check-icon") as HTMLElement
+			const text = codeEl.textContent || ""
 
-					if (copyIcon && checkIcon) {
-						copyIcon.classList.add("hidden")
-						checkIcon.classList.remove("hidden")
+			try {
+				await navigator.clipboard.writeText(text)
 
-						setTimeout(() => {
-							copyIcon.classList.remove("hidden")
-							checkIcon.classList.add("hidden")
-						}, 2000)
-					}
-				} catch (err) {
-					console.error("Failed to copy:", err)
+				const copyIcon = btn.querySelector(".code-block-copy-icon") as HTMLElement
+				const checkIcon = btn.querySelector(".code-block-check-icon") as HTMLElement
+
+				if (copyIcon && checkIcon) {
+					copyIcon.classList.add("hidden")
+					checkIcon.classList.remove("hidden")
+
+					setTimeout(() => {
+						copyIcon.classList.remove("hidden")
+						checkIcon.classList.add("hidden")
+					}, 2000)
 				}
-			})
+			} catch (err) {
+				console.error("Failed to copy:", err)
+			}
 		})
 	}
 
 	initCodeBlocks()
-
-	document.addEventListener("astro:after-swap", initCodeBlocks)
 </script>

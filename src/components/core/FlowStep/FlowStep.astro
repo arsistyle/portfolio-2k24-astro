@@ -1,13 +1,21 @@
 ---
+import { twMerge } from "tailwind-merge"
+
 interface Props {
 	icon: string
 	title: string
+	class?: string
 }
 
-const { icon, title } = Astro.props
+const { icon, title, class: className } = Astro.props
 ---
 
-<div class="dark:bg-black-700 flex gap-4 rounded-2xl bg-gray-100 p-5 transition-colors">
+<div
+	class={twMerge(
+		"dark:bg-black-700 flex gap-4 rounded-2xl bg-gray-100 p-5 transition-colors",
+		className
+	)}
+>
 	<span
 		class="bg-primary-400/15 text-primary-600 dark:text-primary-300 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm leading-none font-bold"
 		>{icon}</span

@@ -33,8 +33,12 @@ export default function BlogPaginator({
 			.then((r) => r.json())
 			.then((all: BlogIndexEntry[]) => {
 				const now = new Date()
+				const isDev =
+					window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
 				const posts = all
-					.filter((p) => p.lang === lang && p.status === "active" && new Date(p.date) <= now)
+					.filter(
+						(p) => p.lang === lang && p.status === "active" && (isDev || new Date(p.date) <= now)
+					)
 					.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
 				const idx = posts.findIndex((p) => p.slug === slug)
