@@ -65,6 +65,7 @@ export type BlogPost = {
 	categories: string[]
 	lang: Langs
 	image: string
+	og_image?: string
 	status: "active" | "draft"
 }
 

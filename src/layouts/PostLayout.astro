@@ -10,15 +10,17 @@ import { twMerge } from "tailwind-merge"
 import BlogPaginator from "@/components/core/BlogPaginator/BlogPaginator"
 import ShareButtons from "@/components/core/ShareButtons/ShareButtons"
 import AdSlot from "@/components/core/AdSlot/AdSlot.astro"
+import DonationBox from "@/components/core/DonationBox/DonationBox.astro"
 
 interface Props {
 	title: string
 	slug: string
 	image: string
+	og_image?: string
 	categories: string[]
 }
 
-const { title, slug, image, categories } = Astro.props
+const { title, slug, image, og_image, categories } = Astro.props
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -59,7 +61,7 @@ const enrichedCategories = categories.map((slug) => {
 <PageLayout
 	title={`Israel Larrondo | Blog - ${title}`}
 	pageTitle={title}
-	og_image={image}
+	og_image={og_image || image}
 	{breadcrumbs}
 >
 	<article class="pb-12">
@@ -72,10 +74,9 @@ const enrichedCategories = categories.map((slug) => {
 			/>
 		</div>
 		<div class="grid grid-cols-4 gap-5 md:grid-cols-12 md:gap-10">
-			<div
-				class="[&_p]:text-dark col-span-4 md:col-span-12 lg:col-span-8 [&_p]:mb-4 [&_p]:leading-relaxed dark:[&_p]:text-gray-300"
-			>
+			<div class="content text-dark col-span-4 md:col-span-12 lg:col-span-8 dark:text-white">
 				<slot />
+				<DonationBox />
 			</div>
 			<aside class="sidebar col-span-4 md:col-span-12 lg:col-span-4">
 				<div class="flex flex-col gap-6 md:gap-12">
