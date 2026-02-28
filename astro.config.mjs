@@ -6,7 +6,7 @@ import react from "@astrojs/react"
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://arsi.dev",
+	site: process.env.SITE || "https://arsi.dev",
 	integrations: [mdx(), react()],
 	image: {
 		service: passthroughImageService(),
