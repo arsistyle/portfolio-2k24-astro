@@ -3,8 +3,6 @@ import { Image } from "astro:assets"
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 import { BackgroundGrid } from "@/components/index.astro"
 
-import avatar from "@/assets/img/avatar.png"
-
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 ---
@@ -37,7 +35,9 @@ const t = useTranslations(lang)
 							class="animate-avatar bg-secondary-400 dark:bg-secondary-300 -mb-36 flex aspect-square h-full w-full translate-x-[20%] justify-end overflow-clip sm:mb-0 sm:h-96 sm:w-96 sm:translate-x-0"
 						>
 							<Image
-								src={avatar}
+								src="https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/avatar.webp"
+								width={1080}
+								height={1080}
 								class="block h-full w-full object-cover object-top"
 								alt="Israel Larrondo"
 							/>
