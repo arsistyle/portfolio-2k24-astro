@@ -11,12 +11,12 @@ const translatePath = useTranslatedPath(lang)
 ---
 
 <div
-	class="prompt-tutorial border-primary-500/30 bg-primary-50/50 dark:border-primary-400/20 mb-12 rounded-4xl border-2 border-dashed p-6 md:p-10 dark:bg-white/[0.03]"
+	class="prompt-tutorial border-secondary-500/30 bg-primary-50/50 dark:border-secondary-400/20 mb-12 rounded-4xl border-2 border-dashed p-6 md:p-10 dark:bg-white/[0.03]"
 >
 	<div class="mb-8 flex flex-col gap-4 text-left">
 		<div class="flex items-center gap-3">
 			<span
-				class="bg-primary-500 ring-primary-500/20 flex h-10 w-10 items-center justify-center rounded-xl text-2xl shadow-lg ring-4"
+				class="bg-secondary-500 ring-secondary-500/20 flex h-10 w-10 items-center justify-center rounded-xl text-2xl shadow-lg ring-4"
 			>
 				💡
 			</span>
@@ -41,7 +41,7 @@ const translatePath = useTranslatedPath(lang)
 			<Button
 				tag="a"
 				href={translatePath("/blog/how-to-use-nano-banana")}
-				color="primary"
+				color="secondary"
 				variant="outlined"
 				shape="rounded"
 				class="font-bold"
@@ -51,11 +51,8 @@ const translatePath = useTranslatedPath(lang)
 		</div>
 	</div>
 
-	<div class="border-primary-500/10 border-t pt-8 dark:border-white/10">
-		<Typography
-			type="h6"
-			class="text-primary-700 dark:text-primary-300 mb-6! tracking-widest uppercase"
-		>
+	<div class="border-secondary-500/10 border-t pt-8 dark:border-white/10">
+		<Typography type="h5" class="text-primary-700 dark:text-primary-400 mb-6! tracking-widest">
 			{t("prompt.tutorial.steps.title")}
 		</Typography>
 		<FlowSteps>
