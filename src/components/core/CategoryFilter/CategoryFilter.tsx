@@ -66,6 +66,7 @@ export default function CategoryFilter({
 	const [search, setSearch] = useState("")
 	const [resultCount, setResultCount] = useState(0)
 	const [modalOpen, setModalOpen] = useState(false)
+	const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null)
 	const [pending, setPending] = useState<string[]>([])
 	const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -121,6 +122,7 @@ export default function CategoryFilter({
 		setSelected(params.categories)
 		setSearch(params.search)
 		applyFilter(params.categories, params.search)
+		setPortalRoot(document.getElementById("modal-root"))
 	}, [])
 
 	// Close modal on Escape
@@ -220,6 +222,7 @@ export default function CategoryFilter({
 			</div>
 			{/* Filter Modal */}
 			{modalOpen &&
+				portalRoot &&
 				createPortal(
 					<div
 						className="animate-blog-overlay-in fixed inset-0 z-[999] flex items-start justify-center bg-black/50 pt-[15vh] backdrop-blur-sm"
@@ -303,7 +306,7 @@ export default function CategoryFilter({
 							</div>
 						</div>
 					</div>,
-					document.getElementById("modal-root")!
+					portalRoot
 				)}
 		</>
 	)

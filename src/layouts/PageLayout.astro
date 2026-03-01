@@ -96,11 +96,11 @@ const hasNav = nav && Boolean(Object.keys(nav)?.length)
 							<HeaderPage title={pageTitle} {breadcrumbs} name={name} />
 							<div class="grid grid-cols-1 gap-y-8 px-5 py-10 md:grid-cols-12 md:gap-4">
 								{hasNav && (
-									<div class="col-span-12 md:col-span-3">
+									<div class="col-span-full md:col-span-3">
 										<Sidebar data={nav} />
 									</div>
 								)}
-								<div class={hasNav ? "col-span-12 md:col-span-9" : "col-span-12"}>
+								<div class={hasNav ? "col-span-full md:col-span-9" : "col-span-full"}>
 									<slot />
 								</div>
 							</div>
