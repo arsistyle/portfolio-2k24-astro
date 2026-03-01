@@ -13,13 +13,14 @@ import DonationBox from "@/components/core/DonationBox/DonationBox.astro"
 
 interface Props {
 	title: string
+	description?: string
 	slug: string
 	image: string
 	og_image?: string
 	categories: string[]
 }
 
-const { title, slug, image, og_image, categories } = Astro.props
+const { title, description, slug, image, og_image, categories } = Astro.props
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -78,6 +79,7 @@ if (!finalOgImage || finalOgImage === "") {
 
 <PageLayout
 	title={`Israel Larrondo | Blog - ${title}`}
+	description={description}
 	og_title={title}
 	pageTitle={title}
 	og_image={finalOgImage}
