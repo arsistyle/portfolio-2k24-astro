@@ -63,13 +63,18 @@ const enrichedCategories = categories.map((slug) => {
 let finalOgImage = og_image
 
 if (!finalOgImage || finalOgImage === "") {
-	const optimizedOgImage = await getImage({
-		src: image,
-		format: "png",
-		width: 1200,
-		height: 630,
-	})
-	finalOgImage = optimizedOgImage.src
+	try {
+		const optimizedOgImage = await getImage({
+			src: image,
+			format: "png",
+			width: 1200,
+			height: 630,
+		})
+		finalOgImage = optimizedOgImage.src
+	} catch (error) {
+		console.error(`[PostLayout] Failed to generate OG image for ${slug}:`, error)
+		finalOgImage = image // Fallback to original image URL if transformation fails
+	}
 }
 ---
 
