@@ -1,0 +1,95 @@
+---
+status: active
+title: "llms.txt: El Nuevo robots.txt para la Era de la IA"
+slug: "llms-txt"
+description: "¡Prepara tu sitio web para la IA! Aprende a crear llms.txt, un archivo simple que le dice a los agentes de IA exactamente de qué trata tu sitio y dónde encontrar los datos clave."
+search_context: "Guía sobre cómo crear e implementar un archivo llms.txt para optimizar sitios web para agentes de IA y LLMs. Aprende la sintaxis, los beneficios para el SEO impulsado por IA y las mejores prácticas para este estándar web emergente. Valioso para React, Astro y todos los desarrolladores frontend."
+date: "2026-03-02T14:00:00"
+categories: ["ai", "front-end", "seo"]
+lang: "es"
+image: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/blog/llms-txt.webp"
+og_image: ""
+---
+
+import { Typography } from "@/components/index.astro"
+import CodeBlock from "@/components/core/CodeBlock/CodeBlock.astro"
+import FlowStep from "@/components/core/FlowStep/FlowStep.astro"
+import FlowSteps from "@/components/core/FlowStep/FlowSteps.astro"
+
+Imagina un asistente extremadamente rápido y ansioso por aprender todo sobre tu negocio en cinco segundos. Ese es un agente de IA o un sistema RAG (Generación Aumentada por Recuperación) navegando por tu sitio web. Si tu sitio es complejo, el rastreo web estándar puede ser lento y ruidoso. Necesitamos una forma de darle a la IA una "hoja de trucos".
+
+## ¿Qué es llms.txt?
+
+- **El Concepto**: Un archivo de texto plano simple ubicado en la raíz de un dominio.
+- **El Formato**: Sintaxis basada en Markdown que es fácil de escribir para humanos y de analizar para máquinas.
+
+## ¿Por qué necesitas llms.txt ahora?
+
+- **Mayor visibilidad en las respuestas de IA**: Ayuda a los modelos a encontrar información precisa de la fuente principal rápidamente.
+- **Presupuesto de rastreo reducido**: Los LLM pueden captar la esencia de tu sitio sin tener que analizar cada página HTML completa inicialmente.
+- **Control de la narrativa**: Define explícitamente la propuesta de valor principal de tu proyecto o empresa para la interpretación de la IA.
+
+## Cómo estructurar tu archivo llms.txt
+
+- **El resumen obligatorio**: Definir el # Nombre del proyecto y la descripción inicial.
+- **Secciones secundarias (##)**: Cómo organizar enlaces a características, guías de instalación o blogs.
+- **El formato de lista de enlaces**: Mejores prácticas para enlazar a contenido detallado.
+
+### Ejemplo de desglose e implementación
+
+<CodeBlock code={`# Arsi Blog
+
+> Insights sobre Desarrollo Frontend, Auditoría Web y aplicación práctica de IA.
+
+Este archivo proporciona un resumen de arsi.dev/blog para ayudar a los asistentes de IA a entender nuestro enfoque de contenido y localizar recursos clave.
+
+## Temas Centrales
+
+- [Desarrollo React](https://arsi.dev/blog/react) - Tutoriales, mejores prácticas y técnicas avanzadas de React.
+- [Framework Astro](https://arsi.dev/blog/astro) - Inmersiones profundas en generación de sitios estáticos y arquitectura de islas con Astro.
+- [Auditoría Web](https://arsi.dev/blog/audit) - Guías sobre mejora de rendimiento, UX y usabilidad.
+- [Herramientas de IA](https://arsi.dev/blog/ai) - Uso práctico de Gemini, Flow y generación de medios para desarrolladores.
+
+## Tutoriales Destacados
+
+- [Optimizando Astro para Core Web Vitals](https://arsi.dev/blog/optimizing-astro)
+- [Integrando Gemini API en React](https://arsi.dev/blog/gemini-react)
+
+## Sobre el Autor
+
+- [Sobre Arsi](https://arsi.dev/about) - Información sobre el estratega de contenido principal.`} />
+
+#### Puntos Clave a Considerar:
+
+- Es un estándar propuesto, no un protocolo universalmente adoptado.
+- No reemplaza a robots.txt o sitemaps; los complementa.
+- La audiencia principal son los agentes de IA (como los de OpenAI, Anthropic o Gemini) que buscan contexto resumido.
+- Mantén el contenido conciso y centrado en información de alto nivel.
+
+#### Pasos para crear tu llms.txt
+
+<FlowSteps>
+	<FlowStep title="Analiza tu sitio" icon="1">
+		Determina el propósito principal y las secciones más importantes de tu sitio web o
+		documentación.
+	</FlowStep>
+	<FlowStep title="Create the file" icon="2">
+		Abre un editor de texto plano y crea un nuevo archivo llamado exactamente llms.txt.
+	</FlowStep>
+	<FlowStep title="Define the root" icon="3">
+		Usa Markdown para agregar un encabezado de nivel 1 (#) con el nombre de tu sitio y un breve
+		resumen.
+	</FlowStep>
+	<FlowStep title="Structure sections" icon="4">
+		Usa encabezados de nivel 2 (##) para categorizar tu contenido (por ejemplo, Características,
+		Documentación, API).
+	</FlowStep>
+	<FlowStep title="Add links" icon="5">
+		Debajo de cada sección, proporciona enlaces de Markdown a las páginas específicas que contienen
+		información detallada.
+	</FlowStep>
+	<FlowStep title="Deploy" icon="6">
+		Sube el archivo llms.txt final al directorio raíz de tu sitio web (por ejemplo,
+		arsi.dev/llms.txt).
+	</FlowStep>
+</FlowSteps>

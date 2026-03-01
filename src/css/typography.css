@@ -42,6 +42,9 @@
 	& :first-child:not([class]) {
 		@apply mt-0!;
 	}
+	& :last-child:not([class]) {
+		@apply mb-0!;
+	}
 
 	& h2:not([class]),
 	& h3:not([class]),

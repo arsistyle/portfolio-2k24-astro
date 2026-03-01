@@ -1,0 +1,92 @@
+---
+status: active
+title: "llms.txt: The New robots.txt for the AI Era"
+slug: "llms-txt"
+description: "Make your website AI-ready! Learn how to create llms.txt, a simple file that tells AI agents exactly what your site is about and where the key data is located."
+search_context: "Guide on creating and implementing a llms.txt file to optimize websites for AI agents and LLMs. Learn the syntax, benefits for AI-driven SEO, and best practices for this emerging web standard. Valuable for React, Astro, and all frontend developers."
+date: "2026-03-02T14:00:00"
+categories: ["ai", "front-end", "seo"]
+lang: "en"
+image: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/blog/llms-txt.webp"
+og_image: ""
+---
+
+import { Typography } from "@/components/index.astro"
+import CodeBlock from "@/components/core/CodeBlock/CodeBlock.astro"
+import FlowStep from "@/components/core/FlowStep/FlowStep.astro"
+import FlowSteps from "@/components/core/FlowStep/FlowSteps.astro"
+
+Imagine an extremely fast, extremely eager assistant trying to learn everything about your business in five seconds. That's an AI agent or a RAG (Retrieval-Augmented Generation) system browsing your website. If your site is complex, standard web crawling can be slow and noisy. We need a way to give the AI a "cheat sheet."
+
+## What is llms.txt?
+
+- **The Concept**: A simple, plain text file located at the root of a domain.
+- **The Format**: Markdown-based syntax that is easy for humans to write and machines to parse.
+
+## Why You Need llms.txt Now
+
+- **Enhanced Visibility in AI Answers**: Help models find accurate, primary source information quickly.
+- **Reduced Crawl Budget**: LLMs can get the gist of your site without having to parse every full HTML page initially.
+- **Controlling the Narrative**: Explicitly define the main value proposition of your project or company for AI interpretation.
+
+## How to Structure Your llms.txt File
+
+- **The Mandatory Abstract**: Defining the # Project Name and initial description.
+- **Secondary Sections (##)**: How to organize links to features, installation guides, or blogs.
+- **The Link List Format**: Best practices for linking to detailed content.
+
+### Example Breakdown & Implementation
+
+<CodeBlock code={`# Arsi Blog
+
+> Insights on Frontend Development, Web Audit, and Practical AI application.
+
+This file provides a summary of arsi.dev/blog to help AI assistants understand our content focus and locate key resources.
+
+## Core Topics
+
+- [React Development](https://arsi.dev/blog/react) - Tutorials, best practices, and advanced React techniques.
+- [Astro Framework](https://arsi.dev/blog/astro) - Deep dives into static site generation and islands architecture with Astro.
+- [Web Audit](https://arsi.dev/blog/audit) - Guides on improving performance, UX, and usability.
+- [AI Tools](https://arsi.dev/blog/ai) - Practical usage of Gemini, Flow, and media generation for devs.
+
+## Featured Tutorials
+
+- [Optimizing Astro for Core Web Vitals](https://arsi.dev/blog/optimizing-astro)
+- [Integrating Gemini API in React](https://arsi.dev/blog/gemini-react)
+
+## About the Author
+
+- [About Arsi](https://arsi.dev/about) - Information about the principal content strategist.`} />
+
+#### Key Points to Consider:
+
+- It is a proposed standard, not yet a universally adopted protocol.
+- It does not replace robots.txt or sitemaps; it complements them.
+- The primary audience is AI agents (like those from OpenAI, Anthropic, or Gemini) seeking summarized context.
+- Keep the content concise and focused on high-level information.
+
+#### Steps to Create Your llms.txt
+
+<FlowSteps>
+	<FlowStep title="Analyze your site" icon="1">
+		Determine the core purpose and most important sections of your website or documentation.
+	</FlowStep>
+	<FlowStep title="Create the file" icon="2">
+		Open a plain text editor and create a new file named exactly llms.txt.
+	</FlowStep>
+	<FlowStep title="Define the root" icon="3">
+		Use Markdown to add a Level 1 Heading (#) with your site name and a short paragraph abstract.
+	</FlowStep>
+	<FlowStep title="Structure sections" icon="4">
+		Use Level 2 Headings (##) to categorize your content (e.g., Features, Documentation, API).
+	</FlowStep>
+	<FlowStep title="Add links" icon="5">
+		Under each section, provide Markdown links to the specific pages containing detailed
+		information.
+	</FlowStep>
+	<FlowStep title="Deploy" icon="6">
+		Upload the finished llms.txt file to the root directory of your website (e.g.,
+		arsi.dev/llms.txt).
+	</FlowStep>
+</FlowSteps>
