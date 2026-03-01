@@ -99,6 +99,11 @@ export const CATEGORIES: CategoryConfig[] = [
 		label: "HTML",
 		order: 10,
 	},
+	{
+		name: "seo",
+		label: "SEO",
+		order: 10,
+	},
 ]
 
 export const CATEGORY_SLUGS = CATEGORIES.map((c) => c.name) as [string, ...string[]]
