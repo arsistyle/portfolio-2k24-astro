@@ -17,25 +17,22 @@ const t = useTranslations(lang)
 const paypalDonateUrl = PAYPAL_DONATE[lang].donate_url
 ---
 
-<div class:list={["ad-container my-6", className]}>
+<div class:list={["slot-box my-6", className]}>
 	{
 		slot ? (
-			<>
-				<ins
-					class="adsbygoogle"
-					style="display:block"
-					data-ad-client="ca-pub-5806103815269616"
-					data-ad-slot={slot}
-					data-ad-format={format}
-					data-full-width-responsive="true"
-				/>
-				<script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-			</>
+			<ins
+				data-as-slot
+				style="display:block"
+				data-ad-client="ca-pub-5806103815269616"
+				data-ad-slot={slot}
+				data-ad-format={format}
+				data-full-width-responsive="true"
+			/>
 		) : null
 	}
 
 	<div
-		class="ad-fallback dark:bg-black-500 flex flex-col items-center gap-4 rounded-2xl bg-gray-300 p-6 text-center"
+		class="slot-alt dark:bg-black-500 flex flex-col items-center gap-4 rounded-2xl bg-gray-300 p-6 text-center"
 	>
 		<Typography type="h6" class="text-sm font-bold text-black dark:text-gray-200">
 			{t("ad.fallback.title")}
@@ -62,39 +59,3 @@ const paypalDonateUrl = PAYPAL_DONATE[lang].donate_url
 		</div>
 	</div>
 </div>
-
-<script is:inline>
-	;(function () {
-		function checkAds() {
-			var ads = document.querySelectorAll(".ad-container")
-			ads.forEach(function (container) {
-				var ins = container.querySelector(".adsbygoogle")
-				var fallback = container.querySelector(".ad-fallback")
-				if (!fallback) return
-
-				if (!ins || ins.innerHTML.trim() === "" || ins.offsetHeight === 0) {
-					fallback.style.display = "flex"
-				} else {
-					fallback.style.display = "none"
-				}
-			})
-		}
-		if (document.readyState === "complete") {
-			setTimeout(checkAds, 2000)
-		} else {
-			window.addEventListener("load", function () {
-				setTimeout(checkAds, 2000)
-			})
-		}
-	})()
-</script>
-
-<style>
-	.ad-fallback {
-		display: flex;
-	}
-
-	.adsbygoogle[data-ad-status="filled"] ~ .ad-fallback {
-		display: none !important;
-	}
-</style>
