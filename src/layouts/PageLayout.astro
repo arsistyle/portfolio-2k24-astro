@@ -15,12 +15,18 @@ import NotFoundLayout from "@/layouts/NotFoundLayout.astro"
 import AdSenseInit from "@/components/core/AdSlot/AdSenseInit.astro"
 
 import "@/css/global.css"
-import { SEO_DATA, TWITTER_HANDLE } from "@/constants"
+import { TWITTER_HANDLE, FB_APP_ID, MAIN_URL, DEFAULT_OG_IMAGE } from "@/constants"
+
+import { getEntry } from "astro:content"
 
 type Props = PageLayoutProps
 
 const { props } = Astro
 const lang = getLangFromUrl(Astro.url)
+
+const homeSeoEntry = await getEntry("seo", lang)
+const defaultSeo = homeSeoEntry?.data?.pages?.home
+
 const env = import.meta.env.MODE
 const currentPath = cleanUrl(Astro.url.pathname)
 
@@ -32,19 +38,42 @@ if (!isEnabled) {
 
 const {
 	pageTitle,
-	title = SEO_DATA[lang].title || "",
-	description,
-	og_image = SEO_DATA[lang].image || "",
-	og_title,
+	title: raw_title,
+	description: raw_description,
+	og_image: raw_og_image,
+	og_title: raw_og_title,
 	og_type = "website",
-	canonical,
+	canonical: raw_canonical,
 	breadcrumbs,
 	nav,
 	name,
 	langSelector = true,
 } = props
 
+// Robust defaults from Home SEO
+const title = raw_title || defaultSeo?.title || ""
+const description = raw_description || defaultSeo?.description || ""
+const og_title = raw_og_title || defaultSeo?.og_title || title
+const final_raw_og_image =
+	raw_og_image || defaultSeo?.og_image || DEFAULT_OG_IMAGE[lang as keyof typeof DEFAULT_OG_IMAGE]
+
 const hasNav = nav && Boolean(Object.keys(nav)?.length)
+
+// Ensure absolute URLs for social images and canonical
+const normalizeUrl = (base: string, path?: string) => {
+	if (!path) return undefined
+	if (path.startsWith("http")) return path
+	const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base
+	const cleanPath = path.startsWith("/") ? path : `/${path}`
+	return `${cleanBase}${cleanPath}`
+}
+
+const og_image = normalizeUrl(MAIN_URL, final_raw_og_image) as string
+const canonical = raw_canonical
+	? raw_canonical.startsWith("http")
+		? raw_canonical
+		: normalizeUrl(MAIN_URL, raw_canonical)
+	: Astro.url.href
 ---
 
 {
@@ -56,10 +85,11 @@ const hasNav = nav && Boolean(Object.keys(nav)?.length)
 					<meta name="viewport" content="width=device-width" />
 					<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 					<meta name="generator" content={Astro.generator} />
+					<meta property="fb:app_id" content={FB_APP_ID} />
 					<SEO
 						title={title}
-						description={description || SEO_DATA[lang].description}
-						canonical={canonical || Astro.url.href}
+						description={description}
+						canonical={canonical}
 						openGraph={{
 							basic: {
 								title: og_title || title,
@@ -68,7 +98,7 @@ const hasNav = nav && Boolean(Object.keys(nav)?.length)
 								url: Astro.url.href,
 							},
 							optional: {
-								description,
+								description: description,
 							},
 						}}
 						twitter={{
@@ -76,7 +106,7 @@ const hasNav = nav && Boolean(Object.keys(nav)?.length)
 							site: TWITTER_HANDLE,
 							creator: TWITTER_HANDLE,
 							title: og_title || title,
-							description,
+							description: description,
 							image: og_image,
 						}}
 					/>

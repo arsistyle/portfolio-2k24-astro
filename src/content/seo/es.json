@@ -1,0 +1,22 @@
+{
+  "pages": {
+    "home": {
+      "title": "Israel Larrondo | Creative Developer & Designer",
+      "description": "Portafolio de Israel Larrondo. Desarrollador creativo enfocado en experiencias interactivas, interfaces premium y soluciones de vanguardia.",
+      "og_title": "Israel Larrondo - Creative Portfolio",
+      "og_image": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png"
+    },
+    "blog": {
+      "title": "Israel Larrondo | Blog",
+      "description": "Artículos sobre desarrollo web, diseño, inteligencia artificial y reflexiones sobre tecnología.",
+      "og_title": "Blog | Israel Larrondo",
+      "og_image": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png"
+    },
+    "projects": {
+      "title": "Israel Larrondo | Proyectos",
+      "description": "Una exhibición de proyectos seleccionados que combinan diseño premium con implementaciones técnicas sólidas.",
+      "og_title": "Proyectos | Israel Larrondo",
+      "og_image": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png"
+    }
+  }
+}
