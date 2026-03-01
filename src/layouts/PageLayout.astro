@@ -12,6 +12,7 @@ import { Header, Footer } from "@/components/shared/index.astro"
 import HeaderPage from "@/components/ui/HeaderPage.astro"
 import { Sidebar } from "@/components/index.astro"
 import NotFoundLayout from "@/layouts/NotFoundLayout.astro"
+import AdSenseInit from "@/components/core/AdSlot/AdSenseInit.astro"
 
 import "@/css/global.css"
 import { SEO_DATA, TWITTER_HANDLE } from "@/constants"
@@ -79,6 +80,12 @@ const hasNav = nav && Boolean(Object.keys(nav)?.length)
 							image: og_image,
 						}}
 					/>
+					<script
+						async
+						src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5806103815269616"
+						crossorigin="anonymous"
+						is:inline
+					/>
 					<ClientRouter />
 				</head>
 
@@ -87,7 +94,7 @@ const hasNav = nav && Boolean(Object.keys(nav)?.length)
 					<main class="dark:bg-dark relative z-10 bg-white">
 						<div class="container mx-auto max-w-6xl">
 							<HeaderPage title={pageTitle} {breadcrumbs} name={name} />
-							<div class="grid grid-cols-12 gap-12 px-5 py-10 md:gap-4">
+							<div class="grid grid-cols-1 gap-y-8 px-5 py-10 md:grid-cols-12 md:gap-4">
 								{hasNav && (
 									<div class="col-span-12 md:col-span-3">
 										<Sidebar data={nav} />
@@ -100,6 +107,8 @@ const hasNav = nav && Boolean(Object.keys(nav)?.length)
 						</div>
 					</main>
 					<Footer />
+					<div id="modal-root" />
+					<AdSenseInit />
 				</body>
 			</html>
 		</Fragment>

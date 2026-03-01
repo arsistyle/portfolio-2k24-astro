@@ -7,6 +7,7 @@ import { getLangFromUrl } from "@/i18n/utils"
 
 import Header from "@/components/shared/Header.astro"
 import Footer from "@/components/shared/Footer.astro"
+import AdSenseInit from "@/components/core/AdSlot/AdSenseInit.astro"
 
 import "@/css/global.css"
 import { SEO_DATA, TWITTER_HANDLE } from "@/constants"
@@ -80,5 +81,7 @@ const {
 		{showHeader && <Header />}
 		<slot />
 		{showFooter && <Footer />}
+		<div id="modal-root"></div>
+		<AdSenseInit />
 	</body>
 </html>

@@ -1,0 +1,41 @@
+<script is:inline>
+	function initAds() {
+		const name = ["ads", "by", "google"].join("")
+		document.querySelectorAll("[data-as-slot]:not(." + name + ")").forEach((ins) => {
+			ins.classList.add(name)
+			;(window[name] = window[name] || []).push({})
+		})
+
+		const ads = document.querySelectorAll(".slot-box")
+		ads.forEach(function (container) {
+			const ins = container.querySelector("ins")
+			const fallback = container.querySelector(".slot-alt")
+			if (!fallback) return
+
+			if (!ins || ins.innerHTML.trim() === "" || ins.offsetHeight === 0) {
+				fallback.style.display = "flex"
+			} else {
+				fallback.style.display = "none"
+			}
+		})
+	}
+
+	if (document.readyState === "complete") {
+		setTimeout(initAds, 2000)
+	} else {
+		window.addEventListener("load", function () {
+			setTimeout(initAds, 2000)
+		})
+	}
+	document.addEventListener("astro:page-load", () => setTimeout(initAds, 500))
+</script>
+
+<style is:global>
+	.slot-alt {
+		display: flex;
+	}
+
+	ins[data-ad-status="filled"] ~ .slot-alt {
+		display: none !important;
+	}
+</style>
