@@ -86,14 +86,14 @@ if (!finalOgImage || finalOgImage === "") {
 	{breadcrumbs}
 >
 	<article class="pb-12">
-		<div class="mb-8 aspect-[16/9] w-full overflow-clip rounded-4xl">
+		<div class="relative mb-8 aspect-[16/9] w-full overflow-clip rounded-4xl">
 			<Image
 				src={image}
 				alt={title}
-				width={1024}
-				height={576}
+				width={1280}
+				height={720}
 				format="webp"
-				class="h-full w-full rounded-4xl object-cover"
+				class="absolute inset-0 h-full w-full rounded-4xl object-cover"
 				transition:name={`blog-image-${slug}`}
 			/>
 		</div>
