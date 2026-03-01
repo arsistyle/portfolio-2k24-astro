@@ -7,6 +7,10 @@ const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 
+import { getEntry } from "astro:content"
+const seoEntry = await getEntry("seo", lang as any)
+const seo = (seoEntry as any)?.data?.pages?.projects
+
 const breadcrumbs = [
 	{
 		name: t("nav.home"),
@@ -23,6 +27,13 @@ const breadcrumbs = [
 ]
 ---
 
-<PageLayout title="Israel Larrondo | Projects" pageTitle={t("projects.title")} {breadcrumbs}>
+<PageLayout
+	title={seo?.title || "Israel Larrondo | Projects"}
+	description={seo?.description}
+	og_title={seo?.og_title}
+	og_image={seo?.og_image}
+	pageTitle={t("projects.title")}
+	{breadcrumbs}
+>
 	<ProjectsAll />
 </PageLayout>

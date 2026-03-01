@@ -5,9 +5,18 @@ import Hero from "@/components/sections/Hero.astro"
 import Layout from "@/layouts/Layout.astro"
 import Projects from "@/components/sections/Projects.astro"
 import Stack from "@/components/sections/Stack.astro"
+import { getEntry } from "astro:content"
+
+const seoEntry = await getEntry("seo", "en" as any)
+const seo = (seoEntry as any)?.data?.pages?.home
 ---
 
-<Layout title="Israel Larrondo | Portfolio">
+<Layout
+	title={seo?.title || ""}
+	description={seo?.description}
+	og_title={seo?.og_title}
+	og_image={seo?.og_image}
+>
 	<Hero />
 	<About />
 	<Experience />

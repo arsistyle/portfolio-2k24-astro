@@ -7,6 +7,10 @@ const lang: Langs = "en"
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 
+import { getEntry } from "astro:content"
+const seoEntry = await getEntry("seo", lang as any)
+const seo = (seoEntry as any)?.data?.pages?.blog
+
 const breadcrumbs = [
 	{
 		name: t("nav.home"),
@@ -23,4 +27,12 @@ const breadcrumbs = [
 ]
 ---
 
-<BlogLayout {lang} title="Israel Larrondo | Blog" pageTitle={t("blog.title")} {breadcrumbs} />
+<BlogLayout
+	{lang}
+	title={seo?.title || "Israel Larrondo | Blog"}
+	description={seo?.description}
+	og_title={seo?.og_title}
+	og_image={seo?.og_image}
+	pageTitle={t("blog.title")}
+	{breadcrumbs}
+/>

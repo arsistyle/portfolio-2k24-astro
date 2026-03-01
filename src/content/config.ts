@@ -22,8 +22,24 @@ const blogCollection = defineCollection({
 	}),
 })
 
+const seoCollection = defineCollection({
+	type: "data",
+	schema: z.object({
+		pages: z.record(
+			z.string(),
+			z.object({
+				title: z.string(),
+				description: z.string(),
+				og_title: z.string().optional(),
+				og_image: z.string().optional(),
+			})
+		),
+	}),
+})
+
 export const collections = {
 	projects: projectsCollection,
 	proyectos: proyectosCollection,
 	blog: blogCollection,
+	seo: seoCollection,
 }

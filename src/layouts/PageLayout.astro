@@ -15,12 +15,18 @@ import NotFoundLayout from "@/layouts/NotFoundLayout.astro"
 import AdSenseInit from "@/components/core/AdSlot/AdSenseInit.astro"
 
 import "@/css/global.css"
-import { SEO_DATA, TWITTER_HANDLE } from "@/constants"
+import { TWITTER_HANDLE, FB_APP_ID, MAIN_URL } from "@/constants"
+
+import { getEntry } from "astro:content"
 
 type Props = PageLayoutProps
 
 const { props } = Astro
 const lang = getLangFromUrl(Astro.url)
+
+const homeSeoEntry = await getEntry("seo", lang)
+const defaultSeo = homeSeoEntry?.data.pages.home
+
 const env = import.meta.env.MODE
 const currentPath = cleanUrl(Astro.url.pathname)
 
@@ -32,12 +38,12 @@ if (!isEnabled) {
 
 const {
 	pageTitle,
-	title = SEO_DATA[lang].title || "",
-	description,
-	og_image = SEO_DATA[lang].image || "",
-	og_title,
+	title = defaultSeo?.title,
+	description = defaultSeo?.description,
+	og_image: raw_og_image = defaultSeo?.og_image,
+	og_title = defaultSeo?.og_title,
 	og_type = "website",
-	canonical,
+	canonical: raw_canonical,
 	breadcrumbs,
 	nav,
 	name,
@@ -45,6 +51,19 @@ const {
 } = props
 
 const hasNav = nav && Boolean(Object.keys(nav)?.length)
+
+// Ensure absolute URLs for social images and canonical
+const og_image =
+	raw_og_image && raw_og_image.startsWith("http")
+		? raw_og_image
+		: raw_og_image
+			? `${MAIN_URL}${raw_og_image}`
+			: undefined
+const canonical = raw_canonical
+	? raw_canonical.startsWith("http")
+		? raw_canonical
+		: `${MAIN_URL}${raw_canonical}`
+	: Astro.url.href
 ---
 
 {
@@ -56,28 +75,29 @@ const hasNav = nav && Boolean(Object.keys(nav)?.length)
 					<meta name="viewport" content="width=device-width" />
 					<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 					<meta name="generator" content={Astro.generator} />
+					<meta property="fb:app_id" content={FB_APP_ID} />
 					<SEO
-						title={title}
-						description={description || SEO_DATA[lang].description}
-						canonical={canonical || Astro.url.href}
+						title={title || ""}
+						description={description || ""}
+						canonical={canonical || ""}
 						openGraph={{
 							basic: {
-								title: og_title || title,
-								image: og_image,
+								title: og_title || title || "",
+								image: og_image || "",
 								type: og_type,
 								url: Astro.url.href,
 							},
 							optional: {
-								description,
+								description: description || "",
 							},
 						}}
 						twitter={{
 							card: "summary_large_image",
 							site: TWITTER_HANDLE,
 							creator: TWITTER_HANDLE,
-							title: og_title || title,
-							description,
-							image: og_image,
+							title: og_title || title || "",
+							description: description || "",
+							image: og_image || "",
 						}}
 					/>
 					<script
