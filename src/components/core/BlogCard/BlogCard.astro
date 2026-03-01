@@ -16,7 +16,7 @@ interface Props {
 	image: string
 }
 
-const { title, description, search_context, date, categories, href, slug, image } = Astro.props
+const { title, description, search_context, categories, href, slug, image } = Astro.props
 
 const enrichedCategories = categories.map((slug) => {
 	const config = getCategoryConfig(slug)

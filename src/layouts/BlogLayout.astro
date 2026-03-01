@@ -26,7 +26,7 @@ const hasPosts = posts.length > 0
 const hasCategories = categoriesWithCount.length > 0
 ---
 
-<PageLayout {title} {pageTitle} {breadcrumbs}>
+<PageLayout {title} og_title={pageTitle} {pageTitle} {breadcrumbs}>
 	<div class="flex min-h-[70vh] flex-col gap-8">
 		{
 			hasCategories && hasPosts && (

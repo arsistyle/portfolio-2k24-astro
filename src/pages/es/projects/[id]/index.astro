@@ -1,5 +1,5 @@
 ---
-import type { Langs, ProjectFromImport, ProjectMDXContent, ProjectMDXGlobResult } from "@/types"
+import type { Langs } from "@/types"
 
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
@@ -54,6 +54,7 @@ const breadcrumbs = [
 
 <PageLayout
 	title={`Israel Larrondo | ${t("projects.title")} - ${title}`}
+	og_title={title}
 	pageTitle={title}
 	og_image={og_image}
 	{breadcrumbs}

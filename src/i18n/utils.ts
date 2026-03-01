@@ -60,7 +60,7 @@ export function getRouteFromUrl(url: URL): string | undefined {
 
 export const cleanUrl = (pageUrl: string) => {
 	const routesKeys = Object.keys(routes) || []
-	const regexString = `\/(${routesKeys.join("|")})`
+	const regexString = `/(${routesKeys.join("|")})`
 	const regex = new RegExp(regexString, "g")
 	const cleanedUrl = pageUrl ? pageUrl.replace(regex, "").replace(/^\/[a-z]{2}\b/, "") : "/"
 	return cleanedUrl || "/"

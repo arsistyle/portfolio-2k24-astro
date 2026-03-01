@@ -1,8 +1,7 @@
 ---
-import type { Langs } from "@/types"
-
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
+import { Image, getImage } from "astro:assets"
 import PageLayout from "@/layouts/PageLayout.astro"
 import { getCategoryConfig } from "@/config/categories"
 import { Typography } from "@/components/index.astro"
@@ -14,13 +13,14 @@ import DonationBox from "@/components/core/DonationBox/DonationBox.astro"
 
 interface Props {
 	title: string
+	description?: string
 	slug: string
 	image: string
 	og_image?: string
 	categories: string[]
 }
 
-const { title, slug, image, og_image, categories } = Astro.props
+const { title, description, slug, image, og_image, categories } = Astro.props
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -54,21 +54,45 @@ const enrichedCategories = categories.map((slug) => {
 	return {
 		slug,
 		...config,
+		className: config?.className || "",
 	}
 })
+
+// Logic for dynamic PNG fallback for OG image
+let finalOgImage = og_image
+
+if (!finalOgImage || finalOgImage === "") {
+	try {
+		const optimizedOgImage = await getImage({
+			src: image,
+			format: "png",
+			width: 1200,
+			height: 630,
+		})
+		finalOgImage = optimizedOgImage.src
+	} catch (error) {
+		console.error(`[PostLayout] Failed to generate OG image for ${slug}:`, error)
+		finalOgImage = image // Fallback to original image URL if transformation fails
+	}
+}
 ---
 
 <PageLayout
 	title={`Israel Larrondo | Blog - ${title}`}
+	description={description}
+	og_title={title}
 	pageTitle={title}
-	og_image={og_image || image}
+	og_image={finalOgImage}
 	{breadcrumbs}
 >
 	<article class="pb-12">
 		<div class="mb-8 aspect-[16/9] w-full overflow-clip rounded-4xl">
-			<img
+			<Image
 				src={image}
 				alt={title}
+				width={1024}
+				height={576}
+				format="webp"
 				class="h-full w-full rounded-4xl object-cover"
 				transition:name={`blog-image-${slug}`}
 			/>

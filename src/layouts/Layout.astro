@@ -27,9 +27,9 @@ const lang = getLangFromUrl(Astro.url)
 
 const {
 	title = SEO_DATA[lang].title,
-	description = SEO_DATA[lang].description,
+	description,
 	og_image = SEO_DATA[lang].image,
-	og_title = SEO_DATA[lang].title,
+	og_title,
 	og_type = "website",
 	canonical,
 	showHeader = true,
@@ -46,7 +46,7 @@ const {
 		<meta name="generator" content={Astro.generator} />
 		<SEO
 			title={title}
-			description={description}
+			description={description || SEO_DATA[lang].description}
 			canonical={canonical || Astro.url.href}
 			openGraph={{
 				basic: {

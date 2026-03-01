@@ -54,8 +54,6 @@ function updateURL(selected: string[], search: string) {
 
 export default function CategoryFilter({
 	categories,
-	allLabel,
-	noResultsLabel,
 	searchPlaceholder,
 	resultsLabel,
 	filterLabel,
