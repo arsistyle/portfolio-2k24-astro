@@ -1,6 +1,5 @@
 ---
-import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
-import { IconBrandPaypalFilled } from "@tabler/icons-react"
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 import { BsPaypal } from "react-icons/bs"
 import { PAYPAL_DONATE } from "@/constants"
 import { Typography } from "../index.astro"
@@ -14,7 +13,6 @@ interface Props {
 const { slot = "", format = "auto", class: className = "" } = Astro.props
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
-const translatePath = useTranslatedPath(lang)
 
 const paypalDonateUrl = PAYPAL_DONATE[lang].donate_url
 ---

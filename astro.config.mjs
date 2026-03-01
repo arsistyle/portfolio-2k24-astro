@@ -1,4 +1,4 @@
-import { defineConfig, passthroughImageService } from "astro/config"
+import { defineConfig } from "astro/config"
 import mdx from "@astrojs/mdx"
 import tailwindcss from "@tailwindcss/vite"
 
@@ -9,7 +9,12 @@ export default defineConfig({
 	site: process.env.SITE || "https://arsi.dev",
 	integrations: [mdx(), react()],
 	image: {
-		service: passthroughImageService(),
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "pub-e84866d2025a4715887cd3e35165cedc.r2.dev",
+			},
+		],
 	},
 	vite: {
 		plugins: [tailwindcss()],
