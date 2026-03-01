@@ -10,10 +10,10 @@ import Footer from "@/components/shared/Footer.astro"
 import AdSenseInit from "@/components/core/AdSlot/AdSenseInit.astro"
 
 import "@/css/global.css"
-import { SEO_DATA, TWITTER_HANDLE } from "@/constants"
+import { TWITTER_HANDLE, MAIN_URL, FB_APP_ID } from "@/constants"
 
 interface Props {
-	title: string
+	title?: string
 	showHeader?: boolean
 	showFooter?: boolean
 	description?: string
@@ -23,19 +23,46 @@ interface Props {
 	canonical?: string
 }
 
+import { getEntry } from "astro:content"
+
 const { props } = Astro
 const lang = getLangFromUrl(Astro.url)
 
+const homeSeoEntry = await getEntry("seo", lang as any)
+const defaultSeo = (homeSeoEntry as any)?.data?.pages?.home
+
 const {
-	title = SEO_DATA[lang].title,
-	description,
-	og_image = SEO_DATA[lang].image,
-	og_title,
+	title: raw_title,
+	description: raw_description,
+	og_image: raw_og_image,
+	og_title: raw_og_title,
 	og_type = "website",
-	canonical,
+	canonical: raw_canonical,
 	showHeader = true,
 	showFooter = true,
 } = props
+
+// Robust defaults from Home SEO
+const title = raw_title || defaultSeo?.title || ""
+const description = raw_description || defaultSeo?.description || ""
+const og_title = raw_og_title || defaultSeo?.og_title || title
+const final_raw_og_image = raw_og_image || defaultSeo?.og_image
+
+// Ensure absolute URLs for social images and canonical
+const normalizeUrl = (base: string, path?: string) => {
+	if (!path) return undefined
+	if (path.startsWith("http")) return path
+	const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base
+	const cleanPath = path.startsWith("/") ? path : `/${path}`
+	return `${cleanBase}${cleanPath}`
+}
+
+const og_image = normalizeUrl(MAIN_URL, final_raw_og_image)
+const canonical = raw_canonical
+	? raw_canonical.startsWith("http")
+		? raw_canonical
+		: normalizeUrl(MAIN_URL, raw_canonical)
+	: Astro.url.href
 ---
 
 <!doctype html>
@@ -45,28 +72,29 @@ const {
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<meta property="fb:app_id" content={FB_APP_ID} />
 		<SEO
-			title={title}
-			description={description || SEO_DATA[lang].description}
-			canonical={canonical || Astro.url.href}
+			title={title || ""}
+			description={description || ""}
+			canonical={canonical || ""}
 			openGraph={{
 				basic: {
-					title: og_title || title,
-					image: og_image,
+					title: og_title || title || "",
+					image: og_image || "",
 					type: og_type,
 					url: Astro.url.href,
 				},
 				optional: {
-					description,
+					description: description || "",
 				},
 			}}
 			twitter={{
 				card: "summary_large_image",
 				site: TWITTER_HANDLE,
 				creator: TWITTER_HANDLE,
-				title: og_title || title,
-				description,
-				image: og_image,
+				title: og_title || title || "",
+				description: description || "",
+				image: og_image || "",
 			}}
 		/>
 		<script

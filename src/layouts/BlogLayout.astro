@@ -13,9 +13,12 @@ interface Props {
 	title: string
 	pageTitle: string
 	breadcrumbs: BreadcrumbsItem[]
+	description?: string
+	og_title?: string
+	og_image?: string
 }
 
-const { lang, title, pageTitle, breadcrumbs } = Astro.props
+const { lang, title, pageTitle, breadcrumbs, description, og_title, og_image } = Astro.props
 
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
@@ -26,7 +29,14 @@ const hasPosts = posts.length > 0
 const hasCategories = categoriesWithCount.length > 0
 ---
 
-<PageLayout {title} og_title={pageTitle} {pageTitle} {breadcrumbs}>
+<PageLayout
+	{title}
+	{description}
+	og_title={og_title || pageTitle}
+	{og_image}
+	{pageTitle}
+	{breadcrumbs}
+>
 	<div class="flex min-h-[70vh] flex-col gap-8">
 		{
 			hasCategories && hasPosts && (
