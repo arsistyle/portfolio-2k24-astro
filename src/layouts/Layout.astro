@@ -13,7 +13,7 @@ import "@/css/global.css"
 import { TWITTER_HANDLE, MAIN_URL, FB_APP_ID } from "@/constants"
 
 interface Props {
-	title: string
+	title?: string
 	showHeader?: boolean
 	showFooter?: boolean
 	description?: string
@@ -28,31 +28,40 @@ import { getEntry } from "astro:content"
 const { props } = Astro
 const lang = getLangFromUrl(Astro.url)
 
-const homeSeoEntry = await getEntry("seo", lang)
-const defaultSeo = homeSeoEntry?.data.pages.home
+const homeSeoEntry = await getEntry("seo", lang as any)
+const defaultSeo = (homeSeoEntry as any)?.data?.pages?.home
 
 const {
-	title = defaultSeo?.title,
-	description = defaultSeo?.description,
-	og_image: raw_og_image = defaultSeo?.og_image,
-	og_title = defaultSeo?.og_title,
+	title: raw_title,
+	description: raw_description,
+	og_image: raw_og_image,
+	og_title: raw_og_title,
 	og_type = "website",
 	canonical: raw_canonical,
 	showHeader = true,
 	showFooter = true,
 } = props
 
+// Robust defaults from Home SEO
+const title = raw_title || defaultSeo?.title || ""
+const description = raw_description || defaultSeo?.description || ""
+const og_title = raw_og_title || defaultSeo?.og_title || title
+const final_raw_og_image = raw_og_image || defaultSeo?.og_image
+
 // Ensure absolute URLs for social images and canonical
-const og_image =
-	raw_og_image && raw_og_image.startsWith("http")
-		? raw_og_image
-		: raw_og_image
-			? `${MAIN_URL}${raw_og_image}`
-			: undefined
+const normalizeUrl = (base: string, path?: string) => {
+	if (!path) return undefined
+	if (path.startsWith("http")) return path
+	const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base
+	const cleanPath = path.startsWith("/") ? path : `/${path}`
+	return `${cleanBase}${cleanPath}`
+}
+
+const og_image = normalizeUrl(MAIN_URL, final_raw_og_image)
 const canonical = raw_canonical
 	? raw_canonical.startsWith("http")
 		? raw_canonical
-		: `${MAIN_URL}${raw_canonical}`
+		: normalizeUrl(MAIN_URL, raw_canonical)
 	: Astro.url.href
 ---
 
@@ -65,9 +74,9 @@ const canonical = raw_canonical
 		<meta name="generator" content={Astro.generator} />
 		<meta property="fb:app_id" content={FB_APP_ID} />
 		<SEO
-			title={title}
-			description={description}
-			canonical={canonical}
+			title={title || ""}
+			description={description || ""}
+			canonical={canonical || ""}
 			openGraph={{
 				basic: {
 					title: og_title || title || "",
@@ -76,16 +85,16 @@ const canonical = raw_canonical
 					url: Astro.url.href,
 				},
 				optional: {
-					description: description,
+					description: description || "",
 				},
 			}}
 			twitter={{
 				card: "summary_large_image",
 				site: TWITTER_HANDLE,
 				creator: TWITTER_HANDLE,
-				title: og_title || title,
-				description: description,
-				image: og_image,
+				title: og_title || title || "",
+				description: description || "",
+				image: og_image || "",
 			}}
 		/>
 		<script

@@ -10,3 +10,7 @@ export const PAYPAL_DONATE = {
 		donate_url: `https://www.paypal.com/donate/?hosted_button_id=EU4QEGXJW44EE`,
 	},
 }
+export const DEFAULT_OG_IMAGE = {
+	es: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image-es.png",
+	en: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png",
+}
