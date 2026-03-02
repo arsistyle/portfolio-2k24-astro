@@ -1,41 +1,38 @@
-.h1 {
-	@apply text-[clamp(2.4rem,6vw,4.813rem)] font-bold;
-}
-.h1.heading {
-	@apply text-[clamp(2.8rem,8vw,8rem)] font-black break-words sm:break-normal;
-}
-
-.h2 {
+.h1,
+h1 {
+	font-family: "Syne Variable", sans-serif;
 	@apply text-[clamp(1.9rem,3.75vw,3.688rem)] font-bold;
 }
+.h1.heading,
+h1.heading {
+	@apply text-[clamp(2.8rem,8vw,8rem)] leading-[1em] font-black break-words sm:break-normal;
+}
 
-.h3 {
+.h2,
+h2 {
+	font-family: "Syne Variable", sans-serif;
 	@apply text-[clamp(1.7rem,3vw,2.875rem)] font-bold;
 }
 
-.h4 {
+.h3,
+h3 {
+	font-family: "Syne Variable", sans-serif;
 	@apply text-[clamp(1.5rem,2.25vw,2.188rem)] font-bold;
 }
-.h5 {
+
+.h4,
+h4 {
+	font-family: "Syne Variable", sans-serif;
 	@apply text-[clamp(1.3rem,2vw,1.688rem)] font-bold;
 }
-
-.h6 {
+.h5,
+h5 {
+	font-family: "Syne Variable", sans-serif;
 	@apply text-[clamp(1.2rem,1.7vw,1.5rem)] font-bold;
 }
 
 .p.highlight {
 	@apply text-[clamp(1.1rem,1.6vw,1.4rem)] leading-7;
-}
-
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6,
-.p {
-	@apply leading-[1em];
 }
 
 .content {
@@ -51,31 +48,28 @@
 	& h4:not([class]),
 	& h5:not([class]),
 	& h6:not([class]) {
+		font-family: "Syne Variable", sans-serif;
 		@apply text-dark my-6 leading-[1.2em] font-bold dark:text-white;
 	}
 
 	& h2:not([class]) {
-		@apply text-[clamp(1.9rem,3.75vw,3.688rem)] font-bold;
-	}
-
-	& h3:not([class]) {
 		@apply text-[clamp(1.7rem,3vw,2.875rem)] font-bold;
 	}
 
-	& h4:not([class]) {
+	& h3:not([class]) {
 		@apply text-[clamp(1.5rem,2.25vw,2.188rem)] font-bold;
 	}
 
-	& h5:not([class]) {
+	& h4:not([class]) {
 		@apply text-[clamp(1.3rem,2vw,1.688rem)] font-bold;
 	}
 
-	& h6:not([class]) {
+	& h5:not([class]) {
 		@apply text-[clamp(1.2rem,1.7vw,1.5rem)] font-bold;
 	}
 
 	& p:not([class]) {
-		@apply text-dark my-6 leading-[1.6em] font-normal dark:text-white;
+		@apply text-dark/75 my-6 leading-[170%] font-normal dark:text-white/75;
 	}
 
 	& a:not([class]) {

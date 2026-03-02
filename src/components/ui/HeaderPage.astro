@@ -11,7 +11,7 @@ const { title = "", breadcrumbs = [], class: className, name = "" } = Astro.prop
 			<Breadcrumbs {breadcrumbs} />
 			<Typography
 				type="h1"
-				class="text-balance dark:text-white"
+				class="leading-[1.1em] text-pretty dark:text-white"
 				transition:name={`page-title-${name}`}>{title}</Typography
 			>
 		</div>
