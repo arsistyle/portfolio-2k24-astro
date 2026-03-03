@@ -1,7 +1,9 @@
 import type { APIRoute } from "astro"
 import { getEntry } from "astro:content"
+import { getSiteUrl } from "@/utils/getSiteUrl"
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async (context) => {
+	const site = getSiteUrl(context)
 	const seoEntry = await getEntry("seo", "es" as any)
 	const seo = (seoEntry as any)?.data?.pages?.home
 
@@ -9,9 +11,9 @@ export const GET: APIRoute = async () => {
 	content += `${seo?.description || "Desarrollador creativo enfocado en experiencias interactivas, interfaces premium y soluciones de vanguardia."}\n\n`
 
 	content += `## Navegación\n`
-	content += `- [Blog](https://arsi.dev/es/blog.md)\n`
-	content += `- [Proyectos](https://arsi.dev/es/projects.md)\n`
-	content += `- [Versión en Inglés](https://arsi.dev/index.md)\n\n`
+	content += `- [Blog](${site}/es/blog/index.md)\n`
+	content += `- [Proyectos](${site}/es/projects/index.md)\n`
+	content += `- [Versión en Inglés](${site}/index.md)\n\n`
 
 	content += `## Sobre Mí\n`
 	content += `Israel Larrondo es un Desarrollador Creativo y Diseñador con más de 7 años de experiencia. Enfocado en construir interfaces de alto nivel y experiencias interactivas utilizando tecnologías web modernas como Astro, React y flujos de trabajo impulsados por IA.\n\n`

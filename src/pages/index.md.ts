@@ -1,17 +1,19 @@
 import type { APIRoute } from "astro"
 import { getEntry } from "astro:content"
+import { getSiteUrl } from "@/utils/getSiteUrl"
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async (context) => {
+	const site = getSiteUrl(context)
 	const seoEntry = await getEntry("seo", "en" as any)
 	const seo = (seoEntry as any)?.data?.pages?.home
 
-	let content = `# ${seo?.title || "Israel Larrondo | Creative Developer"}\n\n`
+	let content = `# ${seo?.title || "Israel Larrondo | Front-End Designer"}\n\n`
 	content += `${seo?.description || "Creative developer focused on interactive experiences, premium interfaces, and cutting-edge solutions."}\n\n`
 
 	content += `## Navigation\n`
-	content += `- [Blog](https://arsi.dev/blog.md)\n`
-	content += `- [Projects](https://arsi.dev/projects.md)\n`
-	content += `- [Spanish version](https://arsi.dev/es/index.md)\n\n`
+	content += `- [Blog](${site}/blog/index.md)\n`
+	content += `- [Projects](${site}/projects/index.md)\n`
+	content += `- [Spanish version](${site}/es/index.md)\n\n`
 
 	content += `## About\n`
 	content += `Israel Larrondo is a Creative Developer & Designer with over 7 years of experience. Focused on building high-end interfaces and interactive experiences using modern web technologies like Astro, React, and AI-driven workflows.\n\n`

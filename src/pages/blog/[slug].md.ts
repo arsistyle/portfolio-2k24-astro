@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro"
 import { getBlogPosts } from "@/utils/getBlogPosts"
+import { getSiteUrl } from "@/utils/getSiteUrl"
 
 export async function getStaticPaths() {
 	const posts = getBlogPosts({ lang: "en" })
@@ -9,8 +10,9 @@ export async function getStaticPaths() {
 	}))
 }
 
-export const GET: APIRoute = async ({ props }) => {
-	const { post } = props as { post: any }
+export const GET: APIRoute = async (context) => {
+	const { post } = context.props as { post: any }
+	const site = getSiteUrl(context)
 
 	let content = `# ${post.title}\n\n`
 	content += `**Date:** ${new Date(post.date).toLocaleDateString("en-US")}\n`
@@ -18,7 +20,7 @@ export const GET: APIRoute = async ({ props }) => {
 	content += `${post.description}\n\n`
 	content += `---\n\n`
 	content += `${post.search_context}\n\n`
-	content += `*Read more at: https://arsi.dev/blog/${post.slug}*`
+	content += `*Read more at: ${site}/blog/${post.slug}*`
 
 	return new Response(content, {
 		headers: {

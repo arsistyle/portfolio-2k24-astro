@@ -1,8 +1,10 @@
 import type { APIRoute } from "astro"
 import { getEntry } from "astro:content"
 import { getProjects } from "@/utils/getProjects"
+import { getSiteUrl } from "@/utils/getSiteUrl"
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async (context) => {
+	const site = getSiteUrl(context)
 	const projects = getProjects({ lang: "es" })
 	const seoEntry = await getEntry("seo", "es" as any)
 	const seo = (seoEntry as any)?.data?.pages?.projects
@@ -12,7 +14,7 @@ export const GET: APIRoute = async () => {
 
 	content += `## Proyectos\n`
 	projects.forEach((project) => {
-		content += `- [${project.title}](https://arsi.dev/es/projects/${project.name}.md) - ${project.description || "Proyecto del portafolio."}\n`
+		content += `- [${project.title}](${site}/es/projects/${project.name}.md) - ${project.description || "Proyecto del portafolio."}\n`
 	})
 
 	return new Response(content, {

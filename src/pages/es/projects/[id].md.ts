@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro"
 import { getProjects } from "@/utils/getProjects"
+import { getSiteUrl } from "@/utils/getSiteUrl"
 
 export async function getStaticPaths() {
 	const projects = getProjects({ lang: "es" })
@@ -9,14 +10,15 @@ export async function getStaticPaths() {
 	}))
 }
 
-export const GET: APIRoute = async ({ props }) => {
-	const { project } = props as { project: any }
+export const GET: APIRoute = async (context) => {
+	const { project } = context.props as { project: any }
+	const site = getSiteUrl(context)
 
 	let content = `# ${project.title}\n\n`
 	content += `**Categorías:** ${project.categories.join(", ")}\n\n`
 	content += `${project.description || "Información detallada del proyecto."}\n\n`
 	content += `---\n\n`
-	content += `*Ver detalles en: https://arsi.dev/es/projects/${project.name}*`
+	content += `*Ver detalles en: ${site}/es/projects/${project.name}*`
 
 	return new Response(content, {
 		headers: {
