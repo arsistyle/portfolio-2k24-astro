@@ -10,6 +10,7 @@
 
 @theme {
 	--font-family-syne: '"Syne Variable", sans-serif';
+	--font-family-google-sans-flex: '"Google Sans Flex Variable", sans-serif';
 
 	--color-primary-50: #f0fff6;
 	--color-primary-100: #c3fedd;
@@ -160,7 +161,7 @@ html {
 
 body {
 	scrollbar-gutter: stable both-edges;
-	font-family: "Syne Variable", sans-serif;
+	font-family: "Google Sans Flex Variable", sans-serif;
 	min-height: 100dvh;
 	color-scheme: dark light;
 }
