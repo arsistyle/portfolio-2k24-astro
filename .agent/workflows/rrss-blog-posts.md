@@ -14,18 +14,18 @@ When triggered, read the provided blog post context, markdown file, or URL. Your
    - **X & Facebook:** Provide the direct URL to the blog post.
    - **Instagram:** Use the phrase "🔗 Link in bio to read the full guide: [Post Title]". Do not output clickable URLs for Instagram.
 
-### Boilerplate Signature (STRICT COMPLIANCE):
+### Boilerplate Signature:
 
-You MUST append the exact following text block at the very end of ALL three social media posts. Do not modify it:
+You MUST append the exact following text block at the very end of the post description for ALL three social networks:
 
 --
-
 📖 Dive deeper on the blog: https://arsi.dev/blog/
 Exploring AI prompt engineering today 🎨 | Front-end, UX & Web Dev tomorrow 💻.
 
-#PromptEngineering #FrontEnd #AIArt #arsiDev
+### Hashtag Policy (STRICT):
 
-### Conditional Hashtags:
+Below the boilerplate signature, you must generate hashtags following these exact rules:
 
-Evaluate the content of the blog post. If the topic involves, mentions, or is related to "Nano Banana", you MUST append the following hashtags to the end of the boilerplate signature:
-#nanobanana #nanobananaprompt
+1. **Trending & Relevant:** Generate a set of hashtags that are highly relevant to the specific topic of the blog post, focusing on viral and trending keywords in the tech/AI space.
+2. **Brand Tags (MANDATORY):** You must always end the hashtag list with these exact three tags: #arsi #arsiDev #arsistyle
+3. **Nano Banana Rule:** If the blog post is about or mentions "Nano Banana", you must also include: #nanobanana #nanobananaprompt
