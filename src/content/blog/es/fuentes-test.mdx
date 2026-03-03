@@ -1,0 +1,45 @@
+---
+status: active
+title: "Prueba de Componente: Fuentes Usadas"
+slug: "fuentes-test"
+description: "Un post de prueba para demostrar el nuevo componente de fuentes inspirado en Gemini Research."
+search_context: "Prueba técnica del componente Sources en Astro con MDX."
+date: "2026-03-02T10:30:00"
+categories: ["ai", "tools"]
+lang: "es"
+image: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/blog/opal.webp"
+og_image: ""
+---
+
+import { Sources } from "@/components/index.astro"
+
+Este es un post de prueba dedicado a verificar la implementación del nuevo componente de **Fuentes**.
+
+La idea es que cada post pueda listar de forma elegante y visual las referencias utilizadas durante la investigación, similar a cómo lo hace Google Gemini en sus informes.
+
+## ¿Por qué usar este componente?
+
+Aporta credibilidad y facilita al lector el acceso a la información original. Además, mejora la estética del post con una interfaz moderna y minimalista.
+
+<Sources
+	sources={[
+		{
+			url: "https://m.youtube.com",
+		},
+		{
+			url: "https://reddit.com",
+			title: "How to get out of TikTok 200 view jail : r/socialmedia - Reddit",
+		},
+		{
+			url: "https://medium.com",
+			title:
+				"Stuck in TikTok View Jail? How I Finally Escaped (Without Deleting My Account) - Medium",
+		},
+		{
+			url: "https://en.wikipedia.org",
+			title: "Internet aesthetic - Wikipedia",
+		},
+	]}
+/>
+
+¡Listo para ser usado en futuros artículos!

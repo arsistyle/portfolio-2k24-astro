@@ -1,0 +1,78 @@
+---
+import { Typography } from "@/components/index.astro"
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+
+interface Source {
+	url: string
+	title: string
+}
+
+interface Props {
+	sources: Source[]
+	title?: string
+}
+
+const { sources, title } = Astro.props
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
+const displayTitle = title || t("blog.sources")
+
+const getDomain = (url: string) => {
+	try {
+		return new URL(url).hostname.replace("www.", "")
+	} catch {
+		return url
+	}
+}
+
+const getFavicon = (url: string) => {
+	try {
+		const domain = new URL(url).hostname
+		return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`
+	} catch {
+		return ""
+	}
+}
+---
+
+<section class="sources-container my-8 rounded-2xl">
+	<div class="mb-4 flex items-center gap-2">
+		<Typography type="h5" class="text-sm font-medium text-white/90">
+			{displayTitle}
+		</Typography>
+	</div>
+
+	<div class="grid grid-cols-1 gap-2">
+		{
+			sources.map((source) => (
+				<a
+					href={source.url}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="group flex items-center gap-3 rounded-xl bg-white/5 p-3 transition-all hover:bg-white/10"
+				>
+					<div class="flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-white/10">
+						<img
+							src={getFavicon(source.url)}
+							alt=""
+							class="h-5 w-5"
+							onerror="this.style.display='none'"
+						/>
+					</div>
+					<div class="flex min-w-0 flex-col">
+						<span class="text-[10px] font-semibold tracking-wider text-white/40 uppercase transition-colors group-hover:text-white/60">
+							{getDomain(source.url)}
+						</span>
+						<Typography
+							type="span"
+							class="line-clamp-1 text-sm text-white/80 group-hover:text-white"
+						>
+							{source.title}
+						</Typography>
+					</div>
+				</a>
+			))
+		}
+	</div>
+</section>

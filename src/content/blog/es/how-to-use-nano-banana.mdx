@@ -14,6 +14,7 @@ og_image: ""
 import FlowStep from "@/components/core/FlowStep/FlowStep.astro"
 import FlowSteps from "@/components/core/FlowStep/FlowSteps.astro"
 import CodeBlock from "@/components/core/CodeBlock/CodeBlock.astro"
+import { Sources } from "@/components/index.astro"
 
 Si has notado la categoría de **Nano Banana** en el blog, seguramente te estarás preguntando: "¿Qué tienen de especial estos prompts y cómo los uso?"
 
@@ -62,3 +63,20 @@ Copia y pega esto en Gemini o Flow para ver la magia de Nano Banana:
 />
 
 El estilo Nano Banana se trata de **colores vibrantes** y **conceptos únicos**. ¡Diviértete creando!
+
+<Sources
+	sources={[
+		{
+			url: "https://labs.google/image-flow/",
+			title: "Google Labs: Image Flow",
+		},
+		{
+			url: "https://replicate.com/google/gemini-2.5-flash-image",
+			title: "Gemini 2.5 Flash / Nano Banana en Replicate",
+		},
+		{
+			url: "https://huggingface.co/google/gemini-2.5-flash",
+			title: "Gemini 2.5 Flash en Hugging Face",
+		},
+	]}
+/>

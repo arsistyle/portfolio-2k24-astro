@@ -36,20 +36,13 @@ h5 {
 }
 
 .content {
-	& :first-child:not([class]) {
-		@apply mt-0!;
-	}
-	& :last-child:not([class]) {
-		@apply mb-0!;
-	}
-
 	& h2:not([class]),
 	& h3:not([class]),
 	& h4:not([class]),
 	& h5:not([class]),
 	& h6:not([class]) {
 		font-family: "Syne Variable", sans-serif;
-		@apply text-dark my-6 leading-[1.2em] font-bold dark:text-white;
+		@apply text-dark leading-[1.2em] font-bold dark:text-white;
 	}
 
 	& h2:not([class]) {
@@ -69,7 +62,7 @@ h5 {
 	}
 
 	& p:not([class]) {
-		@apply text-dark/75 my-6 leading-[170%] font-normal dark:text-white/75;
+		@apply text-dark/75 leading-[170%] font-normal dark:text-white/75;
 	}
 
 	& a:not([class]) {
@@ -83,9 +76,9 @@ h5 {
 
 	& ul:not([class]),
 	& ol:not([class]) {
-		@apply my-[1.5em] pl-6;
+		@apply flex flex-col gap-3 pl-6;
 		& li:not([class]) {
-			@apply text-dark my-[0.5em] leading-[1.6em] dark:text-white;
+			@apply text-dark leading-[1.6em] dark:text-white;
 		}
 	}
 
@@ -97,6 +90,6 @@ h5 {
 		@apply list-decimal;
 	}
 	& img:not([class]) {
-		@apply my-[1.5em] block max-w-full rounded-2xl;
+		@apply block max-w-full rounded-2xl;
 	}
 }

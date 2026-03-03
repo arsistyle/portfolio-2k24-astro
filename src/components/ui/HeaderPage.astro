@@ -1,19 +1,16 @@
 ---
 import { Typography } from "@/components/index.astro"
 import Breadcrumbs from "./Breadcrumbs.astro"
+import { twMerge } from "tailwind-merge"
 
 const { title = "", breadcrumbs = [], class: className, name = "" } = Astro.props
 ---
 
-<div class=`flex items-center justify-center px-5 pt-12 ${className}`>
-	<div class="container">
-		<div class="flex flex-col gap-6">
-			<Breadcrumbs {breadcrumbs} />
-			<Typography
-				type="h1"
-				class="leading-[1.1em] text-pretty dark:text-white"
-				transition:name={`page-title-${name}`}>{title}</Typography
-			>
-		</div>
-	</div>
+<div class={twMerge("flex flex-col gap-2 pt-12", className)}>
+	<Breadcrumbs {breadcrumbs} />
+	<Typography
+		type="h1"
+		class="leading-[1.1em] text-pretty dark:text-white"
+		transition:name={`page-title-${name}`}>{title}</Typography
+	>
 </div>

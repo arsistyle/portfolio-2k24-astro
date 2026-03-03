@@ -52,7 +52,7 @@ export default function BlogPaginator({
 	if (!ready || (!prev && !next)) return null
 
 	return (
-		<nav className="mt-12 grid grid-cols-1 gap-4 border-t border-gray-200 pt-8 sm:grid-cols-2 dark:border-gray-800">
+		<nav className="mt-12 grid grid-cols-1 gap-4 border-t border-gray-200 py-8 sm:grid-cols-2 dark:border-gray-800">
 			{prev ? (
 				<a
 					href={`${basePath}/${prev.slug}`}
@@ -65,7 +65,7 @@ export default function BlogPaginator({
 						<span className="text-xs font-medium text-gray-400 dark:text-gray-500">
 							{prevLabel}
 						</span>
-						<span className="truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
+						<span className="max-w-full truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
 							{prev.title}
 						</span>
 					</div>
@@ -83,7 +83,7 @@ export default function BlogPaginator({
 						<span className="text-xs font-medium text-gray-400 dark:text-gray-500">
 							{nextLabel}
 						</span>
-						<span className="truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
+						<span className="max-w-full truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
 							{next.title}
 						</span>
 					</div>
