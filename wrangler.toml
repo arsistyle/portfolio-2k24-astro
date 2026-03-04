@@ -1,0 +1,7 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "portfolio-2k24-astro"
+compatibility_date = "2024-04-03"
+compatibility_flags = ["nodejs_compat"]
+
+[site]
+bucket = "./dist"

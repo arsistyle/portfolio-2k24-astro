@@ -9,7 +9,11 @@ import cloudflare from "@astrojs/cloudflare"
 export default defineConfig({
 	site: process.env.SITE || "https://arsi.dev",
 	output: "static", // Default is static, individual pages use prerender = false
-	adapter: cloudflare(),
+	adapter: cloudflare({
+		platformProxy: {
+			enabled: true,
+		},
+	}),
 	integrations: [mdx(), react(), sitemap()],
 	image: {
 		remotePatterns: [
