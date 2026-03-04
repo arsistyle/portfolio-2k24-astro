@@ -5,8 +5,6 @@ import react from "@astrojs/react"
 import sitemap from "@astrojs/sitemap"
 import cloudflare from "@astrojs/cloudflare"
 
-const isProd = process.env.NODE_ENV === "production"
-
 // https://astro.build/config
 export default defineConfig({
 	site: process.env.SITE || "https://arsi.dev",
@@ -28,7 +26,11 @@ export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
 		resolve: {
-			conditions: isProd ? ["workerd", "browser"] : undefined,
+			// Use react-dom/server.edge instead of react-dom/server.browser for React 19.
+			// Without this, MessageChannel from node:worker_threads needs to be polyfilled.
+			alias: import.meta.env?.PROD && {
+				"react-dom/server": "react-dom/server.edge",
+			},
 		},
 	},
 })
