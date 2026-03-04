@@ -14,6 +14,7 @@ og_image: ""
 import FlowStep from "@/components/core/FlowStep/FlowStep.astro"
 import FlowSteps from "@/components/core/FlowStep/FlowSteps.astro"
 import CodeBlock from "@/components/core/CodeBlock/CodeBlock.astro"
+import { Sources } from "@/components/index.astro"
 
 Welcome! If you've arrived here, you're probably curious about the world of Artificial Intelligence (AI). In this guide, we'll explore what these "prompts" everyone is talking about are and how you can use them starting today.
 
@@ -53,3 +54,20 @@ This is what a prompt looks like. It's basically a very descriptive phrase:
 />
 
 **Now you're ready to start experimenting! Have fun creating!**
+
+<Sources
+	sources={[
+		{
+			url: "https://platform.openai.com/docs/guides/prompt-engineering",
+			title: "OpenAI: Prompt Engineering Guide",
+		},
+		{
+			url: "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+			title: "Anthropic: Prompt Engineering Overview",
+		},
+		{
+			url: "https://learnprompting.org/",
+			title: "Learn Prompting: Free Open Source Course",
+		},
+	]}
+/>
