@@ -3,13 +3,15 @@ import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react"
 import { useTranslatedPath } from "@/i18n/utils"
 import type { Page } from "astro"
 import { twMerge } from "tailwind-merge"
+import type { Langs } from "@/types"
 
 interface Props {
 	page: Page<any>
+	lang: Langs
 	class?: string
 }
 
-const { page, class: className } = Astro.props
+const { page, lang, class: className } = Astro.props
 const { url, currentPage, lastPage } = page
 
 // Use current search params from Astro.url (available in SSR)
@@ -43,7 +45,7 @@ const getFullUrl = (baseUrl: string | undefined) => {
 	return url.pathname + url.search
 }
 
-const translatePath = useTranslatedPath(Astro.props.page.data[0]?.lang || "en")
+const translatePath = useTranslatedPath(lang)
 const basePath = translatePath("/blog")
 ---
 

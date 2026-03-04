@@ -5,6 +5,8 @@ import react from "@astrojs/react"
 import sitemap from "@astrojs/sitemap"
 import cloudflare from "@astrojs/cloudflare"
 
+const isProd = process.env.NODE_ENV === "production"
+
 // https://astro.build/config
 export default defineConfig({
 	site: process.env.SITE || "https://arsi.dev",
@@ -25,5 +27,8 @@ export default defineConfig({
 	},
 	vite: {
 		plugins: [tailwindcss()],
+		resolve: {
+			conditions: isProd ? ["workerd", "browser"] : undefined,
+		},
 	},
 })

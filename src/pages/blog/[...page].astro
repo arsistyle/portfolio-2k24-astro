@@ -18,8 +18,12 @@ const categoryFilter = url.searchParams.get("categories")?.split(",").filter(Boo
 
 // Handle pagination from params like [path]/2
 let currentPage = 1
-if (Astro.params.page && /^\d+$/.test(Astro.params.page)) {
-	currentPage = parseInt(Astro.params.page, 10)
+if (Astro.params.page) {
+	if (/^[1-9]\d*$/.test(Astro.params.page)) {
+		currentPage = parseInt(Astro.params.page, 10)
+	} else {
+		return new Response(null, { status: 404 })
+	}
 }
 
 // Fetch all posts for filtering
@@ -45,6 +49,10 @@ const totalPosts = allPosts.length
 const totalPages = Math.ceil(totalPosts / BLOG_POSTS_PER_PAGE)
 const start = (currentPage - 1) * BLOG_POSTS_PER_PAGE
 const paginatedPosts = allPosts.slice(start, start + BLOG_POSTS_PER_PAGE)
+
+if (currentPage > 1 && paginatedPosts.length === 0) {
+	return new Response(null, { status: 404 })
+}
 
 // Mimic Astro's Page object for compatibility with layouts and Pagination component
 const page = {
