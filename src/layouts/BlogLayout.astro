@@ -7,24 +7,28 @@ import CategoryFilter from "@/components/core/CategoryFilter/CategoryFilter"
 import { Typography } from "@/components/index.astro"
 import { CATEGORIES } from "@/config/categories"
 import type { Langs, BreadcrumbsItem } from "@/types"
+import type { Page } from "astro"
+import Pagination from "@/components/core/Pagination/Pagination.astro"
 
 interface Props {
 	lang: Langs
 	title: string
 	pageTitle: string
 	breadcrumbs: BreadcrumbsItem[]
+	page: Page<any>
 	description?: string
 	og_title?: string
 	og_image?: string
 }
 
-const { lang, title, pageTitle, breadcrumbs, description, og_title, og_image } = Astro.props
+const { lang, title, pageTitle, breadcrumbs, page, description, og_title, og_image } = Astro.props
 
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 
-const posts = getBlogPosts({ lang })
-const categoriesWithCount = getCategoriesWithCount(posts, CATEGORIES)
+const allPosts = getBlogPosts({ lang })
+const posts = page.data
+const categoriesWithCount = getCategoriesWithCount(allPosts, CATEGORIES)
 const hasPosts = posts.length > 0
 const hasCategories = categoriesWithCount.length > 0
 ---
@@ -37,9 +41,9 @@ const hasCategories = categoriesWithCount.length > 0
 	{pageTitle}
 	{breadcrumbs}
 >
-	<div class="container mx-auto flex min-h-[70vh] flex-col gap-8 px-6 pb-12">
+	<div class="container mx-auto flex min-h-[70vh] flex-col gap-8 pb-12">
 		{
-			hasCategories && hasPosts && (
+			hasCategories && (
 				<CategoryFilter
 					categories={categoriesWithCount}
 					allLabel={t("blog.all")}
@@ -49,7 +53,7 @@ const hasCategories = categoriesWithCount.length > 0
 					filterLabel={t("blog.filter")}
 					clearAllLabel={t("blog.clearAll")}
 					confirmLabel={t("blog.confirm")}
-					postsPerPage={6}
+					resultCount={page.total}
 					client:load
 				/>
 			)
@@ -59,7 +63,7 @@ const hasCategories = categoriesWithCount.length > 0
 			hasPosts ? (
 				<>
 					<div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20">
-						{posts.map((post) => (
+						{posts.map((post: any) => (
 							<BlogCard
 								title={post.title}
 								description={post.description}
@@ -72,7 +76,9 @@ const hasCategories = categoriesWithCount.length > 0
 							/>
 						))}
 					</div>
-					<div id="blog-scroll-sentinel" class="h-1 w-full" />
+
+					<Pagination {page} class="mt-12" />
+
 					<div
 						id="blog-no-results"
 						class="animate-blog-card-in flex min-h-[50vh] flex-col items-center justify-center rounded-4xl border border-dashed border-gray-300 px-8 py-16 text-center dark:border-gray-700"
@@ -93,71 +99,3 @@ const hasCategories = categoriesWithCount.length > 0
 		}
 	</div>
 </PageLayout>
-
-<script>
-	function initInfiniteScroll() {
-		const sentinel = document.getElementById("blog-scroll-sentinel")
-		if (!sentinel) return
-
-		// Disconnect existing observer if it exists to avoid leaks across navigations
-		if ((window as any).blogObserver) {
-			;(window as any).blogObserver.disconnect()
-		}
-
-		const POSTS_PER_PAGE = 6
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (!entry.isIntersecting) return
-
-					const rawCategories = sentinel.getAttribute("data-categories") || ""
-					const activeCategories = rawCategories ? rawCategories.split(",").filter(Boolean) : []
-					const hasFilter = activeCategories.length > 0
-					const searchQuery = (sentinel.getAttribute("data-search") || "").toLowerCase().trim()
-					const visibleCount = parseInt(sentinel.getAttribute("data-visible-count") || "0", 10)
-					const cards = document.querySelectorAll<HTMLElement>(".blog-card")
-
-					let matchIndex = 0
-					let totalMatching = 0
-					let newVisible = 0
-
-					cards.forEach((card) => {
-						const cardCategories = card.getAttribute("data-categories")?.split(",") || []
-						const cardSearch = (card.getAttribute("data-search") || "").toLowerCase()
-						const matchesCategory =
-							!hasFilter || activeCategories.some((c) => cardCategories.includes(c))
-						const matchesSearch = !searchQuery || cardSearch.includes(searchQuery)
-
-						if (matchesCategory && matchesSearch) {
-							totalMatching++
-							if (matchIndex < visibleCount + POSTS_PER_PAGE) {
-								if (matchIndex >= visibleCount) {
-									card.style.display = ""
-									card.setAttribute("data-animating", "")
-									setTimeout(() => card.removeAttribute("data-animating"), 400)
-									newVisible++
-								}
-							}
-							matchIndex++
-						}
-					})
-
-					const newCount = visibleCount + newVisible
-					sentinel.setAttribute("data-visible-count", String(newCount))
-
-					if (newCount >= totalMatching) {
-						sentinel.style.display = "none"
-					}
-				})
-			},
-			{ rootMargin: "200px" }
-		)
-
-		observer.observe(sentinel)
-		;(window as any).blogObserver = observer
-	}
-
-	initInfiniteScroll()
-	document.addEventListener("astro:after-swap", initInfiniteScroll)
-</script>

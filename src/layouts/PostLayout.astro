@@ -6,7 +6,7 @@ import PageLayout from "@/layouts/PageLayout.astro"
 import { getCategoryConfig } from "@/config/categories"
 import { Typography } from "@/components/index.astro"
 import { twMerge } from "tailwind-merge"
-import BlogPaginator from "@/components/core/BlogPaginator/BlogPaginator"
+import BlogPaginator from "@/components/core/BlogPaginator/BlogPaginator.astro"
 import ShareButtons from "@/components/core/ShareButtons/ShareButtons"
 import AdSlot from "@/components/core/AdSlot/AdSlot.astro"
 import DonationBox from "@/components/core/DonationBox/DonationBox.astro"
@@ -163,6 +163,5 @@ if (!finalOgImage || finalOgImage === "") {
 		basePath={translatePath("/blog")}
 		prevLabel={t("blog.prev")}
 		nextLabel={t("blog.next")}
-		client:idle
 	/>
 </PageLayout>

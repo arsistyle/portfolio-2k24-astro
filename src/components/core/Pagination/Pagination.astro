@@ -1,0 +1,112 @@
+---
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react"
+import { useTranslatedPath } from "@/i18n/utils"
+import type { Page } from "astro"
+import { twMerge } from "tailwind-merge"
+
+interface Props {
+	page: Page<any>
+	class?: string
+}
+
+const { page, class: className } = Astro.props
+const { url, currentPage, lastPage } = page
+
+// Use current search params from Astro.url (available in SSR)
+const currentParams = Astro.url.searchParams
+const q = currentParams.get("q") || ""
+const categories = currentParams.get("categories") || ""
+
+// Helper to generate page numbers with ellipses
+const getPages = (current: number, total: number) => {
+	const pages: (number | string)[] = []
+	const delta = 1
+
+	for (let i = 1; i <= total; i++) {
+		if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+			pages.push(i)
+		} else if (pages[pages.length - 1] !== "...") {
+			pages.push("...")
+		}
+	}
+	return pages
+}
+
+const pages = getPages(currentPage, lastPage)
+
+// Helper to construct URLs with params
+const getFullUrl = (baseUrl: string | undefined) => {
+	if (!baseUrl) return "#"
+	const url = new URL(baseUrl, Astro.url.origin)
+	if (q) url.searchParams.set("q", q)
+	if (categories) url.searchParams.set("categories", categories)
+	return url.pathname + url.search
+}
+
+const translatePath = useTranslatedPath(Astro.props.page.data[0]?.lang || "en")
+const basePath = translatePath("/blog")
+---
+
+{
+	lastPage > 1 && (
+		<nav
+			class={twMerge("flex items-center justify-center gap-2", className)}
+			aria-label="Pagination"
+		>
+			{/* Previous */}
+			<a
+				href={getFullUrl(url.prev)}
+				class={twMerge(
+					"flex h-10 w-10 items-center justify-center rounded-lg transition-all",
+					url.prev
+						? "bg-white/10 text-white hover:bg-white/20"
+						: "pointer-events-none bg-white/5 text-white/20"
+				)}
+				aria-disabled={!url.prev}
+			>
+				<IconChevronLeft size={18} />
+			</a>
+
+			{/* Numbers */}
+			<div class="flex items-center gap-2">
+				{pages.map((p) => {
+					if (p === "...") {
+						return <span class="px-1 text-white/40">...</span>
+					}
+
+					const isCurrent = p === currentPage
+					const pageUrl = p === 1 ? basePath : `${basePath}/${p}`
+
+					return (
+						<a
+							href={getFullUrl(pageUrl)}
+							class={twMerge(
+								"flex h-10 w-10 items-center justify-center rounded-lg text-sm font-medium transition-all",
+								isCurrent
+									? "bg-[#42FF97] text-black shadow-[0_0_15px_rgba(66,255,151,0.3)]"
+									: "bg-white/10 text-white hover:bg-white/20"
+							)}
+							aria-current={isCurrent ? "page" : undefined}
+						>
+							{p}
+						</a>
+					)
+				})}
+			</div>
+
+			{/* Next */}
+			<a
+				href={getFullUrl(url.next)}
+				class={twMerge(
+					"flex h-10 w-10 items-center justify-center rounded-lg transition-all",
+					url.next
+						? "bg-white/10 text-white hover:bg-white/20"
+						: "pointer-events-none bg-white/5 text-white/20"
+				)}
+				aria-disabled={!url.next}
+			>
+				<IconChevronRight size={18} />
+			</a>
+		</nav>
+	)
+}
