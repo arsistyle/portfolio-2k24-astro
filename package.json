@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
+    "postbuild": "node -e \"const fs=require('fs');fs.rmSync('dist/_routes.json',{force:true})\"",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "npx oxlint@latest",
