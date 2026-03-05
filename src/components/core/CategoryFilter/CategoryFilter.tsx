@@ -69,7 +69,7 @@ export default function CategoryFilter({
 	resultCount,
 }: CategoryFilterProps) {
 	const initialParams = readURLParams()
-	const [selected, setSelected] = useState<string[]>(initialParams.categories)
+	const selected = initialParams.categories
 	const [search, setSearch] = useState(initialParams.search)
 	const [modalOpen, setModalOpen] = useState(false)
 	const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null)
