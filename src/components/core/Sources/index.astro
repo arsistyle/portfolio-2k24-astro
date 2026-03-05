@@ -57,7 +57,7 @@ const getFavicon = (url: string): string | null => {
 						rel="noopener noreferrer"
 						class="group flex items-center gap-3 rounded-xl bg-black/5 p-3 transition-all hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10"
 					>
-						<div class="flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-black/10 dark:bg-white/10">
+						<div class="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-black/10 dark:bg-white/10">
 							{favicon && (
 								<img src={favicon} alt="" class="h-5 w-5" onerror="this.style.display='none'" />
 							)}

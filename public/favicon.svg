@@ -8,5 +8,7 @@
             #logo-container { fill: #FFFFFF; }
             #logo-shape { fill: #17191B; }
         }
+        .dark #logo-container { fill: #FFFFFF; }
+        .dark #logo-shape { fill: #17191B; }
     </style>
 </svg>

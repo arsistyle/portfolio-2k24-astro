@@ -1,7 +1,7 @@
 ---
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
-import { Image, getImage } from "astro:assets"
+import { getImage } from "astro:assets"
 import PageLayout from "@/layouts/PageLayout.astro"
 import { getCategoryConfig } from "@/config/categories"
 import { Typography } from "@/components/index.astro"
@@ -10,6 +10,7 @@ import BlogPaginator from "@/components/core/BlogPaginator/BlogPaginator.astro"
 import ShareButtons from "@/components/core/ShareButtons/ShareButtons"
 import AdSlot from "@/components/core/AdSlot/AdSlot.astro"
 import DonationBox from "@/components/core/DonationBox/DonationBox.astro"
+import { getPostImage } from "@/utils"
 
 interface Props {
 	title: string
@@ -58,6 +59,9 @@ const enrichedCategories = categories.map((slug) => {
 	}
 })
 
+// Use shared util so both the card and the post layout resolve the same URL
+const optimizedHeroImage = await getPostImage(image)
+
 // Logic for dynamic PNG fallback for OG image
 let finalOgImage = og_image
 
@@ -87,12 +91,11 @@ if (!finalOgImage || finalOgImage === "") {
 >
 	<article class="flex flex-col gap-6 md:gap-12">
 		<div class="relative aspect-[16/9] w-full overflow-clip rounded-4xl">
-			<Image
-				src={image}
+			<img
+				src={optimizedHeroImage.src}
 				alt={title}
 				width={1280}
 				height={720}
-				format="webp"
 				class="absolute inset-0 h-full w-full rounded-4xl object-cover"
 				transition:name={`blog-image-${slug}`}
 			/>
