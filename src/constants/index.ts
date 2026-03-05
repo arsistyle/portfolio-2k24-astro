@@ -14,3 +14,5 @@ export const DEFAULT_OG_IMAGE = {
 	es: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image-es.png",
 	en: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png",
 }
+
+export const BLOG_POSTS_PER_PAGE = 10

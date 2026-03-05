@@ -1,0 +1,84 @@
+---
+export const prerender = false
+
+import BlogLayout from "@/layouts/BlogLayout.astro"
+import { getBlogPosts } from "@/utils/getBlogPosts"
+import { useTranslations, useTranslatedPath } from "@/i18n/utils"
+import { BLOG_POSTS_PER_PAGE } from "@/constants"
+import type { Langs, BreadcrumbsItem } from "@/types"
+
+const lang: Langs = "en"
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+
+// Extract params from URL
+const url = new URL(Astro.request.url)
+const searchQuery = url.searchParams.get("q") || ""
+const categoryFilter = url.searchParams.get("categories")?.split(",").filter(Boolean) || []
+
+// Handle pagination from params like [path]/2
+let currentPage = 1
+if (Astro.params.page) {
+	if (/^[1-9]\d*$/.test(Astro.params.page)) {
+		currentPage = parseInt(Astro.params.page, 10)
+	} else {
+		return new Response(null, { status: 404 })
+	}
+}
+
+// Fetch all posts for filtering
+let allPosts = getBlogPosts({ lang })
+
+// Filter posts on the server
+if (searchQuery || categoryFilter.length > 0) {
+	allPosts = allPosts.filter((post) => {
+		const matchesSearch =
+			!searchQuery ||
+			post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+			(post.description && post.description.toLowerCase().includes(searchQuery.toLowerCase()))
+
+		const matchesCategory =
+			categoryFilter.length === 0 ||
+			(post.categories && categoryFilter.some((cat) => post.categories.includes(cat)))
+
+		return matchesSearch && matchesCategory
+	})
+}
+
+const totalPosts = allPosts.length
+const totalPages = Math.ceil(totalPosts / BLOG_POSTS_PER_PAGE)
+const start = (currentPage - 1) * BLOG_POSTS_PER_PAGE
+const paginatedPosts = allPosts.slice(start, start + BLOG_POSTS_PER_PAGE)
+
+if (currentPage > 1 && paginatedPosts.length === 0) {
+	return new Response(null, { status: 404 })
+}
+
+// Mimic Astro's Page object for compatibility with layouts and Pagination component
+const page = {
+	data: paginatedPosts,
+	start: start,
+	end: start + paginatedPosts.length - 1,
+	size: BLOG_POSTS_PER_PAGE,
+	total: totalPosts,
+	currentPage: currentPage,
+	lastPage: totalPages,
+	url: {
+		current: Astro.url.pathname,
+		prev:
+			currentPage > 1
+				? translatePath(`/blog/${currentPage - 1 === 1 ? "" : currentPage - 1}`).replace(/\/$/, "")
+				: undefined,
+		next: currentPage < totalPages ? translatePath(`/blog/${currentPage + 1}`) : undefined,
+		first: translatePath("/blog"),
+		last: totalPages > 1 ? translatePath(`/blog/${totalPages}`) : translatePath("/blog"),
+	},
+}
+
+const breadcrumbs: BreadcrumbsItem[] = [
+	{ name: t("nav.home"), url: "/", type: "link" },
+	{ name: t("nav.blog"), url: "/blog", type: "current" },
+]
+---
+
+<BlogLayout {lang} title={t("blog.title")} pageTitle={t("blog.title")} {breadcrumbs} {page} />
