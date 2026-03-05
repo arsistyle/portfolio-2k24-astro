@@ -167,9 +167,7 @@ body {
 }
 
 .content {
-	& .code-block,
-	& .prompt-tutorial,
-	& .flow-steps {
-		@apply my-6;
+	& .content_box {
+		@apply flex flex-col gap-3 md:gap-6;
 	}
 }

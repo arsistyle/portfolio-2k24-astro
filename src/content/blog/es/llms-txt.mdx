@@ -15,6 +15,7 @@ import { Typography } from "@/components/index.astro"
 import CodeBlock from "@/components/core/CodeBlock/CodeBlock.astro"
 import FlowStep from "@/components/core/FlowStep/FlowStep.astro"
 import FlowSteps from "@/components/core/FlowStep/FlowSteps.astro"
+import { Sources } from "@/components/index.astro"
 
 Imagina un asistente extremadamente rápido y ansioso por aprender todo sobre tu negocio en cinco segundos. Ese es un agente de IA o un sistema RAG (Generación Aumentada por Recuperación) navegando por tu sitio web. Si tu sitio es complejo, el rastreo web estándar puede ser lento y ruidoso. Necesitamos una forma de darle a la IA una "hoja de trucos".
 
@@ -93,3 +94,20 @@ Este archivo proporciona un resumen de arsi.dev/blog para ayudar a los asistente
 		arsi.dev/llms.txt).
 	</FlowStep>
 </FlowSteps>
+
+<Sources
+	sources={[
+		{
+			url: "https://llmstxt.org/",
+			title: "llms.txt: El archivo de información para LLMs",
+		},
+		{
+			url: "https://github.com/AnswerDotAI/llms-txt",
+			title: "Repositorio GitHub: AnswerDotAI/llms-txt",
+		},
+		{
+			url: "https://www.answer.ai/posts/2024-09-13-llmstxt.html",
+			title: "Blog Answer.AI: Propuesta de llms.txt",
+		},
+	]}
+/>
