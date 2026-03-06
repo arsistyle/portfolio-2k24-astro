@@ -11,6 +11,7 @@ import ShareButtons from "@/components/core/ShareButtons/ShareButtons"
 import AdSlot from "@/components/core/AdSlot/AdSlot.astro"
 import DonationBox from "@/components/core/DonationBox/DonationBox.astro"
 import { getPostImage } from "@/utils"
+import { FiClock } from "react-icons/fi"
 
 interface Props {
 	title: string
@@ -19,9 +20,10 @@ interface Props {
 	image: string
 	og_image?: string
 	categories: string[]
+	readingTime?: number
 }
 
-const { title, description, slug, image, og_image, categories } = Astro.props
+const { title, description, slug, image, og_image, categories, readingTime } = Astro.props
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -110,6 +112,16 @@ if (!finalOgImage || finalOgImage === "") {
 			<aside class="sidebar col-span-4 md:col-span-12 lg:col-span-4">
 				<div class="sticky top-26">
 					<div class="flex flex-col gap-6 md:gap-12">
+						{
+							readingTime && (
+								<div class="flex flex-col gap-4">
+									<div class="text-dark/80 flex items-center gap-2 font-medium dark:text-gray-300">
+										<FiClock className="text-xl" />
+										<span>{readingTime} {t("blog.readingTime")}</span>
+									</div>
+								</div>
+							)
+						}
 						{
 							enrichedCategories?.length > 0 && (
 								<div class="flex flex-col gap-4">

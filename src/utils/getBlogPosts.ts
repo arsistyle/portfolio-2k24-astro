@@ -12,18 +12,32 @@ export const getBlogPosts = ({
 		eager: true,
 	}) as BlogPostMDXGlobResult
 
+	const rawBlogFiles = import.meta.glob("@/content/blog/**/*.mdx", {
+		query: "?raw",
+		import: "default",
+		eager: true,
+	}) as Record<string, string>
+
 	const now = new Date()
-	const postList: BlogPostFromImport[] = Object.values(blogFiles)
-		.filter((post): post is BlogPostMDXContent & { frontmatter: { lang: Langs } } => {
+	const postList: BlogPostFromImport[] = Object.entries(blogFiles)
+		.filter((entry): entry is [string, BlogPostMDXContent & { frontmatter: { lang: Langs } }] => {
+			const [_, post] = entry
 			const { lang: postLang, status, date } = post.frontmatter
 			const postDate = new Date(date)
 			const isDev = import.meta.env.DEV
 			return postLang === lang && status === "active" && (isDev || includeFuture || postDate <= now)
 		})
-		.map(({ frontmatter, Content }) => ({
-			...frontmatter,
-			Content,
-		}))
+		.map(([key, { frontmatter, Content }]) => {
+			const rawContent = rawBlogFiles[key] || ""
+			const words = rawContent.replace(/---[\s\S]*?---/, "").split(/\s+/).length
+			const readingTime = Math.ceil(words / 200)
+
+			return {
+				...frontmatter,
+				Content,
+				readingTime: readingTime || 1,
+			}
+		})
 		.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
 	return postList

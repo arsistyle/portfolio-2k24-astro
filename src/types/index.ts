@@ -75,6 +75,7 @@ export type BlogPostMDXContent = MDXContent & {
 
 export type BlogPostFromImport = BlogPost & {
 	Content: BlogPostMDXContent["Content"]
+	readingTime?: number
 }
 
 export type BlogPostMDXGlobResult = Record<string, BlogPostMDXContent>

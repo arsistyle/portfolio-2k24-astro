@@ -16,26 +16,38 @@ import CodeBlock from "@/components/core/CodeBlock/CodeBlock.astro"
 import FlowStep from "@/components/core/FlowStep/FlowStep.astro"
 import FlowSteps from "@/components/core/FlowStep/FlowSteps.astro"
 import { Sources } from "@/components/index.astro"
+import ContentBlock from "@/components/core/ContentBlock/ContentBlock.astro"
 
 Imagine an extremely fast, extremely eager assistant trying to learn everything about your business in five seconds. That's an AI agent or a RAG (Retrieval-Augmented Generation) system browsing your website. If your site is complex, standard web crawling can be slow and noisy. We need a way to give the AI a "cheat sheet."
+
+<ContentBlock>
 
 ## What is llms.txt?
 
 - **The Concept**: A simple, plain text file located at the root of a domain.
 - **The Format**: Markdown-based syntax that is easy for humans to write and machines to parse.
 
+</ContentBlock>
+
+<ContentBlock>
 ## Why You Need llms.txt Now
 
 - **Enhanced Visibility in AI Answers**: Help models find accurate, primary source information quickly.
 - **Reduced Crawl Budget**: LLMs can get the gist of your site without having to parse every full HTML page initially.
 - **Controlling the Narrative**: Explicitly define the main value proposition of your project or company for AI interpretation.
 
+</ContentBlock>
+
+<ContentBlock>
 ## How to Structure Your llms.txt File
 
 - **The Mandatory Abstract**: Defining the # Project Name and initial description.
 - **Secondary Sections (##)**: How to organize links to features, installation guides, or blogs.
 - **The Link List Format**: Best practices for linking to detailed content.
 
+</ContentBlock>
+
+<ContentBlock>
 ### Example Breakdown & Implementation
 
 <CodeBlock code={`# Arsi Blog
@@ -60,6 +72,9 @@ This file provides a summary of arsi.dev/blog to help AI assistants understand o
 
 - [About Arsi](https://arsi.dev/about) - Information about the principal content strategist.`} />
 
+</ContentBlock>
+
+<ContentBlock>
 #### Key Points to Consider:
 
 - It is a proposed standard, not yet a universally adopted protocol.
@@ -67,6 +82,9 @@ This file provides a summary of arsi.dev/blog to help AI assistants understand o
 - The primary audience is AI agents (like those from OpenAI, Anthropic, or Gemini) seeking summarized context.
 - Keep the content concise and focused on high-level information.
 
+</ContentBlock>
+
+<ContentBlock>
 #### Steps to Create Your llms.txt
 
 <FlowSteps>
@@ -91,6 +109,7 @@ This file provides a summary of arsi.dev/blog to help AI assistants understand o
 		arsi.dev/llms.txt).
 	</FlowStep>
 </FlowSteps>
+</ContentBlock>
 
 <Sources
 	sources={[

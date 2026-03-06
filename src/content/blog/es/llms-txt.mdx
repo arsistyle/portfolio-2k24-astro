@@ -16,26 +16,38 @@ import CodeBlock from "@/components/core/CodeBlock/CodeBlock.astro"
 import FlowStep from "@/components/core/FlowStep/FlowStep.astro"
 import FlowSteps from "@/components/core/FlowStep/FlowSteps.astro"
 import { Sources } from "@/components/index.astro"
+import ContentBlock from "@/components/core/ContentBlock/ContentBlock.astro"
 
 Imagina un asistente extremadamente rápido y ansioso por aprender todo sobre tu negocio en cinco segundos. Ese es un agente de IA o un sistema RAG (Generación Aumentada por Recuperación) navegando por tu sitio web. Si tu sitio es complejo, el rastreo web estándar puede ser lento y ruidoso. Necesitamos una forma de darle a la IA una "hoja de trucos".
+
+<ContentBlock>
 
 ## ¿Qué es llms.txt?
 
 - **El Concepto**: Un archivo de texto plano simple ubicado en la raíz de un dominio.
 - **El Formato**: Sintaxis basada en Markdown que es fácil de escribir para humanos y de analizar para máquinas.
 
+</ContentBlock>
+
+<ContentBlock>
 ## ¿Por qué necesitas llms.txt ahora?
 
 - **Mayor visibilidad en las respuestas de IA**: Ayuda a los modelos a encontrar información precisa de la fuente principal rápidamente.
 - **Presupuesto de rastreo reducido**: Los LLM pueden captar la esencia de tu sitio sin tener que analizar cada página HTML completa inicialmente.
 - **Control de la narrativa**: Define explícitamente la propuesta de valor principal de tu proyecto o empresa para la interpretación de la IA.
 
+</ContentBlock>
+
+<ContentBlock>
 ## Cómo estructurar tu archivo llms.txt
 
 - **El resumen obligatorio**: Definir el # Nombre del proyecto y la descripción inicial.
 - **Secciones secundarias (##)**: Cómo organizar enlaces a características, guías de instalación o blogs.
 - **El formato de lista de enlaces**: Mejores prácticas para enlazar a contenido detallado.
 
+</ContentBlock>
+
+<ContentBlock>
 ### Ejemplo de desglose e implementación
 
 <CodeBlock code={`# Arsi Blog
@@ -60,6 +72,9 @@ Este archivo proporciona un resumen de arsi.dev/blog para ayudar a los asistente
 
 - [Sobre Arsi](https://arsi.dev/about) - Información sobre el estratega de contenido principal.`} />
 
+</ContentBlock>
+
+<ContentBlock>
 #### Puntos Clave a Considerar:
 
 - Es un estándar propuesto, no un protocolo universalmente adoptado.
@@ -67,6 +82,9 @@ Este archivo proporciona un resumen de arsi.dev/blog para ayudar a los asistente
 - La audiencia principal son los agentes de IA (como los de OpenAI, Anthropic o Gemini) que buscan contexto resumido.
 - Mantén el contenido conciso y centrado en información de alto nivel.
 
+</ContentBlock>
+
+<ContentBlock>
 #### Pasos para crear tu llms.txt
 
 <FlowSteps>
@@ -94,6 +112,7 @@ Este archivo proporciona un resumen de arsi.dev/blog para ayudar a los asistente
 		arsi.dev/llms.txt).
 	</FlowStep>
 </FlowSteps>
+</ContentBlock>
 
 <Sources
 	sources={[
