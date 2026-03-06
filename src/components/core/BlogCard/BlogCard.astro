@@ -3,7 +3,7 @@ import { GoArrowRight } from "react-icons/go"
 import { Typography } from "@/components/index.astro"
 import { getCategoryConfig } from "@/config/categories"
 import { twMerge } from "tailwind-merge"
-import { Image } from "astro:assets"
+import { getPostImage } from "@/utils"
 
 interface Props {
 	title: string
@@ -17,6 +17,8 @@ interface Props {
 }
 
 const { title, description, search_context, categories, href, slug, image } = Astro.props
+
+const optimizedImage = await getPostImage(image)
 
 const enrichedCategories = categories.map((slug) => {
 	const config = getCategoryConfig(slug)
@@ -42,8 +44,8 @@ const enrichedCategories = categories.map((slug) => {
 		<div
 			class="relative aspect-video w-full overflow-hidden rounded-4xl transition-transform group-hover:scale-105"
 		>
-			<Image
-				src={image}
+			<img
+				src={optimizedImage.src}
 				class="absolute inset-0 h-full w-full rounded-4xl object-cover"
 				alt={title}
 				loading="lazy"
@@ -51,7 +53,6 @@ const enrichedCategories = categories.map((slug) => {
 				transition:name={`blog-image-${slug}`}
 				width={1280}
 				height={720}
-				format="webp"
 			/>
 		</div>
 		<div class="relative inset-0 z-20 flex w-full flex-col items-start justify-end gap-4">
