@@ -1,14 +1,13 @@
 // Generates a correct _routes.json for Astro 5 + @astrojs/cloudflare.
 //
-// Why: The adapter auto-generates /blog/* in BOTH include AND exclude, causing:
-//   - Blog listing (/blog) → not matched by any include → 404
-//   - Blog posts (/blog/opal) → matched by include AND exclude equally → exclude wins → CDN ✓
+// Strategy: Use "include everything" (/*) then exclude static assets.
+// This avoids per-slug rules that hit Cloudflare's 100-rule limit.
 //
-// Strategy: Include only the SSR routes explicitly, and exclude each prerendered post slug
-// specifically. Cloudflare Pages uses "most specific match wins", so:
-//   - /blog/2     → matched by include /blog/* only → worker ✓ (SSR paginated listing)
-//   - /blog/opal  → matched by include /blog/* (broad) AND exclude /blog/opal (specific)
-//                 → exclude /blog/opal wins → CDN serves dist/blog/opal/index.html ✓
+// Cloudflare "most specific match wins":
+//   - /_astro/foo.js  → exclude /_astro/* wins → CDN ✓
+//   - /blog/2         → include /* only → worker ✓ (SSR paginated listing)
+//   - /blog/opal      → include /* AND exclude /blog/opal/* → exclude wins → CDN ✓
+//   - /es/blog/opal   → include /* AND exclude /es/blog/opal/* → exclude wins → CDN ✓
 
 import { writeFileSync, readdirSync, statSync } from "fs"
 import { join } from "path"
@@ -21,28 +20,51 @@ function getStaticDirs(dir) {
 	}
 }
 
-const enSlugs = getStaticDirs("dist/blog")
-const esSlugs = getStaticDirs("dist/es/blog")
+// Collect static pages that should be served from CDN (not the worker)
+const enBlogSlugs = getStaticDirs("dist/blog")
+const esBlogSlugs = getStaticDirs("dist/es/blog")
+const enProjectSlugs = getStaticDirs("dist/projects")
+const esProjectSlugs = getStaticDirs("dist/es/projects")
+const enShopSlugs = getStaticDirs("dist/shop")
+const esShopSlugs = getStaticDirs("dist/es/shop")
 
-const blogPostExcludes = [
-	...enSlugs.flatMap((slug) => [`/blog/${slug}`, `/blog/${slug}/*`]),
-	...esSlugs.flatMap((slug) => [`/es/blog/${slug}`, `/es/blog/${slug}/*`]),
+const staticPageExcludes = [
+	// Static top-level pages
+	"/404.html",
+	"/components/*",
+	// Blog posts (prerendered static HTML)
+	...enBlogSlugs.map((slug) => `/blog/${slug}/*`),
+	...esBlogSlugs.map((slug) => `/es/blog/${slug}/*`),
+	// Projects
+	...enProjectSlugs.map((slug) => `/projects/${slug}/*`),
+	...esProjectSlugs.map((slug) => `/es/projects/${slug}/*`),
+	// Shop
+	...enShopSlugs.map((slug) => `/shop/${slug}/*`),
+	...esShopSlugs.map((slug) => `/es/shop/${slug}/*`),
 ]
 
 const routes = {
 	version: 1,
-	include: ["/_server-islands/*", "/_image", "/blog", "/blog/*", "/es/blog", "/es/blog/*"],
+	include: ["/*"],
 	exclude: [
+		// Static assets
 		"/_astro/*",
 		"/favicon.svg",
 		"/robots.txt",
 		"/ads.txt",
 		"/sitemap-index.xml",
 		"/sitemap-0.xml",
-		...blogPostExcludes,
+		// Static pages
+		...staticPageExcludes,
 	],
 }
 
+const totalRules = routes.include.length + routes.exclude.length
 writeFileSync("dist/_routes.json", JSON.stringify(routes, null, 2))
 console.log("[postbuild] dist/_routes.json fixed ✓")
-console.log(`[postbuild] Excluded ${blogPostExcludes.length} prerendered blog paths`)
+console.log(`[postbuild] Total rules: ${totalRules}/100`)
+console.log(`[postbuild] Static page excludes: ${staticPageExcludes.length}`)
+if (totalRules > 100) {
+	console.error(`[postbuild] ⚠️  WARNING: ${totalRules} rules exceed Cloudflare's 100-rule limit!`)
+	process.exit(1)
+}

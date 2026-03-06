@@ -3,6 +3,7 @@ import IconAi from "@/components/icons/ai"
 import IconPrompt from "@/components/icons/prompt"
 import IconNanoBanana from "@/components/icons/nanobanana"
 import IconArsi from "@/components/icons/arsi"
+import FaviconArsi from "@/components/core/FaviconArsi"
 
 export interface CategoryConfig {
 	name: string
@@ -45,7 +46,7 @@ export const CATEGORIES: CategoryConfig[] = [
 		name: "personal",
 		label: "Personal",
 		order: 10,
-		icon: IconArsi,
+		icon: FaviconArsi,
 		className: "[&_.icon]:text-secondary-500! dark:[&_.icon]:text-secondary!",
 	},
 	{ name: "front-end", label: "Front-End", order: 10 },

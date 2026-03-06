@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 import { CATEGORIES } from "@/config/categories"
 import { IconSearch, IconFilter, IconX } from "@tabler/icons-react"
@@ -69,11 +69,30 @@ export default function CategoryFilter({
 	resultCount,
 }: CategoryFilterProps) {
 	const initialParams = readURLParams()
-	const [selected, setSelected] = useState<string[]>(initialParams.categories)
+	const selected = initialParams.categories
 	const [search, setSearch] = useState(initialParams.search)
 	const [modalOpen, setModalOpen] = useState(false)
 	const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null)
 	const [pending, setPending] = useState<string[]>([])
+	const searchRowRef = useRef<HTMLDivElement>(null)
+
+	const triggerShake = () => {
+		const el = searchRowRef.current
+		if (!el) return
+		el.animate(
+			[
+				{ transform: "translateX(0)" },
+				{ transform: "translateX(-7px)" },
+				{ transform: "translateX(7px)" },
+				{ transform: "translateX(-5px)" },
+				{ transform: "translateX(5px)" },
+				{ transform: "translateX(-3px)" },
+				{ transform: "translateX(3px)" },
+				{ transform: "translateX(0)" },
+			],
+			{ duration: 400, easing: "ease-out" }
+		)
+	}
 
 	useEffect(() => {
 		setPortalRoot(document.getElementById("modal-root"))
@@ -90,6 +109,12 @@ export default function CategoryFilter({
 	}, [modalOpen])
 
 	const triggerSearch = () => {
+		const trimmed = search.trim()
+		// Require at least 2 chars — shake and block for 0 or 1 character
+		if (trimmed.length < 2) {
+			triggerShake()
+			return
+		}
 		updateURL(selected, search)
 	}
 
@@ -126,7 +151,7 @@ export default function CategoryFilter({
 
 	return (
 		<>
-			<div className="flex flex-wrap items-center gap-3">
+			<div ref={searchRowRef} className="flex flex-wrap items-center gap-3">
 				<div className="relative w-full min-w-0 basis-full md:flex-1 md:basis-0">
 					<span className="text-dark absolute top-1/2 left-3 -translate-y-1/2 dark:text-gray-400">
 						<IconSearch size={16} />
