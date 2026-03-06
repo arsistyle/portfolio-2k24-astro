@@ -22,6 +22,7 @@ interface Props {
 	og_title?: string
 	og_type?: string
 	canonical?: string
+	langSelector?: boolean
 }
 
 import { getEntry } from "astro:content"
@@ -41,6 +42,7 @@ const {
 	canonical: raw_canonical,
 	showHeader = true,
 	showFooter = true,
+	langSelector = true,
 } = props
 
 // Robust defaults from Home SEO
@@ -107,7 +109,7 @@ const canonical = raw_canonical
 	</head>
 
 	<body class="dark:bg-dark flex min-h-screen flex-col bg-white">
-		{showHeader && <Header />}
+		{showHeader && <Header lang={langSelector} />}
 		<slot />
 		{showFooter && <Footer />}
 		<div id="modal-root"></div>
