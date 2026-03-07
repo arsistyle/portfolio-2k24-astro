@@ -2,7 +2,6 @@ import IconGemini from "@/components/icons/gemini"
 import IconAi from "@/components/icons/ai"
 import IconPrompt from "@/components/icons/prompt"
 import IconNanoBanana from "@/components/icons/nanobanana"
-import IconArsi from "@/components/icons/arsi"
 import FaviconArsi from "@/components/core/FaviconArsi"
 
 export interface CategoryConfig {
