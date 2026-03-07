@@ -117,6 +117,15 @@ const t = useTranslations(lang)
 		const blobPath = document.getElementById("blob-path")
 		if (!container || !blobPath) return
 
+		const config = {
+			animationSpeed: 0.003,
+			mouseLerpFactor: 0.1,
+			noiseInfluence: 0.075,
+			positionLerpFactor: 0.05,
+			magneticDistance: 0.6,
+			magneticStrength: 0.25,
+		}
+
 		const noiseGen = new Noise2D()
 		const numPoints = 8
 		let points: { x: number; y: number; ox: number; oy: number; angle: number }[] = []
@@ -143,16 +152,16 @@ const t = useTranslations(lang)
 		})
 
 		function animate() {
-			time += 0.003
+			time += config.animationSpeed
 
 			// Smooth mouse lerp
-			mouse.rawX += (mouse.targetX - mouse.rawX) * 0.1
-			mouse.rawY += (mouse.targetY - mouse.rawY) * 0.1
+			mouse.rawX += (mouse.targetX - mouse.rawX) * config.mouseLerpFactor
+			mouse.rawY += (mouse.targetY - mouse.rawY) * config.mouseLerpFactor
 
 			// Update Point Physics
 			const data = points.map((p) => {
 				// Organic noise wobble
-				const n = noiseGen.noise(p.ox * 2 + time, p.oy * 2 + time) * 0.075
+				const n = noiseGen.noise(p.ox * 2 + time, p.oy * 2 + time) * config.noiseInfluence
 				const tx = 0.5 + p.ox + Math.cos(p.angle) * n
 				const ty = 0.5 + p.oy + Math.sin(p.angle) * n
 
@@ -161,17 +170,17 @@ const t = useTranslations(lang)
 					const dx = mouse.rawX - tx,
 						dy = mouse.rawY - ty
 					const dist = Math.sqrt(dx * dx + dy * dy)
-					if (dist < 0.6) {
-						const s = (1 - dist / 0.6) * 0.25
-						p.x += (tx + dx * s - p.x) * 0.1
-						p.y += (ty + dy * s - p.y) * 0.1
+					if (dist < config.magneticDistance) {
+						const s = (1 - dist / config.magneticDistance) * config.magneticStrength
+						p.x += (tx + dx * s - p.x) * config.mouseLerpFactor
+						p.y += (ty + dy * s - p.y) * config.mouseLerpFactor
 					} else {
-						p.x += (tx - p.x) * 0.05
-						p.y += (ty - p.y) * 0.05
+						p.x += (tx - p.x) * config.positionLerpFactor
+						p.y += (ty - p.y) * config.positionLerpFactor
 					}
 				} else {
-					p.x += (tx - p.x) * 0.05
-					p.y += (ty - p.y) * 0.05
+					p.x += (tx - p.x) * config.positionLerpFactor
+					p.y += (ty - p.y) * config.positionLerpFactor
 				}
 				return { x: p.x, y: p.y }
 			})
