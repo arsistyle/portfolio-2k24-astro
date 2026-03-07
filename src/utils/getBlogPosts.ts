@@ -1,5 +1,9 @@
 import type { Langs, BlogPostFromImport, BlogPostMDXContent, BlogPostMDXGlobResult } from "@/types"
 import type { CategoryConfig } from "@/config/categories"
+import { extractProseText } from "@/utils/extractProseText"
+
+/** Module-level cache to avoid recomputing on every SSR request */
+const cache = new Map<string, BlogPostFromImport[]>()
 
 export const getBlogPosts = ({
 	lang,
@@ -8,6 +12,10 @@ export const getBlogPosts = ({
 	lang: Langs
 	includeFuture?: boolean
 }) => {
+	const cacheKey = `${lang}-${includeFuture}`
+	const cached = cache.get(cacheKey)
+	if (cached) return cached
+
 	const blogFiles = import.meta.glob<BlogPostMDXContent>("@/content/blog/**/*.mdx", {
 		eager: true,
 	}) as BlogPostMDXGlobResult
@@ -29,17 +37,19 @@ export const getBlogPosts = ({
 		})
 		.map(([key, { frontmatter, Content }]) => {
 			const rawContent = rawBlogFiles[key] || ""
-			const words = rawContent.replace(/---[\s\S]*?---/, "").split(/\s+/).length
-			const readingTime = Math.ceil(words / 200)
+			const prose = extractProseText(rawContent)
+			const words = prose ? prose.split(/\s+/).length : 0
+			const readingTime = Math.max(1, Math.ceil(words / 200))
 
 			return {
 				...frontmatter,
 				Content,
-				readingTime: readingTime || 1,
+				readingTime,
 			}
 		})
 		.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
+	cache.set(cacheKey, postList)
 	return postList
 }
 
