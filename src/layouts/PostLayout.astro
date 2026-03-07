@@ -10,7 +10,6 @@ import BlogPaginator from "@/components/core/BlogPaginator/BlogPaginator.astro"
 import ShareButtons from "@/components/core/ShareButtons/ShareButtons"
 import AdSlot from "@/components/core/AdSlot/AdSlot.astro"
 import DonationBox from "@/components/core/DonationBox/DonationBox.astro"
-import { getPostImage } from "@/utils"
 import { FiClock } from "react-icons/fi"
 
 interface Props {
@@ -61,24 +60,26 @@ const enrichedCategories = categories.map((slug) => {
 	}
 })
 
-// Use shared util so both the card and the post layout resolve the same URL
-const optimizedHeroImage = await getPostImage(image)
-
 // Logic for dynamic PNG fallback for OG image
 let finalOgImage = og_image
 
 if (!finalOgImage || finalOgImage === "") {
-	try {
-		const optimizedOgImage = await getImage({
-			src: image,
-			format: "png",
-			width: 1200,
-			height: 630,
-		})
-		finalOgImage = optimizedOgImage.src
-	} catch (error) {
-		console.error(`[PostLayout] Failed to generate OG image for ${slug}:`, error)
-		finalOgImage = image // Fallback to original image URL if transformation fails
+	// External URLs are already optimised – use them as-is for OG
+	if (image.startsWith("http")) {
+		finalOgImage = image
+	} else {
+		try {
+			const optimizedOgImage = await getImage({
+				src: image,
+				format: "png",
+				width: 1200,
+				height: 630,
+			})
+			finalOgImage = optimizedOgImage.src
+		} catch (error) {
+			console.error(`[PostLayout] Failed to generate OG image for ${slug}:`, error)
+			finalOgImage = image
+		}
 	}
 }
 ---
@@ -92,9 +93,9 @@ if (!finalOgImage || finalOgImage === "") {
 	{breadcrumbs}
 >
 	<article class="flex flex-col gap-6 md:gap-12">
-		<div class="relative aspect-[16/9] w-full overflow-clip rounded-4xl">
+		<div class="relative aspect-video w-full overflow-clip rounded-4xl">
 			<img
-				src={optimizedHeroImage.src}
+				src={image}
 				alt={title}
 				width={1280}
 				height={720}
@@ -117,7 +118,9 @@ if (!finalOgImage || finalOgImage === "") {
 								<div class="flex flex-col gap-4">
 									<div class="text-dark/80 flex items-center gap-2 font-medium dark:text-gray-300">
 										<FiClock className="text-xl" />
-										<span>{readingTime} {t("blog.readingTime")}</span>
+										<span>
+											{readingTime} {t("blog.readingTime")}
+										</span>
 									</div>
 								</div>
 							)

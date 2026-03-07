@@ -3,7 +3,6 @@ import { GoArrowRight } from "react-icons/go"
 import { Typography } from "@/components/index.astro"
 import { getCategoryConfig } from "@/config/categories"
 import { twMerge } from "tailwind-merge"
-import { getPostImage } from "@/utils"
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 import { FiClock } from "react-icons/fi"
 
@@ -19,12 +18,11 @@ interface Props {
 	readingTime?: number
 }
 
-const { title, description, search_context, categories, href, slug, image, readingTime } = Astro.props
+const { title, description, search_context, categories, href, slug, image, readingTime } =
+	Astro.props
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
-
-const optimizedImage = await getPostImage(image)
 
 const enrichedCategories = categories.map((slug) => {
 	const config = getCategoryConfig(slug)
@@ -36,7 +34,7 @@ const enrichedCategories = categories.map((slug) => {
 ---
 
 <article
-	class="blog-card group data-[animating]:animate-blog-card-in relative"
+	class="blog-card group data-animating:animate-blog-card-in relative"
 	data-categories={categories.join(",")}
 	data-search={`${title} ${search_context} ${description}`}
 >
@@ -51,7 +49,7 @@ const enrichedCategories = categories.map((slug) => {
 			class="relative aspect-video w-full overflow-hidden rounded-4xl transition-transform group-hover:scale-105"
 		>
 			<img
-				src={optimizedImage.src}
+				src={image}
 				class="absolute inset-0 h-full w-full rounded-4xl object-cover"
 				alt={title}
 				loading="lazy"
@@ -62,9 +60,11 @@ const enrichedCategories = categories.map((slug) => {
 			/>
 			{
 				readingTime && (
-					<div class="absolute top-5 left-5 z-20 flex items-center gap-1.5 rounded-2xl bg-white/90 px-3 py-1.5 text-xs font-semibold text-dark backdrop-blur-md dark:bg-dark/80 dark:text-white">
+					<div class="text-dark dark:bg-dark/80 absolute top-5 left-5 z-20 flex items-center gap-1.5 rounded-2xl bg-white/90 px-3 py-1.5 text-xs font-semibold backdrop-blur-md dark:text-white">
 						<FiClock className="text-sm" />
-						<span>{readingTime} {t("blog.readingTime")}</span>
+						<span>
+							{readingTime} {t("blog.readingTime")}
+						</span>
 					</div>
 				)
 			}
