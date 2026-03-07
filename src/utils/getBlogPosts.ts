@@ -1,5 +1,9 @@
 import type { Langs, BlogPostFromImport, BlogPostMDXContent, BlogPostMDXGlobResult } from "@/types"
 import type { CategoryConfig } from "@/config/categories"
+import { extractProseText } from "@/utils/extractProseText"
+
+/** Module-level cache to avoid recomputing on every SSR request */
+const cache = new Map<string, BlogPostFromImport[]>()
 
 export const getBlogPosts = ({
 	lang,
@@ -8,24 +12,44 @@ export const getBlogPosts = ({
 	lang: Langs
 	includeFuture?: boolean
 }) => {
+	const cacheKey = `${lang}-${includeFuture}`
+	const cached = cache.get(cacheKey)
+	if (cached) return cached
+
 	const blogFiles = import.meta.glob<BlogPostMDXContent>("@/content/blog/**/*.mdx", {
 		eager: true,
 	}) as BlogPostMDXGlobResult
 
+	const rawBlogFiles = import.meta.glob("@/content/blog/**/*.mdx", {
+		query: "?raw",
+		import: "default",
+		eager: true,
+	}) as Record<string, string>
+
 	const now = new Date()
-	const postList: BlogPostFromImport[] = Object.values(blogFiles)
-		.filter((post): post is BlogPostMDXContent & { frontmatter: { lang: Langs } } => {
+	const postList: BlogPostFromImport[] = Object.entries(blogFiles)
+		.filter((entry): entry is [string, BlogPostMDXContent & { frontmatter: { lang: Langs } }] => {
+			const [_, post] = entry
 			const { lang: postLang, status, date } = post.frontmatter
 			const postDate = new Date(date)
 			const isDev = import.meta.env.DEV
 			return postLang === lang && status === "active" && (isDev || includeFuture || postDate <= now)
 		})
-		.map(({ frontmatter, Content }) => ({
-			...frontmatter,
-			Content,
-		}))
+		.map(([key, { frontmatter, Content }]) => {
+			const rawContent = rawBlogFiles[key] || ""
+			const prose = extractProseText(rawContent)
+			const words = prose ? prose.split(/\s+/).length : 0
+			const readingTime = Math.max(1, Math.ceil(words / 200))
+
+			return {
+				...frontmatter,
+				Content,
+				readingTime,
+			}
+		})
 		.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
+	cache.set(cacheKey, postList)
 	return postList
 }
 

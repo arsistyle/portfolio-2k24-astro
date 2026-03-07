@@ -1,32 +1,18 @@
 ---
-import { ClientRouter } from "astro:transitions"
-import { SEO } from "astro-seo"
-import "@fontsource-variable/syne"
-import "@fontsource-variable/google-sans-flex"
-
 import type { PageLayoutProps } from "@/types"
 
 import { getLangFromUrl, cleanUrl } from "@/i18n/utils"
 import { isRouteEnabled } from "@/config/routes"
 
-import { Header, Footer } from "@/components/shared/index.astro"
 import HeaderPage from "@/components/ui/HeaderPage.astro"
 import { Sidebar } from "@/components/index.astro"
 import NotFoundLayout from "@/layouts/NotFoundLayout.astro"
-import AdSenseInit from "@/components/core/AdSlot/AdSenseInit.astro"
-
-import "@/css/global.css"
-import { TWITTER_HANDLE, FB_APP_ID, MAIN_URL, DEFAULT_OG_IMAGE } from "@/constants"
-
-import { getEntry } from "astro:content"
+import Layout from "@/layouts/Layout.astro"
 
 type Props = PageLayoutProps
 
 const { props } = Astro
 const lang = getLangFromUrl(Astro.url)
-
-const homeSeoEntry = await getEntry("seo", lang)
-const defaultSeo = homeSeoEntry?.data?.pages?.home
 
 const env = import.meta.env.MODE
 const currentPath = cleanUrl(Astro.url.pathname)
@@ -39,113 +25,51 @@ if (!isEnabled) {
 
 const {
 	pageTitle,
-	title: raw_title,
-	description: raw_description,
-	og_image: raw_og_image,
-	og_title: raw_og_title,
-	og_type = "website",
-	canonical: raw_canonical,
+	title,
+	description,
+	og_image,
+	og_title,
+	og_type,
+	canonical,
 	breadcrumbs,
 	nav,
 	name,
 	langSelector = true,
 } = props
 
-// Robust defaults from Home SEO
-const title = raw_title || defaultSeo?.title || ""
-const description = raw_description || defaultSeo?.description || ""
-const og_title = raw_og_title || defaultSeo?.og_title || title
-const final_raw_og_image =
-	raw_og_image || defaultSeo?.og_image || DEFAULT_OG_IMAGE[lang as keyof typeof DEFAULT_OG_IMAGE]
-
 const hasNav = nav && Boolean(Object.keys(nav)?.length)
-
-// Ensure absolute URLs for social images and canonical
-const normalizeUrl = (base: string, path?: string) => {
-	if (!path) return undefined
-	if (path.startsWith("http")) return path
-	const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base
-	const cleanPath = path.startsWith("/") ? path : `/${path}`
-	return `${cleanBase}${cleanPath}`
-}
-
-const og_image = normalizeUrl(MAIN_URL, final_raw_og_image) as string
-const canonical = raw_canonical
-	? raw_canonical.startsWith("http")
-		? raw_canonical
-		: normalizeUrl(MAIN_URL, raw_canonical)
-	: Astro.url.href
 ---
 
 {
 	isEnabled ? (
-		<Fragment>
-			<html lang={lang} class="dark">
-				<head>
-					<meta charset="UTF-8" />
-					<meta name="viewport" content="width=device-width" />
-					<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-					<meta name="generator" content={Astro.generator} />
-					<meta property="fb:app_id" content={FB_APP_ID} />
-					<SEO
-						title={title}
-						description={description}
-						canonical={canonical}
-						openGraph={{
-							basic: {
-								title: og_title || title,
-								image: og_image,
-								type: og_type,
-								url: Astro.url.href,
-							},
-							optional: {
-								description: description,
-							},
-						}}
-						twitter={{
-							card: "summary_large_image",
-							site: TWITTER_HANDLE,
-							creator: TWITTER_HANDLE,
-							title: og_title || title,
-							description: description,
-							image: og_image,
-						}}
-					/>
-					<script
-						async
-						src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5806103815269616"
-						crossorigin="anonymous"
-						is:inline
-					/>
-					<ClientRouter />
-				</head>
+		<Layout
+			title={title}
+			description={description}
+			og_image={og_image}
+			og_title={og_title}
+			og_type={og_type}
+			canonical={canonical}
+			langSelector={langSelector}
+		>
+			<main class="dark:bg-dark relative z-10 bg-white">
+				<div class="container mx-auto flex max-w-6xl flex-col gap-6 px-6">
+					<HeaderPage title={pageTitle} {breadcrumbs} name={name} />
+					{hasNav ? (
+						<div class="grid grid-cols-1 gap-y-8 px-5 py-10 md:grid-cols-12 md:gap-12">
+							<div class="col-span-full md:col-span-3">
+								<Sidebar data={nav} />
+							</div>
 
-				<body class="dark:bg-dark bg-white">
-					<Header lang={langSelector} />
-					<main class="dark:bg-dark relative z-10 bg-white">
-						<div class="container mx-auto flex max-w-6xl flex-col gap-6 px-6">
-							<HeaderPage title={pageTitle} {breadcrumbs} name={name} />
-							{hasNav ? (
-								<div class="grid grid-cols-1 gap-y-8 px-5 py-10 md:grid-cols-12 md:gap-12">
-									<div class="col-span-full md:col-span-3">
-										<Sidebar data={nav} />
-									</div>
-
-									<div class={"col-span-full md:col-span-9"}>
-										<slot />
-									</div>
-								</div>
-							) : (
+							<div class={"col-span-full md:col-span-9"}>
 								<slot />
-							)}
+							</div>
 						</div>
-					</main>
-					<Footer />
-					<div id="modal-root" />
-					<AdSenseInit />
-				</body>
-			</html>
-		</Fragment>
+					) : (
+						<slot />
+					)}
+				</div>
+			</main>
+		</Layout>
 	) : (
 		<NotFoundLayout />
 	)
