@@ -51,7 +51,7 @@ const hasNav = nav && Boolean(Object.keys(nav)?.length)
 			canonical={canonical}
 			langSelector={langSelector}
 		>
-			<main class="dark:bg-dark relative z-10 bg-white">
+			<div class="dark:bg-dark relative z-10 bg-white">
 				<div class="container mx-auto flex max-w-6xl flex-col gap-6 px-6">
 					<HeaderPage title={pageTitle} {breadcrumbs} name={name} />
 					{hasNav ? (
@@ -68,7 +68,7 @@ const hasNav = nav && Boolean(Object.keys(nav)?.length)
 						<slot />
 					)}
 				</div>
-			</main>
+			</div>
 		</Layout>
 	) : (
 		<NotFoundLayout />

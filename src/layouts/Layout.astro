@@ -110,7 +110,9 @@ const canonical = raw_canonical
 
 	<body class="dark:bg-dark flex min-h-screen flex-col bg-white">
 		{showHeader && <Header lang={langSelector} />}
-		<slot />
+		<main class="grow">
+			<slot />
+		</main>
 		{showFooter && <Footer />}
 		<div id="modal-root"></div>
 		<AdSenseInit />
