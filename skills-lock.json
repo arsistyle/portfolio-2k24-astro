@@ -1,6 +1,11 @@
 {
   "version": 1,
   "skills": {
+    "accessibility": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "computedHash": "a16b37abf64fe636f19f43b22aa1a09a4d5271e2d2972dfb9333f7bc7fa0355d"
+    },
     "animate": {
       "source": "pbakaus/impeccable",
       "sourceType": "github",
@@ -11,6 +16,11 @@
       "sourceType": "github",
       "computedHash": "49cbdf9ca35de3c03d060363207d70fd40b6ec7390e67710887ca43976244b2c"
     },
+    "best-practices": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "computedHash": "98dafea60ec1a7f5f70f6febcdd4b4fa3fe15723ad9c0b991c0818615bff7ba6"
+    },
     "bolder": {
       "source": "pbakaus/impeccable",
       "sourceType": "github",
@@ -20,6 +30,11 @@
       "source": "pbakaus/impeccable",
       "sourceType": "github",
       "computedHash": "848b37fa3e6445008d9a521930a539a9cf9bac254c0419f80f2757010d4d46db"
+    },
+    "core-web-vitals": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "computedHash": "fa437acc2249cea2cb28f190ba7faf8fdfac829d1c1aafa9ce938c6dd9338721"
     },
     "delight": {
       "source": "pbakaus/impeccable",
@@ -55,6 +70,21 @@
       "source": "pbakaus/impeccable",
       "sourceType": "github",
       "computedHash": "278796e7d0b6febea9a53705f741f47d473cc4725684a5e0bd75fd4a99791b1c"
+    },
+    "performance": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "computedHash": "acbafe2fcbfc3a1a67db47c2f6299d5c0e16f543c4e683e38e74a8ccb54888fb"
+    },
+    "seo": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "computedHash": "f1fed683b76913d26fbf1aa1e008e6932f7771701fc3a79925b042236aa4681a"
+    },
+    "web-quality-audit": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "computedHash": "1168be21aa9fe7bdc6e6e053ca05b6ca5a45675a527c103cdf77bc56ce8159af"
     }
   }
 }
