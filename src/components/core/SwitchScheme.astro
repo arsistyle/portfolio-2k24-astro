@@ -31,13 +31,19 @@ import { TbMoonFilled, TbMoonOff } from "react-icons/tb"
 			const handleClick = () => {
 				schemeSelector?.classList.toggle("isDark")
 
+				let newTheme = ""
 				if (documentClasses.contains("dark")) {
 					documentClasses.remove("dark")
 					Cookies.set("color-theme", "light")
+					newTheme = "light"
 				} else {
 					documentClasses.add("dark")
 					Cookies.set("color-theme", "dark")
+					newTheme = "dark"
 				}
+
+				// Dispatch custom event for other components to react
+				document.dispatchEvent(new CustomEvent("theme-changed", { detail: { theme: newTheme } }))
 			}
 
 			schemeSelector?.addEventListener("click", handleClick)
