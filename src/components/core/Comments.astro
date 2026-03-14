@@ -1,14 +1,10 @@
 ---
 import { defaultLang } from "@/i18n/ui"
-
-const repo = "arsistyle/portfolio-2k24-astro"
-const repoId = "R_kgDOLIv4ZA"
-const category = "Announcements"
-const categoryId = "DIC_kwDOLIv4ZM4C4YJL"
+import { giscusConfig } from "@/config/giscus"
 
 const { id = "", lang = defaultLang } = Astro.props
 
-console.log(lang)
+const { repo, repoId, category, categoryId } = giscusConfig
 ---
 
 <section
@@ -25,6 +21,8 @@ console.log(lang)
 </section>
 
 <script>
+	import { defaultLang } from "@/i18n/ui"
+
 	function getGiscusTheme(theme?: string) {
 		if (theme) return theme
 
@@ -80,7 +78,7 @@ console.log(lang)
 		script.setAttribute("data-emit-metadata", "0")
 		script.setAttribute("data-input-position", "top")
 		script.setAttribute("data-theme", getGiscusTheme())
-		script.setAttribute("data-lang", config.lang || "es")
+		script.setAttribute("data-lang", config.lang || defaultLang)
 		script.setAttribute("data-loading", "lazy")
 		script.setAttribute("crossorigin", "anonymous")
 		script.async = true
