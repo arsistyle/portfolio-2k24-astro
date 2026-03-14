@@ -11,6 +11,7 @@ import ShareButtons from "@/components/core/ShareButtons/ShareButtons"
 import AdSlot from "@/components/core/AdSlot/AdSlot.astro"
 import DonationBox from "@/components/core/DonationBox/DonationBox.astro"
 import { FiClock } from "react-icons/fi"
+import Comments from "@/components/core/Comments.astro"
 
 interface Props {
 	title: string
@@ -102,6 +103,19 @@ if (!finalOgImage || finalOgImage === "") {
 				class="absolute inset-0 h-full w-full rounded-4xl object-cover"
 				transition:name={`blog-image-${slug}`}
 			/>
+			{
+				readingTime && (
+					<div
+						transition:name={`blog-reading-time-${slug}`}
+						class="text-dark dark:bg-dark/80 absolute right-5 bottom-5 z-20 flex items-center gap-1.5 rounded-4xl bg-white/90 px-4 py-1.5 dark:text-white"
+					>
+						<FiClock />
+						<span>
+							{readingTime} {t("blog.readingTime")}
+						</span>
+					</div>
+				)
+			}
 		</div>
 		<div class="grid grid-cols-1 gap-y-8 md:grid-cols-12 md:gap-12">
 			<div
@@ -113,18 +127,6 @@ if (!finalOgImage || finalOgImage === "") {
 			<aside class="sidebar col-span-4 md:col-span-12 lg:col-span-4">
 				<div class="sticky top-26">
 					<div class="flex flex-col gap-6 md:gap-12">
-						{
-							readingTime && (
-								<div class="flex flex-col gap-4">
-									<div class="text-dark/80 flex items-center gap-2 font-medium dark:text-gray-300">
-										<FiClock className="text-xl" />
-										<span>
-											{readingTime} {t("blog.readingTime")}
-										</span>
-									</div>
-								</div>
-							)
-						}
 						{
 							enrichedCategories?.length > 0 && (
 								<div class="flex flex-col gap-4">
@@ -173,6 +175,9 @@ if (!finalOgImage || finalOgImage === "") {
 					</div>
 				</div>
 			</aside>
+			<div class="col-span-4 md:col-span-12 lg:col-span-8">
+				<Comments id={slug} lang={lang} />
+			</div>
 		</div>
 	</article>
 	<BlogPaginator

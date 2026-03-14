@@ -60,7 +60,10 @@ const enrichedCategories = categories.map((slug) => {
 			/>
 			{
 				readingTime && (
-					<div class="text-dark dark:bg-dark/80 absolute top-5 left-5 z-20 flex items-center gap-1.5 rounded-2xl bg-white/90 px-3 py-1.5 text-xs font-semibold backdrop-blur-md dark:text-white">
+					<div
+						transition:name={`blog-reading-time-${slug}`}
+						class="text-dark dark:bg-dark/80 absolute top-5 left-5 z-20 flex items-center gap-1.5 rounded-2xl bg-white/90 px-3 py-1.5 text-xs font-semibold dark:text-white"
+					>
 						<FiClock className="text-sm" />
 						<span>
 							{readingTime} {t("blog.readingTime")}
