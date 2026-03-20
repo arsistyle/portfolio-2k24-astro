@@ -1,11 +1,11 @@
-.h1,
+/* .h1,
 h1 {
 	font-family: "Syne Variable", sans-serif;
 	@apply text-[clamp(1.9rem,3.75vw,3.688rem)] font-bold;
 }
 .h1.heading,
 h1.heading {
-	@apply text-[clamp(2.8rem,8vw,8rem)] leading-[1em] font-black break-words sm:break-normal;
+	@apply text-[clamp(2.8rem,8vw,8rem)] leading-[1em] font-black wrap-break-word sm:break-normal;
 }
 
 .h2,
@@ -33,7 +33,7 @@ h5 {
 
 .p.highlight {
 	@apply text-[clamp(1.1rem,1.6vw,1.4rem)] leading-7;
-}
+} */
 
 .content {
 	& h2:not([class]),

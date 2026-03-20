@@ -18,7 +18,7 @@ const experienceStart = "2017-03-01"
 >
 	<div class="container">
 		<Typography
-			type="h2"
+			variant="h2"
 			class="mb-12 max-w-3xl leading-tight text-balance md:mb-20 dark:text-white"
 		>
 			<span id="yearsExperience" style="display:none"></span>
@@ -30,7 +30,9 @@ const experienceStart = "2017-03-01"
 						<div class="text-primary-500 dark:text-primary-300 h-8 w-8 md:h-12 md:w-12">
 							<Check />
 						</div>
-						<p class="p highlight text-dark text-pretty dark:text-white">{text}</p>
+						<Typography variant="highlight" class="text-dark text-pretty dark:text-white">
+							{text}
+						</Typography>
 					</div>
 				))
 			}

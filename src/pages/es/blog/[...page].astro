@@ -45,10 +45,16 @@ if (searchQuery || categoryFilter.length > 0) {
 	})
 }
 
+const isFirstPage = currentPage === 1
+const hasFilters = searchQuery || categoryFilter.length > 0
+const showExtraPost = !hasFilters
+
+const firstPageSize = showExtraPost ? BLOG_POSTS_PER_PAGE + 1 : BLOG_POSTS_PER_PAGE
 const totalPosts = allPosts.length
-const totalPages = Math.ceil(totalPosts / BLOG_POSTS_PER_PAGE)
-const start = (currentPage - 1) * BLOG_POSTS_PER_PAGE
-const paginatedPosts = allPosts.slice(start, start + BLOG_POSTS_PER_PAGE)
+const totalPages = Math.max(1, 1 + Math.ceil((totalPosts - firstPageSize) / BLOG_POSTS_PER_PAGE))
+const start = isFirstPage ? 0 : firstPageSize + (currentPage - 2) * BLOG_POSTS_PER_PAGE
+const postsThisPage = isFirstPage ? firstPageSize : BLOG_POSTS_PER_PAGE
+const paginatedPosts = allPosts.slice(start, start + postsThisPage)
 
 if (currentPage > 1 && paginatedPosts.length === 0) {
 	return new Response(null, { status: 404 })
@@ -59,7 +65,7 @@ const page = {
 	data: paginatedPosts,
 	start: start,
 	end: start + paginatedPosts.length - 1,
-	size: BLOG_POSTS_PER_PAGE,
+	size: postsThisPage,
 	total: totalPosts,
 	currentPage: currentPage,
 	lastPage: totalPages,
@@ -81,4 +87,11 @@ const breadcrumbs: BreadcrumbsItem[] = [
 ]
 ---
 
-<BlogLayout {lang} title={t("blog.title")} pageTitle={t("blog.title")} {breadcrumbs} {page} />
+<BlogLayout
+	{lang}
+	title={t("blog.title")}
+	pageTitle={t("blog.title")}
+	{breadcrumbs}
+	{page}
+	isFirstPage={isFirstPage}
+/>
