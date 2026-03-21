@@ -79,7 +79,10 @@ const enrichedCategories = categories.map((slug) => {
 					class="text-dark group-hover:text-primary-500 dark:group-hover:text-primary-300 leading-[1.2em] transition-colors dark:text-white"
 					transition:name={`blog-title-${slug}`}
 				>
-					{title}
+					<span
+						class="group-hover:text-dark bg-[linear-gradient(90deg,var(--color-primary-400)_50%,transparent_50%)] bg-size-[210%_100%] bg-position-[100%_0] bg-no-repeat transition-all duration-500 group-hover:bg-position-[0%_0]"
+						>{title}</span
+					>
 				</Typography>
 				<Typography class="text-dark/70 leading-[170%]! dark:text-white/75">
 					{description}

@@ -5,6 +5,7 @@ import { getCategoryConfig } from "@/config/categories"
 import { twMerge } from "tailwind-merge"
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 import { FiClock } from "react-icons/fi"
+import { cn } from "@/utils/cn"
 
 interface Props {
 	title: string
@@ -40,7 +41,10 @@ const enrichedCategories = categories.map((slug) => {
 	data-search={`${title} ${search_context} ${description}`}
 >
 	<div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
-		<a href={href} class="group relative col-span-1 aspect-video w-full overflow-hidden rounded-3xl md:col-span-1">
+		<a
+			href={href}
+			class="group relative col-span-1 aspect-video w-full overflow-hidden rounded-3xl md:col-span-1"
+		>
 			<div
 				class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:scale-125 group-hover:rotate-0"
 			>
@@ -75,10 +79,13 @@ const enrichedCategories = categories.map((slug) => {
 				<Typography
 					variant="h3"
 					as="h1"
-					class="text-dark group-hover:text-primary-500 dark:group-hover:text-primary-300 leading-[1.2em] transition-colors dark:text-white"
+					class="text-dark leading-[1.2em] dark:text-white"
 					transition:name={`blog-title-${slug}`}
 				>
-					{title}
+					<span
+						class="group-hover:text-dark bg-[linear-gradient(90deg,var(--color-primary-400)_50%,transparent_50%)] bg-size-[200%_100%] bg-position-[100%_0] bg-no-repeat transition-all duration-500 group-hover:bg-position-[0%_0]"
+						>{title}</span
+					>
 				</Typography>
 				<Typography variant="highlight" class="text-dark/70 leading-[170%]! dark:text-white/75">
 					{description}
