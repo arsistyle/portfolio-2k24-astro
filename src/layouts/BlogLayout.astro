@@ -9,7 +9,6 @@ import { CATEGORIES } from "@/config/categories"
 import type { Langs, BreadcrumbsItem } from "@/types"
 import type { Page } from "astro"
 import Pagination from "@/components/core/Pagination/Pagination.astro"
-import BlogCardFirst from "@/components/core/BlogCard/BlogCardFirst.astro"
 
 interface Props {
 	lang: Langs
@@ -70,7 +69,8 @@ const hasCategories = categoriesWithCount.length > 0
 							const hasFilters = Astro.url.searchParams.has("q") || Astro.url.searchParams.has("categories")
 							const fullCard = isFirstPage && key === 0 && !hasFilters
 							return fullCard ? (
-								<BlogCardFirst
+								<BlogCard
+									variant="first"
 									title={post.title}
 									description={post.description}
 									search_context={post.search_context}

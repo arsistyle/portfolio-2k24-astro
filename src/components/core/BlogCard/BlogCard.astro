@@ -16,10 +16,20 @@ interface Props {
 	slug: string
 	image: string
 	readingTime?: number
+	variant?: "default" | "first"
 }
 
-const { title, description, search_context, categories, href, slug, image, readingTime } =
-	Astro.props
+const {
+	title,
+	description,
+	search_context,
+	categories,
+	href,
+	slug,
+	image,
+	readingTime,
+	variant = "default",
+} = Astro.props
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -32,35 +42,39 @@ const enrichedCategories = categories.map((slug) => {
 		...config,
 	}
 })
+
+const isFirst = variant === "first"
 ---
 
 <article
-	class="blog-card data-animating:animate-blog-card-in relative"
+	class={twMerge(
+		"group blog-card data-animating:animate-blog-card-in relative",
+		isFirst && "col-span-1 md:col-span-2 xl:col-span-3"
+	)}
 	data-categories={categories.join(",")}
 	data-search={`${title} ${search_context} ${description}`}
 >
-	<div class="flex flex-col gap-6">
-		<a href={href} class="group flex flex-col gap-6">
-			<div
-				class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:scale-125 group-hover:rotate-0"
-			>
-				<GoArrowRight className="h-full w-full" />
-			</div>
-			<div
-				class="relative aspect-video w-full overflow-hidden rounded-3xl transition-transform group-hover:scale-105"
-			>
-				<img
-					src={image}
-					class="absolute inset-0 h-full w-full rounded-3xl object-cover"
-					alt={title}
-					loading="lazy"
-					decoding="async"
-					transition:name={`blog-image-${slug}`}
-					width={1280}
-					height={720}
-				/>
-				{
-					readingTime && (
+	<div class={twMerge("flex flex-col gap-6", isFirst && "grid grid-cols-1 gap-12 lg:grid-cols-2")}>
+		{
+			isFirst ? (
+				<a
+					href={href}
+					class="relative col-span-1 aspect-video w-full overflow-hidden rounded-3xl md:col-span-1"
+				>
+					<div class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:scale-125 group-hover:rotate-0">
+						<GoArrowRight className="h-full w-full" />
+					</div>
+					<img
+						src={image}
+						class="absolute inset-0 h-full w-full rounded-3xl object-cover transition-transform group-hover:scale-105"
+						alt={title}
+						loading="lazy"
+						decoding="async"
+						transition:name={`blog-image-${slug}`}
+						width={1280}
+						height={720}
+					/>
+					{readingTime && (
 						<div
 							transition:name={`blog-reading-time-${slug}`}
 							class="text-dark dark:bg-dark/80 absolute top-5 left-5 z-20 flex items-center gap-1.5 rounded-2xl bg-white/90 px-3 py-1.5 text-xs font-semibold dark:text-white"
@@ -70,52 +84,100 @@ const enrichedCategories = categories.map((slug) => {
 								{readingTime} {t("blog.readingTime")}
 							</span>
 						</div>
-					)
-				}
-			</div>
-			<div class="relative inset-0 z-20 flex w-full flex-col items-start justify-end gap-4">
+					)}
+				</a>
+			) : (
+				<a href={href} class="flex flex-col gap-6">
+					<div class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:scale-125 group-hover:rotate-0">
+						<GoArrowRight className="h-full w-full" />
+					</div>
+					<div class="relative aspect-video w-full overflow-hidden rounded-3xl transition-transform group-hover:scale-105">
+						<img
+							src={image}
+							class="absolute inset-0 h-full w-full rounded-3xl object-cover"
+							alt={title}
+							loading="lazy"
+							decoding="async"
+							transition:name={`blog-image-${slug}`}
+							width={1280}
+							height={720}
+						/>
+						{readingTime && (
+							<div
+								transition:name={`blog-reading-time-${slug}`}
+								class="text-dark dark:bg-dark/80 absolute top-5 left-5 z-20 flex items-center gap-1.5 rounded-2xl bg-white/90 px-3 py-1.5 text-xs font-semibold dark:text-white"
+							>
+								<FiClock className="text-sm" />
+								<span>
+									{readingTime} {t("blog.readingTime")}
+								</span>
+							</div>
+						)}
+					</div>
+				</a>
+			)
+		}
+
+		<div
+			class={twMerge(
+				"relative inset-0 z-20 flex w-full flex-col gap-4",
+				isFirst && "col-span-1 xl:col-span-1"
+			)}
+		>
+			<a href={href} class="flex flex-col gap-4">
 				<Typography
 					variant="h3"
-					class="text-dark group-hover:text-primary-500 dark:group-hover:text-primary-300 leading-[1.2em] transition-colors dark:text-white"
+					as={isFirst ? "h1" : undefined}
+					class={twMerge(
+						"text-dark transition-colors dark:text-white",
+						"group-hover:text-primary-500 dark:group-hover:text-primary-300 leading-[1.2em]"
+					)}
 					transition:name={`blog-title-${slug}`}
 				>
 					<span
-						class="group-hover:text-dark bg-[linear-gradient(90deg,var(--color-primary-400)_50%,transparent_50%)] bg-size-[210%_100%] bg-position-[100%_0] bg-no-repeat transition-all duration-500 group-hover:bg-position-[0%_0]"
-						>{title}</span
+						class={twMerge(
+							"bg-[linear-gradient(90deg,var(--color-primary-400)_50%,transparent_50%)] bg-no-repeat transition-all duration-500 group-hover:bg-position-[0%_0] group-hover:text-dark bg-position-[100%_0] bg-size-[210%_100%]"
+						)}
 					>
+						{title}
+					</span>
 				</Typography>
-				<Typography class="text-dark/70 leading-[170%]! dark:text-white/75">
+				<Typography
+					variant={isFirst ? "highlight" : undefined}
+					class="text-dark/70 leading-[170%]! dark:text-white/75"
+				>
 					{description}
 				</Typography>
-			</div>
-		</a>
-		{
-			enrichedCategories.length > 0 && (
-				<div class="flex flex-wrap gap-2">
-					{enrichedCategories.map((cat) => {
-						const Icon = cat.icon
+			</a>
 
-						return (
-							cat.label && (
-								<a
-									href={translatePath(`/blog?categories=${cat.slug}`)}
-									class={twMerge(
-										"border-dark/60 text-dark flex cursor-pointer items-center gap-1.5 rounded-full border px-2 py-1 text-xs font-semibold transition-all duration-200 select-none dark:border-white/70 dark:text-white/70 dark:hover:border-white dark:hover:text-white",
-										cat.className
-									)}
-								>
-									{Icon && (
-										<span class="icon text-lg leading-1">
-											<Icon />
-										</span>
-									)}
-									{cat.label}
-								</a>
+			{
+				enrichedCategories.length > 0 && (
+					<div class="flex flex-wrap gap-2">
+						{enrichedCategories.map((cat) => {
+							const Icon = cat.icon
+
+							return (
+								cat.label && (
+									<a
+										href={translatePath(`/blog?categories=${cat.slug}`)}
+										class={twMerge(
+											"border-dark/60 text-dark flex cursor-pointer items-center gap-1.5 rounded-full border px-2 py-1 text-xs font-semibold transition-all duration-200 select-none dark:border-white/70 dark:text-white/70 dark:hover:border-white dark:hover:text-white",
+											cat.className
+										)}
+									>
+										{Icon && (
+											<span class="icon text-lg leading-1">
+												<Icon />
+											</span>
+										)}
+										{cat.label}
+									</a>
+								)
 							)
-						)
-					})}
-				</div>
-			)
-		}
+						})}
+					</div>
+				)
+			}
+		</div>
 	</div>
 </article>
