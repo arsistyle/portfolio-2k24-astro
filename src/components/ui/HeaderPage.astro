@@ -9,7 +9,7 @@ const { title = "", breadcrumbs = [], class: className, name = "" } = Astro.prop
 <div class={twMerge("flex flex-col gap-2 pt-12", className)}>
 	<Breadcrumbs {breadcrumbs} />
 	<Typography
-		type="h1"
+		variant="h1"
 		class="leading-[1.1em] text-pretty dark:text-white"
 		transition:name={`page-title-${name}`}>{title}</Typography
 	>

@@ -19,9 +19,11 @@ interface Props {
 	description?: string
 	og_title?: string
 	og_image?: string
+	isFirstPage?: boolean
 }
 
-const { lang, title, pageTitle, breadcrumbs, page, description, og_title, og_image } = Astro.props
+const { lang, title, pageTitle, breadcrumbs, page, description, og_title, og_image, isFirstPage } =
+	Astro.props
 
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
@@ -41,7 +43,7 @@ const hasCategories = categoriesWithCount.length > 0
 	{pageTitle}
 	{breadcrumbs}
 >
-	<div class="container mx-auto flex min-h-[70vh] flex-col gap-8 pb-12">
+	<div class="flex min-h-[70vh] flex-col gap-8 pb-12 md:gap-12">
 		{
 			hasCategories && (
 				<CategoryFilter
@@ -62,20 +64,37 @@ const hasCategories = categoriesWithCount.length > 0
 		{
 			hasPosts ? (
 				<>
-					<div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20">
-						{posts.map((post: any) => (
-							<BlogCard
-								title={post.title}
-								description={post.description}
-								search_context={post.search_context}
-								date={post.date}
-								categories={post.categories}
-								href={translatePath(`/blog/${post.slug}`)}
-								slug={post.slug}
-								image={post.image}
-								readingTime={post.readingTime}
-							/>
-						))}
+					<div class="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
+						{posts.map((post: any, key: number) => {
+							const hasFilters = Astro.url.searchParams.has("q") || Astro.url.searchParams.has("categories")
+							const fullCard = isFirstPage && key === 0 && !hasFilters
+							return fullCard ? (
+								<BlogCard
+									variant="first"
+									title={post.title}
+									description={post.description}
+									search_context={post.search_context}
+									date={post.date}
+									categories={post.categories}
+									href={translatePath(`/blog/${post.slug}`)}
+									slug={post.slug}
+									image={post.image}
+									readingTime={post.readingTime}
+								/>
+							) : (
+								<BlogCard
+									title={post.title}
+									description={post.description}
+									search_context={post.search_context}
+									date={post.date}
+									categories={post.categories}
+									href={translatePath(`/blog/${post.slug}`)}
+									slug={post.slug}
+									image={post.image}
+									readingTime={post.readingTime}
+								/>
+							)
+						})}
 					</div>
 
 					<Pagination {page} {lang} class="mt-12" />
