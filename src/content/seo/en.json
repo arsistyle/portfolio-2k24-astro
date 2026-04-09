@@ -17,6 +17,12 @@
       "description": "A showcase of selected projects that combine premium design with solid technical implementations.",
       "og_title": "Projects | Israel Larrondo",
       "og_image": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png"
+    },
+    "audit": {
+      "title": "Israel Larrondo | Web Audit",
+      "description": "A consultative web audit that tells you the truth about your digital presence — and what to do about it.",
+      "og_title": "Web Audit | Israel Larrondo",
+      "og_image": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png"
     }
   }
 }

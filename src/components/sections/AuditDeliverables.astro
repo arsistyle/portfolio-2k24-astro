@@ -1,0 +1,60 @@
+---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import { Check } from "@/components/icons/index.astro"
+import { Typography } from "@/components/index.astro"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
+const deliverables = [
+	t("audit.deliverables.1" as any),
+	t("audit.deliverables.2" as any),
+	t("audit.deliverables.3" as any),
+	t("audit.deliverables.4" as any),
+]
+---
+
+<section class="deliverables-section flex flex-col gap-14 pb-14 md:pb-20">
+	<div class="flex flex-col gap-10">
+		<Typography type="h2" class="text-dark dark:text-white">
+			{t("audit.deliverables.title" as any)}
+		</Typography>
+		<div class="grid grid-cols-2 gap-y-10 gap-x-16 sm:gap-y-14 md:gap-x-28">
+			{
+				deliverables.map((text) => (
+					<div class="col-span-2 grid grid-cols-[2.5rem_1fr] gap-5 text-left md:col-span-1 md:grid-cols-[3rem_1fr]">
+						<div class="text-primary-500 dark:text-primary-300 mt-1 h-10 w-10 shrink-0 md:h-12 md:w-12">
+							<Check />
+						</div>
+						<p class="p highlight text-dark text-pretty dark:text-white">{text}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+
+	<blockquote class="border-l-4 border-primary-500 py-2 pl-8 dark:border-primary-300 md:pl-10">
+		<Typography type="h3" class="text-pretty font-normal italic text-dark/65 dark:text-white/65">
+			"{t("audit.quote" as any)}"
+		</Typography>
+	</blockquote>
+</section>
+
+<style>
+	.deliverables-section {
+		animation: deliverables-fade-up linear both;
+		animation-timeline: view();
+		animation-range: entry 0% cover 30%;
+	}
+
+	@keyframes deliverables-fade-up {
+		from {
+			opacity: 0;
+			translate: 0 2rem;
+		}
+		to {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
+</style>
