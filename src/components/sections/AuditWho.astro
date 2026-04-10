@@ -1,7 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 import { Typography } from "@/components/index.astro"
-import { IconArrowUpRight } from "@tabler/icons-react"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -29,7 +28,7 @@ const cards = [
 ---
 
 <section class="who-section flex flex-col gap-8 pb-14 md:pb-20">
-	<Typography type="h2" class="text-dark dark:text-white">
+	<Typography variant="h2" class="text-dark dark:text-white">
 		{t("audit.who.title" as any)}
 	</Typography>
 
@@ -39,7 +38,7 @@ const cards = [
 				<div
 					class={`${span} ${bg} card-item card-item--${i} flex flex-col justify-between gap-6 rounded-3xl p-8 md:p-10`}
 				>
-					<Typography type="h3" class="text-dark leading-10">
+					<Typography variant="h3" class="text-dark leading-10">
 						{title}
 					</Typography>
 					<Typography class="text-dark/70 text-lg">{description}</Typography>

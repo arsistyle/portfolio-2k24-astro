@@ -4,15 +4,16 @@ import AuditCTA from "./AuditCTA.astro"
 import AuditDeliverables from "./AuditDeliverables.astro"
 import AuditLayers from "./AuditLayers.astro"
 import AuditWho from "./AuditWho.astro"
+import { Typography } from "../index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 ---
 
 <div class="intro-section pb-14 md:pb-20">
-	<p class="p highlight text-dark/60 max-w-xl text-pretty dark:text-white/60">
+	<Typography variant="highlight" class="text-dark/60 max-w-xl text-pretty dark:text-white/60">
 		{t("audit.hero.description" as any)}
-	</p>
+	</Typography>
 </div>
 
 <AuditWho />

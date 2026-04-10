@@ -27,15 +27,17 @@ const layers = [
 ---
 
 <section class="layers-section flex flex-col gap-8 pb-14 md:pb-20">
-	<Typography type="h2" class="text-dark dark:text-white">
+	<Typography variant="h2" class="text-dark dark:text-white">
 		{t("audit.layers.title" as any)}
 	</Typography>
 	<FlowSteps>
-		{layers.map(({ icon, title, description }) => (
-			<FlowStep {icon} {title}>
-				<p>{description}</p>
-			</FlowStep>
-		))}
+		{
+			layers.map(({ icon, title, description }) => (
+				<FlowStep {icon} {title}>
+					<Typography>{description}</Typography>
+				</FlowStep>
+			))
+		}
 	</FlowSteps>
 </section>
 

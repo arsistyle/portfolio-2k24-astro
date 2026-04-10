@@ -16,25 +16,27 @@ const deliverables = [
 
 <section class="deliverables-section flex flex-col gap-14 pb-14 md:pb-20">
 	<div class="flex flex-col gap-10">
-		<Typography type="h2" class="text-dark dark:text-white">
+		<Typography variant="h2" class="text-dark dark:text-white">
 			{t("audit.deliverables.title" as any)}
 		</Typography>
-		<div class="grid grid-cols-2 gap-y-10 gap-x-16 sm:gap-y-14 md:gap-x-28">
+		<div class="grid grid-cols-2 gap-x-16 gap-y-10 sm:gap-y-14 md:gap-x-28">
 			{
 				deliverables.map((text) => (
 					<div class="col-span-2 grid grid-cols-[2.5rem_1fr] gap-5 text-left md:col-span-1 md:grid-cols-[3rem_1fr]">
 						<div class="text-primary-500 dark:text-primary-300 mt-1 h-10 w-10 shrink-0 md:h-12 md:w-12">
 							<Check />
 						</div>
-						<p class="p highlight text-dark text-pretty dark:text-white">{text}</p>
+						<Typography variant="highlight" class="text-dark text-pretty dark:text-white">
+							{text}
+						</Typography>
 					</div>
 				))
 			}
 		</div>
 	</div>
 
-	<blockquote class="border-l-4 border-primary-500 py-2 pl-8 dark:border-primary-300 md:pl-10">
-		<Typography type="h3" class="text-pretty font-normal italic text-dark/65 dark:text-white/65">
+	<blockquote class="border-primary-500 dark:border-primary-300 border-l-4 py-2 pl-8 md:pl-10">
+		<Typography variant="h3" class="text-dark/65 font-normal text-pretty italic dark:text-white/65">
 			"{t("audit.quote" as any)}"
 		</Typography>
 	</blockquote>
