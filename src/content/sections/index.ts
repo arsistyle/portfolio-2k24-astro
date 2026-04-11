@@ -1,10 +1,9 @@
----
 import AboutEs from "./about-es.astro"
 import AboutEn from "./about-en.astro"
 
 type SectionContent = {
 	[key: string]: {
-		about: React.ComponentType<any>
+		about: any
 	}
 }
 
@@ -16,4 +15,3 @@ export const SECTIONS_CONTENT: SectionContent = {
 		about: AboutEn,
 	},
 }
----

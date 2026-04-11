@@ -1,7 +1,9 @@
 ---
-import { Typography } from "@/components/index.astro"
-import Breadcrumbs from "./Breadcrumbs.astro"
 import { twMerge } from "tailwind-merge"
+
+import Breadcrumbs from "./Breadcrumbs.astro"
+
+import Typography from "@/components/core/Typography/index.astro"
 
 const { title = "", breadcrumbs = [], class: className, name = "" } = Astro.props
 ---

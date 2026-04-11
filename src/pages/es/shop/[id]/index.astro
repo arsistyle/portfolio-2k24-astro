@@ -1,8 +1,10 @@
 ---
 import type { Langs } from "@/types"
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
-import ProductDetail from "@/components/sections/ProductDetail.astro"
+
 import PageLayout from "@/layouts/PageLayout.astro"
+
+import ProductDetail from "@/components/sections/ProductDetail.astro"
 import { getProducts } from "@/utils/getProducts"
 
 export async function getStaticPaths() {

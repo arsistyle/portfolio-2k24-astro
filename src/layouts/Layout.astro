@@ -1,8 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions"
+import { Font } from "astro:assets"
 import { SEO } from "astro-seo"
-import "@fontsource-variable/syne"
-import "@fontsource-variable/google-sans-flex"
 
 import { getLangFromUrl } from "@/i18n/utils"
 
@@ -75,6 +74,8 @@ const canonical = raw_canonical
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<Font cssVariable="--font-syne" preload />
+		<Font cssVariable="--font-google-sans-flex" preload />
 		<meta property="fb:app_id" content={FB_APP_ID} />
 		<SEO
 			title={title || ""}

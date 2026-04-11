@@ -1,7 +1,9 @@
 ---
 import { getProjects } from "@/utils/getProjects"
-import { getLangFromUrl, useTranslatedPath, useTranslations } from "../../i18n/utils"
-import { ProjectsList, Typography } from "../index.astro"
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
+
+import ProjectsList from "@/components/core/Projects/List.astro"
+import Typography from "@/components/core/Typography/index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -21,7 +23,8 @@ const projectList = getProjects({
 				{t("home.projects.title")}
 			</Typography>
 			<Typography
-				variant="h5"
+				variant="p"
+				as="h5"
 				class="text-dark/60 hover:text-dark/70 ml-auto transition-colors dark:text-white/60 dark:hover:text-white/70"
 			>
 				<a href={translatePath("/projects")} class="text-inherit">{t("home.projects.seeAll")}</a>

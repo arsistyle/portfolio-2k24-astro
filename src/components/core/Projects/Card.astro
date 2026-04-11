@@ -2,7 +2,7 @@
 import { Image } from "astro:assets"
 import { GoArrowRight } from "react-icons/go"
 
-import { Typography } from "@/components/index.astro"
+import Typography from "@/components/core/Typography/index.astro"
 import { getLangFromUrl, useTranslatedPath } from "@/i18n/utils"
 
 const lang = getLangFromUrl(Astro.url)

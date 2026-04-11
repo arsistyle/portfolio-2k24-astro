@@ -3,7 +3,10 @@ import { Image } from "astro:assets"
 import { BsPaypal } from "react-icons/bs"
 import { SiGumroad } from "react-icons/si"
 
-import { Button, Gallery, Typography } from "@/components/index.astro"
+import Button from "@/components/core/Button/index.astro"
+import Gallery from "@/components/core/Gallery/index.astro"
+import Typography from "@/components/core/Typography/index.astro"
+
 import type { Product, ProductPaymentButtons } from "@/types"
 
 const { product } = Astro.props

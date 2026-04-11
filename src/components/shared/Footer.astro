@@ -1,6 +1,8 @@
 ---
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
-import { Button, Typography } from "@/components/index.astro"
+
+import Button from "@/components/core/Button/index.astro"
+import Typography from "@/components/core/Typography/index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -25,7 +27,6 @@ const t = useTranslations(lang)
 							variant="filled"
 							color="dark"
 							size="lg"
-							disabled
 						>
 							{t("footer.cta")}
 						</Button>

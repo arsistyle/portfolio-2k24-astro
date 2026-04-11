@@ -1,8 +1,8 @@
 ---
-import HeaderPage from "@/components/ui/HeaderPage.astro"
-import Layout from "@/layouts/Layout.astro"
-
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
+
+import Layout from "@/layouts/Layout.astro"
+import HeaderPage from "@/components/ui/HeaderPage.astro"
 import ShopThankYou from "@/components/sections/ShopThankYou.astro"
 
 const lang = getLangFromUrl(Astro.url)

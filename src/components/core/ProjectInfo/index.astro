@@ -5,10 +5,11 @@ import { BsGithub } from "react-icons/bs"
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 import type { Langs } from "@/types"
 
-import { Typography, Button } from "./index.astro"
-import type { ButtonProps } from "./Button/types"
+import Button from "../Button/index.astro"
+import Typography from "../Typography/index.astro"
+import type { ButtonProps } from "../Button/types"
 
-const validTypes = ["paypal", "gumroad"] as const
+const validTypes = ["paypal", "gumroad", "website", "source"] as const
 type ValidType = (typeof validTypes)[number]
 interface Props {
 	description?: string
