@@ -66,7 +66,8 @@ const hasCategories = categoriesWithCount.length > 0
 				<>
 					<div class="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
 						{posts.map((post: any, key: number) => {
-							const hasFilters = Astro.url.searchParams.has("q") || Astro.url.searchParams.has("categories")
+							const hasFilters =
+								Astro.url.searchParams.has("q") || Astro.url.searchParams.has("categories")
 							const fullCard = isFirstPage && key === 0 && !hasFilters
 							return fullCard ? (
 								<BlogCard
@@ -101,7 +102,7 @@ const hasCategories = categoriesWithCount.length > 0
 				</>
 			) : (
 				<div class="flex min-h-[50vh] flex-col items-center justify-center rounded-4xl border border-dashed border-gray-300 px-8 py-20 text-center dark:border-gray-700">
-					<Typography type="h5" class="text-gray-500 dark:text-gray-400">
+					<Typography variant="h5" class="text-gray-500 dark:text-gray-400">
 						{page.total === 0 &&
 						(Astro.url.searchParams.get("q") || Astro.url.searchParams.get("categories"))
 							? t("blog.noResults")

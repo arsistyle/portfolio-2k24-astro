@@ -1,0 +1,85 @@
+---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import { Typography } from "@/components/index.astro"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
+const cards = [
+	{
+		title: t("audit.who.b.title" as any),
+		description: t("audit.who.b.description" as any),
+		bg: "bg-secondary-400 dark:bg-secondary-300",
+		span: "col-span-2",
+	},
+	{
+		title: t("audit.who.a.title" as any),
+		description: t("audit.who.a.description" as any),
+		bg: "bg-primary-400 dark:bg-primary-300",
+		span: "col-span-2 md:col-span-1",
+	},
+	{
+		title: t("audit.who.r.title" as any),
+		description: t("audit.who.r.description" as any),
+		bg: "bg-tertiary-400 dark:bg-tertiary-300",
+		span: "col-span-2 md:col-span-1",
+	},
+]
+---
+
+<section class="who-section flex flex-col gap-8 pb-14 md:pb-20">
+	<Typography variant="h2" class="text-dark dark:text-white">
+		{t("audit.who.title" as any)}
+	</Typography>
+
+	<div class="grid grid-cols-2 gap-4">
+		{
+			cards.map(({ title, description, bg, span }, i) => (
+				<div
+					class={`${span} ${bg} card-item card-item--${i} flex flex-col justify-between gap-6 rounded-3xl p-8 md:p-10`}
+				>
+					<Typography variant="h3" class="text-dark leading-10">
+						{title}
+					</Typography>
+					<Typography class="text-dark/70 text-lg">{description}</Typography>
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.who-section {
+		animation: who-fade-up linear both;
+		animation-timeline: view();
+		animation-range: entry 0% cover 30%;
+	}
+
+	.card-item {
+		animation: who-fade-up linear both;
+		animation-timeline: view();
+	}
+
+	.card-item--0 {
+		animation-range: entry 5% cover 30%;
+	}
+
+	.card-item--1 {
+		animation-range: entry 10% cover 35%;
+	}
+
+	.card-item--2 {
+		animation-range: entry 15% cover 40%;
+	}
+
+	@keyframes who-fade-up {
+		from {
+			opacity: 0;
+			translate: 0 1.5rem;
+		}
+		to {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
+</style>

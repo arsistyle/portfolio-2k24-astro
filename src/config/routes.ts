@@ -30,6 +30,14 @@ export const ROUTES: Route[] = [
 		},
 	},
 	{
+		name: "nav.audit",
+		href: "/audit",
+		availability: {
+			en: ["local", "development", "production"],
+			es: ["local", "development", "production"],
+		},
+	},
+	{
 		name: "nav.blog",
 		href: "/blog",
 		availability: {

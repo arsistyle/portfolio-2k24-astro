@@ -57,7 +57,7 @@ const validActions = actions.filter((action) => validTypes.includes(action.type 
 		<div class="col-span-4 md:col-span-12 lg:col-span-8">
 			{
 				description && (
-					<Typography type="p" class="highlight text-dark dark:text-white">
+					<Typography variant="p" class="highlight text-dark dark:text-white">
 						{description}
 					</Typography>
 				)
@@ -68,13 +68,13 @@ const validActions = actions.filter((action) => validTypes.includes(action.type 
 				{
 					categories?.length > 0 && (
 						<div>
-							<Typography type="h6" class="text-dark dark:text-white">
+							<Typography variant="h6" class="text-dark dark:text-white">
 								{t("projects.detail.categories.title")}
 							</Typography>
 							<div class="flex gap-2">
 								{categories.map((cat, i) => (
 									<Fragment>
-										<Typography type="span" class="highlight text-dark/60 dark:text-white/70">
+										<Typography variant="span" class="highlight text-dark/60 dark:text-white/70">
 											{cat}
 										</Typography>
 										{i < categories.length - 1 && (
@@ -89,7 +89,7 @@ const validActions = actions.filter((action) => validTypes.includes(action.type 
 				{
 					tools?.length > 0 && (
 						<div>
-							<Typography type="h6" class="text-dark dark:text-white">
+							<Typography variant="h6" class="text-dark dark:text-white">
 								{t("projects.detail.tools.title")}
 							</Typography>
 							<div class="mb-4 flex flex-wrap gap-2">
@@ -105,7 +105,7 @@ const validActions = actions.filter((action) => validTypes.includes(action.type 
 				{
 					validActions?.length > 0 && (
 						<div>
-							<Typography type="h6" class="text-dark dark:text-white">
+							<Typography variant="h6" class="text-dark dark:text-white">
 								{t("projects.detail.actions.title")}
 							</Typography>
 							<div class="mb-10 flex flex-wrap gap-4">
