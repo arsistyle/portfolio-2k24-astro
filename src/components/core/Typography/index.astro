@@ -41,13 +41,13 @@ const typographyVariants = cva("text-base tracking-normal leading-normal", {
 	},
 })
 
-interface Props {
+export interface Props extends astroHTML.JSX.HTMLAttributes {
 	variant?: keyof typeof variant
 	as?: keyof typeof variant
 	class?: string
 }
 
-const { variant: variantProp = "p", as, class: className, ...rest } = Astro.props as Props
+const { variant: variantProp = "p", as, class: className, ...rest } = Astro.props
 const Comp = defaultElementMap[variantProp as keyof typeof defaultElementMap] || "p"
 ---
 

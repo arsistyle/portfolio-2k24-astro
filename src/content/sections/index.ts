@@ -1,9 +1,10 @@
+import type { AstroComponentFactory } from "astro/runtime/server/index.js"
 import AboutEs from "./about-es.astro"
 import AboutEn from "./about-en.astro"
 
 type SectionContent = {
 	[key: string]: {
-		about: any
+		about: AstroComponentFactory
 	}
 }
 
