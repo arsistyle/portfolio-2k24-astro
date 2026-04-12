@@ -1,7 +1,9 @@
 ---
 import { Image } from "astro:assets"
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
-import { BackgroundGrid, Typography } from "@/components/index.astro"
+
+import BackgroundGrid from "@/components/core/BackgroundGrid/index.astro"
+import Typography from "@/components/core/Typography/index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -49,9 +51,10 @@ const t = useTranslations(lang)
 						>
 							<Image
 								src="https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/avatar.webp"
-								width={1080}
-								height={1080}
+								width={900}
+								height={900}
 								loading="eager"
+								fetchpriority="high"
 								class="pointer-events-none mx-auto block h-full w-full object-cover object-bottom"
 								alt="Israel Larrondo"
 							/>

@@ -1,13 +1,14 @@
 ---
-import { DATA_EXPERIENCE } from "@/content/index.astro"
+import { DATA_EXPERIENCE } from "@/content/index"
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+
 import { Check } from "@/components/icons/index.astro"
-import { Typography } from "@/components/index.astro"
+import Typography from "@/components/core/Typography/index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 
-const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || []
+const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || { jobs: [] }
 
 const experienceText = t("home.experience.title")
 const experienceStart = "2017-03-01"

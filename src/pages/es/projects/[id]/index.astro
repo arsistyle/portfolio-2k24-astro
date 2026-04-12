@@ -3,8 +3,9 @@ import type { Langs } from "@/types"
 
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
-import ProjectDetail from "@/components/sections/ProjectDetail.astro"
 import PageLayout from "@/layouts/PageLayout.astro"
+
+import ProjectDetail from "@/components/sections/ProjectDetail.astro"
 import { getProjects } from "@/utils/getProjects"
 
 export async function getStaticPaths() {

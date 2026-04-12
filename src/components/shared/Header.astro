@@ -1,8 +1,12 @@
 ---
 import { getLangFromUrl, useTranslatedPath } from "@/i18n/utils"
 
-import { ButtonMenu, LangSelector, Logo, SwitchScheme } from "@/components/index.astro"
-import { Nav, Menu } from "@/components/ui/index.astro"
+import ButtonMenu from "@/components/core/ButtonMenu.astro"
+import LangSelector from "@/components/core/LangSelector.astro"
+import Logo from "@/components/core/Logo.astro"
+import Menu from "@/components/ui/Menu.astro"
+import Nav from "@/components/ui/Nav.astro"
+import SwitchScheme from "@/components/core/SwitchScheme.astro"
 
 const { url, props } = Astro
 
@@ -221,7 +225,14 @@ const { lang: langSelector = true } = props || {}
 			config.ior
 		)
 		const maxDisp = Math.max(...Array.from(profile).map(Math.abs)) || 1
-		const dispUrl = generateDisplacementMap(w, h, config.radius, config.bezelWidth, profile, maxDisp)
+		const dispUrl = generateDisplacementMap(
+			w,
+			h,
+			config.radius,
+			config.bezelWidth,
+			profile,
+			maxDisp
+		)
 		const specUrl = generateSpecularMap(w, h, config.radius, config.bezelWidth * 2.5) // Kept for map logic, but opacity is 0
 		const scale = maxDisp * config.scaleRatio
 

@@ -2,7 +2,7 @@
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 import { BsPaypal } from "react-icons/bs"
 import { PAYPAL_DONATE } from "@/constants"
-import { Typography } from "../index.astro"
+import Typography from "../Typography/index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)

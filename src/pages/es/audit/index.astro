@@ -1,8 +1,11 @@
 ---
-import AuditService from "@/components/sections/AuditService.astro"
-import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
-import PageLayout from "@/layouts/PageLayout.astro"
 import { getEntry } from "astro:content"
+
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
+
+import PageLayout from "@/layouts/PageLayout.astro"
+
+import AuditService from "@/components/sections/AuditService.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)

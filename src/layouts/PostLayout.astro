@@ -1,17 +1,18 @@
 ---
+import { getImage } from "astro:assets"
+import { twMerge } from "tailwind-merge"
+import { FiClock } from "react-icons/fi"
+
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
-import { getImage } from "astro:assets"
-import PageLayout from "@/layouts/PageLayout.astro"
 import { getCategoryConfig } from "@/config/categories"
-import { Typography } from "@/components/index.astro"
-import { twMerge } from "tailwind-merge"
+// import AdSlot from "@/components/core/AdSlot/AdSlot.astro"
 import BlogPaginator from "@/components/core/BlogPaginator/BlogPaginator.astro"
-import ShareButtons from "@/components/core/ShareButtons/ShareButtons"
-import AdSlot from "@/components/core/AdSlot/AdSlot.astro"
-import DonationBox from "@/components/core/DonationBox/DonationBox.astro"
-import { FiClock } from "react-icons/fi"
 import Comments from "@/components/core/Comments.astro"
+import DonationBox from "@/components/core/DonationBox/DonationBox.astro"
+import PageLayout from "@/layouts/PageLayout.astro"
+import ShareButtons from "@/components/core/ShareButtons/ShareButtons"
+import Typography from "@/components/core/Typography/index.astro"
 
 interface Props {
 	title: string
@@ -171,7 +172,7 @@ if (!finalOgImage || finalOgImage === "") {
 								client:idle
 							/>
 						</div>
-						<AdSlot slot="1471291196" format="vertical" />
+						<!-- <AdSlot slot="1471291196" format="vertical" /> -->
 					</div>
 				</div>
 			</aside>

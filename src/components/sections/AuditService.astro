@@ -1,10 +1,12 @@
 ---
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+
+import Typography from "@/components/core/Typography/index.astro"
+
 import AuditCTA from "./AuditCTA.astro"
 import AuditDeliverables from "./AuditDeliverables.astro"
 import AuditLayers from "./AuditLayers.astro"
 import AuditWho from "./AuditWho.astro"
-import { Typography } from "../index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)

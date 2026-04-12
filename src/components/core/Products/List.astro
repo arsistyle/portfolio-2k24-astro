@@ -5,7 +5,7 @@ import { Image } from "astro:assets"
 import { getLangFromUrl, useTranslatedPath } from "@/i18n/utils"
 import type { Product } from "@/types"
 
-import { Typography } from "@/components/index.astro"
+import Typography from "@/components/core/Typography/index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const translatePath = useTranslatedPath(lang)

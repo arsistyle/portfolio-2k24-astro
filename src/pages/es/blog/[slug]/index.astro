@@ -1,7 +1,9 @@
 ---
 import type { Langs } from "@/types"
-import { getBlogPosts } from "@/utils/getBlogPosts"
+
 import PostLayout from "@/layouts/PostLayout.astro"
+
+import { getBlogPosts } from "@/utils/getBlogPosts"
 
 export async function getStaticPaths() {
 	const lang: Langs = "es"

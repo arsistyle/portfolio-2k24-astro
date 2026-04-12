@@ -1,7 +1,9 @@
 ---
 import { getLangFromUrl } from "@/i18n/utils"
-import type { Langs } from "@/types"
+
 import List from "@/components/core/Products/List.astro"
+
+import type { Langs } from "@/types"
 import { getProducts } from "@/utils/getProducts"
 
 const lang = getLangFromUrl(Astro.url) as Langs
