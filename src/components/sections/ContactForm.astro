@@ -1,10 +1,13 @@
 ---
+import { TbLoader } from "react-icons/tb"
+
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+
 import Button from "@/components/core/Button/index.astro"
-import Typography from "@/components/core/Typography/index.astro"
 import Input from "@/components/form/Input.astro"
 import Select from "@/components/form/Select.astro"
 import Textarea from "@/components/form/Textarea.astro"
-import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import Typography from "@/components/core/Typography/index.astro"
 
 const { url } = Astro
 const lang = getLangFromUrl(url)
@@ -14,94 +17,79 @@ const t = useTranslations(lang)
 const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
 ---
 
-<div class="relative mx-auto mt-10 mb-16 w-full max-w-2xl">
-	<!-- Decorative background elements -->
-	<div
-		class="bg-primary-400 animate-blob absolute -top-10 -left-10 h-40 w-40 rounded-full opacity-30 mix-blend-multiply blur-3xl filter"
-	>
-	</div>
-	<div
-		class="bg-secondary-400 animate-blob animation-delay-2000 absolute -right-10 -bottom-10 h-40 w-40 rounded-full opacity-30 mix-blend-multiply blur-3xl filter"
-	>
+<div class="mt-10 mb-16 grid grid-cols-1 items-start gap-12 md:grid-cols-[5fr_7fr] md:gap-20">
+	<!-- LEFT: Info column -->
+	<div class="flex flex-col gap-12">
+		<Typography variant="highlight" class="text-dark max-w-sm text-pretty dark:text-white">
+			{t("contact.description")}
+		</Typography>
+
+		<div class="flex flex-col gap-6">
+			<Typography variant="h4" class="text-dark dark:text-white">
+				{t("contact.props.heading")}
+			</Typography>
+			<div class="flex flex-col gap-4">
+				<Typography variant="highlight" class="text-dark max-w-sm text-pretty dark:text-white">
+					⚡ {t("contact.props.reply")}
+				</Typography>
+				<Typography variant="highlight" class="text-dark max-w-sm text-pretty dark:text-white">
+					🔒 {t("contact.props.privacy")}
+				</Typography>
+				<Typography variant="highlight" class="text-dark max-w-sm text-pretty dark:text-white">
+					🤝 {t("contact.props.transparency")}
+				</Typography>
+			</div>
+		</div>
 	</div>
 
-	<div
-		class="dark:bg-black-800/40 relative rounded-2xl border border-gray-200 bg-white/5 p-8 shadow-2xl backdrop-blur-xl sm:p-10 dark:border-white/10"
+	<!-- RIGHT: Form column -->
+	<form
+		id="contact-form"
+		class="flex flex-col gap-6"
+		data-lang={lang}
+		data-success={t("contact.form.success")}
+		data-error={t("contact.form.error")}
+		novalidate
 	>
-		<div class="mb-8 text-center">
-			<Typography as="p" type="p" class="text-gray-600 dark:text-gray-400">
-				{t("contact.description")}
-			</Typography>
+		<input type="hidden" name="lang" value={lang} />
+
+		<div class="flex flex-col gap-5 sm:flex-row">
+			<Input id="name" name="name" label={t("contact.form.name")} placeholder="John Doe" />
+
+			<Input
+				type="email"
+				id="email"
+				name="email"
+				label={t("contact.form.email")}
+				placeholder="hello@example.com"
+			/>
 		</div>
 
-		<form
-			id="contact-form"
-			class="flex flex-col gap-5"
-			data-lang={lang}
-			data-success={t("contact.form.success")}
-			data-error={t("contact.form.error")}
-			novalidate
+		<Select id="subject" name="subject" label={t("contact.form.subject")}>
+			<option value="" disabled selected>{t("contact.form.subject.placeholder")}</option>
+			<option value="Web Development">{t("contact.form.subject.web")}</option>
+			<option value="Web Audit">{t("contact.form.subject.audit")}</option>
+			<option value="Other">{t("contact.form.subject.other")}</option>
+		</Select>
+
+		<Textarea id="message" name="message" label={t("contact.form.message")} placeholder="..." />
+
+		<!-- Turnstile -->
+		<div class="cf-turnstile mt-2" data-sitekey={siteKey} data-theme="auto"></div>
+
+		<!-- Status messages -->
+		<div
+			id="form-status"
+			class="hidden rounded-xl p-4 text-sm font-medium transition-all duration-300"
 		>
-			<input type="hidden" name="lang" value={lang} />
+		</div>
 
-			<div class="flex flex-col gap-5 sm:flex-row">
-				<Input id="name" name="name" label={t("contact.form.name")} placeholder="John Doe" />
-
-				<Input
-					type="email"
-					id="email"
-					name="email"
-					label={t("contact.form.email")}
-					placeholder="hello@example.com"
-				/>
-			</div>
-
-			<Select id="subject" name="subject" label={t("contact.form.subject")}>
-				<option value="" disabled selected>{t("contact.form.subject.placeholder")}</option>
-				<option value="Web Development">{t("contact.form.subject.web")}</option>
-				<option value="Web Audit">{t("contact.form.subject.audit")}</option>
-				<option value="Other">{t("contact.form.subject.other")}</option>
-			</Select>
-
-			<Textarea id="message" name="message" label={t("contact.form.message")} placeholder="..." />
-
-			<!-- Turnstile -->
-			<div class="cf-turnstile mt-2" data-sitekey={siteKey} data-theme="auto"></div>
-
-			<!-- Status messages -->
-			<div
-				id="form-status"
-				class="mt-2 hidden rounded-xl p-4 text-sm font-medium transition-all duration-300"
-			>
-			</div>
-
-			<!-- Submit Button -->
-			<div class="mt-4">
-				<button
-					type="submit"
-					id="submit-btn"
-					class="bg-primary-600 hover:bg-primary-500 group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl px-8 py-3.5 text-base font-bold text-white transition-all hover:shadow-[0_0_20px_rgba(30,135,75,0.4)] disabled:cursor-not-allowed disabled:opacity-70"
-				>
-					<span id="submit-text">{t("contact.form.submit")}</span>
-					<svg
-						id="submit-spinner"
-						class="hidden h-5 w-5 animate-spin text-white"
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-					>
-						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
-						></circle>
-						<path
-							class="opacity-75"
-							fill="currentColor"
-							d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-						></path>
-					</svg>
-				</button>
-			</div>
-		</form>
-	</div>
+		<!-- Submit Button -->
+		<Button type="submit" id="submit-btn" variant="filled" color="primary" class="w-full">
+			<TbLoader className="hidden animate-spin" id="submit-spinner" slot="startIcon" />
+			<span id="submit-text">{t("contact.form.submit")}</span></Button
+		>
+	</form>
 </div>
 
 <script
@@ -213,6 +201,24 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "1x0000000000000000
 
 		function setLoading(isLoading: boolean) {
 			if (!submitBtn || !submitText || !submitSpinner) return
+
+			fields.forEach((id) => {
+				const el = document.getElementById(id) as
+					| HTMLInputElement
+					| HTMLTextAreaElement
+					| HTMLSelectElement
+					| null
+				if (el) {
+					if (isLoading) {
+						el.setAttribute("disabled", "true")
+						el.classList.add("opacity-60", "cursor-not-allowed")
+					} else {
+						el.removeAttribute("disabled")
+						el.classList.remove("opacity-60", "cursor-not-allowed")
+					}
+				}
+			})
+
 			if (isLoading) {
 				submitBtn.setAttribute("disabled", "true")
 				submitText.classList.add("hidden")

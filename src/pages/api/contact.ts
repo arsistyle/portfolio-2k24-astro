@@ -31,7 +31,16 @@ export const POST: APIRoute = async ({ request, locals }) => {
 		} = parsed.data
 
 		// Attempt to get secrets from Astro local env (Cloudflare Pages bindings) or standard env
-		const runtimeEnv = (locals as any).runtime?.env || {}
+		let runtimeEnv: any = {}
+		try {
+			// In Astro v6, Cloudflare bindings are imported from 'cloudflare:workers'
+			// @ts-ignore
+			const cfWorkers = await import("cloudflare:workers")
+			runtimeEnv = cfWorkers.env || {}
+		} catch (e) {
+			// Fallback if not in a Cloudflare environment
+		}
+		
 		const turnstileSecret = runtimeEnv.TURNSTILE_SECRET_KEY || import.meta.env.TURNSTILE_SECRET_KEY
 		const resendApiKey = runtimeEnv.RESEND_API_KEY || import.meta.env.RESEND_API_KEY
 		const toEmail = runtimeEnv.RESEND_TO_EMAIL || import.meta.env.RESEND_TO_EMAIL

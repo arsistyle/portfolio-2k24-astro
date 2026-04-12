@@ -120,5 +120,9 @@
   "contact.form.message": "Mensaje",
   "contact.form.submit": "Enviar mensaje",
   "contact.form.success": "¡Mensaje enviado con éxito! Estaré en contacto pronto.",
-  "contact.form.error": "Hubo un error al enviar tu mensaje. Inténtalo de nuevo o contáctame por mis redes."
+  "contact.form.error": "Hubo un error al enviar tu mensaje. Inténtalo de nuevo o contáctame por mis redes.",
+  "contact.props.heading": "¿Por qué trabajar conmigo?",
+  "contact.props.reply": "Respondo en menos de 24 horas",
+  "contact.props.privacy": "Tu información es tratada con privacidad",
+  "contact.props.transparency": "Sin compromiso, con total claridad"
 }

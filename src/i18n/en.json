@@ -121,5 +121,9 @@
   "contact.form.message": "Message",
   "contact.form.submit": "Send message",
   "contact.form.success": "Message sent successfully! I'll be in touch soon.",
-  "contact.form.error": "There was an error sending the message. Please try again or reach me on my social media."
+  "contact.form.error": "There was an error sending the message. Please try again or reach me on my social media.",
+  "contact.props.heading": "Why work with me?",
+  "contact.props.reply": "I reply within 24 hours",
+  "contact.props.privacy": "Your information stays private",
+  "contact.props.transparency": "No commitment, full transparency"
 }
