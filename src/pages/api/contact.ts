@@ -31,10 +31,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
 		} = parsed.data
 
 		// Attempt to get secrets from Astro local env (Cloudflare Pages bindings) or standard env
-		const turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY
-		const resendApiKey = import.meta.env.RESEND_API_KEY
-		const toEmail = import.meta.env.RESEND_TO_EMAIL
-		const fromEmail = import.meta.env.RESEND_FROM_EMAIL
+		const runtimeEnv = (locals as any).runtime?.env || {}
+		const turnstileSecret = runtimeEnv.TURNSTILE_SECRET_KEY || import.meta.env.TURNSTILE_SECRET_KEY
+		const resendApiKey = runtimeEnv.RESEND_API_KEY || import.meta.env.RESEND_API_KEY
+		const toEmail = runtimeEnv.RESEND_TO_EMAIL || import.meta.env.RESEND_TO_EMAIL
+		const fromEmail = runtimeEnv.RESEND_FROM_EMAIL || import.meta.env.RESEND_FROM_EMAIL
 
 		if (!turnstileSecret || !resendApiKey) {
 			console.error("Missing Turnstile or Resend API Keys")
@@ -67,14 +68,23 @@ export const POST: APIRoute = async ({ request, locals }) => {
 		}
 
 		// 2. Send Email via Resend API
+		const escapeHtml = (unsafe: string) => {
+			return unsafe
+				.replace(/&/g, "&amp;")
+				.replace(/</g, "&lt;")
+				.replace(/>/g, "&gt;")
+				.replace(/"/g, "&quot;")
+				.replace(/'/g, "&#039;")
+		}
+
 		const emailHtmlMsg = `
       <h2>Nuevo mensaje de contacto</h2>
-      <p><strong>Nombre:</strong> ${name}</p>
-      <p><strong>Correo electrónico:</strong> ${email}</p>
-      <p><strong>Asunto:</strong> ${subject}</p>
+      <p><strong>Nombre:</strong> ${escapeHtml(name)}</p>
+      <p><strong>Correo electrónico:</strong> ${escapeHtml(email)}</p>
+      <p><strong>Asunto:</strong> ${escapeHtml(subject)}</p>
       <hr />
       <p><strong>Mensaje:</strong></p>
-      <p style="white-space: pre-wrap;">${message}</p>
+      <p style="white-space: pre-wrap;">${escapeHtml(message)}</p>
     `
 
 		const resendReq = await fetch("https://api.resend.com/emails", {
