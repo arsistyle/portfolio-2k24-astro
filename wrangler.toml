@@ -2,4 +2,4 @@
 name = "portfolio-2k24-astro"
 compatibility_date = "2025-08-15"
 compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = "./dist"
+pages_build_output_dir = "./dist/client"

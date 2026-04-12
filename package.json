@@ -7,7 +7,7 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "postbuild": "node scripts/fix-routes.mjs",
-    "preview": "npx wrangler pages dev ./dist",
+    "preview": "npx wrangler pages dev ./dist/client",
     "astro": "astro",
     "lint": "npx oxlint@latest",
     "check": "astro check && tsc --noEmit",

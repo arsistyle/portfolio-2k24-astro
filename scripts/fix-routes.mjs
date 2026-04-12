@@ -61,8 +61,10 @@ const routes = {
 }
 
 const totalRules = routes.include.length + routes.exclude.length
-writeFileSync("dist/_routes.json", JSON.stringify(routes, null, 2))
-console.log("[postbuild] dist/_routes.json fixed ✓")
+// Write to dist/client/ — that's where @astrojs/cloudflare v13 puts static
+// files, and what wrangler.toml's pages_build_output_dir now points to.
+writeFileSync("dist/client/_routes.json", JSON.stringify(routes, null, 2))
+console.log("[postbuild] dist/client/_routes.json fixed ✓")
 console.log(`[postbuild] Total rules: ${totalRules}/100`)
 console.log(`[postbuild] Static page excludes: ${staticPageExcludes.length}`)
 if (totalRules > 100) {
@@ -84,7 +86,7 @@ const workerEntry = "dist/server/entry.mjs"
 if (existsSync(workerEntry)) {
 	await esbuild.build({
 		entryPoints: [workerEntry],
-		outfile: "dist/_worker.js",
+		outfile: "dist/client/_worker.js",
 		bundle: true,
 		format: "esm",
 		platform: "browser",
@@ -92,7 +94,7 @@ if (existsSync(workerEntry)) {
 		conditions: ["workerd", "worker", "browser"],
 		logLevel: "warning",
 	})
-	console.log("[postbuild] dist/_worker.js bundled ✓")
+	console.log("[postbuild] dist/client/_worker.js bundled ✓")
 }
 
 // Remove the Worker-mode config files that conflict with Pages deployment.
