@@ -11,6 +11,7 @@
 
 import { writeFileSync, existsSync, rmSync, readdirSync, statSync } from "fs"
 import { join } from "path"
+import * as esbuild from "esbuild"
 
 function getStaticDirs(dir) {
 	try {
@@ -69,11 +70,33 @@ if (totalRules > 100) {
 	process.exit(1)
 }
 
-// Remove dist/server/wrangler.json and .wrangler/deploy/config.json.
-// @astrojs/cloudflare generates a Worker wrangler.json that is incompatible
-// with Cloudflare Pages. The adapter also writes a deploy/config.json that
-// redirects wrangler to it. Deleting both lets wrangler fall back to the
-// root wrangler.toml (pages_build_output_dir) which is the correct Pages config.
+// Bundle dist/server/entry.mjs into dist/_worker.js for Cloudflare Pages.
+//
+// @astrojs/cloudflare v13 outputs a Workers Assets setup (entry.mjs + chunks +
+// wrangler.json) that targets standalone Workers deployment. Cloudflare Pages
+// rejects the generated wrangler.json because it contains both `main` and
+// `pages_build_output_dir`, plus Pages-unsupported fields (assets, rules, no_bundle).
+//
+// Pages advanced mode expects a single self-contained _worker.js at the build
+// output root. We use esbuild to bundle entry.mjs + its chunk imports into that
+// file, keeping cloudflare:* and node:* as externals (runtime-provided).
+const workerEntry = "dist/server/entry.mjs"
+if (existsSync(workerEntry)) {
+	await esbuild.build({
+		entryPoints: [workerEntry],
+		outfile: "dist/_worker.js",
+		bundle: true,
+		format: "esm",
+		platform: "browser",
+		external: ["cloudflare:*", "node:*"],
+		conditions: ["workerd", "worker", "browser"],
+		logLevel: "warning",
+	})
+	console.log("[postbuild] dist/_worker.js bundled ✓")
+}
+
+// Remove the Worker-mode config files that conflict with Pages deployment.
+// After bundling to _worker.js, Pages uses the root wrangler.toml directly.
 const wranglerPath = "dist/server/wrangler.json"
 if (existsSync(wranglerPath)) {
 	rmSync(wranglerPath)
