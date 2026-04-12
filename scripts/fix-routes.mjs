@@ -9,7 +9,7 @@
 //   - /blog/opal      → include /* AND exclude /blog/opal/* → exclude wins → CDN ✓
 //   - /es/blog/opal   → include /* AND exclude /es/blog/opal/* → exclude wins → CDN ✓
 
-import { writeFileSync, readdirSync, statSync } from "fs"
+import { writeFileSync, readFileSync, existsSync, readdirSync, statSync } from "fs"
 import { join } from "path"
 
 function getStaticDirs(dir) {
@@ -67,4 +67,31 @@ console.log(`[postbuild] Static page excludes: ${staticPageExcludes.length}`)
 if (totalRules > 100) {
 	console.error(`[postbuild] ⚠️  WARNING: ${totalRules} rules exceed Cloudflare's 100-rule limit!`)
 	process.exit(1)
+}
+
+// Fix dist/server/wrangler.json for Cloudflare Pages compatibility.
+// @astrojs/cloudflare generates a wrangler.json with fields Pages rejects.
+const wranglerPath = "dist/server/wrangler.json"
+if (existsSync(wranglerPath)) {
+	const wrangler = JSON.parse(readFileSync(wranglerPath, "utf-8"))
+
+	// Pages rejects triggers: {} — must be omitted when there are no crons
+	if (wrangler.triggers && Object.keys(wrangler.triggers).length === 0) {
+		delete wrangler.triggers
+	}
+
+	// KV namespace bindings without an "id" can't be deployed; remove them
+	if (Array.isArray(wrangler.kv_namespaces)) {
+		wrangler.kv_namespaces = wrangler.kv_namespaces.filter((ns) => ns.id)
+		if (wrangler.kv_namespaces.length === 0) delete wrangler.kv_namespaces
+	}
+
+	// "ASSETS" is reserved in Pages projects; Pages provides it automatically
+	if (wrangler.assets?.binding === "ASSETS") {
+		delete wrangler.assets.binding
+		if (Object.keys(wrangler.assets).length === 0) delete wrangler.assets
+	}
+
+	writeFileSync(wranglerPath, JSON.stringify(wrangler, null, 2))
+	console.log("[postbuild] dist/server/wrangler.json fixed ✓")
 }
