@@ -1,6 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
-import { BsPaypal } from "react-icons/bs"
+import { TbBrandPaypal } from "react-icons/tb"
 import { PAYPAL_DONATE } from "@/constants"
 import Typography from "../Typography/index.astro"
 
@@ -53,7 +53,7 @@ const paypalDonateUrl = PAYPAL_DONATE[lang].donate_url
 				rel="noopener noreferrer"
 				class="inline-flex items-center justify-center gap-2 rounded-xl border border-[#0070ba] bg-[#0070ba] px-5 py-2.5 text-sm font-semibold text-white transition-colors"
 			>
-				<BsPaypal size={18} />
+				<TbBrandPaypal size={18} />
 				{t("paypal.donate")}
 			</a>
 		</div>

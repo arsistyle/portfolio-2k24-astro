@@ -1,7 +1,6 @@
 ---
 import { Image } from "astro:assets"
-import { BsPaypal } from "react-icons/bs"
-import { SiGumroad } from "react-icons/si"
+import { SiGumroad, SiPaypal } from "react-icons/si"
 
 import Button from "@/components/core/Button/index.astro"
 import Gallery from "@/components/core/Gallery/index.astro"
@@ -16,7 +15,7 @@ const paymentButtons: ProductPaymentButtons = {
 	paypal: {
 		className: "bg-[#122c82]",
 		color: "light",
-		icon: BsPaypal,
+		icon: SiPaypal,
 	},
 	gumroad: {
 		className: "bg-[#CC73BA]",

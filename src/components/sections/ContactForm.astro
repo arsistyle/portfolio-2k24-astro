@@ -1,0 +1,331 @@
+---
+import Button from "@/components/core/Button/index.astro"
+import Typography from "@/components/core/Typography/index.astro"
+import Input from "@/components/form/Input.astro"
+import Select from "@/components/form/Select.astro"
+import Textarea from "@/components/form/Textarea.astro"
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+
+const { url } = Astro
+const lang = getLangFromUrl(url)
+const t = useTranslations(lang)
+
+// Use the public key from env, fallback to the generic generic test key
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
+---
+
+<div class="relative mx-auto mt-10 mb-16 w-full max-w-2xl">
+	<!-- Decorative background elements -->
+	<div
+		class="bg-primary-400 animate-blob absolute -top-10 -left-10 h-40 w-40 rounded-full opacity-30 mix-blend-multiply blur-3xl filter"
+	>
+	</div>
+	<div
+		class="bg-secondary-400 animate-blob animation-delay-2000 absolute -right-10 -bottom-10 h-40 w-40 rounded-full opacity-30 mix-blend-multiply blur-3xl filter"
+	>
+	</div>
+
+	<div
+		class="dark:bg-black-800/40 relative rounded-2xl border border-gray-200 bg-white/5 p-8 shadow-2xl backdrop-blur-xl sm:p-10 dark:border-white/10"
+	>
+		<div class="mb-8 text-center">
+			<Typography as="p" type="p" class="text-gray-600 dark:text-gray-400">
+				{t("contact.description")}
+			</Typography>
+		</div>
+
+		<form
+			id="contact-form"
+			class="flex flex-col gap-5"
+			data-lang={lang}
+			data-success={t("contact.form.success")}
+			data-error={t("contact.form.error")}
+			novalidate
+		>
+			<input type="hidden" name="lang" value={lang} />
+
+			<div class="flex flex-col gap-5 sm:flex-row">
+				<Input id="name" name="name" label={t("contact.form.name")} placeholder="John Doe" />
+
+				<Input
+					type="email"
+					id="email"
+					name="email"
+					label={t("contact.form.email")}
+					placeholder="hello@example.com"
+				/>
+			</div>
+
+			<Select id="subject" name="subject" label={t("contact.form.subject")}>
+				<option value="" disabled selected>{t("contact.form.subject.placeholder")}</option>
+				<option value="Web Development">{t("contact.form.subject.web")}</option>
+				<option value="Web Audit">{t("contact.form.subject.audit")}</option>
+				<option value="Other">{t("contact.form.subject.other")}</option>
+			</Select>
+
+			<Textarea id="message" name="message" label={t("contact.form.message")} placeholder="..." />
+
+			<!-- Turnstile -->
+			<div class="cf-turnstile mt-2" data-sitekey={siteKey} data-theme="auto"></div>
+
+			<!-- Status messages -->
+			<div
+				id="form-status"
+				class="mt-2 hidden rounded-xl p-4 text-sm font-medium transition-all duration-300"
+			>
+			</div>
+
+			<!-- Submit Button -->
+			<div class="mt-4">
+				<button
+					type="submit"
+					id="submit-btn"
+					class="bg-primary-600 hover:bg-primary-500 group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl px-8 py-3.5 text-base font-bold text-white transition-all hover:shadow-[0_0_20px_rgba(30,135,75,0.4)] disabled:cursor-not-allowed disabled:opacity-70"
+				>
+					<span id="submit-text">{t("contact.form.submit")}</span>
+					<svg
+						id="submit-spinner"
+						class="hidden h-5 w-5 animate-spin text-white"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+					>
+						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+						></circle>
+						<path
+							class="opacity-75"
+							fill="currentColor"
+							d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+						></path>
+					</svg>
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script
+	is:inline
+	src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback"
+	async
+	defer></script>
+
+<script>
+	import { getContactSchema } from "@/utils/validations"
+
+	declare global {
+		interface Window {
+			renderTurnstile: () => void
+			onloadTurnstileCallback: () => void
+			turnstile: any
+		}
+	}
+
+	// 1. Safe renderer
+	window.renderTurnstile = function () {
+		const container = document.querySelector(".cf-turnstile") as HTMLElement | null
+		if (container && window.turnstile && !container.hasChildNodes()) {
+			window.turnstile.render(container, {
+				sitekey: container.dataset.sitekey,
+				theme: "auto",
+			})
+		}
+	}
+
+	// 2. Cloudflare API loaded callback (first load)
+	window.onloadTurnstileCallback = function () {
+		window.renderTurnstile()
+	}
+
+	// 3. Form Initialization
+	function initContactForm() {
+		const form = document.getElementById("contact-form") as HTMLFormElement | null
+		const statusEl = document.getElementById("form-status") as HTMLDivElement | null
+		const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement | null
+		const submitText = document.getElementById("submit-text") as HTMLSpanElement | null
+		const submitSpinner = document.getElementById("submit-spinner") as HTMLElement | null
+
+		if (!form) return
+
+		const lang = form.dataset.lang || "es"
+		const successMsg = form.dataset.success || ""
+		const errorMsg = form.dataset.error || ""
+
+		// Force reset status when jumping between languages (SPA Morphing state leak fix)
+		if (statusEl) {
+			statusEl.className =
+				"mt-2 hidden rounded-xl p-4 text-sm font-medium transition-all duration-300"
+			statusEl.textContent = ""
+		}
+
+		// Try to render immediately if API is already loaded (View Transitions)
+		if (window.turnstile) {
+			window.renderTurnstile()
+		}
+
+		const schema = getContactSchema(lang)
+
+		function clearError(id: FieldName) {
+			const el = document.getElementById(id)
+			const errorEl = document.getElementById("error-" + id)
+			if (!el || !errorEl) return
+			el.classList.remove("border-red-500", "dark:border-red-500", "ring-1", "ring-red-500")
+			el.classList.add("border-gray-200", "dark:border-white/10")
+			errorEl.classList.add("hidden")
+		}
+
+		function showError(id: FieldName, msg: string) {
+			const el = document.getElementById(id)
+			const errorEl = document.getElementById("error-" + id)
+			if (!el || !errorEl) return
+			el.classList.add("border-red-500", "dark:border-red-500", "ring-1", "ring-red-500")
+			el.classList.remove("border-gray-200", "dark:border-white/10")
+			errorEl.textContent = msg
+			errorEl.classList.remove("hidden")
+		}
+
+		type FieldName = "name" | "email" | "subject" | "message"
+		const fields: FieldName[] = ["name", "email", "subject", "message"]
+
+		// Dinamically remove errors on active typing if already marked as errored
+		fields.forEach((id) => {
+			const el = document.getElementById(id) as
+				| HTMLInputElement
+				| HTMLTextAreaElement
+				| HTMLSelectElement
+				| null
+			if (el) {
+				const handler = () => {
+					if (el.classList.contains("border-red-500")) {
+						const parsed = schema.shape[id].safeParse(el.value)
+						if (parsed.success) {
+							clearError(id)
+						} else {
+							showError(id, parsed.error.issues[0].message)
+						}
+					}
+				}
+				// Overwrite old listeners from SPA dom-morphing
+				el.oninput = handler
+				el.onchange = handler
+			}
+		})
+
+		function setLoading(isLoading: boolean) {
+			if (!submitBtn || !submitText || !submitSpinner) return
+			if (isLoading) {
+				submitBtn.setAttribute("disabled", "true")
+				submitText.classList.add("hidden")
+				submitSpinner.classList.remove("hidden")
+			} else {
+				submitBtn.removeAttribute("disabled")
+				submitText.classList.remove("hidden")
+				submitSpinner.classList.add("hidden")
+			}
+		}
+
+		function showStatus(message: string, type: "success" | "error") {
+			if (!statusEl) return
+			statusEl.textContent = message
+			statusEl.className =
+				"rounded-xl p-4 mt-2 text-sm font-medium transition-all duration-300 block"
+
+			if (type === "success") {
+				statusEl.classList.add(
+					"bg-green-50",
+					"dark:bg-green-900/30",
+					"text-green-800",
+					"dark:text-green-300",
+					"border",
+					"border-green-200",
+					"dark:border-green-800"
+				)
+				statusEl.classList.remove(
+					"bg-red-50",
+					"dark:bg-red-900/30",
+					"text-red-800",
+					"dark:text-red-300",
+					"border-red-200",
+					"dark:border-red-800"
+				)
+			} else {
+				statusEl.classList.add(
+					"bg-red-50",
+					"dark:bg-red-900/30",
+					"text-red-800",
+					"dark:text-red-300",
+					"border",
+					"border-red-200",
+					"dark:border-red-800"
+				)
+				statusEl.classList.remove(
+					"bg-green-50",
+					"dark:bg-green-900/30",
+					"text-green-800",
+					"dark:text-green-300",
+					"border-green-200",
+					"dark:border-green-800"
+				)
+			}
+		}
+
+		form.onsubmit = async (e: Event) => {
+			e.preventDefault()
+
+			let isValid = true
+			fields.forEach((id) => {
+				const el = document.getElementById(id) as
+					| HTMLInputElement
+					| HTMLTextAreaElement
+					| HTMLSelectElement
+					| null
+				if (!el) return
+				const parsed = schema.shape[id].safeParse(el.value)
+				if (!parsed.success) {
+					showError(id, parsed.error.issues[0].message)
+					isValid = false
+				} else {
+					clearError(id)
+				}
+			})
+
+			if (!isValid) return
+
+			const formData = new FormData(form)
+			const turnstileResponse = formData.get("cf-turnstile-response")
+
+			if (!turnstileResponse) {
+				showStatus(errorMsg + " (Captcha required)", "error")
+				return
+			}
+
+			setLoading(true)
+
+			try {
+				const response = await fetch("/api/contact", {
+					method: "POST",
+					body: formData,
+				})
+
+				const result = await response.json()
+
+				if (response.ok) {
+					showStatus(successMsg, "success")
+					form.reset()
+					if (window.turnstile) {
+						window.turnstile.reset()
+					}
+				} else {
+					showStatus(result.error || errorMsg, "error")
+				}
+			} catch (error) {
+				showStatus(errorMsg, "error")
+			} finally {
+				setLoading(false)
+			}
+		}
+	}
+
+	// Wait for Astro to swap pages
+	document.addEventListener("astro:page-load", initContactForm)
+</script>

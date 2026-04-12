@@ -23,6 +23,12 @@
       "description": "A consultative web audit that tells you the truth about your digital presence — and what to do about it.",
       "og_title": "Web Audit | Israel Larrondo",
       "og_image": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png"
+    },
+    "contact": {
+      "title": "Israel Larrondo | Contact",
+      "description": "Get in touch for web development, redesigns, web audits or collaborations. I am always open to discussing new projects and opportunities.",
+      "og_title": "Contact | Israel Larrondo",
+      "og_image": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png"
     }
   }
 }

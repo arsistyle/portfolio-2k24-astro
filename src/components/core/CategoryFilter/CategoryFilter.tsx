@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 import { CATEGORIES } from "@/config/categories"
-import { IconSearch, IconFilter, IconX } from "@tabler/icons-react"
+import { TbSearch, TbFilter, TbX } from "react-icons/tb"
 
 interface CategoryWithCount {
 	name: string
@@ -154,7 +154,7 @@ export default function CategoryFilter({
 			<div ref={searchRowRef} className="flex flex-wrap items-center gap-3">
 				<div className="relative w-full min-w-0 basis-full md:flex-1 md:basis-0">
 					<span className="text-dark absolute top-1/2 left-3 -translate-y-1/2 dark:text-gray-400">
-						<IconSearch size={16} />
+						<TbSearch size={16} />
 					</span>
 					<input
 						type="text"
@@ -175,7 +175,7 @@ export default function CategoryFilter({
 								className="cursor-pointer p-2 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-200"
 								aria-label="Clear search"
 							>
-								<IconX size={14} />
+								<TbX size={14} />
 							</button>
 						)}
 						<button
@@ -184,7 +184,7 @@ export default function CategoryFilter({
 							className="bg-primary-400 hover:bg-primary-500 text-dark flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg transition-colors"
 							aria-label="Search"
 						>
-							<IconSearch size={16} />
+							<TbSearch size={16} />
 						</button>
 					</div>
 				</div>
@@ -194,7 +194,7 @@ export default function CategoryFilter({
 					onClick={openModal}
 					className={`hover:border-primary-400 dark:hover:border-primary-400 flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 bg-transparent px-4 py-2.5 text-sm font-medium text-gray-600 transition-colors dark:border-gray-700 dark:text-gray-400 ${selectedCount > 0 ? "border-primary-400 text-primary-600 dark:border-primary-400 dark:text-primary-300" : ""}`}
 				>
-					<IconFilter size={16} />
+					<TbFilter size={16} />
 					<span>{filterLabel}</span>
 					{selectedCount > 0 && (
 						<span className="bg-primary-400 text-dark flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold">
@@ -230,7 +230,7 @@ export default function CategoryFilter({
 									className="cursor-pointer rounded-lg p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200"
 									aria-label="Close"
 								>
-									<IconX size={20} />
+									<TbX size={20} />
 								</button>
 							</div>
 
