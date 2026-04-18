@@ -33,16 +33,18 @@ const cards = [
 		{t("audit.who.title" as any)}
 	</Typography>
 
-	<div class="grid grid-cols-2 gap-4">
+	<div class="grid grid-cols-3 gap-4">
 		{
 			cards.map(({ title, description, bg, span }, i) => (
 				<div
-					class={`${span} ${bg} card-item card-item--${i} flex flex-col justify-between gap-6 rounded-3xl p-8 md:p-10`}
+					class={`col-span-3 lg:col-span-1 ${bg} card-item card-item--${i} flex cursor-default flex-col gap-6 rounded-3xl p-8 transition-transform duration-300 hover:translate-y-4 md:p-10`}
 				>
-					<Typography variant="h3" class="text-dark leading-10">
+					<Typography variant="h3" as="h4" class="text-dark leading-10">
 						{title}
 					</Typography>
-					<Typography class="text-dark/70 text-lg">{description}</Typography>
+					<Typography variant="highlight" class="text-dark/70">
+						{description}
+					</Typography>
 				</div>
 			))
 		}

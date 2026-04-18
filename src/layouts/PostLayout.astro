@@ -1,7 +1,7 @@
 ---
 import { getImage } from "astro:assets"
 import { twMerge } from "tailwind-merge"
-import { FiClock } from "react-icons/fi"
+import { TbClock } from "react-icons/tb"
 
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
@@ -110,7 +110,7 @@ if (!finalOgImage || finalOgImage === "") {
 						transition:name={`blog-reading-time-${slug}`}
 						class="text-dark dark:bg-dark/80 absolute top-10 left-10 z-20 flex items-center gap-1.5 rounded-4xl bg-white/90 px-4 py-1.5 dark:text-white"
 					>
-						<FiClock />
+						<TbClock />
 						<span>
 							{readingTime} {t("blog.readingTime")}
 						</span>

@@ -106,5 +106,24 @@
   "audit.deliverables.4": "An honest recommendation — not a sales pitch",
   "audit.quote": "I build you the Ferrari. The wheel is yours.",
   "audit.cta.title": "Want to know where you really stand?",
-  "audit.cta.button": "Book an audit"
+  "audit.cta.button": "Book an audit",
+
+  "nav.contact": "Contact",
+  "contact.title": "Let's work together",
+  "contact.description": "Fill out the form below and I'll get back to you as soon as possible.",
+  "contact.form.name": "Name",
+  "contact.form.email": "Email",
+  "contact.form.subject": "Subject",
+  "contact.form.subject.placeholder": "Select an option",
+  "contact.form.subject.web": "Web Development / Redesign",
+  "contact.form.subject.audit": "Web Audit",
+  "contact.form.subject.other": "Other",
+  "contact.form.message": "Message",
+  "contact.form.submit": "Send message",
+  "contact.form.success": "Message sent successfully! I'll be in touch soon.",
+  "contact.form.error": "There was an error sending the message. Please try again or reach me on my social media.",
+  "contact.props.heading": "Why work with me?",
+  "contact.props.reply": "I reply within 24 hours",
+  "contact.props.privacy": "Your information stays private",
+  "contact.props.transparency": "No commitment, full transparency"
 }

@@ -1,6 +1,6 @@
 ---
-import { BiWorld } from "react-icons/bi"
-import { BsGithub } from "react-icons/bs"
+import { TbWorld } from "react-icons/tb"
+import { SiGithub } from "react-icons/si"
 
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 import type { Langs } from "@/types"
@@ -38,14 +38,14 @@ const { actions = [], description, tools = [], categories = [] } = Astro.props
 const buttonsTypes: ButtonsTypesProps = {
 	website: {
 		title: t("projects.detail.actions.visit"),
-		icon: BiWorld,
+		icon: TbWorld,
 		props: {
 			color: "secondary",
 		},
 	},
 	source: {
 		title: t("projects.detail.actions.source"),
-		icon: BsGithub,
+		icon: SiGithub,
 		props: {},
 	},
 }

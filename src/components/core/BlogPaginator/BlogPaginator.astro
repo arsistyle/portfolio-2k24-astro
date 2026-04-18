@@ -1,5 +1,5 @@
 ---
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react"
+import { TbChevronLeft, TbChevronRight } from "react-icons/tb"
 import { getBlogPosts } from "@/utils/getBlogPosts"
 import { useTranslatedPath } from "@/i18n/utils"
 import type { Langs } from "@/types"
@@ -40,7 +40,7 @@ if (!prev && !next) return null
 				class="group flex items-center gap-3 rounded-2xl border border-gray-200 p-4 transition-all duration-200 hover:border-gray-400 hover:bg-gray-50 dark:border-gray-800 dark:hover:border-gray-600 dark:hover:bg-white/[0.03]"
 			>
 				<span class="text-gray-400 transition-transform duration-200 group-hover:-translate-x-1 dark:text-gray-500">
-					<IconChevronLeft size={20} />
+					<TbChevronLeft size={20} />
 				</span>
 				<div class="flex min-w-0 flex-col">
 					<span class="text-xs font-medium text-gray-400 dark:text-gray-500">{prevLabel}</span>
@@ -67,7 +67,7 @@ if (!prev && !next) return null
 					</span>
 				</div>
 				<span class="text-gray-400 transition-transform duration-200 group-hover:translate-x-1 dark:text-gray-500">
-					<IconChevronRight size={20} />
+					<TbChevronRight size={20} />
 				</span>
 			</a>
 		) : (

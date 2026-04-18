@@ -1,10 +1,9 @@
 ---
-import { GoArrowRight } from "react-icons/go"
+import { TbArrowRight, TbClock } from "react-icons/tb"
 import Typography from "@/components/core/Typography/index.astro"
 import { getCategoryConfig } from "@/config/categories"
 import { twMerge } from "tailwind-merge"
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
-import { FiClock } from "react-icons/fi"
 
 interface Props {
 	title: string
@@ -62,7 +61,7 @@ const isFirst = variant === "first"
 					class="relative col-span-1 aspect-video w-full overflow-hidden rounded-3xl md:col-span-1"
 				>
 					<div class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:scale-125 group-hover:rotate-0">
-						<GoArrowRight className="h-full w-full" />
+						<TbArrowRight className="h-full w-full" />
 					</div>
 					<img
 						src={image}
@@ -79,7 +78,7 @@ const isFirst = variant === "first"
 							transition:name={`blog-reading-time-${slug}`}
 							class="text-dark dark:bg-dark/80 absolute top-5 left-5 z-20 flex items-center gap-1.5 rounded-2xl bg-white/90 px-3 py-1.5 text-xs font-semibold dark:text-white"
 						>
-							<FiClock className="text-sm" />
+							<TbClock className="text-sm" />
 							<span>
 								{readingTime} {t("blog.readingTime")}
 							</span>
@@ -89,7 +88,7 @@ const isFirst = variant === "first"
 			) : (
 				<a href={href} class="flex flex-col gap-6">
 					<div class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:scale-125 group-hover:rotate-0">
-						<GoArrowRight className="h-full w-full" />
+						<TbArrowRight className="h-full w-full" />
 					</div>
 					<div class="relative aspect-video w-full overflow-hidden rounded-3xl transition-transform group-hover:scale-105">
 						<img
@@ -107,7 +106,7 @@ const isFirst = variant === "first"
 								transition:name={`blog-reading-time-${slug}`}
 								class="text-dark dark:bg-dark/80 absolute top-5 left-5 z-20 flex items-center gap-1.5 rounded-2xl bg-white/90 px-3 py-1.5 text-xs font-semibold dark:text-white"
 							>
-								<FiClock className="text-sm" />
+								<TbClock className="text-sm" />
 								<span>
 									{readingTime} {t("blog.readingTime")}
 								</span>

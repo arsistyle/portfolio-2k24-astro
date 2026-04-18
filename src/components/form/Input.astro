@@ -1,0 +1,26 @@
+---
+interface Props {
+	id: string
+	name: string
+	label: string
+	type?: "text" | "email" | "password" | "number" | "tel"
+	placeholder?: string
+	class?: string
+}
+
+const { id, name, label, type = "text", placeholder, class: className = "" } = Astro.props
+---
+
+<div class={`flex flex-1 flex-col gap-2 ${className}`}>
+	<label for={id} class="text-dark ml-1 text-sm font-semibold dark:text-white">
+		{label}
+	</label>
+	<input
+		type={type}
+		id={id}
+		name={name}
+		class="form-control dark:bg-black-800/50 text-dark focus:ring-primary-500 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all duration-300 outline-none focus:border-transparent focus:ring-2 dark:border-white/10 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
+		placeholder={placeholder}
+	/>
+	<p id={`error-${id}`} class="mt-1 hidden text-xs text-red-500 dark:text-red-400"></p>
+</div>

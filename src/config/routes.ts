@@ -53,6 +53,14 @@ export const ROUTES: Route[] = [
 			es: ["local"],
 		},
 	},
+	{
+		name: "nav.contact",
+		href: "/contact",
+		availability: {
+			en: ["local", "development", "production"],
+			es: ["local", "development", "production"],
+		},
+	},
 ]
 
 export const isRouteEnabled = (path: string, lang: Langs, env: string): boolean => {

@@ -1,5 +1,7 @@
-import { IconBrandX, IconBrandLinkedin, IconBrandFacebook, IconLink } from "@tabler/icons-react"
 import { useState } from "react"
+import { SiX, SiFacebook } from "react-icons/si"
+import { TbLink } from "react-icons/tb"
+import { BsLinkedin } from "react-icons/bs"
 
 interface Props {
 	title: string
@@ -55,7 +57,7 @@ export default function ShareButtons({ title, slug, basePath, copiedLabel = "Cop
 	return (
 		<div className="flex items-center gap-2">
 			<button onClick={shareOnX} className={btnClass} aria-label="Share on X" title="X">
-				<IconBrandX size={18} />
+				<SiX size={18} />
 			</button>
 			<button
 				onClick={shareOnLinkedin}
@@ -63,7 +65,7 @@ export default function ShareButtons({ title, slug, basePath, copiedLabel = "Cop
 				aria-label="Share on LinkedIn"
 				title="LinkedIn"
 			>
-				<IconBrandLinkedin size={18} />
+				<BsLinkedin size={18} />
 			</button>
 			<button
 				onClick={shareOnFacebook}
@@ -71,7 +73,7 @@ export default function ShareButtons({ title, slug, basePath, copiedLabel = "Cop
 				aria-label="Share on Facebook"
 				title="Facebook"
 			>
-				<IconBrandFacebook size={18} />
+				<SiFacebook size={18} />
 			</button>
 			<button
 				onClick={copyLink}
@@ -79,7 +81,7 @@ export default function ShareButtons({ title, slug, basePath, copiedLabel = "Cop
 				aria-label="Copy link"
 				title="Copy link"
 			>
-				<IconLink size={18} />
+				<TbLink size={18} />
 				{copied && (
 					<span className="bg-primary-500 absolute -top-8 left-1/2 -translate-x-1/2 rounded-lg px-2 py-1 text-xs font-medium whitespace-nowrap text-white">
 						{copiedLabel}

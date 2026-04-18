@@ -105,5 +105,24 @@
   "audit.deliverables.4": "Una recomendación honesta — no una propuesta de venta",
   "audit.quote": "Yo te construyo el Ferrari. El volante es tuyo.",
   "audit.cta.title": "¿Quieres saber cómo estás realmente?",
-  "audit.cta.button": "Agenda una auditoría"
+  "audit.cta.button": "Agenda una auditoría",
+
+  "nav.contact": "Contacto",
+  "contact.title": "Trabajemos juntos",
+  "contact.description": "Completa el formulario y te responderé a la brevedad.",
+  "contact.form.name": "Nombre",
+  "contact.form.email": "Correo electrónico",
+  "contact.form.subject": "Asunto",
+  "contact.form.subject.placeholder": "Selecciona una opción",
+  "contact.form.subject.web": "Desarrollo Web / Rediseño",
+  "contact.form.subject.audit": "Auditoría Web",
+  "contact.form.subject.other": "Otro",
+  "contact.form.message": "Mensaje",
+  "contact.form.submit": "Enviar mensaje",
+  "contact.form.success": "¡Mensaje enviado con éxito! Estaré en contacto pronto.",
+  "contact.form.error": "Hubo un error al enviar tu mensaje. Inténtalo de nuevo o contáctame por mis redes.",
+  "contact.props.heading": "¿Por qué trabajar conmigo?",
+  "contact.props.reply": "Respondo en menos de 24 horas",
+  "contact.props.privacy": "Tu información es tratada con privacidad",
+  "contact.props.transparency": "Sin compromiso, con total claridad"
 }

@@ -12,4 +12,5 @@ export interface ButtonProps {
 	type?: "button" | "submit" | "reset" | undefined | null
 	variant?: "filled" | "outlined"
 	slotProps?: any
+	id?: string
 }
