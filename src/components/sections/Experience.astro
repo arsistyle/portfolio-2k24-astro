@@ -10,8 +10,10 @@ const t = useTranslations(lang)
 
 const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || { jobs: [] }
 
-const experienceText = t("home.experience.title")
-const experienceStart = "2017-03-01"
+const startDate = "2017-03-01"
+const years = new Date(Date.now() - new Date(startDate).getTime()).getUTCFullYear() - 1970
+const rawExperienceText = t("home.experience.title")
+const experienceText = rawExperienceText.replace("{YEARS_EXPERIENCE}", String(years))
 ---
 
 <section
@@ -20,9 +22,12 @@ const experienceStart = "2017-03-01"
 	<div class="container">
 		<Typography
 			variant="h2"
+			id="experience-title"
+			data-template={rawExperienceText}
+			data-start={startDate}
 			class="text-dark mb-12 max-w-3xl leading-tight text-balance md:mb-20 dark:text-white"
 		>
-			<span id="yearsExperience" style="display:none"></span>
+			{experienceText}
 		</Typography>
 		<div class="grid grid-cols-2 gap-8 sm:gap-12 md:gap-20">
 			{
@@ -41,15 +46,10 @@ const experienceStart = "2017-03-01"
 	</div>
 </section>
 
-<script is:inline define:vars={{ experienceText, experienceStart }}>
-	const date = new Date()
-	const startDate = new Date(experienceStart)
-
-	const years = date.getFullYear() - startDate.getFullYear()
-
-	const totalExperience = experienceText.replace(/\{YEARS_EXPERIENCE}/, String(years))
-
-	const yearsExperience = document.getElementById("yearsExperience")
-	yearsExperience.innerHTML = totalExperience
-	yearsExperience.style.display = ""
+<script>
+	const el = document.getElementById("experience-title")
+	if (el instanceof HTMLElement) {
+		const years = new Date(Date.now() - new Date(el.dataset.start!).getTime()).getUTCFullYear() - 1970
+		el.textContent = el.dataset.template!.replace("{YEARS_EXPERIENCE}", String(years))
+	}
 </script>
