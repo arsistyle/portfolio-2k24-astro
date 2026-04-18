@@ -46,6 +46,7 @@ src/
 │   ├── shared/           # Header, Footer
 │   ├── ui/               # Nav, Breadcrumbs, HeaderPage, Menu
 │   └── icons/            # SVG icon components
+├── middleware.ts          # Route protection — blocks disabled routes by env at runtime
 ├── config/               # giscus.ts, routes.ts, categories.ts
 ├── constants/            # index.ts — URLs, payment methods, blog settings
 ├── content/
@@ -83,11 +84,24 @@ scripts/                  # fix-routes.mjs (post-build Cloudflare route fixer + 
 | `/shop/[id]/` | EN + ES | **local only** |
 | `/shop/thank-you/` | EN + ES | **local only** |
 | `/audit/` | EN + ES | all |
+| `/contact/` | EN + ES | all |
 | `/components/` | EN | dev |
 | `/api/blog-index.json` | — | all (SSR) |
+| `/api/contact` | — | all (SSR POST) |
 | `/llms.txt` | — | all |
 
-Spanish routes mirror English routes under `/es/` prefix. Route availability is controlled via `src/config/routes.ts` with env-based gating.
+Spanish routes mirror English routes under `/es/` prefix. Route availability is controlled via `src/config/routes.ts` with env-based gating, **enforced at runtime by `src/middleware.ts`** — direct URL access to disabled routes returns 302 → `/404`.
+
+### Route Protection Middleware (`src/middleware.ts`)
+
+Intercepts all non-API, non-asset requests and calls `isRouteEnabled()` from `routes.ts`. If the route is not allowed in the current env, redirects to `/404` (302).
+
+- **Env detection:** `import.meta.env.APP_ENV` (override) → `import.meta.env.MODE` ("development" | "production")
+- **Path normalization:** strips `/es` prefix before checking (routes in `ROUTES` use no lang prefix)
+- **Skips:** `/api/*` and paths with a file extension (static assets)
+- **Local dev (`astro dev`):** `MODE = "development"` → shop accessible (logic in `isRouteEnabled` treats "development" as "local")
+- **Production build / Cloudflare deploy:** `MODE = "production"` → shop routes return 404
+- **Override:** set `APP_ENV=local` in `.env` to simulate local-only access in any build mode
 
 ---
 
@@ -104,7 +118,7 @@ Spanish routes mirror English routes under `/es/` prefix. Route availability is 
 
 | Component | Description |
 |---|---|
-| `Button` | Multi-variant button: filled/outlined, colors (primary/secondary/dark/light/whatsapp), sizes (xs–xl) |
+| `Button` | Multi-variant button: filled/outlined, colors (primary/secondary/dark/light/whatsapp), sizes (xs–xl). Supports `id` prop (forwarded to the DOM element — useful for JS targeting like submit buttons). |
 | `BlogCard` | Post preview card with reading time |
 | `BlogPaginator` | Prev/next post navigation |
 | `CategoryFilter` | Blog category filtering UI |
@@ -131,13 +145,24 @@ Spanish routes mirror English routes under `/es/` prefix. Route availability is 
 | `ResponsePage` | Dynamic content layout |
 | `Sources` | Citation/source links |
 
-**Section components:** `Hero` (animated blob avatar — Perlin noise + mouse tracking), `About`, `Experience` (timeline, dynamic year calc), `Stack` (marquee + tooltips), `Projects`, `ProjectsAll`, `Products`, `ProductsAll`, `ShopThankYou`, `AuditService` (composer for the audit page — imports `AuditWho`, `AuditLayers`, `AuditDeliverables`, `AuditCTA`).
+**Section components:** `Hero` (animated blob avatar — Perlin noise + mouse tracking), `About`, `Experience` (timeline, dynamic year calc), `Stack` (marquee + tooltips), `Projects`, `ProjectsAll`, `Products`, `ProductsAll`, `ShopThankYou`, `AuditService` (composer for the audit page — imports `AuditWho`, `AuditLayers`, `AuditDeliverables`, `AuditCTA`), `ContactForm` (contact form section — see below).
+
+**ContactForm (`src/components/sections/ContactForm.astro`):**
+Two-column layout: `grid grid-cols-1 items-start gap-12 md:grid-cols-[5fr_7fr] md:gap-20`.
+- **Left column:** description paragraph + "Why work with me?" heading + 3 highlight props (reply, privacy, transparency) — all from i18n keys `contact.props.*`
+- **Right column:** the form with `Input`, `Select`, `Textarea` form components + Cloudflare Turnstile CAPTCHA + submit `Button` (variant="filled" color="primary" class="w-full") with `TbLoader` spinner from `react-icons/tb` as `startIcon` slot
+- **Loading state:** during submission, all fields get `disabled` + `opacity-60 cursor-not-allowed` classes. Spinner uses `hidden`/`block` toggle via `getElementById("submit-spinner")`
+- **Status messages:** `#form-status` div toggled `hidden`/`block` with success/error messages from `data-success`/`data-error` attributes
+- **Turnstile:** site key from `import.meta.env.PUBLIC_TURNSTILE_SITE_KEY` (fallback: `"1x00000000000000000000AA"` for local testing)
+- **Form components** (`src/components/form/`): `Input.astro`, `Select.astro`, `Textarea.astro` — styled form fields
 
 **Icon system:** Custom SVG icons in `src/components/icons/`. Currently available: `Check` (checkmark SVG). Import via `import { Check } from "@/components/icons/index.astro"`. For additional icons use `@tabler/icons-react` or `react-icons`.
 
 **Typography CSS classes** (from `typography.css`): `h1`–`h5` apply Syne font + responsive clamp sizing. `p.highlight` gives larger body text (`clamp(1.1rem,1.6vw,1.4rem)`). Color is NOT included in these classes — always add `text-dark dark:text-white` explicitly. The `h1.heading` variant uses `clamp(2.8rem,8vw,8rem)` for hero-scale display text.
 
 **`p.highlight` requires BOTH classes** on the element: `<p class="p highlight">`. The Typography component renders `<Tag class={twMerge(type, className)}>`, so `type="highlight"` is NOT valid — it falls back to `<p>` but only applies the `highlight` class, missing `p`. Always write `<p class="p highlight ...">` directly.
+
+**Always add `text-dark` explicitly** to Typography components. The `h1`–`h5` and other typographic classes do NOT include a light-mode text color — omitting `text-dark dark:text-white` causes invisible text in light mode. Convention: every Typography usage should have `class="text-dark ... dark:text-white"` (or equivalent).
 
 **`font-syne` Tailwind utility** is available (from `--font-family-syne` in `@theme`) for inline decorative text that needs Syne without using the Typography component.
 
@@ -261,6 +286,15 @@ Each category has: custom icon, Tailwind className overrides, display order, and
 - `/api/blog-index.json` — SSR endpoint returning search index
 - `search_context` field in frontmatter for richer search
 
+**Contact API (`/src/pages/api/contact.ts`):**
+- `export const prerender = false` — SSR route
+- Method: POST, accepts `application/x-www-form-urlencoded`
+- Validation: Zod schemas per lang (`src/utils/validations.ts`) — fields: `name`, `email`, `subject`, `message`, `cf-turnstile-response`, `lang`
+- Security: HTML-escapes all user inputs via `escapeHtml()` before embedding in email HTML
+- Cloudflare Turnstile verification (POST to `https://challenges.cloudflare.com/turnstile/v0/siteverify`)
+- Email via Resend API (`https://api.resend.com/emails`)
+- Env vars: `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`, `RESEND_TO_EMAIL`, `RESEND_FROM_EMAIL` (read via Cloudflare runtime env with `import.meta.env` fallback)
+
 ---
 
 ## Constants (`src/constants/index.ts`)
@@ -310,6 +344,8 @@ Runs automatically after `astro build`. Does three things:
 
 3. **Cleanup** — removes `dist/server/wrangler.json` and `.wrangler/deploy/config.json` to prevent Cloudflare's "redirected wrangler configuration" from conflicting with the root `wrangler.toml`.
 
+**Cloudflare runtime env pattern (SSR routes):** On Cloudflare Pages, secret env vars are available via `locals.runtime.env`, NOT via `import.meta.env` at runtime. Always read them with fallback: `const runtimeEnv = (locals as any).runtime?.env || {}; const secret = runtimeEnv.MY_VAR || import.meta.env.MY_VAR`. The `import.meta.env` fallback covers local dev (wrangler dev / astro dev with platformProxy).
+
 **Wrangler (`wrangler.toml`):**
 - Output: `./dist/client` (`pages_build_output_dir`) — points to where the adapter puts static files
 - Compatibility date: 2025-08-15
@@ -343,13 +379,13 @@ dist/
 
 - **Path aliases:** `@/` maps to `src/` — use for all internal imports
 - **Images:** Always use Cloudflare R2 CDN URLs for blog/project images
-- **Language gating:** New content routes must be added to `src/config/routes.ts`
+- **Language gating:** New content routes must be added to `src/config/routes.ts` — the middleware enforces availability automatically; no per-page guard needed
 - **New blog categories:** Add to `src/config/categories.ts` with icon, className, order, and translations
 - **SSR pages:** Add `export const prerender = false` at top of page file
 - **Component variants:** Use `class-variance-authority` + `tailwind-merge`
 - **Dark mode classes:** Use `dark:` Tailwind prefix (triggered by `.dark` on `<html>`)
 - **No CLAUDE.md** exists in the repo — this skill is the authoritative project reference
-- **Scroll animations:** Use CSS `animation-timeline: view()` with `animation-fill-mode: both`. Correct range: `entry 0% cover 30%` (or similar `cover` endpoint). Avoid `entry 0% entry X%` — the entry-only range completes too fast to be visible. Pattern already in use: `mark-text.css`. Named scroll timeline `--mainTimeline` is defined on `html` for parallax effects; separate from view()-based entrance animations.
+- **Scroll animations:** Use CSS `animation-timeline: view()` with `animation-fill-mode: both`. Correct range: `entry 0% cover 30%` (or similar `cover` endpoint). Avoid `entry 0% entry X%` — the entry-only range completes too fast to be visible. Pattern already in use: `mark-text.css` (highlight color: `primary.400`). Named scroll timeline `--mainTimeline` is defined on `html` for parallax effects; separate from view()-based entrance animations.
 - **Copy voice:** Israel works alone — always first person singular in all copy ("reviso", "audito", "evalúo" / "I review", "I audit"). Never "revisamos", "we review", etc.
 - **In-page CTA vs Footer:** Footer uses an 8+4 split grid with green bg. In-page CTAs should use centered layout (`flex-col items-center text-center`) to avoid visual confusion with the Footer.
-- **Bento grid pattern:** Used in AuditWho — `grid grid-cols-2 gap-4` with `col-span-2` full-width card + two `col-span-2 md:col-span-1` cards. Brand colors: `bg-secondary-400` (purple), `bg-primary-400` (green), `bg-tertiary-400` (orange). Text always `text-dark` on colored backgrounds.
+- **Bento grid pattern:** Used in AuditWho — `grid grid-cols-3 gap-4` with cards as `col-span-3 lg:col-span-1` (each card takes full width on mobile, 1/3 on large screens). Brand colors: `bg-secondary-400` (purple), `bg-primary-400` (green), `bg-tertiary-400` (orange). Text always `text-dark` on colored backgrounds. Cards use `hover:translate-y-4 transition-transform duration-300 cursor-default`.

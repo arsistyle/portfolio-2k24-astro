@@ -1,0 +1,136 @@
+---
+import { cn } from "@/utils/cn"
+
+/**
+ * Navigation Progress Bar
+ * Shows a loading bar at the top of the page during View Transitions navigation
+ */
+---
+
+<div
+	id="nav-progress-bar"
+	class:list={[
+		"nav-progress-bar",
+		"from-secondary-400 via-primary-400 to-secondary-400 pointer-events-none fixed top-0 right-0 left-0 z-9999 h-1 w-0 animate-[bg-position_2s_linear_infinite] rounded-full bg-linear-to-r bg-size-[200%_100%] opacity-0",
+	]}
+	transition:persist
+>
+</div>
+
+<style is:global>
+	/* .nav-progress-bar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 4px;
+		width: 0%;
+		border-radius: 4px;
+		background: linear-gradient(
+			90deg,
+			var(--color-secondary-400, #06b6d4),
+			var(--color-primary-400, #10b981),
+			var(--color-secondary-400, #06b6d4)
+		);
+		z-index: 9999;
+		pointer-events: none;
+		opacity: 0;
+		background-size: 200% 100%;
+		animation: bg-position 2s linear infinite;
+	} */
+
+	.nav-progress-bar.loading {
+		opacity: 1;
+		transition: width 0.1s ease-out;
+	}
+
+	.nav-progress-bar.complete {
+		width: 100% !important;
+		transition:
+			width 0.08s ease-out,
+			opacity 0.2s ease-out 0.08s;
+	}
+
+	.nav-progress-bar.fade-out {
+		opacity: 0;
+	}
+
+	@keyframes bg-position {
+		0% {
+			background-position: 200% 0;
+		}
+		100% {
+			background-position: 0 0;
+		}
+	}
+</style>
+
+<script is:inline>
+	;(function initProgressBar() {
+		var progressInterval = null
+		var currentProgress = 0
+		var isNavigating = false
+
+		function getProgressBar() {
+			return document.getElementById("nav-progress-bar")
+		}
+
+		function startProgress() {
+			var progressBar = getProgressBar()
+			if (!progressBar || isNavigating) return
+
+			isNavigating = true
+			currentProgress = 0
+			progressBar.style.width = "0%"
+			progressBar.classList.add("loading")
+
+			if (progressInterval) {
+				clearInterval(progressInterval)
+			}
+
+			progressInterval = setInterval(function () {
+				if (currentProgress < 85) {
+					var increment = Math.max((85 - currentProgress) / 6, 1.5)
+					currentProgress += increment
+					progressBar.style.width = currentProgress + "%"
+				}
+			}, 60)
+		}
+
+		function completeProgress() {
+			var progressBar = getProgressBar()
+			if (!progressBar) return
+
+			if (progressInterval) {
+				clearInterval(progressInterval)
+				progressInterval = null
+			}
+
+			// Set to 100% while still visible
+			progressBar.style.width = "100%"
+			progressBar.classList.add("complete")
+
+			// Force repaint to ensure 100% is rendered
+			void progressBar.offsetWidth
+
+			// Wait a moment at 100%, then fade out
+			setTimeout(function () {
+				progressBar.classList.add("fade-out")
+
+				setTimeout(function () {
+					progressBar.style.width = "0%"
+					progressBar.classList.remove("loading", "complete", "fade-out")
+					currentProgress = 0
+					isNavigating = false
+				}, 300)
+			}, 250)
+		}
+
+		// Setup once
+		if (!window.__progressBarInitialized) {
+			window.__progressBarInitialized = true
+			document.addEventListener("astro:before-preparation", startProgress)
+			document.addEventListener("astro:page-load", completeProgress)
+		}
+	})()
+</script>
