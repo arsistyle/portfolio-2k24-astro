@@ -25,6 +25,7 @@ interface Props {
 }
 
 import { getEntry } from "astro:content"
+import NavProgressBar from "@/components/core/nav-progress-bar.astro"
 
 const { props } = Astro
 const lang = getLangFromUrl(Astro.url)
@@ -110,6 +111,7 @@ const canonical = raw_canonical
 	</head>
 
 	<body class="dark:bg-dark font-google-sans-flex flex min-h-screen flex-col bg-white">
+		<NavProgressBar />
 		{showHeader && <Header lang={langSelector} />}
 		<main class="grow">
 			<slot />
