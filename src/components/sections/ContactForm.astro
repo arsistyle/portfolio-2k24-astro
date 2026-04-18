@@ -18,7 +18,7 @@ const subjectOptions = [
 	{ value: "Other", label: t("contact.form.subject.other") },
 ]
 
-const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
 ---
 
 <div class="mt-10 mb-16 grid grid-cols-1 items-start gap-12 md:grid-cols-[5fr_7fr] md:gap-20">
@@ -71,9 +71,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY
 
 		<Select id="subject" name="subject" label={t("contact.form.subject")}>
 			<option value="" disabled selected>{t("contact.form.subject.placeholder")}</option>
-			{subjectOptions.map(({ value, label }) => (
-				<option value={value}>{label}</option>
-			))}
+			{subjectOptions.map(({ value, label }) => <option value={value}>{label}</option>)}
 		</Select>
 
 		<Textarea id="message" name="message" label={t("contact.form.message")} placeholder="..." />

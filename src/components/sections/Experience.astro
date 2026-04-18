@@ -10,7 +10,7 @@ const t = useTranslations(lang)
 
 const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || { jobs: [] }
 
-const years = new Date().getFullYear() - new Date("2017-03-01").getFullYear()
+const years = new Date(Date.now() - new Date("2017-03-01").getTime()).getUTCFullYear() - 1970
 const experienceText = t("home.experience.title").replace("{YEARS_EXPERIENCE}", String(years))
 ---
 
