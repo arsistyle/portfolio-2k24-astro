@@ -46,7 +46,7 @@ const t = useTranslations(lang)
 						<!-- Avatar Wrapper with Dynamic Clip Path -->
 						<div
 							id="blob-wrapper"
-							class="bg-secondary-400 dark:bg-secondary-300 relative h-full w-full overflow-hidden transition-transform duration-500 will-change-transform group-hover:scale-105"
+							class="bg-secondary-400 dark:bg-secondary-300 relative h-full w-full overflow-hidden"
 							style="clip-path: url(#blob-clip); mask-image: linear-gradient(to bottom, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);"
 						>
 							<Image
@@ -66,13 +66,6 @@ const t = useTranslations(lang)
 	</div>
 	<BackgroundGrid class="absolute -top-96 bottom-0" />
 </section>
-
-<style>
-	#hero-avatar-container {
-		cursor: crosshair;
-		filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.2));
-	}
-</style>
 
 <script>
 	// Procedural Noise for organic motion
@@ -121,11 +114,11 @@ const t = useTranslations(lang)
 
 		const config = {
 			animationSpeed: 0.003,
-			mouseLerpFactor: 0.1,
+			mouseLerpFactor: 0.2,
 			noiseInfluence: 0.075,
 			positionLerpFactor: 0.05,
 			magneticDistance: 0.6,
-			magneticStrength: 0.25,
+			magneticStrength: 0.5,
 		}
 
 		const noiseGen = new Noise2D()
@@ -140,8 +133,8 @@ const t = useTranslations(lang)
 			points.push({
 				x: 0.5 + Math.cos(angle) * 0.5,
 				y: 0.8 + Math.sin(angle) * 0.5,
-				ox: Math.cos(angle) * 0.6,
-				oy: Math.sin(angle) * 0.63,
+				ox: Math.cos(angle) * 0.625,
+				oy: Math.sin(angle) * 0.625,
 				angle: angle,
 			})
 		}
