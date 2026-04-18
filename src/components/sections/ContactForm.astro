@@ -12,8 +12,12 @@ import Typography from "@/components/core/Typography/index.astro"
 const { url } = Astro
 const lang = getLangFromUrl(url)
 const t = useTranslations(lang)
+const subjectOptions = [
+	{ value: "Web Development", label: t("contact.form.subject.web") },
+	{ value: "Web Audit", label: t("contact.form.subject.audit") },
+	{ value: "Other", label: t("contact.form.subject.other") },
+]
 
-// Use the public key from env, fallback to the generic generic test key
 const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
 ---
 
@@ -67,9 +71,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "1x0000000000000000
 
 		<Select id="subject" name="subject" label={t("contact.form.subject")}>
 			<option value="" disabled selected>{t("contact.form.subject.placeholder")}</option>
-			<option value="Web Development">{t("contact.form.subject.web")}</option>
-			<option value="Web Audit">{t("contact.form.subject.audit")}</option>
-			<option value="Other">{t("contact.form.subject.other")}</option>
+			{subjectOptions.map(({ value, label }) => <option value={value}>{label}</option>)}
 		</Select>
 
 		<Textarea id="message" name="message" label={t("contact.form.message")} placeholder="..." />
@@ -134,6 +136,12 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "1x0000000000000000
 		const submitSpinner = document.getElementById("submit-spinner") as HTMLElement | null
 
 		if (!form) return
+
+		const subjectParam = new URLSearchParams(window.location.search).get("subject")
+		if (subjectParam) {
+			const select = document.getElementById("subject") as HTMLSelectElement | null
+			if (select) select.value = subjectParam
+		}
 
 		const lang = form.dataset.lang || "es"
 		const successMsg = form.dataset.success || ""

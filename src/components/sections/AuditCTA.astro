@@ -1,11 +1,12 @@
 ---
-import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
 import Button from "@/components/core/Button/index.astro"
 import Typography from "@/components/core/Typography/index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 ---
 
 <section class="cta-section pb-14 md:pb-40">
@@ -15,7 +16,13 @@ const t = useTranslations(lang)
 		<Typography variant="h2" class="text-dark max-w-2xl text-pretty">
 			{t("audit.cta.title" as any)}
 		</Typography>
-		<Button tag="a" href="/contact" variant="filled" color="dark" size="xl">
+		<Button
+			tag="a"
+			href={`${translatePath("/contact")}?subject=Web%20Audit`}
+			variant="filled"
+			color="dark"
+			size="xl"
+		>
 			{t("audit.cta.button" as any)}
 		</Button>
 	</div>
