@@ -1,11 +1,12 @@
 ---
-import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@/i18n/utils"
 
 import Button from "@/components/core/Button/index.astro"
 import Typography from "@/components/core/Typography/index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 ---
 
 <footer class="sticky bottom-0 z-0 mt-auto">
@@ -22,7 +23,7 @@ const t = useTranslations(lang)
 					<div class="flex justify-end">
 						<Button
 							tag="a"
-							href="/contact"
+							href={translatePath("/contact")}
 							class="text-primary-300"
 							variant="filled"
 							color="dark"
