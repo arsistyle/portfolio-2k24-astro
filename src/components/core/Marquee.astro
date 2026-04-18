@@ -1,12 +1,7 @@
 ---
-import theme from "tailwindcss/defaultTheme"
 const { total, itemWidth } = Astro.props
-
-const { spacing } = theme
-const width = spacing[itemWidth as keyof typeof spacing]
-const remValue = Number(width.replace("rem", "")) || 0
-const remToPixel = remValue * 16
-const totalWidth = total * remToPixel * 2
+// Tailwind spacing: 1 unit = 0.25rem = 4px
+const totalWidth = total * Number(itemWidth) * 4 * 2
 ---
 
 <div class="marquee relative overflow-hidden">

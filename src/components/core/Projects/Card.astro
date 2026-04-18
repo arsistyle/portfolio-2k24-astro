@@ -1,8 +1,8 @@
 ---
 import { Image } from "astro:assets"
-import { GoArrowRight } from "react-icons/go"
+import { TbArrowRight } from "react-icons/tb"
 
-import { Typography } from "@/components/index.astro"
+import Typography from "@/components/core/Typography/index.astro"
 import { getLangFromUrl, useTranslatedPath } from "@/i18n/utils"
 
 const lang = getLangFromUrl(Astro.url)
@@ -17,7 +17,7 @@ const { categories = [], title = "", images = [], name = "" } = project || {}
 		<div
 			class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:scale-125 group-hover:rotate-0"
 		>
-			<GoArrowRight className="h-full w-full" />
+			<TbArrowRight className="h-full w-full" />
 		</div>
 
 		{
@@ -47,7 +47,7 @@ const { categories = [], title = "", images = [], name = "" } = project || {}
 				}
 			</div>
 			<Typography
-				type="h3"
+				variant="h3"
 				class="text-dark group-hover:text-primary-500 dark:group-hover:text-primary-300 transition-colors dark:text-white"
 				transition:name={`project-title-${name}`}
 			>

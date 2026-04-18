@@ -17,6 +17,18 @@
       "description": "Una exhibición de proyectos seleccionados que combinan diseño premium con implementaciones técnicas sólidas.",
       "og_title": "Proyectos | Israel Larrondo",
       "og_image": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png"
+    },
+    "audit": {
+      "title": "Israel Larrondo | Auditoría Web",
+      "description": "Una auditoría web consultiva que te dice la verdad sobre tu presencia digital — y qué hacer al respecto.",
+      "og_title": "Auditoría Web | Israel Larrondo",
+      "og_image": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png"
+    },
+    "contact": {
+      "title": "Israel Larrondo | Contacto",
+      "description": "Ponte en contacto para desarrollo web, rediseños, auditorías o colaboraciones. Siempre estoy abierto a discutir nuevos proyectos y oportunidades.",
+      "og_title": "Contacto | Israel Larrondo",
+      "og_image": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png"
     }
   }
 }

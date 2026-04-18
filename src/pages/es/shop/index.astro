@@ -1,7 +1,7 @@
 ---
 import PageLayout from "@/layouts/PageLayout.astro"
-import ProductsAll from "../../../components/sections/ProductsAll.astro"
-import { getLangFromUrl, useTranslatedPath, useTranslations } from "../../../i18n/utils"
+import ProductsAll from "@/components/sections/ProductsAll.astro"
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)

@@ -1,5 +1,3 @@
-// import { IconBrandFigma, IconBrandGithub, IconBrandNextjs, IconBrandReact, IconBrandTailwind, IconBrandVercel } from "@tabler/icons-react";
-
 import {
 	SiAstro,
 	SiFigma,

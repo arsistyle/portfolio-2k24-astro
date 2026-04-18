@@ -1,18 +1,21 @@
 ---
-import { getLangFromUrl, useTranslations } from "@/i18n/utils"
-import { Button, Typography } from "@/components/index.astro"
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@/i18n/utils"
+
+import Button from "@/components/core/Button/index.astro"
+import Typography from "@/components/core/Typography/index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 ---
 
 <footer class="sticky bottom-0 z-0 mt-auto">
-	<div class="bg-primary-500 dark:bg-primary-300 md:rounded-t-main rounded-t-4xl p-7 md:p-14">
+	<div class="bg-primary-400 dark:bg-primary-300 md:rounded-t-main rounded-t-4xl p-7 md:p-14">
 		<div class="container mx-auto">
 			<div class="grid gap-6 md:grid-cols-12">
 				<div class="md:col-span-8">
 					<div class="flex flex-col gap-4">
-						<Typography type="h4" class="text-dark">{t("footer.title")}</Typography>
+						<Typography variant="h4" class="text-dark">{t("footer.title")}</Typography>
 						<Typography class="text-dark text-pretty">{t("footer.description")}</Typography>
 					</div>
 				</div>
@@ -20,12 +23,11 @@ const t = useTranslations(lang)
 					<div class="flex justify-end">
 						<Button
 							tag="a"
-							href="/contact"
+							href={translatePath("/contact")}
 							class="text-primary-300"
 							variant="filled"
 							color="dark"
 							size="lg"
-							disabled
 						>
 							{t("footer.cta")}
 						</Button>

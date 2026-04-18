@@ -1,8 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions"
+import { Font } from "astro:assets"
 import { SEO } from "astro-seo"
-import "@fontsource-variable/syne"
-import "@fontsource-variable/google-sans-flex"
 
 import { getLangFromUrl } from "@/i18n/utils"
 
@@ -26,6 +25,7 @@ interface Props {
 }
 
 import { getEntry } from "astro:content"
+import NavProgressBar from "@/components/core/nav-progress-bar.astro"
 
 const { props } = Astro
 const lang = getLangFromUrl(Astro.url)
@@ -75,6 +75,8 @@ const canonical = raw_canonical
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<Font cssVariable="--font-syne" preload />
+		<Font cssVariable="--font-google-sans-flex" preload />
 		<meta property="fb:app_id" content={FB_APP_ID} />
 		<SEO
 			title={title || ""}
@@ -108,7 +110,8 @@ const canonical = raw_canonical
 		<ClientRouter />
 	</head>
 
-	<body class="dark:bg-dark flex min-h-screen flex-col bg-white">
+	<body class="dark:bg-dark font-google-sans-flex flex min-h-screen flex-col bg-white">
+		<NavProgressBar />
 		{showHeader && <Header lang={langSelector} />}
 		<main class="grow">
 			<slot />

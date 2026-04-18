@@ -1,9 +1,11 @@
 ---
 import { getLangFromUrl, useTranslations, useTranslatedPath } from "@/i18n/utils"
-import { BackgroundGrid, Button, Typography } from "@/components/index.astro"
 import Layout from "@/layouts/Layout.astro"
 import Magnet from "@/components/core/Magnet"
-import { BiArrowBack } from "react-icons/bi"
+import { TbArrowLeft } from "react-icons/tb"
+import Typography from "@/components/core/Typography/index.astro"
+import Button from "@/components/core/Button/index.astro"
+import BackgroundGrid from "@/components/core/BackgroundGrid/index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -21,9 +23,9 @@ const translatePath = useTranslatedPath(lang)
 				{t("404.title")}
 			</h1></Magnet
 		>
-		<Typography type="p" class="highlight text-white">{t("404.description")}</Typography>
+		<Typography class="highlight text-white">{t("404.description")}</Typography>
 		<Button tag="a" href={translatePath("/")} variant="outlined" size="lg">
-			<BiArrowBack slot="startIcon" />
+			<TbArrowLeft slot="startIcon" />
 			{t("404.cta")}
 		</Button>
 	</div>

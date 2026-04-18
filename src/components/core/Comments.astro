@@ -1,0 +1,104 @@
+---
+import { defaultLang } from "@/i18n/ui"
+import { giscusConfig } from "@/config/giscus"
+
+const { id = "", lang = defaultLang } = Astro.props
+
+const { repo, repoId, category, categoryId } = giscusConfig
+---
+
+<section
+	class="mx-auto w-full"
+	id={`comments-${id}`}
+	data-giscus-container
+	data-repo={repo}
+	data-repo-id={repoId}
+	data-category={category}
+	data-category-id={categoryId}
+	data-lang={lang}
+>
+	<div class="giscus"></div>
+</section>
+
+<script>
+	import { defaultLang } from "@/i18n/ui"
+
+	function getGiscusTheme(theme?: string) {
+		if (theme) return theme
+
+		const cookieValue = document.cookie
+			.split("; ")
+			.find((row) => row.startsWith("color-theme="))
+			?.split("=")[1]
+
+		if (cookieValue === "dark") return "dark"
+		if (cookieValue === "light") return "light"
+
+		return document.documentElement.classList.contains("dark") ? "dark" : "light"
+	}
+
+	function updateGiscusTheme(theme?: string) {
+		const giscusIframe = document.querySelector("iframe.giscus-frame") as HTMLIFrameElement
+		if (!giscusIframe) return
+
+		giscusIframe.contentWindow?.postMessage(
+			{
+				giscus: {
+					setConfig: {
+						theme: getGiscusTheme(theme),
+					},
+				},
+			},
+			"https://giscus.app"
+		)
+	}
+
+	function loadGiscus() {
+		const container = document.querySelector("[data-giscus-container]") as HTMLElement
+		if (!container) return
+
+		const giscusPlaceholder = container.querySelector(".giscus")
+		if (!giscusPlaceholder) return
+
+		// Clear previous content
+		giscusPlaceholder.innerHTML = ""
+
+		const config = container.dataset
+
+		const script = document.createElement("script")
+		script.id = "giscus-script"
+		script.src = "https://giscus.app/client.js"
+		script.setAttribute("data-repo", config.repo || "")
+		script.setAttribute("data-repo-id", config.repoId || "")
+		script.setAttribute("data-category", config.category || "")
+		script.setAttribute("data-category-id", config.categoryId || "")
+		script.setAttribute("data-mapping", "pathname")
+		script.setAttribute("data-strict", "0")
+		script.setAttribute("data-reactions-enabled", "1")
+		script.setAttribute("data-emit-metadata", "0")
+		script.setAttribute("data-input-position", "top")
+		script.setAttribute("data-theme", getGiscusTheme())
+		script.setAttribute("data-lang", config.lang || defaultLang)
+		script.setAttribute("data-loading", "lazy")
+		script.setAttribute("crossorigin", "anonymous")
+		script.async = true
+
+		giscusPlaceholder.appendChild(script)
+	}
+
+	const handleThemeChange = (e: Event) => {
+		const customEvent = e as CustomEvent
+		updateGiscusTheme(customEvent.detail.theme)
+	}
+
+	// Initialize on page load
+	document.addEventListener("astro:page-load", () => {
+		loadGiscus()
+		document.addEventListener("theme-changed", handleThemeChange)
+	})
+
+	// Cleanup
+	document.addEventListener("astro:before-swap", () => {
+		document.removeEventListener("theme-changed", handleThemeChange)
+	})
+</script>

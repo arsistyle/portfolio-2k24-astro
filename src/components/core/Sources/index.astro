@@ -1,5 +1,5 @@
 ---
-import { Typography } from "@/components/index.astro"
+import Typography from "@/components/core/Typography/index.astro"
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 
 interface Source {
@@ -38,7 +38,7 @@ const getFavicon = (url: string): string | null => {
 
 <section class="sources-container rounded-2xl">
 	<div class="mb-4 flex items-center gap-2">
-		<Typography type="h5" class="text-dark/90 text-sm font-medium dark:text-white/90">
+		<Typography variant="h5" class="text-dark/90 text-sm font-medium dark:text-white/90">
 			{displayTitle}
 		</Typography>
 	</div>
@@ -67,7 +67,7 @@ const getFavicon = (url: string): string | null => {
 								{domain}
 							</span>
 							<Typography
-								type="span"
+								variant="span"
 								class="text-dark/80 group-hover:text-dark line-clamp-1 text-sm dark:text-white/80 dark:group-hover:text-white"
 							>
 								{label}

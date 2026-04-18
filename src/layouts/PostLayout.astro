@@ -1,16 +1,18 @@
 ---
+import { getImage } from "astro:assets"
+import { twMerge } from "tailwind-merge"
+import { TbClock } from "react-icons/tb"
+
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
-import { getImage } from "astro:assets"
-import PageLayout from "@/layouts/PageLayout.astro"
 import { getCategoryConfig } from "@/config/categories"
-import { Typography } from "@/components/index.astro"
-import { twMerge } from "tailwind-merge"
+// import AdSlot from "@/components/core/AdSlot/AdSlot.astro"
 import BlogPaginator from "@/components/core/BlogPaginator/BlogPaginator.astro"
-import ShareButtons from "@/components/core/ShareButtons/ShareButtons"
-import AdSlot from "@/components/core/AdSlot/AdSlot.astro"
+import Comments from "@/components/core/Comments.astro"
 import DonationBox from "@/components/core/DonationBox/DonationBox.astro"
-import { FiClock } from "react-icons/fi"
+import PageLayout from "@/layouts/PageLayout.astro"
+import ShareButtons from "@/components/core/ShareButtons/ShareButtons"
+import Typography from "@/components/core/Typography/index.astro"
 
 interface Props {
 	title: string
@@ -102,8 +104,21 @@ if (!finalOgImage || finalOgImage === "") {
 				class="absolute inset-0 h-full w-full rounded-4xl object-cover"
 				transition:name={`blog-image-${slug}`}
 			/>
+			{
+				readingTime && (
+					<div
+						transition:name={`blog-reading-time-${slug}`}
+						class="text-dark dark:bg-dark/80 absolute top-10 left-10 z-20 flex items-center gap-1.5 rounded-4xl bg-white/90 px-4 py-1.5 dark:text-white"
+					>
+						<TbClock />
+						<span>
+							{readingTime} {t("blog.readingTime")}
+						</span>
+					</div>
+				)
+			}
 		</div>
-		<div class="grid grid-cols-1 gap-y-8 md:grid-cols-12 md:gap-12">
+		<div class="mx-auto grid max-w-6xl grid-cols-1 gap-y-8 md:grid-cols-12 md:gap-12">
 			<div
 				class="content text-dark col-span-4 flex flex-col gap-6 md:col-span-12 md:gap-12 lg:col-span-8 dark:text-white"
 			>
@@ -114,21 +129,9 @@ if (!finalOgImage || finalOgImage === "") {
 				<div class="sticky top-26">
 					<div class="flex flex-col gap-6 md:gap-12">
 						{
-							readingTime && (
-								<div class="flex flex-col gap-4">
-									<div class="text-dark/80 flex items-center gap-2 font-medium dark:text-gray-300">
-										<FiClock className="text-xl" />
-										<span>
-											{readingTime} {t("blog.readingTime")}
-										</span>
-									</div>
-								</div>
-							)
-						}
-						{
 							enrichedCategories?.length > 0 && (
 								<div class="flex flex-col gap-4">
-									<Typography type="h6" class="text-dark dark:text-white">
+									<Typography variant="h6" class="text-dark dark:text-white">
 										{t("blog.categories")}
 									</Typography>
 									<div class="flex flex-wrap gap-2">
@@ -158,7 +161,7 @@ if (!finalOgImage || finalOgImage === "") {
 							)
 						}
 						<div class="flex flex-col gap-4">
-							<Typography type="h6" class="text-dark dark:text-white">
+							<Typography variant="h6" class="text-dark dark:text-white">
 								{t("blog.share")}
 							</Typography>
 							<ShareButtons
@@ -169,10 +172,13 @@ if (!finalOgImage || finalOgImage === "") {
 								client:idle
 							/>
 						</div>
-						<AdSlot slot="1471291196" format="vertical" />
+						<!-- <AdSlot slot="1471291196" format="vertical" /> -->
 					</div>
 				</div>
 			</aside>
+			<div class="col-span-4 md:col-span-12 lg:col-span-8">
+				<Comments id={slug} lang={lang} />
+			</div>
 		</div>
 	</article>
 	<BlogPaginator

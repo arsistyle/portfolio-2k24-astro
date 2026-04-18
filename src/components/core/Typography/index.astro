@@ -1,29 +1,56 @@
 ---
-import { twMerge } from "tailwind-merge"
+import { cva } from "class-variance-authority"
+import { cn } from "@/utils/cn"
 
-interface TypographyProps {
-	type?: keyof typeof TAGS
-	class?: string
+const variant = {
+	p: "text-md text-gray-600",
+	h1: "font-syne text-[clamp(1.9rem,3.75vw,3.688rem)] font-bold",
+	h2: "font-syne text-[clamp(1.5rem,2.75vw,2.625rem)] font-bold",
+	h3: "font-syne text-[clamp(1.25rem,2.25vw,2.188rem)] font-bold",
+	h4: "font-syne text-[clamp(1.125rem,1.875vw,1.813rem)] font-bold",
+	h5: "font-syne text-[clamp(1rem,1.625vw,1.563rem)] font-bold",
+	h6: "font-syne text-[clamp(0.875rem,1.375vw,1.25rem)] font-bold",
+	heading:
+		"font-syne text-[clamp(2.8rem,8vw,8rem)] leading-[1em] font-black wrap-break-word sm:break-normal",
+	highlight: "text-lg",
 }
 
-const { type = "p", class: className = "", ...props } = Astro.props as TypographyProps
-
-const TAGS = {
+const defaultElementMap = {
+	p: "p",
 	h1: "h1",
 	h2: "h2",
 	h3: "h3",
 	h4: "h4",
 	h5: "h5",
 	h6: "h6",
-	p: "p",
 	a: "a",
 	span: "span",
 	li: "li",
+	highlight: "p",
+	heading: "h1",
 } as const
 
-const Tag = TAGS[type] || "p"
+const typographyVariants = cva("text-base tracking-normal leading-normal", {
+	variants: {
+		variant,
+		as: variant,
+	},
+	defaultVariants: {
+		variant: "p",
+		as: undefined,
+	},
+})
+
+export interface Props extends astroHTML.JSX.HTMLAttributes {
+	variant?: keyof typeof variant
+	as?: keyof typeof variant
+	class?: string
+}
+
+const { variant: variantProp = "p", as, class: className, ...rest } = Astro.props
+const Comp = defaultElementMap[variantProp as keyof typeof defaultElementMap] || "p"
 ---
 
-<Tag class={twMerge(type, className)} {...props}>
+<Comp class={cn(typographyVariants({ as: as || variantProp, className }))} {...rest}>
 	<slot />
-</Tag>
+</Comp>

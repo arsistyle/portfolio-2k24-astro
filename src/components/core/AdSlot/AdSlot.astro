@@ -1,8 +1,8 @@
 ---
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
-import { BsPaypal } from "react-icons/bs"
+import { TbBrandPaypal } from "react-icons/tb"
 import { PAYPAL_DONATE } from "@/constants"
-import { Typography } from "../index.astro"
+import Typography from "../Typography/index.astro"
 
 interface Props {
 	slot?: string
@@ -34,7 +34,7 @@ const paypalDonateUrl = PAYPAL_DONATE[lang].donate_url
 	<div
 		class="slot-alt dark:bg-black-500 flex flex-col items-center gap-4 rounded-2xl bg-gray-300 p-6 text-center"
 	>
-		<Typography type="h6" class="text-sm font-bold text-black dark:text-gray-200">
+		<Typography variant="h6" class="text-sm font-bold text-black dark:text-gray-200">
 			{t("ad.fallback.title")}
 		</Typography>
 		<p class="text-sm leading-relaxed text-black dark:text-gray-400">
@@ -53,7 +53,7 @@ const paypalDonateUrl = PAYPAL_DONATE[lang].donate_url
 				rel="noopener noreferrer"
 				class="inline-flex items-center justify-center gap-2 rounded-xl border border-[#0070ba] bg-[#0070ba] px-5 py-2.5 text-sm font-semibold text-white transition-colors"
 			>
-				<BsPaypal size={18} />
+				<TbBrandPaypal size={18} />
 				{t("paypal.donate")}
 			</a>
 		</div>

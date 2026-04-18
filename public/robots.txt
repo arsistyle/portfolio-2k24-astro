@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: /sitemap-index.xml
+Sitemap: https://arsi.dev/sitemap-index.xml

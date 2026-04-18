@@ -15,4 +15,4 @@ export const DEFAULT_OG_IMAGE = {
 	en: "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png",
 }
 
-export const BLOG_POSTS_PER_PAGE = 10
+export const BLOG_POSTS_PER_PAGE = 9

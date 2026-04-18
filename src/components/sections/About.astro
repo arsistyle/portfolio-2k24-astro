@@ -1,10 +1,17 @@
 ---
 import { getLangFromUrl } from "@/i18n/utils"
-import { SECTIONS_CONTENT } from "@/content/index.astro"
+
+import AboutEs from "@/content/sections/about-es.astro"
+import AboutEn from "@/content/sections/about-en.astro"
 
 const lang = getLangFromUrl(Astro.url)
 
-const { about: AboutContent } = SECTIONS_CONTENT[lang]
+const sectionsContent = {
+	es: AboutEs,
+	en: AboutEn,
+}
+
+const AboutContent = sectionsContent[lang]
 ---
 
 <section

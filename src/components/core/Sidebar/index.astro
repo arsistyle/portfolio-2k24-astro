@@ -1,6 +1,6 @@
 ---
 import type { NavProps } from "@/types"
-import { Typography } from "@/components/index.astro"
+import Typography from "@/components/core/Typography/index.astro"
 import { cleanUrl } from "@/i18n/utils"
 
 const { data } = Astro.props
@@ -13,7 +13,7 @@ const currentPath = cleanUrl(pathname)
 	{
 		items.map(({ label, items }) => (
 			<div class="relative">
-				<Typography type="h6" class="text-dark py-4 dark:text-white">
+				<Typography variant="h6" class="text-dark py-4 dark:text-white">
 					{label}
 				</Typography>
 				{items.map(({ label, path }) => {
@@ -22,7 +22,7 @@ const currentPath = cleanUrl(pathname)
 						<ul class="relative">
 							<li>
 								<Typography
-									type="a"
+									variant="a"
 									href={path}
 									class={`flex py-2 transition-opacity hover:opacity-70 dark:text-white ${isActive ? "text-dark opacity-100" : "text-dark/60 opacity-60"}`}
 								>

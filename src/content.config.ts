@@ -1,14 +1,18 @@
-import { defineCollection, z } from "astro:content"
-import { CATEGORY_SLUGS } from "../config/categories"
+import { defineCollection } from "astro:content"
+import { z } from "astro/zod"
+import { glob } from "astro/loaders"
+import { CATEGORY_SLUGS } from "./config/categories"
 
 const projectsCollection = defineCollection({
-	type: "content",
+	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/projects" }),
 })
+
 const proyectosCollection = defineCollection({
-	type: "content",
+	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/proyectos" }),
 })
+
 const blogCollection = defineCollection({
-	type: "content",
+	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
@@ -23,7 +27,7 @@ const blogCollection = defineCollection({
 })
 
 const seoCollection = defineCollection({
-	type: "data",
+	loader: glob({ pattern: "*.json", base: "./src/content/seo" }),
 	schema: z.object({
 		pages: z.record(
 			z.string(),

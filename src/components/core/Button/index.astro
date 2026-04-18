@@ -18,6 +18,7 @@ const {
 	shape = "rounded",
 	title = "",
 	slotProps = {},
+	id,
 } = Astro.props
 
 const { startIcon, endIcon } = Astro.slots
@@ -43,6 +44,7 @@ const Tag = tag
 	target={target}
 	rel={rel}
 	title={title}
+	id={id}
 >
 	{
 		startIcon && (

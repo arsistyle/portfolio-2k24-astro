@@ -1,11 +1,11 @@
 ---
-import { GoArrowRight } from "react-icons/go"
+import { TbArrowRight } from "react-icons/tb"
 import { Image } from "astro:assets"
 
 import { getLangFromUrl, useTranslatedPath } from "@/i18n/utils"
 import type { Product } from "@/types"
 
-import { Typography } from "@/components/index.astro"
+import Typography from "@/components/core/Typography/index.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const translatePath = useTranslatedPath(lang)
@@ -18,8 +18,8 @@ const { products } = Astro.props
 		products.map(({ name, title, thumbnail, category }: Product) => (
 			<article class="group relative">
 				<a href={translatePath(`/shop/${name}`)} class="flex aspect-4/3 flex-col">
-					<div class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:-translate-y-2 group-hover:translate-x-2 group-hover:scale-125 group-hover:rotate-0">
-						<GoArrowRight className="w-full h-full " />
+					<div class="text-dark group-hover:bg-primary-500 dark:group-hover:bg-primary-300 absolute top-5 right-5 z-10 flex h-12 w-12 -rotate-45 items-center justify-center rounded-full bg-white p-2 transition group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:scale-125 group-hover:rotate-0">
+						<TbArrowRight className="w-full h-full " />
 					</div>
 					{thumbnail && (
 						<div class="relative inset-0 overflow-clip rounded-4xl transition-transform group-hover:scale-105">
@@ -38,7 +38,7 @@ const { products } = Astro.props
 							{category}
 						</Typography>
 						<Typography
-							type="h3"
+							variant="h3"
 							class="h4 text-dark group-hover:text-primary-500 dark:group-hover:text-primary-300 transition-colors dark:text-white"
 							transition:name={`product-title-${name}`}
 						>
