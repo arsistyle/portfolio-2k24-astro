@@ -12,41 +12,60 @@ import { TbMoonFilled, TbMoonOff } from "react-icons/tb"
 <script>
 	import Cookies from "js-cookie"
 
+	const toggleTheme = () => {
+		const documentClasses = document.documentElement.classList
+		let newTheme = ""
+
+		if (documentClasses.contains("dark")) {
+			documentClasses.remove("dark")
+			Cookies.set("color-theme", "light")
+			newTheme = "light"
+		} else {
+			documentClasses.add("dark")
+			Cookies.set("color-theme", "dark")
+			newTheme = "dark"
+		}
+
+		document.querySelectorAll(".schemeSelector").forEach((el) => {
+			if (newTheme === "dark") {
+				el.classList.add("isDark")
+			} else {
+				el.classList.remove("isDark")
+			}
+		})
+
+		document.dispatchEvent(new CustomEvent("theme-changed", { detail: { theme: newTheme } }))
+	}
+
+	if (!(globalThis as any).themeSwitcherInitialized) {
+		(globalThis as any).themeSwitcherInitialized = true;
+		document.addEventListener("click", (e) => {
+			const target = e.target as HTMLElement
+			const schemeSelector = target.closest(".schemeSelector")
+			if (schemeSelector) {
+				toggleTheme()
+			}
+		})
+	}
+
 	document.addEventListener("astro:page-load", () => {
 		const documentClasses = document.documentElement.classList
-		const schemeSelectors = document.querySelectorAll(".schemeSelector")
+		const isDark =
+			Cookies.get("color-theme") === "dark" ||
+			(!Cookies.get("color-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches)
 
-		schemeSelectors.forEach((schemeSelector) => {
-			if (
-				Cookies.get("color-theme") === "dark" ||
-				(!Cookies.get("color-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches)
-			) {
-				schemeSelector?.classList.add("isDark")
-				documentClasses.add("dark")
+		document.querySelectorAll(".schemeSelector").forEach((el) => {
+			if (isDark) {
+				el.classList.add("isDark")
 			} else {
-				schemeSelector?.classList.remove("isDark")
-				documentClasses.remove("dark")
+				el.classList.remove("isDark")
 			}
-
-			const handleClick = () => {
-				schemeSelector?.classList.toggle("isDark")
-
-				let newTheme = ""
-				if (documentClasses.contains("dark")) {
-					documentClasses.remove("dark")
-					Cookies.set("color-theme", "light")
-					newTheme = "light"
-				} else {
-					documentClasses.add("dark")
-					Cookies.set("color-theme", "dark")
-					newTheme = "dark"
-				}
-
-				// Dispatch custom event for other components to react
-				document.dispatchEvent(new CustomEvent("theme-changed", { detail: { theme: newTheme } }))
-			}
-
-			schemeSelector?.addEventListener("click", handleClick)
 		})
+
+		if (isDark) {
+			documentClasses.add("dark")
+		} else {
+			documentClasses.remove("dark")
+		}
 	})
 </script>
