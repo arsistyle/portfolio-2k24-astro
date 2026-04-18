@@ -1,6 +1,7 @@
 ---
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
+import { CONTACT_SUBJECTS } from "@/constants"
 import Button from "@/components/core/Button/index.astro"
 import Typography from "@/components/core/Typography/index.astro"
 
@@ -18,7 +19,7 @@ const translatePath = useTranslatedPath(lang)
 		</Typography>
 		<Button
 			tag="a"
-			href={`${translatePath("/contact")}?subject=Web%20Audit`}
+			href={`${translatePath("/contact")}?subject=${encodeURIComponent(CONTACT_SUBJECTS.WEB_AUDIT)}`}
 			variant="filled"
 			color="dark"
 			size="xl"

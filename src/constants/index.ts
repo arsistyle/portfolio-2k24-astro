@@ -16,3 +16,9 @@ export const DEFAULT_OG_IMAGE = {
 }
 
 export const BLOG_POSTS_PER_PAGE = 9
+
+export const CONTACT_SUBJECTS = {
+	WEB_DEVELOPMENT: "Web Development",
+	WEB_AUDIT: "Web Audit",
+	OTHER: "Other",
+} as const

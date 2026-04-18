@@ -3,6 +3,7 @@ import { TbLoader } from "react-icons/tb"
 
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 
+import { CONTACT_SUBJECTS } from "@/constants"
 import Button from "@/components/core/Button/index.astro"
 import Input from "@/components/form/Input.astro"
 import Select from "@/components/form/Select.astro"
@@ -13,9 +14,9 @@ const { url } = Astro
 const lang = getLangFromUrl(url)
 const t = useTranslations(lang)
 const subjectOptions = [
-	{ value: "Web Development", label: t("contact.form.subject.web") },
-	{ value: "Web Audit", label: t("contact.form.subject.audit") },
-	{ value: "Other", label: t("contact.form.subject.other") },
+	{ value: CONTACT_SUBJECTS.WEB_DEVELOPMENT, label: t("contact.form.subject.web") },
+	{ value: CONTACT_SUBJECTS.WEB_AUDIT, label: t("contact.form.subject.audit") },
+	{ value: CONTACT_SUBJECTS.OTHER, label: t("contact.form.subject.other") },
 ]
 
 const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
@@ -140,7 +141,13 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "1x0000000000000000
 		const subjectParam = new URLSearchParams(window.location.search).get("subject")
 		if (subjectParam) {
 			const select = document.getElementById("subject") as HTMLSelectElement | null
-			if (select) select.value = subjectParam
+			if (select) {
+				const normalized = subjectParam.trim().toLowerCase()
+				const match = Array.from(select.options).find(
+					(opt) => opt.value.toLowerCase() === normalized
+				)
+				if (match) select.value = match.value
+			}
 		}
 
 		const lang = form.dataset.lang || "es"
