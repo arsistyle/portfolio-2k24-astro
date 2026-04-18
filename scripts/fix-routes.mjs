@@ -28,6 +28,10 @@ const enProjectSlugs = getStaticDirs("dist/projects")
 const esProjectSlugs = getStaticDirs("dist/es/projects")
 const enShopSlugs = getStaticDirs("dist/shop")
 const esShopSlugs = getStaticDirs("dist/es/shop")
+const enAuditSlugs = getStaticDirs("dist/audit")
+const esAuditSlugs = getStaticDirs("dist/es/audit")
+const enContactSlugs = getStaticDirs("dist/contact")
+const esContactSlugs = getStaticDirs("dist/es/contact")
 
 const staticPageExcludes = [
 	// Static top-level pages
@@ -42,6 +46,12 @@ const staticPageExcludes = [
 	// Shop
 	...enShopSlugs.map((slug) => `/shop/${slug}/*`),
 	...esShopSlugs.map((slug) => `/es/shop/${slug}/*`),
+	// Audit
+	...enAuditSlugs.map((slug) => `/audit/${slug}/*`),
+	...esAuditSlugs.map((slug) => `/es/audit/${slug}/*`),
+	// Contact
+	...enContactSlugs.map((slug) => `/contact/${slug}/*`),
+	...esContactSlugs.map((slug) => `/es/contact/${slug}/*`),
 ]
 
 const routes = {
