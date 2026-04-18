@@ -46,8 +46,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
 		const toEmail = runtimeEnv.RESEND_TO_EMAIL || import.meta.env.RESEND_TO_EMAIL
 		const fromEmail = runtimeEnv.RESEND_FROM_EMAIL || import.meta.env.RESEND_FROM_EMAIL
 
-		if (!turnstileSecret || !resendApiKey) {
-			console.error("Missing Turnstile or Resend API Keys")
+		if (!turnstileSecret || !resendApiKey || !toEmail || !fromEmail) {
+			console.error("Missing required environment variables: TURNSTILE_SECRET_KEY, RESEND_API_KEY, RESEND_TO_EMAIL, or RESEND_FROM_EMAIL")
 			return new Response(JSON.stringify({ error: messages.serverError }), {
 				status: 500,
 				headers: { "Content-Type": "application/json" },
