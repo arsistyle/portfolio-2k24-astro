@@ -10,22 +10,32 @@ const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 ---
 
-<section class="cta-section pb-14 md:pb-40">
-	<div
-		class="bg-primary-400 dark:bg-primary-300 flex flex-col items-center gap-8 rounded-3xl px-8 py-14 text-center md:px-20 md:py-20"
-	>
-		<Typography variant="h2" class="text-dark max-w-2xl text-pretty">
-			{t("audit.cta.title" as any)}
-		</Typography>
-		<Button
-			tag="a"
-			href={`${translatePath("/contact")}?subject=${encodeURIComponent(CONTACT_SUBJECTS.WEB_AUDIT)}`}
-			variant="filled"
-			color="dark"
-			size="xl"
-		>
-			{t("audit.cta.button" as any)}
-		</Button>
+<section class="cta-section container mx-auto flex flex-col gap-10 px-6 pb-14 md:pb-40">
+	<div class="flex flex-col gap-10">
+		<div class="flex items-center gap-4">
+			<span
+				class="font-syne text-primary-500 dark:text-primary-300 text-4xl leading-none font-black"
+				>→</span
+			>
+			<div class="bg-dark/10 h-px flex-1 dark:bg-white/10"></div>
+		</div>
+
+		<div class="flex flex-col items-start gap-8 md:flex-row md:items-end md:justify-between">
+			<Typography variant="h2" class="text-dark max-w-xl text-pretty dark:text-white">
+				{t("audit.cta.title" as any)}
+			</Typography>
+			<div class="shrink-0">
+				<Button
+					tag="a"
+					href={`${translatePath("/contact")}?subject=${encodeURIComponent(CONTACT_SUBJECTS.WEB_AUDIT)}`}
+					variant="filled"
+					color="primary"
+					size="xl"
+				>
+					{t("audit.cta.button" as any)}
+				</Button>
+			</div>
+		</div>
 	</div>
 </section>
 

@@ -14,32 +14,26 @@ const deliverables = [
 ]
 ---
 
-<section class="deliverables-section flex flex-col gap-14 pb-14 md:pb-20">
+<section class="deliverables-section container mx-auto flex flex-col gap-16 px-6 pb-14 md:pb-24">
 	<div class="flex flex-col gap-10">
 		<Typography variant="h2" class="text-dark dark:text-white">
 			{t("audit.deliverables.title" as any)}
 		</Typography>
-		<div class="grid grid-cols-2 gap-x-16 gap-y-10 sm:gap-y-14 md:gap-x-28">
+		<ul class="flex flex-col gap-6">
 			{
 				deliverables.map((text) => (
-					<div class="col-span-2 grid grid-cols-[2.5rem_1fr] gap-5 text-left md:col-span-1 md:grid-cols-[3rem_1fr]">
-						<div class="text-primary-500 dark:text-primary-300 mt-1 h-10 w-10 shrink-0 md:h-12 md:w-12">
+					<li class="grid grid-cols-[2rem_1fr] items-start gap-5 md:grid-cols-[2.5rem_1fr]">
+						<div class="text-primary-500 dark:text-primary-300 mt-1 h-7 w-7 shrink-0 md:h-8 md:w-8">
 							<Check />
 						</div>
-						<Typography variant="highlight" class="text-dark text-pretty dark:text-white">
+						<Typography variant="h5" class="text-dark leading-snug font-normal dark:text-white">
 							{text}
 						</Typography>
-					</div>
+					</li>
 				))
 			}
-		</div>
+		</ul>
 	</div>
-
-	<blockquote class="border-primary-500 dark:border-primary-300 border-l-4 py-2 pl-8 md:pl-10">
-		<Typography variant="h3" class="text-dark/65 font-normal text-pretty italic dark:text-white/65">
-			"{t("audit.quote" as any)}"
-		</Typography>
-	</blockquote>
 </section>
 
 <style>
