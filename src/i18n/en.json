@@ -13,6 +13,11 @@
   "home.projects.title": "Recent work",
   "home.projects.seeAll": "See all",
 
+  "home.audit.label": "✍️ Web Audit",
+  "home.audit.title": "Are clients finding you online?",
+  "home.audit.cta": "See service",
+  "home.audit.sticker": "No commitment",
+
   "projects.title": "Projects",
 
   "projects.detail.actions.visit": "Website",
@@ -83,9 +88,17 @@
   "footer.copyright": "All contents and designs © Arsi.",
 
   "nav.audit": "Web Audit",
-  "audit.title": "Your clients search for you online. Do they find you?",
+  "audit.title": "Clients look for you online. Do they find you?",
+  "audit.hero.title.part1": "Clients look for you online",
+  "audit.hero.title.part2": "Do they find you?",
   "audit.hero.description": "A consultative audit that tells you the truth about your digital presence — and what to do about it.",
+  "audit.hero.stats.layers": "audit layers",
+  "audit.hero.stats.layers.list": "Traffic · Website · Conversion",
+  "audit.hero.stats.result": "One honest diagnosis",
+  "audit.hero.stats.result.desc": "No sales pitch. No commitments.",
+  "audit.hero.label": "✍️ Web Audit",
   "audit.who.title": "Who is it for?",
+  "audit.who.subtitle": "One of these situations describes you. All of them deserve an honest answer — not a sales pitch.",
   "audit.who.a.title": "You have a website but it's not working",
   "audit.who.a.description": "Your site exists but nobody comes. I review it in depth: technical issues, content, conversion and the channels that should be bringing traffic.",
   "audit.who.r.title": "You have a website and want to redesign it",
@@ -93,6 +106,7 @@
   "audit.who.b.title": "You don't have a website",
   "audit.who.b.description": "I evaluate whether it makes sense to build one now — and whether you're truly ready to sustain it. Sometimes there are more urgent steps before investing.",
   "audit.layers.title": "What I review",
+  "audit.layers.subtitle": "Three layers that define whether a digital presence works or not. Most sites fail in at least one.",
   "audit.layers.1.title": "Traffic channels",
   "audit.layers.1.description": "Is anything bringing people in? Social media, Google Business Profile, campaigns, external mentions, email.",
   "audit.layers.2.title": "The website",
@@ -107,6 +121,7 @@
   "audit.quote": "I build you the Ferrari. The wheel is yours.",
   "audit.cta.title": "Want to know where you really stand?",
   "audit.cta.button": "Book an audit",
+  "audit.cta.button2": "More info",
 
   "nav.contact": "Contact",
   "contact.title": "Let's work together",
@@ -125,5 +140,12 @@
   "contact.props.heading": "Why work with me?",
   "contact.props.reply": "I reply within 24 hours",
   "contact.props.privacy": "Your information stays private",
-  "contact.props.transparency": "No commitment, full transparency"
+  "contact.props.transparency": "No commitment, full transparency",
+  "contact.form.login.prompt": "To send a message, please log in.",
+  "contact.form.login.button": "Sign in with LinkedIn",
+  "contact.form.logout": "Sign out",
+  "contact.form.connected_as": "Connected as",
+  "contact.form.login.title": "🛡️ Let's keep the conversation professional and secure.",
+  "contact.form.login.description": "To ensure your message bypasses the spam folder and gets immediate attention, please verify your identity using LinkedIn. I only receive your name and email.",
+  "contact.form.login.privacy": "🔒 Your data is secure. We won't post anything on your behalf."
 }

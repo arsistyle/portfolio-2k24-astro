@@ -1,0 +1,93 @@
+---
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
+import { CONTACT_SUBJECTS } from "@/constants"
+import Typography from "@/components/core/Typography/index.astro"
+import Button from "@/components/core/Button/index.astro"
+import { TbCheck } from "react-icons/tb"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+---
+
+<section class="dark:bg-dark relative z-10 -mt-24 bg-white p-2 md:-mt-26">
+	<div
+		class="bg-secondary-400 dark:bg-secondary-300 relative rounded-3xl px-5 pt-30 pb-24 md:py-20 md:pt-36"
+		transition:name="audit-card"
+	>
+		<div class="relative container mx-auto">
+			<Typography
+				as="h6"
+				class="bg-holo font-syne text-dark absolute top-[calc(100%+4rem)] right-0 left-0 mx-auto flex max-w-fit rotate-2 items-center justify-center rounded-full px-8 py-2 text-center font-black tracking-widest uppercase md:top-[calc(100%+2rem)] md:left-auto lg:-right-10"
+				transition:name="audit-sticker"
+			>
+				<TbCheck className="text-dark h-10 w-10 lg:h-12 lg:w-16" />
+				{t("home.audit.sticker" as any)}
+			</Typography>
+			<div class="flex flex-col items-start gap-12">
+				<div class="relative z-10 flex flex-col items-start gap-10 md:gap-6">
+					<div class="flex flex-col items-start gap-6">
+						<Typography
+							variant="h1"
+							as="h5"
+							class="bg-primary-400 dark:bg-primary-300 text-dark inline-flex rounded-none px-4 py-2"
+							transition:name="audit-label"
+						>
+							{t("audit.hero.label" as any)}
+						</Typography>
+						<div class="flex flex-col gap-6">
+							<Typography variant="h2" as="heading2" class="text-dark">
+								{t("audit.hero.title.part1" as any)}
+							</Typography>
+							<Typography as="h1" class="text-dark">
+								{t("audit.hero.title.part2" as any)} 🤔
+							</Typography>
+						</div>
+					</div>
+					<Typography variant="highlight" class="text-dark max-w-2xl font-normal text-pretty">
+						{t("audit.hero.description" as any)}
+					</Typography>
+				</div>
+				<div class="flex w-full flex-col gap-3 md:flex-row">
+					<Button
+						tag="a"
+						href={`${translatePath("/contact")}?subject=${encodeURIComponent(CONTACT_SUBJECTS.WEB_AUDIT)}`}
+						variant="filled"
+						color="dark"
+						size="xl"
+						class="w-full md:max-w-60!"
+					>
+						{t("audit.cta.button" as any)}
+					</Button>
+					<Button
+						tag="a"
+						href={`${translatePath("/audit")}#who`}
+						variant="outlined"
+						color="dark"
+						size="xl"
+						class="w-full md:max-w-60!"
+					>
+						{t("audit.cta.button2" as any)}
+					</Button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.audit-hero-container {
+		animation: audit-hero-fade-up 0.6s ease both;
+	}
+
+	@keyframes audit-hero-fade-up {
+		from {
+			opacity: 0;
+			translate: 0 1.5rem;
+		}
+		to {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
+</style>

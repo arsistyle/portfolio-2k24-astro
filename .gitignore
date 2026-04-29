@@ -22,3 +22,5 @@ pnpm-debug.log*
 .DS_Store
 
 .unlighthouse
+
+graphify-out/cache

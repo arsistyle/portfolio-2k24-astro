@@ -1,0 +1,24 @@
+---
+export const prerender = false
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Connecting to LinkedIn...</title>
+  <style>
+    body { font-family: system-ui, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #0f0f0f; color: #fff; }
+    p { opacity: 0.6; }
+  </style>
+</head>
+<body>
+  <p>Connecting to LinkedIn...</p>
+  <form id="signin-form" method="POST" action="/api/auth/signin/linkedin">
+    <input type="hidden" name="callbackUrl" value="/auth/popup-success" />
+  </form>
+  <script>
+    (document.getElementById('signin-form') as HTMLFormElement)?.submit();
+  </script>
+</body>
+</html>

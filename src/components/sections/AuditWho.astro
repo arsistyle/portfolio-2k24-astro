@@ -1,6 +1,5 @@
 ---
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
-
 import Typography from "@/components/core/Typography/index.astro"
 
 const lang = getLangFromUrl(Astro.url)
@@ -11,42 +10,104 @@ const cards = [
 		title: t("audit.who.b.title" as any),
 		description: t("audit.who.b.description" as any),
 		bg: "bg-secondary-400 dark:bg-secondary-300",
-		span: "col-span-2",
+		num: "A",
+		stickerShape: "rounded-full",
+		stickerClipStyle: "clip-path: circle(50%)",
+		stickerAlign: "items-center justify-center",
+		stickerPos: "self-start",
+		stickerExtra: "aspect-square p-6",
+		stickerRotate: "rotate-2",
 	},
 	{
 		title: t("audit.who.a.title" as any),
 		description: t("audit.who.a.description" as any),
 		bg: "bg-primary-400 dark:bg-primary-300",
-		span: "col-span-2 md:col-span-1",
+		num: "B",
+		stickerShape: "rounded-none",
+		stickerClipStyle: "clip-path: url(#clip-triangle-down)",
+		stickerAlign: "items-center justify-center",
+		stickerPos: "self-center",
+		stickerExtra: "aspect-square p-8 pb-16",
+		stickerRotate: "-rotate-3",
 	},
 	{
 		title: t("audit.who.r.title" as any),
 		description: t("audit.who.r.description" as any),
 		bg: "bg-tertiary-400 dark:bg-tertiary-300",
-		span: "col-span-2 md:col-span-1",
+		num: "R",
+		stickerShape: "rounded-md",
+		stickerClipStyle: "clip-path: inset(0 round 0.375rem)",
+		stickerAlign: "items-center justify-center",
+		stickerPos: "self-end",
+		stickerExtra: "aspect-square p-6",
+		stickerRotate: "rotate-1",
 	},
 ]
 ---
 
-<section class="who-section flex flex-col gap-8 pb-14 md:pb-20">
-	<Typography variant="h2" class="text-dark dark:text-white">
-		{t("audit.who.title" as any)}
-	</Typography>
+<!-- Scalable clip-path definitions — triangle uses objectBoundingBox so it adapts to any element size -->
+<svg aria-hidden="true" width="0" height="0" class="absolute">
+	<defs>
+		<clipPath id="clip-triangle-down" clipPathUnits="objectBoundingBox">
+			<path
+				d="M 0.07,0.11 Q 0.03,0.03 0.12,0.03 L 0.88,0.03 Q 0.97,0.03 0.93,0.11 L 0.54,0.89 Q 0.5,0.97 0.47,0.89 Z"
+			></path>
+		</clipPath>
+	</defs>
+</svg>
+
+<section id="who" class="who-section container mx-auto flex flex-col gap-10 px-6 py-16 md:py-24">
+	<div class="flex flex-col gap-4">
+		<Typography variant="h2" class="text-dark dark:text-white">
+			{t("audit.who.title" as any)}
+		</Typography>
+		<Typography
+			variant="highlight"
+			class="text-dark max-w-2xl font-normal text-pretty dark:text-gray-400"
+		>
+			{t("audit.who.subtitle" as any)}
+		</Typography>
+	</div>
 
 	<div class="grid grid-cols-3 gap-4">
 		{
-			cards.map(({ title, description, bg, span }, i) => (
-				<div
-					class={`col-span-3 lg:col-span-1 ${bg} card-item card-item--${i} flex cursor-default flex-col gap-6 rounded-3xl p-8 transition-transform duration-300 hover:translate-y-4 md:p-10`}
-				>
-					<Typography variant="h3" as="h4" class="text-dark leading-10">
-						{title}
-					</Typography>
-					<Typography variant="highlight" class="text-dark/70">
-						{description}
-					</Typography>
-				</div>
-			))
+			cards.map(
+				(
+					{
+						title,
+						description,
+						bg,
+						num,
+						stickerShape,
+						stickerClipStyle,
+						stickerAlign,
+						stickerPos,
+						stickerExtra,
+						stickerRotate,
+					},
+					i
+				) => (
+					<div
+						class={`col-span-3 lg:col-span-1 ${bg} card-item card-item--${i} relative mt-16 flex cursor-default flex-col rounded-3xl p-8 transition-transform duration-300 hover:-translate-y-2 md:p-10`}
+					>
+						<span
+							class={`bg-holo text-dark ${stickerShape} ${stickerRotate} ${stickerAlign} ${stickerPos} ${stickerExtra} font-syne -mt-24 flex text-6xl font-black tracking-widest uppercase`}
+							style={stickerClipStyle}
+						>
+							{num}
+						</span>
+
+						<div class="mt-auto flex flex-col gap-3">
+							<Typography variant="h3" as="h4" class="text-dark min-h-[2lh] leading-tight!">
+								{title}
+							</Typography>
+							<Typography variant="highlight" class="text-dark min-h-[4lh] font-normal">
+								{description}
+							</Typography>
+						</div>
+					</div>
+				)
+			)
 		}
 	</div>
 </section>
