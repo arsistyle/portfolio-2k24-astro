@@ -118,6 +118,6 @@ export default {
   // },
   plugins: [
     // ...
-    require('@pyncz/tailwind-mask-image')
+    require('@pyncz/tailwind-mask-image'),
   ]
 };

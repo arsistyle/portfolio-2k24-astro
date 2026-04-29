@@ -1,6 +1,7 @@
 export const prerender = false
 
 import type { APIRoute } from "astro"
+import { getSession } from "@/utils/auth"
 import { errorMessages, getContactSchema } from "@/utils/validations"
 
 export const POST: APIRoute = async ({ request, locals }) => {
@@ -10,6 +11,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
 	const messages = errorMessages[lang] || errorMessages["es"]
 
 	try {
+		const session = await getSession(request, import.meta.env.AUTH_SECRET)
+		if (!session) {
+			return new Response(JSON.stringify({ error: "Unauthorized" }), {
+				status: 401,
+				headers: { "Content-Type": "application/json" },
+			})
+		}
+
 		const parsed = getContactSchema(lang).safeParse(rawData)
 
 		if (!parsed.success) {

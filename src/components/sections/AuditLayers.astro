@@ -1,8 +1,5 @@
 ---
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
-
-import FlowStep from "@/components/core/FlowStep/FlowStep.astro"
-import FlowSteps from "@/components/core/FlowStep/FlowSteps.astro"
 import Typography from "@/components/core/Typography/index.astro"
 
 const lang = getLangFromUrl(Astro.url)
@@ -10,36 +7,63 @@ const t = useTranslations(lang)
 
 const layers = [
 	{
-		icon: "1",
+		num: "01",
+		emoji: "📡",
 		title: t("audit.layers.1.title" as any),
 		description: t("audit.layers.1.description" as any),
 	},
 	{
-		icon: "2",
+		num: "02",
+		emoji: "🌐",
 		title: t("audit.layers.2.title" as any),
 		description: t("audit.layers.2.description" as any),
 	},
 	{
-		icon: "3",
+		num: "03",
+		emoji: "🎯",
 		title: t("audit.layers.3.title" as any),
 		description: t("audit.layers.3.description" as any),
 	},
 ]
 ---
 
-<section class="layers-section flex flex-col gap-8 pb-14 md:pb-20">
-	<Typography variant="h2" class="text-dark dark:text-white">
-		{t("audit.layers.title" as any)}
-	</Typography>
-	<FlowSteps>
-		{
-			layers.map(({ icon, title, description }) => (
-				<FlowStep {icon} {title}>
-					<Typography>{description}</Typography>
-				</FlowStep>
-			))
-		}
-	</FlowSteps>
+<section class="layers-section container mx-auto px-6 pb-16 md:pb-24">
+	<div
+		class="bg-tertiary-400 dark:bg-tertiary-300 relative flex flex-col gap-8 rounded-3xl p-8 md:gap-10 md:p-12"
+	>
+		<div class="flex flex-col gap-3">
+			<Typography variant="h2" class="text-dark">
+				{t("audit.layers.title" as any)}
+			</Typography>
+			<Typography variant="highlight" class="text-dark max-w-2xl font-normal">
+				{t("audit.layers.subtitle" as any)}
+			</Typography>
+		</div>
+
+		<div class="bg-dark h-px w-full"></div>
+
+		<div class="flex flex-col gap-10 md:flex-row md:gap-0">
+			{
+				layers.map(({ num, emoji, title, description }, i) => (
+					<div
+						class={`layer-item layer-item--${i} flex flex-1 flex-col gap-6${i > 0 ? " md:border-dark md:border-l md:pl-8 lg:pl-12" : "md:pr-8 lg:pr-12"}`}
+					>
+						<div class="flex items-end justify-between">
+							<span class="font-syne text-dark text-[4.5rem] leading-none font-black md:text-[5rem]">
+								{num}
+							</span>
+						</div>
+						<div class="mt-auto flex flex-col gap-4">
+							<Typography variant="h5" as="h4" class="text-dark leading-tight!">
+								{title}
+							</Typography>
+							<Typography class="text-dark">{description}</Typography>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
 </section>
 
 <style>
@@ -47,6 +71,23 @@ const layers = [
 		animation: layers-fade-up linear both;
 		animation-timeline: view();
 		animation-range: entry 0% cover 30%;
+	}
+
+	.layer-item {
+		animation: layers-fade-up linear both;
+		animation-timeline: view();
+	}
+
+	.layer-item--0 {
+		animation-range: entry 5% cover 30%;
+	}
+
+	.layer-item--1 {
+		animation-range: entry 10% cover 35%;
+	}
+
+	.layer-item--2 {
+		animation-range: entry 15% cover 40%;
 	}
 
 	@keyframes layers-fade-up {

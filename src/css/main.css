@@ -178,6 +178,18 @@
 	}
 }
 
+@utility bg-holo {
+	background: conic-gradient(
+		from 180deg at 35% 40%,
+		#e9d5ff,
+		#fce7f3,
+		#d1fae5,
+		#cffafe,
+		#fef9c3,
+		#e9d5ff
+	);
+}
+
 * {
 	min-width: 0;
 }

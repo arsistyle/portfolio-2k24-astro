@@ -1,0 +1,50 @@
+---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+---
+
+<section class="quote-section container mx-auto flex flex-col gap-8 px-6 py-14 md:py-20">
+	<div class="flex flex-col gap-8">
+		<div class="bg-dark/10 h-px w-full dark:bg-white/10"></div>
+
+		<blockquote class="flex flex-col gap-6 py-4">
+			<p
+				class="font-syne text-dark quote-text leading-none font-black tracking-tight text-pretty italic dark:text-white"
+			>
+				"{t("audit.quote" as any)}"
+			</p>
+			<span
+				class="font-syne text-primary-500 dark:text-primary-300 text-right text-sm font-bold tracking-widest uppercase"
+			>
+				— Israel Larrondo · @arsistyle
+			</span>
+		</blockquote>
+
+		<div class="bg-dark/10 h-px w-full dark:bg-white/10"></div>
+	</div>
+</section>
+
+<style>
+	.quote-text {
+		font-size: clamp(2rem, 6vw, 5.5rem);
+	}
+
+	.quote-section {
+		animation: quote-fade-up linear both;
+		animation-timeline: view();
+		animation-range: entry 0% cover 30%;
+	}
+
+	@keyframes quote-fade-up {
+		from {
+			opacity: 0;
+			translate: 0 2rem;
+		}
+		to {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
+</style>

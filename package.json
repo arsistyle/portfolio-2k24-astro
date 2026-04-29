@@ -19,6 +19,7 @@
     "@astrojs/mdx": "^5.0.3",
     "@astrojs/react": "^5.0.3",
     "@astrojs/sitemap": "^3.7.2",
+    "@auth/core": "^0.37.4",
     "@fontsource-variable/google-sans-flex": "^5.2.1",
     "@fontsource-variable/syne": "5.2.7",
     "@pyncz/tailwind-mask-image": "2.0.0",

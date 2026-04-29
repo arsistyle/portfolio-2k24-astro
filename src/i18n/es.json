@@ -12,6 +12,11 @@
   "home.experience.title": "+{YEARS_EXPERIENCE} años de experiencia como Diseñador Front-End",
   "home.projects.title": "Trabajos recientes",
 
+  "home.audit.label": "✍️ Auditoría Web",
+  "home.audit.title": "¿Tus clientes te encuentran online?",
+  "home.audit.cta": "Ver servicio",
+  "home.audit.sticker": "Sin compromiso",
+
   "projects.title": "Proyectos",
 
   "projects.detail.actions.visit": "Website",
@@ -83,8 +88,16 @@
 
   "nav.audit": "Auditoría Web",
   "audit.title": "Tus clientes te buscan online. ¿Te encuentran?",
+  "audit.hero.title.part1": "Tus clientes te buscan online",
+  "audit.hero.title.part2": "¿Te encuentran?",
   "audit.hero.description": "Una auditoría consultiva que te dice la verdad sobre tu presencia digital — y qué hacer al respecto.",
+  "audit.hero.stats.layers": "capas de auditoría",
+  "audit.hero.stats.layers.list": "Tráfico · Sitio web · Conversión",
+  "audit.hero.stats.result": "Un diagnóstico honesto",
+  "audit.hero.stats.result.desc": "Sin propuesta de venta. Sin compromisos.",
+  "audit.hero.label": "✍️ Auditoría web",
   "audit.who.title": "¿Para quién es?",
+  "audit.who.subtitle": "Una de estas situaciones te describe. Todas merecen una respuesta honesta — no un discurso de ventas.",
   "audit.who.a.title": "Tienes sitio web pero no funciona",
   "audit.who.a.description": "Tu sitio existe pero nadie llega. Lo reviso en profundidad: técnica, contenido, conversión y los conductos que deberían traer tráfico.",
   "audit.who.r.title": "Tienes sitio web y quieres rediseñarlo",
@@ -92,6 +105,7 @@
   "audit.who.b.title": "No tienes sitio web",
   "audit.who.b.description": "Evalúo si tiene sentido construir uno ahora — y si estás realmente listo para sostenerlo. A veces hay pasos más urgentes antes de invertir.",
   "audit.layers.title": "Qué reviso",
+  "audit.layers.subtitle": "Tres capas que definen si una presencia digital funciona o no. La mayoría de los sitios falla en al menos una.",
   "audit.layers.1.title": "Conductos de tráfico",
   "audit.layers.1.description": "¿Hay algo trayendo gente? Redes sociales, Google Business Profile, campañas, menciones externas, email.",
   "audit.layers.2.title": "El sitio web",
@@ -106,6 +120,7 @@
   "audit.quote": "Yo te construyo el Ferrari. El volante es tuyo.",
   "audit.cta.title": "¿Quieres saber cómo estás realmente?",
   "audit.cta.button": "Agenda una auditoría",
+  "audit.cta.button2": "Más información",
 
   "nav.contact": "Contacto",
   "contact.title": "Trabajemos juntos",
@@ -124,5 +139,12 @@
   "contact.props.heading": "¿Por qué trabajar conmigo?",
   "contact.props.reply": "Respondo en menos de 24 horas",
   "contact.props.privacy": "Tu información es tratada con privacidad",
-  "contact.props.transparency": "Sin compromiso, con total claridad"
+  "contact.props.transparency": "Sin compromiso, con total claridad",
+  "contact.form.login.prompt": "Para enviar un mensaje, por favor inicia sesión.",
+  "contact.form.login.button": "Iniciar sesión con LinkedIn",
+  "contact.form.logout": "Cerrar sesión",
+  "contact.form.connected_as": "Conectado como",
+  "contact.form.login.title": "🛡️ Mantengamos una comunicación segura y profesional.",
+  "contact.form.login.description": "Para garantizar que tu mensaje no caiga en spam y reciba atención prioritaria, por favor verifica tu identidad con LinkedIn. Solo recibo tu nombre y correo.",
+  "contact.form.login.privacy": "🔒 Tus datos están seguros. No publicaremos nada en tu nombre."
 }
