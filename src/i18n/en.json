@@ -140,5 +140,12 @@
   "contact.props.heading": "Why work with me?",
   "contact.props.reply": "I reply within 24 hours",
   "contact.props.privacy": "Your information stays private",
-  "contact.props.transparency": "No commitment, full transparency"
+  "contact.props.transparency": "No commitment, full transparency",
+  "contact.form.login.prompt": "To send a message, please log in.",
+  "contact.form.login.button": "Sign in with LinkedIn",
+  "contact.form.logout": "Sign out",
+  "contact.form.connected_as": "Connected as",
+  "contact.form.login.title": "🛡️ Let's keep the conversation professional and secure.",
+  "contact.form.login.description": "To ensure your message bypasses the spam folder and gets immediate attention, please verify your identity using LinkedIn. I only receive your name and email.",
+  "contact.form.login.privacy": "🔒 Your data is secure. We won't post anything on your behalf."
 }

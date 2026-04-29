@@ -1,7 +1,9 @@
 ---
 import { TbLoader } from "react-icons/tb"
+import { FaLinkedinIn } from "react-icons/fa"
+import { getSession } from "@/utils/auth"
 
-import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
 
 import { CONTACT_SUBJECTS } from "@/constants"
 import Button from "@/components/core/Button/index.astro"
@@ -13,6 +15,7 @@ import Typography from "@/components/core/Typography/index.astro"
 const { url } = Astro
 const lang = getLangFromUrl(url)
 const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 const subjectOptions = [
 	{ value: CONTACT_SUBJECTS.WEB_DEVELOPMENT, label: t("contact.form.subject.web") },
 	{ value: CONTACT_SUBJECTS.WEB_AUDIT, label: t("contact.form.subject.audit") },
@@ -20,6 +23,7 @@ const subjectOptions = [
 ]
 
 const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"
+const session = await getSession(Astro.request, import.meta.env.AUTH_SECRET)
 ---
 
 <div class="mt-10 mb-16 grid grid-cols-1 items-start gap-12 md:grid-cols-[5fr_7fr] md:gap-20">
@@ -48,58 +52,165 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "1x0000000000000000
 	</div>
 
 	<!-- RIGHT: Form column -->
-	<form
-		id="contact-form"
-		class="flex flex-col gap-6"
-		data-lang={lang}
-		data-success={t("contact.form.success")}
-		data-error={t("contact.form.error")}
-		novalidate
-	>
-		<input type="hidden" name="lang" value={lang} />
-
-		<div class="flex flex-col gap-5 sm:flex-row">
-			<Input id="name" name="name" label={t("contact.form.name")} placeholder="John Doe" />
-
-			<Input
-				type="email"
-				id="email"
-				name="email"
-				label={t("contact.form.email")}
-				placeholder="hello@example.com"
-			/>
+	<div class="flex flex-col gap-4">
+	{session ? (
+		<>
+		<!-- Session Badge -->
+		<div class="flex items-center justify-between gap-3 rounded-xl border border-[#0A66C2]/30 bg-[#0A66C2]/8 dark:bg-[#0A66C2]/10 px-4 py-3 mb-6">
+			<div class="flex items-center gap-3">
+				{
+					(session as any)?.picture ? (
+						<img
+							src={(session as any).picture}
+							alt={(session as any).name || ""}
+							class="size-9 rounded-full border-2 border-[#0A66C2]/40 object-cover"
+						/>
+					) : (
+						<div class="size-9 rounded-full bg-[#0A66C2] flex items-center justify-center text-white text-sm font-bold">
+							{((session as any)?.name || "?")[0].toUpperCase()}
+						</div>
+					)
+				}
+				<div class="flex flex-col">
+					<span class="text-xs text-dark/60 dark:text-gray-400">{t("contact.form.connected_as")}</span>
+					<span class="text-sm font-semibold text-dark dark:text-white leading-tight">{(session as any)?.name}</span>
+				</div>
+			</div>
+			<form method="POST" action="/api/auth/signout">
+				<input type="hidden" name="callbackUrl" value={translatePath("/contact")} />
+				<Button
+					type="submit"
+					size="sm"
+					class="hover:text-red-500! dark:hover:text-red-400!"
+				>
+					<FaLinkedinIn slot="startIcon" />
+					{t("contact.form.logout")}
+				</Button>
+			</form>
 		</div>
-
-		<Select id="subject" name="subject" label={t("contact.form.subject")}>
-			<option value="" disabled selected>{t("contact.form.subject.placeholder")}</option>
-			{subjectOptions.map(({ value, label }) => <option value={value}>{label}</option>)}
-		</Select>
-
-		<Textarea id="message" name="message" label={t("contact.form.message")} placeholder="..." />
-
-		<!-- Turnstile -->
-		<div class="cf-turnstile mt-2" data-sitekey={siteKey} data-theme="auto"></div>
-
-		<!-- Status messages -->
-		<div
-			id="form-status"
-			class="hidden rounded-xl p-4 text-sm font-medium transition-all duration-300"
+		<!-- Form -->
+		<form
+			id="contact-form"
+			class="flex flex-col gap-6"
+			data-lang={lang}
+			data-success={t("contact.form.success")}
+			data-error={t("contact.form.error")}
+			novalidate
 		>
+			<input type="hidden" name="lang" value={lang} />
+
+			<div class="flex flex-col gap-5 sm:flex-row">
+				<Input 
+					id="name" 
+					name="name" 
+					label={t("contact.form.name")} 
+					placeholder="John Doe" 
+					value={(session as any)?.name || ""} 
+					readonly 
+				/>
+
+				<Input
+					type="email"
+					id="email"
+					name="email"
+					label={t("contact.form.email")}
+					placeholder="hello@example.com"
+					value={(session as any)?.email || ""}
+					readonly
+				/>
+			</div>
+
+			<Select id="subject" name="subject" label={t("contact.form.subject")}>
+				<option value="" disabled selected>{t("contact.form.subject.placeholder")}</option>
+				{subjectOptions.map(({ value, label }) => <option value={value}>{label}</option>)}
+			</Select>
+
+			<Textarea id="message" name="message" label={t("contact.form.message")} placeholder="..." />
+
+			<!-- Turnstile -->
+			<div class="cf-turnstile mt-2" data-sitekey={siteKey} data-theme="auto"></div>
+
+			<!-- Status messages -->
+			<div
+				id="form-status"
+				class="hidden rounded-xl p-4 text-sm font-medium transition-all duration-300"
+			>
+			</div>
+
+			<!-- Submit Button -->
+			<Button type="submit" id="submit-btn" variant="filled" color="primary" class="w-full">
+				<TbLoader className="hidden animate-spin" id="submit-spinner" slot="startIcon" />
+				<span id="submit-text">{t("contact.form.submit")}</span>
+			</Button>
+		</form>
+		</>
+	) : (
+		<div class="flex flex-col justify-center h-full rounded-2xl p-8 md:p-16 border border-gray-200 dark:border-white/10 bg-light dark:bg-dark-gray/50 gap-6">
+			<div class="flex flex-col items-center text-center gap-3">
+				<Typography variant="h4" class="text-dark dark:text-white text-pretty">
+					{t("contact.form.login.title")}
+				</Typography>
+				<Typography variant="highlight" class="text-dark/70 dark:text-gray-300 text-pretty">
+					{t("contact.form.login.description")}
+				</Typography>
+			</div>
+			<div class="flex flex-col items-center text-center gap-6">
+				<Button
+					id="linkedin-popup-btn"
+					type="button"
+					variant="filled"
+					class="bg-[#0A66C2]! hover:bg-[#004182]! border-[#0A66C2]! hover:border-[#004182]! text-white!"
+				>
+					<FaLinkedinIn className="size-4" slot="startIcon" />
+					{t("contact.form.login.button")}
+				</Button>
+				<p class="text-xs text-gray-400 dark:text-gray-500">
+					{t("contact.form.login.privacy")}
+				</p>
+			</div>
 		</div>
+	)}
+	</div>
 
-		<!-- Submit Button -->
-		<Button type="submit" id="submit-btn" variant="filled" color="primary" class="w-full">
-			<TbLoader className="hidden animate-spin" id="submit-spinner" slot="startIcon" />
-			<span id="submit-text">{t("contact.form.submit")}</span></Button
-		>
-	</form>
-</div>
+
+<script>
+  const linkedinBtn = document.getElementById('linkedin-popup-btn')
+  if (linkedinBtn) {
+    linkedinBtn.addEventListener('click', () => {
+      const popup = window.open(
+        '/auth/linkedin-popup',
+        'linkedin-oauth',
+        'width=600,height=700,top=100,left=200,resizable=yes,scrollbars=yes'
+      )
+
+      // Listen for auth-success message from popup
+      const onMessage = (e: MessageEvent) => {
+        if (e.data?.type === 'auth-success') {
+          window.removeEventListener('message', onMessage)
+          clearInterval(checkClosed)
+          window.location.reload()
+        }
+      }
+      window.addEventListener('message', onMessage)
+
+      // Fallback: detect popup closed manually
+      const checkClosed = setInterval(() => {
+        if (popup?.closed) {
+          clearInterval(checkClosed)
+          window.removeEventListener('message', onMessage)
+          window.location.reload()
+        }
+      }, 800)
+    })
+  }
+</script>
 
 <script
 	is:inline
 	src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback"
 	async
 	defer></script>
+
 
 <script>
 	import { getContactSchema } from "@/utils/validations"
