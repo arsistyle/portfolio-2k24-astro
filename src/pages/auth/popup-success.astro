@@ -2,25 +2,36 @@
 export const prerender = false
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <meta charset="UTF-8" />
-  <title>Authenticated</title>
-  <style>
-    body { font-family: system-ui, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #0f0f0f; color: #fff; }
-    p { opacity: 0.6; }
-  </style>
-</head>
-<body>
-  <p>✓ Autenticado. Cerrando...</p>
-  <script>
-    if (window.opener) {
-      window.opener.postMessage({ type: 'auth-success' }, '*');
-      window.close();
-    } else {
-      window.location.href = '/contact';
-    }
-  </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Authenticated</title>
+		<style>
+			body {
+				font-family: system-ui, sans-serif;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 100vh;
+				margin: 0;
+				background: #0f0f0f;
+				color: #fff;
+			}
+			p {
+				opacity: 0.6;
+			}
+		</style>
+	</head>
+	<body>
+		<p>✓ Autenticado. Cerrando...</p>
+		<script>
+			if (window.opener) {
+				window.opener.postMessage({ type: "auth-success" }, window.location.origin)
+				window.close()
+			} else {
+				window.location.href = "/contact"
+			}
+		</script>
+	</body>
 </html>

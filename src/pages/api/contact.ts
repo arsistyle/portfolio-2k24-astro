@@ -10,15 +10,15 @@ export const POST: APIRoute = async ({ request, locals }) => {
 	const lang = (rawData.lang as string) || "es"
 	const messages = errorMessages[lang] || errorMessages["es"]
 
-	const session = await getSession(request, import.meta.env.AUTH_SECRET)
-	if (!session) {
-		return new Response(JSON.stringify({ error: "Unauthorized" }), {
-			status: 401,
-			headers: { "Content-Type": "application/json" },
-		})
-	}
-
 	try {
+		const session = await getSession(request, import.meta.env.AUTH_SECRET)
+		if (!session) {
+			return new Response(JSON.stringify({ error: "Unauthorized" }), {
+				status: 401,
+				headers: { "Content-Type": "application/json" },
+			})
+		}
+
 		const parsed = getContactSchema(lang).safeParse(rawData)
 
 		if (!parsed.success) {
