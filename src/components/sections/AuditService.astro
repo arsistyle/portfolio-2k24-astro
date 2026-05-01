@@ -1,15 +1,10 @@
 ---
-import { getLangFromUrl, useTranslations } from "@/i18n/utils"
-
 import AuditCTA from "./AuditCTA.astro"
 import AuditDeliverables from "./AuditDeliverables.astro"
 import AuditHero from "./AuditHero.astro"
 import AuditLayers from "./AuditLayers.astro"
 import AuditQuote from "./AuditQuote.astro"
 import AuditWho from "./AuditWho.astro"
-
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
 ---
 
 <div class="flex flex-col gap-6">

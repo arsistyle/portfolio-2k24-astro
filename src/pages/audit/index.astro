@@ -1,12 +1,10 @@
 ---
 import AuditService from "@/components/sections/AuditService.astro"
-import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
+import { getLangFromUrl } from "@/i18n/utils"
 import Layout from "@/layouts/Layout.astro"
 import { getEntry } from "astro:content"
 
 const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
-const translatePath = useTranslatedPath(lang)
 
 const seoEntry = await getEntry("seo", lang as any)
 const seo = (seoEntry as any)?.data?.pages?.audit

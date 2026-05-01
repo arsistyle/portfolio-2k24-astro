@@ -8,7 +8,6 @@ import Layout from "@/layouts/Layout.astro"
 import AuditService from "@/components/sections/AuditService.astro"
 
 const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
 
 const seoEntry = await getEntry("seo", lang as any)
 const seo = (seoEntry as any)?.data?.pages?.audit
