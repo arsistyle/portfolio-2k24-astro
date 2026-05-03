@@ -8,7 +8,12 @@ import Typography from "@/components/core/Typography/index.astro"
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 
-const { jobs }: { jobs: string[] } = DATA_EXPERIENCE[lang] || { jobs: [] }
+type Job = {
+	title: string
+	description: string
+}
+
+const { jobs }: { jobs: Job[] } = DATA_EXPERIENCE[lang] || { jobs: [] }
 
 const startDate = "2017-03-01"
 const years = new Date(Date.now() - new Date(startDate).getTime()).getUTCFullYear() - 1970
@@ -31,14 +36,19 @@ const experienceText = rawExperienceText.replace("{YEARS_EXPERIENCE}", String(ye
 		</Typography>
 		<div class="grid grid-cols-2 gap-8 sm:gap-12 md:gap-20">
 			{
-				jobs.map((text: string) => (
+				jobs.map((job: Job) => (
 					<div class="col-span-2 grid grid-cols-[2rem_1fr] gap-4 text-left md:col-span-1 md:grid-cols-[3rem_1fr]">
 						<div class="text-primary-500 dark:text-primary-300 h-8 w-8 md:h-12 md:w-12">
 							<Check />
 						</div>
-						<Typography variant="highlight" class="text-dark text-pretty dark:text-white">
-							{text}
-						</Typography>
+						<div class="flex flex-col gap-2">
+							<Typography variant="h5" class="text-dark text-pretty dark:text-white">
+								{job.title}
+							</Typography>
+							<Typography variant="body" class="text-dark text-pretty dark:text-white">
+								{job.description}
+							</Typography>
+						</div>
 					</div>
 				))
 			}
@@ -49,7 +59,8 @@ const experienceText = rawExperienceText.replace("{YEARS_EXPERIENCE}", String(ye
 <script>
 	const el = document.getElementById("experience-title")
 	if (el instanceof HTMLElement) {
-		const years = new Date(Date.now() - new Date(el.dataset.start!).getTime()).getUTCFullYear() - 1970
+		const years =
+			new Date(Date.now() - new Date(el.dataset.start!).getTime()).getUTCFullYear() - 1970
 		el.textContent = el.dataset.template!.replace("{YEARS_EXPERIENCE}", String(years))
 	}
 </script>

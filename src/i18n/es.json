@@ -5,12 +5,16 @@
   "nav.shop": "Tienda",
   "nav.shop.thankYou": "Gracias por tu compra",
 
+  "about.paragraph": "👉 <strong>Me dedico a auditar y optimizar sitios web</strong> para que funcionen correctamente a nivel técnico. Diseño en <strong>Figma</strong> y desarrollo con <strong>Astro</strong>, una herramienta que me permite crear arquitecturas rápidas, fáciles de indexar por Google (<strong>SEO</strong>) y preparadas para buscadores de IA (<strong>GEO</strong>). Mi prioridad es eliminar el código innecesario para centrarme en lo que importa: <strong>velocidad y visibilidad real</strong>.",
+  "about.cta": "¡Echa un vistazo y descubre el estándar de la web moderna! 🔥",
+
   "home.hero.greeting": "👋 Hola, soy",
   "home.hero.name": "Israel",
   "home.hero.lastname": "Larrondo",
-  "home.hero.job": "Diseñador Front-End 🔥",
-  "home.experience.title": "+{YEARS_EXPERIENCE} años de experiencia como Diseñador Front-End",
+  "home.hero.job": "Performance Auditor & Astro Expert 🔥",
+  "home.experience.title": "+{YEARS_EXPERIENCE} años en Diseño y Arquitectura de Interfaces Web",
   "home.projects.title": "Trabajos recientes",
+  "home.projects.seeAll": "Ver todos",
 
   "home.audit.label": "✍️ Auditoría Web",
   "home.audit.title": "¿Tus clientes te encuentran online?",
