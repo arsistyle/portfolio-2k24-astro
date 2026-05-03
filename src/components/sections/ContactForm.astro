@@ -100,13 +100,13 @@ const session = await getSession(Astro.request, import.meta.env.AUTH_SECRET)
 			<input type="hidden" name="lang" value={lang} />
 
 			<div class="flex flex-col gap-5 sm:flex-row">
-				<Input 
-					id="name" 
-					name="name" 
-					label={t("contact.form.name")} 
-					placeholder="John Doe" 
-					value={(session as any)?.name || ""} 
-					readonly 
+				<Input
+					id="name"
+					name="name"
+					label={t("contact.form.name")}
+					placeholder="John Doe"
+					value={(session as any)?.name || ""}
+					readonly
 				/>
 
 				<Input
@@ -174,9 +174,13 @@ const session = await getSession(Astro.request, import.meta.env.AUTH_SECRET)
 
 
 <script>
-  const linkedinBtn = document.getElementById('linkedin-popup-btn')
-  if (linkedinBtn) {
-    linkedinBtn.addEventListener('click', () => {
+  function initLinkedinPopup() {
+    const linkedinBtn = document.getElementById('linkedin-popup-btn')
+    if (!linkedinBtn) return
+
+    // Use onclick assignment instead of addEventListener to prevent
+    // duplicate handlers on re-initialization across ViewTransitions
+    linkedinBtn.onclick = () => {
       const popup = window.open(
         '/auth/linkedin-popup',
         'linkedin-oauth',
@@ -201,8 +205,11 @@ const session = await getSession(Astro.request, import.meta.env.AUTH_SECRET)
           window.location.reload()
         }
       }, 800)
-    })
+    }
   }
+
+  // Re-initialize on every ViewTransition navigation
+  document.addEventListener('astro:page-load', initLinkedinPopup)
 </script>
 
 <script
@@ -223,11 +230,25 @@ const session = await getSession(Astro.request, import.meta.env.AUTH_SECRET)
 		}
 	}
 
-	// 1. Safe renderer
+	// Track the active widget ID to allow proper cleanup
+	let _turnstileWidgetId: string | null = null
+
+	// 1. Safe renderer — always removes old widget before re-rendering
 	window.renderTurnstile = function () {
 		const container = document.querySelector(".cf-turnstile") as HTMLElement | null
-		if (container && window.turnstile && !container.hasChildNodes()) {
-			window.turnstile.render(container, {
+		if (!container || !window.turnstile) return
+
+		// Remove previous widget if it exists (stale token after ViewTransition)
+		if (_turnstileWidgetId !== null) {
+			try {
+				window.turnstile.remove(_turnstileWidgetId)
+			} catch (_) {}
+			_turnstileWidgetId = null
+			container.innerHTML = ""
+		}
+
+		if (!container.hasChildNodes()) {
+			_turnstileWidgetId = window.turnstile.render(container, {
 				sitekey: container.dataset.sitekey,
 				theme: "auto",
 			})
@@ -239,7 +260,18 @@ const session = await getSession(Astro.request, import.meta.env.AUTH_SECRET)
 		window.renderTurnstile()
 	}
 
-	// 3. Form Initialization
+	// 3. Clean up Turnstile widget BEFORE Astro swaps the DOM
+	//    Prevents stale widget state and memory leaks across navigations
+	document.addEventListener("astro:before-swap", () => {
+		if (_turnstileWidgetId !== null && window.turnstile) {
+			try {
+				window.turnstile.remove(_turnstileWidgetId)
+			} catch (_) {}
+			_turnstileWidgetId = null
+		}
+	})
+
+	// 4. Form Initialization
 	function initContactForm() {
 		const form = document.getElementById("contact-form") as HTMLFormElement | null
 		const statusEl = document.getElementById("form-status") as HTMLDivElement | null
