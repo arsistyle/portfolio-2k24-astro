@@ -1,0 +1,22 @@
+---
+import { PortableText } from "astro-portabletext"
+import SanityCodeBlock from "./blocks/SanityCodeBlock.astro"
+import SanityFlowSteps from "./blocks/SanityFlowSteps.astro"
+import SanitySources from "./blocks/SanitySources.astro"
+
+interface Props {
+	value: any[]
+}
+
+const { value } = Astro.props
+
+const components = {
+	type: {
+		codeBlock: SanityCodeBlock,
+		flowSteps: SanityFlowSteps,
+		sources: SanitySources,
+	},
+}
+---
+
+<PortableText {value} {components} />

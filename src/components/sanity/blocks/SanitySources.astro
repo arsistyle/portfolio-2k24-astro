@@ -1,0 +1,21 @@
+---
+import Sources from "@/components/core/Sources/index.astro"
+
+interface SourceItem {
+	_key: string
+	title: string
+	url: string
+}
+
+interface Props {
+	node: {
+		_type: "sources"
+		items: SourceItem[]
+	}
+}
+
+const { node } = Astro.props
+const sources = (node.items ?? []).map(({ url, title }) => ({ url, title }))
+---
+
+<Sources {sources} />
