@@ -19,13 +19,8 @@ const activeClasses = "pointer-events-none text-secondary-500 dark:text-primary-
 >
 	<TbLanguage className="text-dark dark:text-white" />
 	<div class="flex gap-2">
-		<a
-			href={translatePath("en")}
-			class:list={[mainClasses, lang === "en" ? activeClasses : defaultClasses]}>EN</a
-		>
-		<a
-			href={translatePath("es")}
-			class:list={[mainClasses, lang === "es" ? activeClasses : defaultClasses]}>ES</a
+		<a href={"/"} class:list={[mainClasses, lang === "en" ? activeClasses : defaultClasses]}>EN</a>
+		<a href={"/es"} class:list={[mainClasses, lang === "es" ? activeClasses : defaultClasses]}>ES</a
 		>
 	</div>
 </div>

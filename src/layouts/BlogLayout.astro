@@ -1,7 +1,7 @@
 ---
 import { useTranslatedPath, useTranslations } from "@/i18n/utils"
 import PageLayout from "@/layouts/PageLayout.astro"
-import { getBlogPosts, getCategoriesWithCount } from "@/utils/getBlogPosts"
+import { getBlogPosts, getCategoriesWithCount } from "@/lib/sanity/getBlogPosts"
 import BlogCard from "@/components/core/BlogCard/BlogCard.astro"
 import CategoryFilter from "@/components/core/CategoryFilter/CategoryFilter"
 import Typography from "@/components/core/Typography/index.astro"
@@ -28,7 +28,7 @@ const { lang, title, pageTitle, breadcrumbs, page, description, og_title, og_ima
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 
-const allPosts = getBlogPosts({ lang })
+const allPosts = await getBlogPosts({ lang })
 const posts = page.data
 const categoriesWithCount = getCategoriesWithCount(allPosts, CATEGORIES)
 const hasPosts = posts.length > 0

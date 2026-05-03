@@ -1,32 +1,23 @@
 ---
+export const prerender = false
+
 import type { Langs } from "@/types"
-import { getBlogPosts } from "@/utils/getBlogPosts"
+import { getBlogPost } from "@/lib/sanity/getBlogPosts"
 import PostLayout from "@/layouts/PostLayout.astro"
+import SanityPortableText from "@/components/sanity/SanityPortableText.astro"
 
-export async function getStaticPaths() {
-	const lang: Langs = "en"
-	const postList = getBlogPosts({ lang, includeFuture: true })
+const lang: Langs = "en"
+const { slug } = Astro.params
 
-	return postList.map((post) => {
-		return {
-			params: { slug: post.slug },
-			props: { post },
-		}
-	})
-}
+if (!slug) return Astro.redirect("/blog", 302)
 
-const { post } = Astro.props
-const { title, description, categories, Content, slug, image, og_image, readingTime } = post
+const post = await getBlogPost({ slug, lang })
+
+if (!post) return new Response(null, { status: 404 })
+
+const { title, description, categories, image, og_image, readingTime, body } = post
 ---
 
-<PostLayout
-	title={title}
-	description={description}
-	slug={slug}
-	image={image}
-	og_image={og_image}
-	categories={categories}
-	readingTime={readingTime}
->
-	<Content />
+<PostLayout {title} {description} {slug} {image} og_image={og_image} {categories} {readingTime}>
+	<SanityPortableText value={body ?? []} />
 </PostLayout>

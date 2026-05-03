@@ -4,10 +4,9 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "baseUrl": ".",
+    "types": ["@sanity/astro/module"],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
-  }
+      "@/*": ["./src/*"],
+    },
+  },
 }

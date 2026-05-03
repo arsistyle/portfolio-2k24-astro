@@ -1,6 +1,6 @@
 ---
 import { TbChevronLeft, TbChevronRight } from "react-icons/tb"
-import { getBlogPosts } from "@/utils/getBlogPosts"
+import { getBlogPosts } from "@/lib/sanity/getBlogPosts"
 import { useTranslatedPath } from "@/i18n/utils"
 import type { Langs } from "@/types"
 
@@ -14,7 +14,7 @@ interface Props {
 
 const { slug, lang, basePath, prevLabel = "Previous", nextLabel = "Next" } = Astro.props
 
-const allPosts = getBlogPosts({ lang })
+const allPosts = await getBlogPosts({ lang })
 const now = new Date()
 const isDev = import.meta.env.DEV
 

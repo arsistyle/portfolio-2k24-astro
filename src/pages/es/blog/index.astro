@@ -2,7 +2,7 @@
 export const prerender = false
 
 import BlogLayout from "@/layouts/BlogLayout.astro"
-import { getBlogPosts } from "@/utils/getBlogPosts"
+import { getBlogPosts } from "@/lib/sanity/getBlogPosts"
 import { useTranslations, useTranslatedPath } from "@/i18n/utils"
 import { BLOG_POSTS_PER_PAGE } from "@/constants"
 import type { Langs, BreadcrumbsItem } from "@/types"
@@ -19,7 +19,7 @@ const categoryFilter = url.searchParams.get("categories")?.split(",").filter(Boo
 const currentPage = 1
 
 // Fetch all posts for filtering
-let allPosts = getBlogPosts({ lang })
+let allPosts = await getBlogPosts({ lang })
 
 // Filter posts on the server
 if (searchQuery || categoryFilter.length > 0) {

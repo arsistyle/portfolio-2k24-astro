@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite"
 import react from "@astrojs/react"
 import sitemap from "@astrojs/sitemap"
 import cloudflare from "@astrojs/cloudflare"
+import sanity from "@sanity/astro"
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,7 +17,17 @@ export default defineConfig({
 		imageService: "compile",
 		prerenderEnvironment: "node",
 	}),
-	integrations: [mdx(), react(), sitemap()],
+	integrations: [
+		mdx(),
+		react(),
+		sitemap(),
+		sanity({
+			projectId: process.env.PUBLIC_SANITY_PROJECT_ID ?? "45naspfq",
+			dataset: process.env.PUBLIC_SANITY_DATASET ?? "develop",
+			useCdn: false,
+			token: process.env.SANITY_API_TOKEN,
+		}),
+	],
 	fonts: [
 		{
 			provider: fontProviders.fontsource(),
@@ -40,6 +51,10 @@ export default defineConfig({
 			{
 				protocol: "https",
 				hostname: "pub-e84866d2025a4715887cd3e35165cedc.r2.dev",
+			},
+			{
+				protocol: "https",
+				hostname: "cdn.sanity.io",
 			},
 		],
 	},
