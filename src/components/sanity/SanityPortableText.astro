@@ -1,7 +1,9 @@
 ---
 import { PortableText } from "astro-portabletext"
 import SanityCodeBlock from "./blocks/SanityCodeBlock.astro"
+import SanityContentBlock from "./blocks/SanityContentBlock.astro"
 import SanityFlowSteps from "./blocks/SanityFlowSteps.astro"
+import SanityImage from "./blocks/SanityImage.astro"
 import SanitySources from "./blocks/SanitySources.astro"
 
 interface Props {
@@ -13,7 +15,9 @@ const { value } = Astro.props
 const components = {
 	type: {
 		codeBlock: SanityCodeBlock,
+		contentBlock: SanityContentBlock,
 		flowSteps: SanityFlowSteps,
+		image: SanityImage,
 		sources: SanitySources,
 	},
 }

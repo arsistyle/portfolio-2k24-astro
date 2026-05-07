@@ -55,7 +55,7 @@ const session = await getSession(Astro.request, import.meta.env.AUTH_SECRET)
 	<div class="flex flex-col gap-4">
 	{session ? (
 		<>
-		<!-- Session Badge -->
+		{/* Session Badge */}
 		<div class="flex items-center justify-between gap-3 rounded-xl border border-[#0A66C2]/30 bg-[#0A66C2]/8 dark:bg-[#0A66C2]/10 px-4 py-3 mb-6">
 			<div class="flex items-center gap-3">
 				{
@@ -88,7 +88,7 @@ const session = await getSession(Astro.request, import.meta.env.AUTH_SECRET)
 				</Button>
 			</form>
 		</div>
-		<!-- Form -->
+		{/* Form */}
 		<form
 			id="contact-form"
 			class="flex flex-col gap-6"
@@ -127,17 +127,17 @@ const session = await getSession(Astro.request, import.meta.env.AUTH_SECRET)
 
 			<Textarea id="message" name="message" label={t("contact.form.message")} placeholder="..." />
 
-			<!-- Turnstile -->
+			{/* Turnstile */}
 			<div class="cf-turnstile mt-2" data-sitekey={siteKey} data-theme="auto"></div>
 
-			<!-- Status messages -->
+			{/* Status messages */}
 			<div
 				id="form-status"
 				class="hidden rounded-xl p-4 text-sm font-medium transition-all duration-300"
 			>
 			</div>
 
-			<!-- Submit Button -->
+			{/* Submit Button */}
 			<Button type="submit" id="submit-btn" variant="filled" color="primary" class="w-full">
 				<TbLoader className="hidden animate-spin" id="submit-spinner" slot="startIcon" />
 				<span id="submit-text">{t("contact.form.submit")}</span>

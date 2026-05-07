@@ -7,12 +7,15 @@ const sanityClient = createClient({
 	dataset: import.meta.env.PUBLIC_SANITY_DATASET ?? "develop",
 	apiVersion: "2025-01-01",
 	useCdn: false,
+	perspective: import.meta.env.DEV ? "drafts" : "published",
 	token: import.meta.env.SANITY_API_TOKEN,
 })
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export type SanityBlogPost = {
+	_id: string
+	isDraft: boolean
 	title: string
 	slug: string
 	description: string
@@ -39,6 +42,8 @@ export interface CategoryWithCount {
 // ─── GROQ Queries ─────────────────────────────────────────────────────────────
 
 const POST_FIELDS = /* groq */ `
+  _id,
+  _originalId,
   title,
   "slug": slug.current,
   description,
@@ -78,8 +83,15 @@ function computeReadingTime(body: any[]): number {
 	return Math.max(1, Math.ceil(words / 200))
 }
 
-function withReadingTime(post: Omit<SanityBlogPost, "readingTime">): SanityBlogPost {
-	return { ...post, readingTime: computeReadingTime(post.body) }
+function withReadingTimeAndDraftStatus(post: any): SanityBlogPost {
+	const isDraft =
+		(post._originalId && post._originalId.startsWith("drafts.")) ||
+		post._id.startsWith("drafts.")
+
+	// Limpiamos los campos internos antes de devolver
+	const { _originalId, ...cleanPost } = post
+
+	return { ...cleanPost, isDraft, readingTime: computeReadingTime(post.body) }
 }
 
 // ─── Exports ──────────────────────────────────────────────────────────────────
@@ -103,11 +115,8 @@ export async function getBlogPosts({
 	const isDev = import.meta.env.DEV
 
 	return raw
-		.filter(
-			(post: Omit<SanityBlogPost, "readingTime">) =>
-				isDev || includeFuture || new Date(post.date) <= now
-		)
-		.map(withReadingTime)
+		.filter((post: any) => isDev || includeFuture || new Date(post.date) <= now)
+		.map(withReadingTimeAndDraftStatus)
 }
 
 /**
@@ -121,12 +130,9 @@ export async function getBlogPost({
 	slug: string
 	lang: Langs
 }): Promise<SanityBlogPost | null> {
-	const raw = await sanityClient.fetch<Omit<SanityBlogPost, "readingTime"> | null>(
-		POST_BY_SLUG_QUERY,
-		{ slug, lang }
-	)
+	const raw = await sanityClient.fetch<any | null>(POST_BY_SLUG_QUERY, { slug, lang })
 	if (!raw) return null
-	return withReadingTime(raw)
+	return withReadingTimeAndDraftStatus(raw)
 }
 
 /** Pure: extract unique category slugs from a post list. */

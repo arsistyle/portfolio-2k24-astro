@@ -1,0 +1,37 @@
+---
+import ContentBlock from "@/components/core/ContentBlock/ContentBlock.astro"
+import { PortableText } from "astro-portabletext"
+import SanityCodeBlock from "./SanityCodeBlock.astro"
+import SanityFlowSteps from "./SanityFlowSteps.astro"
+import SanityImage from "./SanityImage.astro"
+import SanitySources from "./SanitySources.astro"
+
+interface Props {
+	node: {
+		_type: "contentBlock"
+		body?: any[]
+	}
+}
+
+const { node } = Astro.props
+
+// Se necesitan los componentes para renderizar bloques anidados correctamente
+const components = {
+	type: {
+		codeBlock: SanityCodeBlock,
+		flowSteps: SanityFlowSteps,
+		image: SanityImage,
+		sources: SanitySources,
+		// No podemos renderizar contentBlock recursivamente aquí para evitar bucles infinitos fácilmente,
+		// o podríamos, pero según el schema no lo tenemos como array member del mismo contentBlock.
+	},
+}
+---
+
+{
+	node.body && node.body.length > 0 ? (
+		<ContentBlock>
+			<PortableText value={node.body} {components} />
+		</ContentBlock>
+	) : null
+}

@@ -1,0 +1,53 @@
+---
+import type { PortableTextNode } from "astro-portabletext/types"
+
+interface ImageNode extends PortableTextNode {
+	_type: "image"
+	alt?: string
+	caption?: string
+	asset?: {
+		_ref?: string
+		_type: "reference"
+	}
+	url?: string // If we expanded it via GROQ
+}
+
+interface Props {
+	node: ImageNode
+}
+
+const { node } = Astro.props
+
+const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? "45naspfq"
+const dataset = import.meta.env.PUBLIC_SANITY_DATASET ?? "develop"
+
+let imageUrl = node.url
+
+if (!imageUrl && node.asset?._ref) {
+	// Convierte la referencia "image-af1b43a...-1280x853-png" en su URL real
+	const ref = node.asset._ref
+	const parts = ref.split("-")
+	if (parts.length === 4) {
+		const [, id, dimensions, extension] = parts
+		imageUrl = `https://cdn.sanity.io/images/${projectId}/${dataset}/${id}-${dimensions}.${extension}`
+	}
+}
+---
+
+{
+	imageUrl ? (
+		<figure class="my-6 flex flex-col items-center gap-3">
+			<img
+				src={imageUrl}
+				alt={node.alt ?? "Imagen del artículo"}
+				class="w-full max-w-4xl rounded-2xl object-cover shadow-sm"
+				loading="lazy"
+			/>
+			{node.caption && (
+				<figcaption class="text-sm text-dark/70 dark:text-gray-400 text-center text-pretty">
+					{node.caption}
+				</figcaption>
+			)}
+		</figure>
+	) : null
+}

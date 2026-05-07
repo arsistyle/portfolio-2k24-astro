@@ -81,6 +81,7 @@ const hasCategories = categoriesWithCount.length > 0
 									slug={post.slug}
 									image={post.image}
 									readingTime={post.readingTime}
+									isDraft={post.isDraft}
 								/>
 							) : (
 								<BlogCard
@@ -93,6 +94,7 @@ const hasCategories = categoriesWithCount.length > 0
 									slug={post.slug}
 									image={post.image}
 									readingTime={post.readingTime}
+									isDraft={post.isDraft}
 								/>
 							)
 						})}
