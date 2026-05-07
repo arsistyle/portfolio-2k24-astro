@@ -12,12 +12,12 @@ interface FlowStepNode {
 
 interface Props {
 	node: {
-		_type: "flowSteps"
 		steps: FlowStepNode[]
 	}
+	components?: any
 }
 
-const { node } = Astro.props
+const { node, components: parentComponents } = Astro.props
 const steps = node.steps ?? []
 ---
 
@@ -25,7 +25,7 @@ const steps = node.steps ?? []
 	{
 		steps.map((step) => (
 			<FlowStep icon={step.icon ?? ""} title={step.title}>
-				{step.body?.length ? <PortableText value={step.body} /> : null}
+				{step.body?.length ? <PortableText value={step.body} components={parentComponents} /> : null}
 			</FlowStep>
 		))
 	}
