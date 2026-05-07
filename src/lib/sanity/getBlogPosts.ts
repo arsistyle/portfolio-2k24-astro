@@ -2,14 +2,35 @@ import { createClient } from "@sanity/client"
 import type { Langs } from "@/types"
 import type { CategoryConfig } from "@/config/categories"
 
-const sanityClient = createClient({
-	projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? "45naspfq",
-	dataset: import.meta.env.PUBLIC_SANITY_DATASET ?? "develop",
-	apiVersion: "2025-01-01",
-	useCdn: false,
-	perspective: import.meta.env.DEV ? "drafts" : "published",
-	token: import.meta.env.SANITY_API_TOKEN,
-})
+/**
+ * Creates a Sanity client reading secrets from the Cloudflare Workers env.
+ * In Astro v6 + @astrojs/cloudflare v13, `import { env } from "cloudflare:workers"`
+ * is the canonical way to access runtime bindings (replaces Astro.locals.runtime.env).
+ * Falls back to `import.meta.env` for local dev without wrangler proxy.
+ */
+function createSanityClient() {
+	let cfEnv: Record<string, string | undefined> = {}
+	try {
+		// Available in Cloudflare Workers runtime and via platformProxy in local dev
+		// eslint-disable-next-line @typescript-eslint/no-require-imports
+		cfEnv = require("cloudflare:workers").env ?? {}
+	} catch {
+		// Not in a Cloudflare context (e.g. astro check / SSG build step)
+	}
+
+	const projectId = cfEnv.PUBLIC_SANITY_PROJECT_ID ?? import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? "45naspfq"
+	const dataset = cfEnv.PUBLIC_SANITY_DATASET ?? import.meta.env.PUBLIC_SANITY_DATASET ?? "develop"
+	const token = cfEnv.SANITY_API_TOKEN ?? import.meta.env.SANITY_API_TOKEN
+
+	return createClient({
+		projectId,
+		dataset,
+		apiVersion: "2025-01-01",
+		useCdn: false,
+		perspective: import.meta.env.DEV ? "drafts" : "published",
+		token,
+	})
+}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -107,7 +128,8 @@ export async function getBlogPosts({
 	lang: Langs
 	includeFuture?: boolean
 }): Promise<SanityBlogPost[]> {
-	const raw = await sanityClient.fetch<Omit<SanityBlogPost, "readingTime">[]>(ALL_POSTS_QUERY, {
+	const client = createSanityClient()
+	const raw = await client.fetch<Omit<SanityBlogPost, "readingTime">[]>(ALL_POSTS_QUERY, {
 		lang,
 	})
 
@@ -130,7 +152,8 @@ export async function getBlogPost({
 	slug: string
 	lang: Langs
 }): Promise<SanityBlogPost | null> {
-	const raw = await sanityClient.fetch<any | null>(POST_BY_SLUG_QUERY, { slug, lang })
+	const client = createSanityClient()
+	const raw = await client.fetch<any | null>(POST_BY_SLUG_QUERY, { slug, lang })
 	if (!raw) return null
 	return withReadingTimeAndDraftStatus(raw)
 }

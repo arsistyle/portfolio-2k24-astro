@@ -2,12 +2,10 @@
 import { TbLanguage } from "react-icons/tb"
 
 import type { Langs } from "@/types"
-import { getLangFromUrl, useTranslatedPath, cleanUrl } from "@/i18n/utils"
+import { getLangFromUrl } from "@/i18n/utils"
 
 const url = Astro.url
 const lang = getLangFromUrl(url) as Langs
-const pathname = url.pathname
-const translatePath = (lang: Langs) => useTranslatedPath(lang)(cleanUrl(pathname))
 
 const mainClasses = "text-xs transition-colors rounded-full"
 const defaultClasses = "text-dark/60 dark:text-white/60 hover:text-dark/80 dark:hover:text-white/80"

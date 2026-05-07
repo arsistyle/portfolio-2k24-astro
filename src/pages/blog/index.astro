@@ -11,6 +11,7 @@ const lang: Langs = "en"
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 
+
 // Extract params from URL
 const url = new URL(Astro.request.url)
 const searchQuery = url.searchParams.get("q") || ""
