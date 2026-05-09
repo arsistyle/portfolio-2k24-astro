@@ -1,0 +1,23 @@
+---
+import ContentBlock from "@/components/core/ContentBlock/ContentBlock.astro"
+import { PortableText } from "astro-portabletext"
+
+interface Props {
+	node: {
+		_type: "contentBlock"
+		body?: any[]
+	}
+	// `astro-portabletext` might pass all props down? Let's accept components.
+	components?: any
+}
+
+const { node, components: parentComponents } = Astro.props
+---
+
+{
+	node.body && node.body.length > 0 ? (
+		<ContentBlock>
+			<PortableText value={node.body} components={parentComponents} />
+		</ContentBlock>
+	) : null
+}

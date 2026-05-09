@@ -1,0 +1,40 @@
+{
+  "name": "arsidev",
+  "private": true,
+  "version": "1.0.0",
+  "main": "package.json",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy-schema": "sanity schema deploy",
+    "deploy-graphql": "sanity graphql deploy",
+    "dev": "cross-env VITE_SANITY_DATASET=develop sanity dev",
+    "start": "cross-env VITE_SANITY_DATASET=production sanity start"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@sanity/document-internationalization": "^6.1.1",
+    "@sanity/vision": "^5.23.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "sanity": "^5.23.0",
+    "styled-components": "^6.1.18"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^6.0.0",
+    "@types/react": "^19.2.14",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.28",
+    "prettier": "^3.5",
+    "typescript": "^5.8"
+  },
+  "prettier": {
+    "bracketSpacing": false,
+    "printWidth": 100,
+    "semi": false,
+    "singleQuote": true
+  }
+}

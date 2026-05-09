@@ -1,0 +1,32 @@
+---
+import { PortableText } from "astro-portabletext"
+import FlowStep from "@/components/core/FlowStep/FlowStep.astro"
+
+interface FlowStepNode {
+	_key: string
+	_type: "flowStep"
+	icon?: string
+	title: string
+	body?: any[]
+}
+
+interface Props {
+	node: {
+		steps: FlowStepNode[]
+	}
+	components?: any
+}
+
+const { node, components: parentComponents } = Astro.props
+const steps = node.steps ?? []
+---
+
+<div class="flow-steps mt-4 flex flex-col gap-4">
+	{
+		steps.map((step) => (
+			<FlowStep icon={step.icon ?? ""} title={step.title}>
+				{step.body?.length ? <PortableText value={step.body} components={parentComponents} /> : null}
+			</FlowStep>
+		))
+	}
+</div>

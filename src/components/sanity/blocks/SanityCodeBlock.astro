@@ -1,0 +1,15 @@
+---
+import CodeBlock from "@/components/core/CodeBlock/CodeBlock.astro"
+
+interface Props {
+	node: {
+		_type: "codeBlock"
+		code: string
+		language?: string
+	}
+}
+
+const { node } = Astro.props
+---
+
+<CodeBlock code={node.code} lang={node.language} />

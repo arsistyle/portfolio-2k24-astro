@@ -1,2 +1,1 @@
 export { default as DATA_EXPERIENCE } from "./experience"
-export * from "./sections/index"

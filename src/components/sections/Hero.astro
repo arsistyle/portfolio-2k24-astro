@@ -2,15 +2,15 @@
 import { Image } from "astro:assets"
 import { getLangFromUrl, useTranslations } from "@/i18n/utils"
 
-import BackgroundGrid from "@/components/core/BackgroundGrid/index.astro"
 import Typography from "@/components/core/Typography/index.astro"
+import { RRSS } from "@/constants"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 ---
 
-<section class="dark:bg-dark relative z-10 bg-white">
-	<div class="flex w-full justify-center overflow-hidden px-5 py-14 md:py-40">
+<section class="dark:bg-dark relative z-10 overflow-x-clip bg-white">
+	<div class="flex w-full justify-center overflow-hidden px-5 py-14 md:py-28">
 		<div class="container">
 			<div class="grid grid-cols-2 items-center gap-8 sm:grid-cols-12">
 				<div class="hero-info relative z-10 col-span-2 sm:col-span-8">
@@ -28,11 +28,26 @@ const t = useTranslations(lang)
 					<Typography variant="h2" class="text-primary-500 dark:text-primary-300 font-bold">
 						{t("home.hero.job")}
 					</Typography>
+					<div class="mt-8 flex gap-8">
+						{
+							RRSS.map(({ name, url, icon: Icon }) => (
+								<a
+									href={url}
+									class="flex items-center gap-2 text-white transition-all hover:scale-105"
+									target="_blank"
+									rel="noopener noreferrer"
+									title={name}
+								>
+									<Icon className="h-10 w-10" />
+								</a>
+							))
+						}
+					</div>
 				</div>
-				<div class="col-span-4 flex justify-center sm:justify-end">
+				<div class="relative col-span-4 flex h-full justify-center sm:justify-end">
 					<div
 						id="hero-avatar-container"
-						class="avatar group relative h-80 w-80 sm:h-[450px] sm:w-[450px]"
+						class="avatar group sn:h-96 relative top-0 right-0 aspect-square w-full max-w-80 sm:absolute sm:w-[150%] md:max-w-150"
 					>
 						<!-- SVG Clip Path Definition -->
 						<svg class="pointer-events-none absolute h-0 w-0">
@@ -46,7 +61,7 @@ const t = useTranslations(lang)
 						<!-- Avatar Wrapper with Dynamic Clip Path -->
 						<div
 							id="blob-wrapper"
-							class="bg-secondary-400 dark:bg-secondary-300 relative h-full w-full overflow-hidden"
+							class="bg-secondary-400 dark:bg-secondary-300 relative h-full w-full"
 							style="clip-path: url(#blob-clip); mask-image: linear-gradient(to bottom, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);"
 						>
 							<Image
@@ -64,7 +79,6 @@ const t = useTranslations(lang)
 			</div>
 		</div>
 	</div>
-	<BackgroundGrid class="absolute -top-96 bottom-0" />
 </section>
 
 <script>
@@ -117,7 +131,7 @@ const t = useTranslations(lang)
 			mouseLerpFactor: 0.2,
 			noiseInfluence: 0.075,
 			positionLerpFactor: 0.05,
-			magneticDistance: 0.6,
+			magneticDistance: 0.5,
 			magneticStrength: 0.5,
 		}
 

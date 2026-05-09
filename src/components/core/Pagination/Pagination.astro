@@ -77,7 +77,7 @@ const basePath = translatePath("/blog")
 					}
 
 					const isCurrent = p === currentPage
-					const pageUrl = p === 1 ? basePath : `${basePath}/${p}`
+					const pageUrl = p === 1 ? basePath : `${basePath}/page/${p}`
 
 					return (
 						<a

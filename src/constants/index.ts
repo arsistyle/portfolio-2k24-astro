@@ -1,3 +1,5 @@
+import { BsGithub, BsLinkedin } from "react-icons/bs"
+
 export const MAIN_URL = import.meta.env.SITE || "https://arsi.dev"
 export const TWITTER_HANDLE = "@arsistyle"
 export const FB_APP_ID = "747608188232727"
@@ -22,3 +24,8 @@ export const CONTACT_SUBJECTS = {
 	WEB_AUDIT: "Web Audit",
 	OTHER: "Other",
 } as const
+
+export const RRSS = [
+	{ name: "LinkedIn", url: "https://www.linkedin.com/in/arsistyle/", icon: BsLinkedin },
+	{ name: "GitHub", url: "https://github.com/arsistyle", icon: BsGithub },
+]

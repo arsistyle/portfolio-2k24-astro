@@ -15,9 +15,7 @@ export const onRequest = defineMiddleware(({ url, rewrite }, next) => {
 	const env = (import.meta.env.APP_ENV ?? import.meta.env.MODE) as string
 
 	const routePath =
-		lang !== defaultLang
-			? pathname.replace(new RegExp(`^/${lang}(?=/|$)`), "") || "/"
-			: pathname
+		lang !== defaultLang ? pathname.replace(new RegExp(`^/${lang}(?=/|$)`), "") || "/" : pathname
 
 	if (!isRouteEnabled(routePath, lang, env)) {
 		return rewrite("/404")

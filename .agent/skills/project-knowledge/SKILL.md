@@ -30,8 +30,9 @@ description: Complete knowledge base for the arsi.dev portfolio project. Use thi
 | Comments | Giscus (GitHub Discussions) |
 | Analytics | Google AdSense |
 | Payments | PayPal (donations + shop) |
+| Auth | @auth/core 0.39+ (LinkedIn OAuth, JWT sessions) |
 
-**Key libraries:** `class-variance-authority`, `tailwind-merge`, `photoswipe`, `cmdk`, `js-cookie`, `react-final-marquee`, `smooth-scroll`, `astro-seo`, `@astrojs/sitemap`
+**Key libraries:** `class-variance-authority`, `tailwind-merge`, `photoswipe`, `cmdk`, `js-cookie`, `react-final-marquee`, `smooth-scroll`, `astro-seo`, `@astrojs/sitemap`, `@auth/core`
 
 ---
 
@@ -88,6 +89,9 @@ scripts/                  # fix-routes.mjs (post-build Cloudflare route fixer + 
 | `/components/` | EN | dev |
 | `/api/blog-index.json` | — | all (SSR) |
 | `/api/contact` | — | all (SSR POST) |
+| `/api/auth/[...auth]` | — | all (SSR GET+POST — Auth.js catch-all) |
+| `/auth/linkedin-popup` | — | all (SSR — OAuth popup launcher) |
+| `/auth/popup-success` | — | all (SSR — OAuth popup callback receiver) |
 | `/llms.txt` | — | all |
 
 Spanish routes mirror English routes under `/es/` prefix. Route availability is controlled via `src/config/routes.ts` with env-based gating, **enforced at runtime by `src/middleware.ts`** — direct URL access to disabled routes returns 302 → `/404`.
@@ -150,10 +154,14 @@ Intercepts all non-API, non-asset requests and calls `isRouteEnabled()` from `ro
 **ContactForm (`src/components/sections/ContactForm.astro`):**
 Two-column layout: `grid grid-cols-1 items-start gap-12 md:grid-cols-[5fr_7fr] md:gap-20`.
 - **Left column:** description paragraph + "Why work with me?" heading + 3 highlight props (reply, privacy, transparency) — all from i18n keys `contact.props.*`
-- **Right column:** the form with `Input`, `Select`, `Textarea` form components + Cloudflare Turnstile CAPTCHA + submit `Button` (variant="filled" color="primary" class="w-full") with `TbLoader` spinner from `react-icons/tb` as `startIcon` slot
+- **Right column (session-gated):** rendering depends on server-side session check via `getSession(Astro.request, import.meta.env.AUTH_SECRET)`:
+  - **Logged in:** session badge (avatar/initial + name + logout button) → form with `Input`, `Select`, `Textarea` + Cloudflare Turnstile + submit `Button`. Fields `name` and `email` are pre-filled from session and `readonly`.
+  - **Not logged in:** centered card with LinkedIn login button (`#linkedin-popup-btn`) that opens an OAuth popup flow.
+- **Session badge:** avatar from `session.picture` (or initial fallback), label from `contact.form.connected_as` i18n key, logout via `<form method="POST" action="/api/auth/signout">` with `callbackUrl={translatePath("/contact")}`
+- **Subject select:** options driven by `CONTACT_SUBJECTS` constant (`WEB_DEVELOPMENT`, `WEB_AUDIT`, `OTHER`). Subject can be pre-selected via `?subject=` query param (used by Audit page CTAs).
 - **Loading state:** during submission, all fields get `disabled` + `opacity-60 cursor-not-allowed` classes. Spinner uses `hidden`/`block` toggle via `getElementById("submit-spinner")`
 - **Status messages:** `#form-status` div toggled `hidden`/`block` with success/error messages from `data-success`/`data-error` attributes
-- **Turnstile:** site key from `import.meta.env.PUBLIC_TURNSTILE_SITE_KEY` (fallback: `"1x00000000000000000000AA"` for local testing)
+- **Turnstile:** site key from `import.meta.env.PUBLIC_TURNSTILE_SITE_KEY` (fallback: `"1x00000000000000000000AA"` for local testing). Widget ID tracked in `_turnstileWidgetId` variable for proper cleanup across navigations.
 - **Form components** (`src/components/form/`): `Input.astro`, `Select.astro`, `Textarea.astro` — styled form fields
 
 **Icon system:** Custom SVG icons in `src/components/icons/`. Currently available: `Check` (checkmark SVG). Import via `import { Check } from "@/components/icons/index.astro"`. For additional icons use `@tabler/icons-react` or `react-icons`.
@@ -278,7 +286,7 @@ Each category has: custom icon, Tailwind className overrides, display order, and
 **Performance**
 - Static pre-rendering by default, SSR with `export const prerender = false` per-page
 - Sharp for image optimization
-- Astro View Transitions
+- Astro View Transitions (`ClientRouter` from `astro:transitions`, used in `Layout.astro`)
 - Photoswipe lazy gallery
 - Cloudflare CDN edge
 
@@ -295,6 +303,22 @@ Each category has: custom icon, Tailwind className overrides, display order, and
 - Email via Resend API (`https://api.resend.com/emails`)
 - Env vars: `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`, `RESEND_TO_EMAIL`, `RESEND_FROM_EMAIL` (read via Cloudflare runtime env with `import.meta.env` fallback)
 
+**LinkedIn OAuth Authentication**
+- Library: `@auth/core` with `@auth/core/providers/linkedin`
+- Auth config factory: `src/auth.config.ts` → `createAuthConfig({ LINKEDIN_CLIENT_ID, LINKEDIN_CLIENT_SECRET, AUTH_SECRET })` — returns an `AuthConfig` with LinkedIn provider (scope: `openid profile email`), `trustHost: true`, `basePath: "/api/auth"`
+- API catch-all: `src/pages/api/auth/[...auth].ts` — handles GET and POST, reads env from `cloudflare:workers` with `import.meta.env` fallback, applies `skipCSRFCheck` for the popup flow
+- Session helper: `src/utils/auth.ts` → `getSession(request, secret): Promise<JWT | null>` — reads `authjs.session-token` (HTTP) or `__Secure-authjs.session-token` (HTTPS) cookie via `getToken()` from `@auth/core/jwt`
+- Session shape (JWT payload): `name`, `email`, `picture` (LinkedIn profile photo URL)
+- Required env vars: `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`, `AUTH_SECRET`
+
+**LinkedIn Popup OAuth Flow** (used in ContactForm):
+1. `#linkedin-popup-btn` click → `window.open('/auth/linkedin-popup', 'linkedin-oauth', ...)` (600×700)
+2. `src/pages/auth/linkedin-popup.astro` — auto-submits `<form POST /api/auth/signin/linkedin>` with `callbackUrl=/auth/popup-success`
+3. LinkedIn redirects back → `src/pages/auth/popup-success.astro` — sends `window.opener.postMessage({ type: 'auth-success' }, origin)` and closes
+4. Main window receives `auth-success` message → `window.location.reload()` (hard reload to pick up session cookie)
+5. Fallback: interval polls `popup.closed` every 800ms → reload on manual close
+6. If `window.opener` is null (direct navigation to success page) → redirect to `/contact`
+
 ---
 
 ## Constants (`src/constants/index.ts`)
@@ -306,6 +330,7 @@ FB_APP_ID = "747608188232727"
 PAYPAL_DONATE = { es: "...", en: "..." }
 DEFAULT_OG_IMAGE = { es: "...", en: "..." }  // R2 CDN URLs
 BLOG_POSTS_PER_PAGE = 10
+CONTACT_SUBJECTS = { WEB_DEVELOPMENT, WEB_AUDIT, OTHER }  // string values used in Select + ?subject= param
 ```
 
 ---
@@ -385,6 +410,8 @@ dist/
 - **Component variants:** Use `class-variance-authority` + `tailwind-merge`
 - **Dark mode classes:** Use `dark:` Tailwind prefix (triggered by `.dark` on `<html>`)
 - **No CLAUDE.md** exists in the repo — this skill is the authoritative project reference
+- **ViewTransitions — script re-initialization pattern:** With Astro's `ClientRouter`, bundled scripts (without `is:inline`) execute only once per session. Any DOM querying or event binding that needs to survive navigation must be wrapped in a `document.addEventListener('astro:page-load', fn)` handler. Use `.onclick =` / `.oninput =` assignments (not `addEventListener`) to prevent duplicate handlers on repeated calls.
+- **ViewTransitions — cleanup pattern:** Use `document.addEventListener('astro:before-swap', fn)` to clean up stateful third-party widgets (e.g. Cloudflare Turnstile) before Astro replaces the DOM. Turnstile: track the widget ID returned by `turnstile.render()`, call `turnstile.remove(widgetId)` in `astro:before-swap`, and re-render fresh in `astro:page-load`.
 - **Scroll animations:** Use CSS `animation-timeline: view()` with `animation-fill-mode: both`. Correct range: `entry 0% cover 30%` (or similar `cover` endpoint). Avoid `entry 0% entry X%` — the entry-only range completes too fast to be visible. Pattern already in use: `mark-text.css` (highlight color: `primary.400`). Named scroll timeline `--mainTimeline` is defined on `html` for parallax effects; separate from view()-based entrance animations.
 - **Copy voice:** Israel works alone — always first person singular in all copy ("reviso", "audito", "evalúo" / "I review", "I audit"). Never "revisamos", "we review", etc.
 - **In-page CTA vs Footer:** Footer uses an 8+4 split grid with green bg. In-page CTAs should use centered layout (`flex-col items-center text-center`) to avoid visual confusion with the Footer.

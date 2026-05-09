@@ -4,7 +4,7 @@ import type { APIRoute } from "astro"
 import { getSession } from "@/utils/auth"
 import { errorMessages, getContactSchema } from "@/utils/validations"
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request }) => {
 	const data = await request.formData()
 	const rawData = Object.fromEntries(data.entries())
 	const lang = (rawData.lang as string) || "es"
@@ -49,14 +49,16 @@ export const POST: APIRoute = async ({ request, locals }) => {
 		} catch (e) {
 			// Fallback if not in a Cloudflare environment
 		}
-		
+
 		const turnstileSecret = runtimeEnv.TURNSTILE_SECRET_KEY || import.meta.env.TURNSTILE_SECRET_KEY
 		const resendApiKey = runtimeEnv.RESEND_API_KEY || import.meta.env.RESEND_API_KEY
 		const toEmail = runtimeEnv.RESEND_TO_EMAIL || import.meta.env.RESEND_TO_EMAIL
 		const fromEmail = runtimeEnv.RESEND_FROM_EMAIL || import.meta.env.RESEND_FROM_EMAIL
 
 		if (!turnstileSecret || !resendApiKey || !toEmail || !fromEmail) {
-			console.error("Missing required environment variables: TURNSTILE_SECRET_KEY, RESEND_API_KEY, RESEND_TO_EMAIL, or RESEND_FROM_EMAIL")
+			console.error(
+				"Missing required environment variables: TURNSTILE_SECRET_KEY, RESEND_API_KEY, RESEND_TO_EMAIL, or RESEND_FROM_EMAIL"
+			)
 			return new Response(JSON.stringify({ error: messages.serverError }), {
 				status: 500,
 				headers: { "Content-Type": "application/json" },

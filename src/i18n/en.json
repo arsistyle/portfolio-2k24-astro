@@ -5,11 +5,14 @@
   "nav.shop": "Shop",
   "nav.shop.thankYou": "Thank you for your purchase",
 
+  "about.paragraph": "👉 <strong>I focus on auditing and optimizing websites</strong> to ensure they perform correctly at a technical level. I design in <strong>Figma</strong> and develop with <strong>Astro</strong>, a tool that allows me to build fast, crawlable architectures ready for Google (<strong>SEO</strong>) and AI search engines (<strong>GEO</strong>). My priority is eliminating unnecessary code to focus on what matters: <strong>speed and real-world visibility.</strong>",
+  "about.cta": "Take a look and discover the modern web standard! 🔥",
+
   "home.hero.greeting": "👋 Hi, im",
   "home.hero.name": "Israel",
   "home.hero.lastname": "Larrondo",
-  "home.hero.job": "Front-End Designer 🔥",
-  "home.experience.title": "+{YEARS_EXPERIENCE} years of experience as Front-End Designer",
+  "home.hero.job": "Performance Auditor & Astro Expert 🔥",
+  "home.experience.title": "+{YEARS_EXPERIENCE} years in Web Interface Design and Architecture",
   "home.projects.title": "Recent work",
   "home.projects.seeAll": "See all",
 

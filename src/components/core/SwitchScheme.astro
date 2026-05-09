@@ -38,7 +38,7 @@ import { TbMoonFilled, TbMoonOff } from "react-icons/tb"
 	}
 
 	if (!(globalThis as any).themeSwitcherInitialized) {
-		(globalThis as any).themeSwitcherInitialized = true;
+		;(globalThis as any).themeSwitcherInitialized = true
 		document.addEventListener("click", (e) => {
 			const target = e.target as HTMLElement
 			const schemeSelector = target.closest(".schemeSelector")
