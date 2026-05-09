@@ -3,22 +3,15 @@ import type { Langs } from "@/types"
 import type { CategoryConfig } from "@/config/categories"
 
 /**
- * Creates a Sanity client reading secrets from the Cloudflare Workers env.
- * In Astro v6 + @astrojs/cloudflare v13, `import { env } from "cloudflare:workers"`
- * is the canonical way to access runtime bindings (replaces Astro.locals.runtime.env).
- * Falls back to `import.meta.env` for local dev without wrangler proxy.
+ * Creates a Sanity client.
+ * Prioritizes runtime environment variables if provided,
+ * falling back to import.meta.env.
  */
-function createSanityClient() {
-	let cfEnv: Record<string, string | undefined> = {}
-	try {
-		// Available in Cloudflare Workers runtime and via platformProxy in local dev
-		// eslint-disable-next-line @typescript-eslint/no-require-imports
-		cfEnv = require("cloudflare:workers").env ?? {}
-	} catch {
-		// Not in a Cloudflare context (e.g. astro check / SSG build step)
-	}
+function createSanityClient(runtimeEnv?: Record<string, string | undefined>) {
+	const cfEnv = runtimeEnv ?? (typeof process !== "undefined" ? process.env : {})
 
-	const projectId = cfEnv.PUBLIC_SANITY_PROJECT_ID ?? import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? "45naspfq"
+	const projectId =
+		cfEnv.PUBLIC_SANITY_PROJECT_ID ?? import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? "45naspfq"
 	const dataset = cfEnv.PUBLIC_SANITY_DATASET ?? import.meta.env.PUBLIC_SANITY_DATASET ?? "develop"
 	const token = cfEnv.SANITY_API_TOKEN ?? import.meta.env.SANITY_API_TOKEN
 
@@ -31,6 +24,20 @@ function createSanityClient() {
 		token,
 	})
 }
+
+// 	const projectId = cfEnv.PUBLIC_SANITY_PROJECT_ID ?? import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? "45naspfq"
+// 	const dataset = cfEnv.PUBLIC_SANITY_DATASET ?? import.meta.env.PUBLIC_SANITY_DATASET ?? "develop"
+// 	const token = cfEnv.SANITY_API_TOKEN ?? import.meta.env.SANITY_API_TOKEN
+
+// 	return createClient({
+// 		projectId,
+// 		dataset,
+// 		apiVersion: "2025-01-01",
+// 		useCdn: false,
+// 		perspective: import.meta.env.DEV ? "drafts" : "published",
+// 		token,
+// 	})
+// }
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -79,7 +86,8 @@ const POST_FIELDS = /* groq */ `
 `
 
 const ALL_POSTS_QUERY = /* groq */ `
-  *[_type == "blogPost" && language == $lang] | order(date desc) {
+  *[_type == "blogPost" && language == $lang && ($category == null || $category in categories)] 
+  | order(date desc) [$start...$end] {
     ${POST_FIELDS}
   }
 `
@@ -106,8 +114,7 @@ function computeReadingTime(body: any[]): number {
 
 function withReadingTimeAndDraftStatus(post: any): SanityBlogPost {
 	const isDraft =
-		(post._originalId && post._originalId.startsWith("drafts.")) ||
-		post._id.startsWith("drafts.")
+		(post._originalId && post._originalId.startsWith("drafts.")) || post._id.startsWith("drafts.")
 
 	// Limpiamos los campos internos antes de devolver
 	const { _originalId, ...cleanPost } = post
@@ -123,14 +130,25 @@ function withReadingTimeAndDraftStatus(post: any): SanityBlogPost {
  */
 export async function getBlogPosts({
 	lang,
+	category = null,
+	start = 0,
+	end = 100,
 	includeFuture = false,
+	runtimeEnv,
 }: {
 	lang: Langs
+	category?: string | null
+	start?: number
+	end?: number
 	includeFuture?: boolean
+	runtimeEnv?: Record<string, string | undefined>
 }): Promise<SanityBlogPost[]> {
-	const client = createSanityClient()
+	const client = createSanityClient(runtimeEnv)
 	const raw = await client.fetch<Omit<SanityBlogPost, "readingTime">[]>(ALL_POSTS_QUERY, {
 		lang,
+		category,
+		start,
+		end,
 	})
 
 	const now = new Date()
