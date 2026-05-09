@@ -1,8 +1,7 @@
-const { execSync } = require('child_process');
+import { execSync } from 'child_process';
 
 try {
   // Get the list of changed files between current commit and the one before it
-  // If this is the initial commit or similar, it might error, so we handle it
   const changedFiles = execSync('git diff --name-only HEAD^ HEAD').toString();
   
   // Check if any changed file is outside of the 'studio/' directory
