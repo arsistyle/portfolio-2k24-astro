@@ -94,11 +94,38 @@ export const blogPost = defineType({
             ],
           },
         }),
-        // Imagen en el cuerpo
+        // Imagen (subida o externa)
         defineArrayMember({
-          type: 'image',
-          options: {hotspot: true},
+          name: 'imageBlock',
+          type: 'object',
+          title: 'Image',
           fields: [
+            defineField({
+              name: 'type',
+              type: 'string',
+              title: 'Image Type',
+              options: {
+                list: [
+                  {title: 'Upload', value: 'upload'},
+                  {title: 'External URL', value: 'url'},
+                ],
+                layout: 'radio',
+              },
+              initialValue: 'upload',
+            }),
+            defineField({
+              name: 'asset',
+              type: 'image',
+              title: 'Upload Image',
+              options: {hotspot: true},
+              hidden: ({parent}) => parent?.type !== 'upload',
+            }),
+            defineField({
+              name: 'url',
+              type: 'url',
+              title: 'External URL',
+              hidden: ({parent}) => parent?.type !== 'url',
+            }),
             defineField({
               name: 'alt',
               type: 'string',
@@ -111,6 +138,22 @@ export const blogPost = defineType({
               title: 'Caption',
             }),
           ],
+          preview: {
+            select: {
+              type: 'type',
+              asset: 'asset',
+              url: 'url',
+              alt: 'alt',
+            },
+            prepare(selection) {
+              const {type, asset, url, alt} = selection
+              return {
+                title: alt || 'Image',
+                subtitle: type === 'url' ? url : 'Uploaded image',
+                media: asset,
+              }
+            },
+          },
         }),
         // Componentes custom de Astro
         defineArrayMember({type: 'codeBlock'}),
@@ -182,10 +225,35 @@ export const blogPost = defineType({
     defineField({
       name: 'image',
       title: 'Featured Image',
-      type: 'image',
+      type: 'object',
       group: 'seo',
-      options: {hotspot: true},
       fields: [
+        defineField({
+          name: 'type',
+          type: 'string',
+          title: 'Image Type',
+          options: {
+            list: [
+              {title: 'Upload', value: 'upload'},
+              {title: 'External URL', value: 'url'},
+            ],
+            layout: 'radio',
+          },
+          initialValue: 'upload',
+        }),
+        defineField({
+          name: 'asset',
+          type: 'image',
+          title: 'Upload Image',
+          options: {hotspot: true},
+          hidden: ({parent}) => parent?.type !== 'upload',
+        }),
+        defineField({
+          name: 'url',
+          type: 'url',
+          title: 'External URL',
+          hidden: ({parent}) => parent?.type !== 'url',
+        }),
         defineField({
           name: 'alt',
           type: 'string',
@@ -197,11 +265,36 @@ export const blogPost = defineType({
     defineField({
       name: 'ogImage',
       title: 'OG Image',
-      type: 'image',
+      type: 'object',
       group: 'seo',
-      options: {hotspot: true},
       description: 'Si se deja vacío se usará Featured Image.',
       fields: [
+        defineField({
+          name: 'type',
+          type: 'string',
+          title: 'Image Type',
+          options: {
+            list: [
+              {title: 'Upload', value: 'upload'},
+              {title: 'External URL', value: 'url'},
+            ],
+            layout: 'radio',
+          },
+          initialValue: 'upload',
+        }),
+        defineField({
+          name: 'asset',
+          type: 'image',
+          title: 'Upload Image',
+          options: {hotspot: true},
+          hidden: ({parent}) => parent?.type !== 'upload',
+        }),
+        defineField({
+          name: 'url',
+          type: 'url',
+          title: 'External URL',
+          hidden: ({parent}) => parent?.type !== 'url',
+        }),
         defineField({
           name: 'alt',
           type: 'string',
