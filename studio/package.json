@@ -10,13 +10,14 @@
     "deploy-schema": "sanity schema deploy",
     "deploy-graphql": "sanity graphql deploy",
     "dev": "cross-env VITE_SANITY_DATASET=develop sanity dev",
-    "start": "cross-env VITE_SANITY_DATASET=production sanity start"
+    "preview": "cross-env VITE_SANITY_DATASET=production sanity dev"
   },
   "keywords": [
     "sanity"
   ],
   "dependencies": {
     "@sanity/document-internationalization": "^6.1.1",
+    "@sanity/icons": "^3.7.4",
     "@sanity/vision": "^5.23.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",

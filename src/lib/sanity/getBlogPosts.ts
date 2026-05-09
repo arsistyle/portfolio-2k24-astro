@@ -80,8 +80,8 @@ const POST_FIELDS = /* groq */ `
   categories,
   "lang": language,
   status,
-  "image": coalesce(image.asset->url, ""),
-  "og_image": ogImage.asset->url,
+  "image": select(image.type == 'url' => image.url, defined(image.asset->url) => image.asset->url, ""),
+  "og_image": select(ogImage.type == 'url' => ogImage.url, defined(ogImage.asset->url) => ogImage.asset->url, ""),
   body
 `
 

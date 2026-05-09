@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build && node scripts/fix-routes.mjs",
+    "build": "node scripts/check-changes.js && astro check && astro build && node scripts/fix-routes.mjs",
     "preview": "npx wrangler pages dev ./dist/client",
     "astro": "astro",
     "lint": "npx oxlint@latest",

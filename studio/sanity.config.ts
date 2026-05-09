@@ -10,7 +10,7 @@ const dataset = import.meta.env.VITE_SANITY_DATASET as string
 
 export default defineConfig({
   name: 'default',
-  title: 'Arsi.dev',
+  title: `Arsi.dev (${dataset})`,
 
   projectId,
   dataset,
