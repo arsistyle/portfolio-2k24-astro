@@ -40,3 +40,27 @@ Invocar antes de cualquier tarea relevante:
 - Imports internos siempre con alias `@/` → `src/`
 - Imágenes: solo URLs de Cloudflare R2 CDN
 - Rutas nuevas: registrar en `src/config/routes.ts` (el middleware las gatea automáticamente)
+
+---
+
+## Estructura .claude/
+
+Reglas contextuales (cargadas automáticamente por Claude Code):
+
+| Archivo | Qué cubre |
+|---|---|
+| `.claude/rules/copy-voice.md` | Voz, tono, errores frecuentes de copy |
+| `.claude/rules/code-conventions.md` | Astro, TailwindCSS 4, React, imágenes, rutas |
+| `.claude/rules/seo-geo.md` | SEO, JSON-LD schemas, GEO, blog quality |
+| `.claude/commands/new-blog-post.md` | `/new-blog-post` — crear posts con estructura correcta |
+| `.claude/commands/new-project.md` | `/new-project` — añadir proyectos al portfolio |
+
+## Documentación del proyecto
+
+| Archivo | Contenido |
+|---|---|
+| `docs/STATUS.md` | Estado actual del sitio — bugs, checks SEO, deuda técnica |
+| `docs/PLAN.md` | Plan de mejora en 3 etapas (resumen + links) |
+| `docs/stage-1-quick-wins.md` | Bugs, SEO técnico, JSON-LD, llms-full.txt |
+| `docs/stage-2-content-seo.md` | Proyectos, blog, testimonios, FAQ |
+| `docs/stage-3-growth.md` | Pricing, páginas de servicio, analytics, /shop |

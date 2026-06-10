@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "mcp__plugin_engram_engram__mem_judge"
+      "mcp__plugin_engram_engram__mem_judge",
+      "Bash(Remove-Item .git/index.lock -Force)",
+      "Bash(Write-Output \"Lock eliminado\")"
     ]
   }
 }
