@@ -1,0 +1,38 @@
+---
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils"
+import Button from "@/components/core/Button/index.astro"
+import Typography from "@/components/core/Typography/index.astro"
+import { TbArrowRight, TbCheck } from "react-icons/tb"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+---
+
+<div class="bg-secondary relative rounded-3xl px-10 py-12">
+	<Typography
+		as="span"
+		class="bg-holo text-dark absolute top-0 right-0 flex max-w-fit translate-x-1/4 -translate-y-1/4 rotate-6 items-center gap-1 rounded-full px-6 py-2 text-xs font-black tracking-widest uppercase"
+	>
+		<TbCheck className="h-4 w-4" />
+		{t("home.audit.sticker" as any)}
+	</Typography>
+
+	<div class="flex flex-col gap-8">
+		<div class="flex flex-col gap-3">
+			<Typography variant="h3" class="text-dark leading-tight">
+				{t("blog.audit_cta.title" as any)}
+			</Typography>
+			<Typography class="text-dark">
+				{t("blog.audit_cta.description" as any)}
+			</Typography>
+		</div>
+
+		<div class="w-full lg:ml-auto lg:max-w-sm lg:pl-12">
+			<Button tag="a" href={translatePath("/audit")} variant="filled" color="dark" class="w-full">
+				<TbArrowRight slot="endIcon" />
+				{t("home.audit.cta" as any)}
+			</Button>
+		</div>
+	</div>
+</div>

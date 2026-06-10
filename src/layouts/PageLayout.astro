@@ -38,6 +38,21 @@ const {
 } = props
 
 const hasNav = nav && Boolean(Object.keys(nav)?.length)
+
+const breadcrumbItems = (breadcrumbs ?? [])
+	.filter((item: any) => item.type === "link" || item.type === "current")
+	.map((item: any, index: number) => ({
+		"@type": "ListItem",
+		position: index + 1,
+		name: item.name,
+		...(item.url ? { item: `https://arsi.dev${item.url}` } : {}),
+	}))
+
+const breadcrumbJsonLd = breadcrumbItems.length > 1 ? {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: breadcrumbItems,
+} : null
 ---
 
 {
@@ -51,6 +66,7 @@ const hasNav = nav && Boolean(Object.keys(nav)?.length)
 			canonical={canonical}
 			langSelector={langSelector}
 		>
+			{breadcrumbJsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} slot="head" />}
 			<div class="dark:bg-dark relative z-10 bg-white">
 				<div class="container mx-auto flex flex-col gap-6 px-6">
 					<HeaderPage title={pageTitle} {breadcrumbs} name={name} />

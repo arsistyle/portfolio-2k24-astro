@@ -150,5 +150,9 @@
   "contact.form.connected_as": "Conectado como",
   "contact.form.login.title": "🛡️ Mantengamos una comunicación segura y profesional.",
   "contact.form.login.description": "Para garantizar que tu mensaje no caiga en spam y reciba atención prioritaria, por favor verifica tu identidad con LinkedIn. Solo recibo tu nombre y correo.",
-  "contact.form.login.privacy": "🔒 Tus datos están seguros. No publicaremos nada en tu nombre."
+  "contact.form.login.privacy": "🔒 Tus datos están seguros. No publicaremos nada en tu nombre.",
+  "contact.form.prefill": "Completar con LinkedIn",
+  "blog.audit_cta.title": "¿El post te fue útil?",
+  "blog.audit_cta.description": "Reviso lo que realmente está frenando tu sitio y te digo exactamente qué hacer.",
+  "blog.audit_cta.cta": "Ver la auditoría →"
 }

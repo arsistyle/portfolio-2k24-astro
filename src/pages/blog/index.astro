@@ -1,6 +1,7 @@
 ---
 export const prerender = false
 
+import { getEntry } from "astro:content"
 import BlogLayout from "@/layouts/BlogLayout.astro"
 import { getBlogPosts } from "@/lib/sanity/getBlogPosts"
 import { useTranslations, useTranslatedPath } from "@/i18n/utils"
@@ -10,6 +11,9 @@ import type { Langs, BreadcrumbsItem } from "@/types"
 const lang: Langs = "en"
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
+
+const seoEntry = await getEntry("seo", lang as any)
+const seo = (seoEntry as any)?.data?.pages?.blog
 
 
 // Extract params from URL
@@ -75,8 +79,11 @@ const breadcrumbs: BreadcrumbsItem[] = [
 
 <BlogLayout
 	{lang}
-	title={t("blog.title")}
+	title={seo?.title || t("blog.title")}
 	pageTitle={t("blog.title")}
+	description={seo?.description}
+	og_title={seo?.og_title}
+	og_image={seo?.og_image}
 	{breadcrumbs}
 	{page}
 	isFirstPage={isFirstPage}

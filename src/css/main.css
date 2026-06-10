@@ -91,6 +91,10 @@
 	--color-warning-600: #78470c;
 	--color-warning-700: #3a2000;
 
+	--color-primary: var(--color-primary-400);
+	--color-secondary: var(--color-secondary-400);
+	--color-tertiary: var(--color-tertiary-400);
+
 	--color-transparent: transparent;
 	--color-white: #ffffff;
 	--color-dark: var(--color-black-800);
@@ -106,6 +110,13 @@
 	--animate-blog-modal-in: blogModalIn 0.2s ease-out;
 	--animate-search-shake: searchShake 0.4s ease-out;
 }
+
+.dark {
+	--color-primary: var(--color-primary-300);
+	--color-secondary: var(--color-secondary-300);
+	--color-tertiary: var(--color-tertiary-300);
+}
+
 @keyframes searchShake {
 	0% {
 		transform: translateX(0);

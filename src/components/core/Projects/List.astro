@@ -1,10 +1,26 @@
 ---
 import type { Project } from "@/types"
-import ProjectCard from "./Card.astro"
+import BlogCard from "@/components/core/BlogCard/BlogCard.astro"
+import { getLangFromUrl, useTranslatedPath } from "@/i18n/utils"
 
 const { projects } = Astro.props
+
+const lang = getLangFromUrl(Astro.url)
+const translatePath = useTranslatedPath(lang)
 ---
 
-<div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20">
-	{projects.map((project: Project) => <ProjectCard project={project} />)}
+<div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20 xl:grid-cols-3">
+	{projects.map((project: Project, index: number) => (
+		<BlogCard
+			title={project.title}
+			description={project.description}
+			search_context={project.description}
+			date={String(project.date)}
+			categories={project.categories}
+			href={`${translatePath("/projects")}/${project.name}`}
+			slug={project.name}
+			image={project.images.medium}
+			variant={index === 0 ? "first" : "default"}
+		/>
+	))}
 </div>

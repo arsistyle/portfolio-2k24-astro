@@ -1,4 +1,4 @@
-# Stage 1 — Quick Wins
+# Stage 1 — Quick Wins ✅ Completado 2026-06-10
 
 > Estimación: 1-2 semanas | Impacto: SEO técnico + bugs visuales + conversión
 
@@ -157,16 +157,17 @@ Crear `src/pages/llms-full.txt.ts` con:
 
 ## Definition of Done Stage 1
 
-- [ ] Typo "Hi, im" corregido en EN y ES
-- [ ] Stat vacía en HomeAuditCTA corregida
-- [ ] Layout de projects con 1 item corregido
-- [ ] Contacto: auth LinkedIn como opcional, fallback visible
-- [ ] Botón PayPal Donate eliminado de posts
-- [ ] Blog y Projects con meta descriptions únicas
-- [ ] Inconsistencias de idioma en posts corregidas
-- [ ] `robots.txt` verificado
-- [ ] JSON-LD Person + WebSite en homepage
-- [ ] JSON-LD Article en posts de blog
-- [ ] `llms-full.txt` publicado
+- [x] Typo "Hi, im" corregido en EN (`src/i18n/en.json`)
+- [x] Stat vacía en HomeAuditCTA — ✅ Descartado (diseño intencional)
+- [x] Layout de projects unificado con BlogCard (`src/components/core/Projects/List.astro`)
+- [x] Contacto: auth LinkedIn como opcional — formulario siempre visible, LinkedIn = pre-fill opcional
+- [x] Botón PayPal Donate eliminado de posts — reemplazado por CTA a /audit
+- [x] Blog y Projects con meta descriptions únicas (SEO JSON actualizado + blog index usa `getEntry("seo")`)
+- [ ] Inconsistencias de idioma en posts corregidas (pendiente — requiere editar contenido en Sanity, fuera del scope de código)
+- [x] `robots.txt` verificado ✓ correcto
+- [x] JSON-LD Person + WebSite en `Layout.astro`
+- [x] JSON-LD Article en `PostLayout.astro`
+- [x] JSON-LD BreadcrumbList en `PageLayout.astro`
+- [x] `llms-full.txt` creado en `src/pages/llms-full.txt.ts`
 
 Siguiente → `docs/stage-2-content-seo.md`

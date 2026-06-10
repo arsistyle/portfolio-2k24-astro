@@ -15,9 +15,9 @@ const post = await getBlogPost({ slug, lang })
 
 if (!post) return new Response(null, { status: 404 })
 
-const { title, description, categories, image, og_image, readingTime, body } = post
+const { title, description, categories, image, og_image, readingTime, body, date } = post
 ---
 
-<PostLayout {title} {description} {slug} {image} og_image={og_image} {categories} {readingTime}>
+<PostLayout {title} {description} {slug} {image} og_image={og_image} {categories} {readingTime} {date}>
 	<SanityPortableText value={body ?? []} />
 </PostLayout>

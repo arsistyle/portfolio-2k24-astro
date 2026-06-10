@@ -7,9 +7,9 @@ import { getLangFromUrl, useTranslatedPath, useTranslations } from "@/i18n/utils
 
 import { getCategoryConfig } from "@/config/categories"
 // import AdSlot from "@/components/core/AdSlot/AdSlot.astro"
+import AuditCTA from "@/components/core/AuditCTA/AuditCTA.astro"
 import BlogPaginator from "@/components/core/BlogPaginator/BlogPaginator.astro"
 import Comments from "@/components/core/Comments.astro"
-import DonationBox from "@/components/core/DonationBox/DonationBox.astro"
 import PageLayout from "@/layouts/PageLayout.astro"
 import ShareButtons from "@/components/core/ShareButtons/ShareButtons"
 import Typography from "@/components/core/Typography/index.astro"
@@ -22,9 +22,10 @@ interface Props {
 	og_image?: string
 	categories: string[]
 	readingTime?: number
+	date?: string
 }
 
-const { title, description, slug, image, og_image, categories, readingTime } = Astro.props
+const { title, description, slug, image, og_image, categories, readingTime, date } = Astro.props
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -62,6 +63,31 @@ const enrichedCategories = categories.map((slug) => {
 	}
 })
 
+const postUrl = `https://arsi.dev${lang === "es" ? "/es" : ""}/blog/${slug}`
+
+const articleJsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Article",
+	"@id": postUrl,
+	headline: title,
+	...(description ? { description } : {}),
+	image: image.startsWith("http") ? image : `https://arsi.dev${image}`,
+	...(date ? { datePublished: date } : {}),
+	author: {
+		"@type": "Person",
+		"@id": "https://arsi.dev/#person",
+		name: "Israel Larrondo",
+	},
+	publisher: {
+		"@type": "Person",
+		"@id": "https://arsi.dev/#person",
+	},
+	mainEntityOfPage: {
+		"@type": "WebPage",
+		"@id": postUrl,
+	},
+}
+
 // Logic for dynamic PNG fallback for OG image
 let finalOgImage = og_image
 
@@ -95,6 +121,7 @@ if (!finalOgImage || finalOgImage === "") {
 	{breadcrumbs}
 >
 	<article class="flex flex-col gap-6 md:gap-12">
+	<script is:inline type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
 		<div class="relative aspect-video w-full overflow-clip rounded-4xl">
 			<img
 				src={image}
@@ -123,7 +150,7 @@ if (!finalOgImage || finalOgImage === "") {
 				class="content text-dark col-span-4 flex flex-col gap-6 md:col-span-12 md:gap-12 lg:col-span-8 dark:text-white"
 			>
 				<slot />
-				<DonationBox />
+				<AuditCTA />
 			</div>
 			<aside class="sidebar col-span-4 md:col-span-12 lg:col-span-4">
 				<div class="sticky top-26">
