@@ -88,88 +88,77 @@ const session = await getSession(Astro.request, import.meta.env.AUTH_SECRET)
 				</Button>
 			</form>
 		</div>
-		{/* Form */}
-		<form
-			id="contact-form"
-			class="flex flex-col gap-6"
-			data-lang={lang}
-			data-success={t("contact.form.success")}
-			data-error={t("contact.form.error")}
-			novalidate
-		>
-			<input type="hidden" name="lang" value={lang} />
-
-			<div class="flex flex-col gap-5 sm:flex-row">
-				<Input
-					id="name"
-					name="name"
-					label={t("contact.form.name")}
-					placeholder="John Doe"
-					value={(session as any)?.name || ""}
-					readonly
-				/>
-
-				<Input
-					type="email"
-					id="email"
-					name="email"
-					label={t("contact.form.email")}
-					placeholder="hello@example.com"
-					value={(session as any)?.email || ""}
-					readonly
-				/>
-			</div>
-
-			<Select id="subject" name="subject" label={t("contact.form.subject")}>
-				<option value="" disabled selected>{t("contact.form.subject.placeholder")}</option>
-				{subjectOptions.map(({ value, label }) => <option value={value}>{label}</option>)}
-			</Select>
-
-			<Textarea id="message" name="message" label={t("contact.form.message")} placeholder="..." />
-
-			{/* Turnstile */}
-			<div class="cf-turnstile mt-2" data-sitekey={siteKey} data-theme="auto"></div>
-
-			{/* Status messages */}
-			<div
-				id="form-status"
-				class="hidden rounded-xl p-4 text-sm font-medium transition-all duration-300"
-			>
-			</div>
-
-			{/* Submit Button */}
-			<Button type="submit" id="submit-btn" variant="filled" color="primary" class="w-full">
-				<TbLoader className="hidden animate-spin" id="submit-spinner" slot="startIcon" />
-				<span id="submit-text">{t("contact.form.submit")}</span>
-			</Button>
-		</form>
 		</>
 	) : (
-		<div class="flex flex-col justify-center h-full rounded-2xl p-8 md:p-16 border border-gray-200 dark:border-white/10 bg-light dark:bg-dark-gray/50 gap-6">
-			<div class="flex flex-col items-center text-center gap-3">
-				<Typography variant="h4" class="text-dark dark:text-white text-pretty">
-					{t("contact.form.login.title")}
-				</Typography>
-				<Typography variant="highlight" class="text-dark/70 dark:text-gray-300 text-pretty">
-					{t("contact.form.login.description")}
-				</Typography>
-			</div>
-			<div class="flex flex-col items-center text-center gap-6">
-				<Button
-					id="linkedin-popup-btn"
-					type="button"
-					variant="filled"
-					class="bg-[#0A66C2]! hover:bg-[#004182]! border-[#0A66C2]! hover:border-[#004182]! text-white!"
-				>
-					<FaLinkedinIn className="size-4" slot="startIcon" />
-					{t("contact.form.login.button")}
-				</Button>
-				<p class="text-xs text-gray-400 dark:text-gray-500">
-					{t("contact.form.login.privacy")}
-				</p>
-			</div>
+		<div class="mb-2 flex items-center justify-between rounded-xl bg-gray-100 px-4 py-3 dark:bg-white/5">
+			<p class="text-xs text-dark/60 dark:text-gray-400">{t("contact.form.login.privacy")}</p>
+			<Button
+				id="linkedin-popup-btn"
+				type="button"
+				size="sm"
+				class="bg-[#0A66C2]! hover:bg-[#004182]! border-[#0A66C2]! hover:border-[#004182]! text-white! shrink-0"
+			>
+				<FaLinkedinIn className="size-3" slot="startIcon" />
+				{t("contact.form.prefill")}
+			</Button>
 		</div>
 	)}
+
+	{/* Form — always visible */}
+	<form
+		id="contact-form"
+		class="flex flex-col gap-6"
+		data-lang={lang}
+		data-success={t("contact.form.success")}
+		data-error={t("contact.form.error")}
+		novalidate
+	>
+		<input type="hidden" name="lang" value={lang} />
+
+		<div class="flex flex-col gap-5 sm:flex-row">
+			<Input
+				id="name"
+				name="name"
+				label={t("contact.form.name")}
+				placeholder="John Doe"
+				value={(session as any)?.name || ""}
+				readonly={Boolean(session)}
+			/>
+
+			<Input
+				type="email"
+				id="email"
+				name="email"
+				label={t("contact.form.email")}
+				placeholder="hello@example.com"
+				value={(session as any)?.email || ""}
+				readonly={Boolean(session)}
+			/>
+		</div>
+
+		<Select id="subject" name="subject" label={t("contact.form.subject")}>
+			<option value="" disabled selected>{t("contact.form.subject.placeholder")}</option>
+			{subjectOptions.map(({ value, label }) => <option value={value}>{label}</option>)}
+		</Select>
+
+		<Textarea id="message" name="message" label={t("contact.form.message")} placeholder="..." />
+
+		{/* Turnstile */}
+		<div class="cf-turnstile mt-2" data-sitekey={siteKey} data-theme="auto"></div>
+
+		{/* Status messages */}
+		<div
+			id="form-status"
+			class="hidden rounded-xl p-4 text-sm font-medium transition-all duration-300"
+		>
+		</div>
+
+		{/* Submit Button */}
+		<Button type="submit" id="submit-btn" variant="filled" color="primary" class="w-full">
+			<TbLoader className="hidden animate-spin" id="submit-spinner" slot="startIcon" />
+			<span id="submit-text">{t("contact.form.submit")}</span>
+		</Button>
+	</form>
 	</div>
 
 

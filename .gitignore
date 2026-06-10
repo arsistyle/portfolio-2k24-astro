@@ -24,3 +24,8 @@ pnpm-debug.log*
 .unlighthouse
 
 graphify-out/cache
+
+bash.exe.stackdump
+
+# Claude
+.claude/settings.local.json

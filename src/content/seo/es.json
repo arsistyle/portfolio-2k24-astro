@@ -8,13 +8,13 @@
     },
     "blog": {
       "title": "Israel Larrondo | Blog",
-      "description": "Artículos sobre desarrollo web, diseño, inteligencia artificial y reflexiones sobre tecnología.",
+      "description": "Artículos sobre Astro, rendimiento web, SEO y herramientas de IA. Por Israel Larrondo.",
       "og_title": "Blog | Israel Larrondo",
       "og_image": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png"
     },
     "projects": {
       "title": "Israel Larrondo | Proyectos",
-      "description": "Una exhibición de proyectos seleccionados que combinan diseño premium con implementaciones técnicas sólidas.",
+      "description": "Portfolio de proyectos web: diseño UX/UI, desarrollo Astro y optimización de rendimiento.",
       "og_title": "Proyectos | Israel Larrondo",
       "og_image": "https://pub-e84866d2025a4715887cd3e35165cedc.r2.dev/og-image.png"
     },

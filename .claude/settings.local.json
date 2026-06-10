@@ -3,7 +3,12 @@
     "allow": [
       "mcp__plugin_engram_engram__mem_judge",
       "Bash(Remove-Item .git/index.lock -Force)",
-      "Bash(Write-Output \"Lock eliminado\")"
+      "Bash(Write-Output \"Lock eliminado\")",
+      "Skill(project-knowledge)",
+      "Bash(pnpm run *)",
+      "Bash(pnpm astro *)",
+      "mcp__plugin_engram_engram__mem_save",
+      "Bash(git add *)"
     ]
   }
 }

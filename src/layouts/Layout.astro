@@ -107,6 +107,36 @@ const canonical = raw_canonical
 			src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5806103815269616"
 			crossorigin="anonymous"
 			is:inline></script>
+		<script is:inline type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@graph": [
+				{
+					"@type": "WebSite",
+					"@id": "https://arsi.dev/#website",
+					"url": "https://arsi.dev",
+					"name": "Israel Larrondo",
+					"potentialAction": {
+						"@type": "SearchAction",
+						"target": "https://arsi.dev/blog?q={search_term_string}",
+						"query-input": "required name=search_term_string"
+					}
+				},
+				{
+					"@type": "Person",
+					"@id": "https://arsi.dev/#person",
+					"name": "Israel Larrondo",
+					"url": "https://arsi.dev",
+					"sameAs": [
+						"https://www.linkedin.com/in/arsistyle/",
+						"https://github.com/arsistyle",
+						"https://twitter.com/arsistyle"
+					],
+					"jobTitle": "Performance Auditor & Astro Expert",
+					"knowsAbout": ["Astro", "Web Performance", "SEO", "Front-End Development", "UX/UI Design"]
+				}
+			]
+		})} />
+		<slot name="head" />
 		<ClientRouter />
 	</head>
 
